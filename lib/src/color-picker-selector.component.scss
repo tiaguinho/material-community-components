@@ -1,0 +1,52 @@
+#color-picker {
+  left: 70px; 
+  background-color: white;
+  height: 150px;
+  width: 185px;
+  border: solid 1px #ccc;
+  opacity: 0;
+  padding: 5px;
+}
+
+canvas {
+  &:first-child {
+    margin-right: 5px;
+  }
+  &:hover {
+    cursor: crosshair;
+  }
+}
+
+.color-picker-selector-preview {
+  display: block;
+  width: 100%;
+  height: 10px;
+  box-sizing: border-box;
+  border: 1px solid #000000;
+}
+
+.color-hex {
+  width: 60px;
+  float: left;
+  label {
+    font-size: 13px;
+    margin-right: 3px;
+  }
+  input[type="text"] {
+    width: 40px;
+    text-align: center;
+  }
+}
+
+.color-value {
+   width: 40px;
+   float: left;
+   label {
+     font-size: 13px;
+     margin-right: 3px;
+   }
+   input[type="text"] {
+     width: 20px;
+     text-align: center;
+   }
+}

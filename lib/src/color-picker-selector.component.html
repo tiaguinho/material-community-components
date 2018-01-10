@@ -1,0 +1,23 @@
+<div class="color-picker-selector">
+    <canvas #block height="150" width="150"></canvas>
+    <canvas #strip height="150" width="20"></canvas>
+</div>
+
+<div class="color-picker-selector-preview" #colorPickerSelectorValue></div>
+
+<div class="color-hex">
+    <label for="hex">#</label>
+    <input type="text" id="hex" [value]="selectedColor | async" />
+</div>
+<div class="color-value">
+    <label for="r">R</label>
+    <input type="text" id="r" [(ngModel)]="rgb.r" />
+</div>
+<div class="color-value">
+    <label for="g">G</label>
+    <input type="text" id="g" [(ngModel)]="rgb.g" />
+</div>
+<div class="color-value">
+    <label for="b">B</label>
+    <input type="text" id="b" [(ngModel)]="rgb.b" />
+</div>
