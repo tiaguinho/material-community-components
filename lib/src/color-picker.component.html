@@ -1,0 +1,28 @@
+<button type="button" (click)="toggle()" cdkOverlayOrigin
+    #trigger="cdkOverlayOrigin"
+    [style.backgroundColor]="selectedColor || 'none'">
+</button>
+
+<ng-template
+    cdkConnectedOverlay
+    [cdkConnectedOverlayOrigin]="trigger"
+    [cdkConnectedOverlayOpen]="isOpen">
+
+    <div class="color-picker" role="dialog">
+        <div role="listbox" tabindex="0" cdkTrapFocus cdkTrapFocusAutoCapture>
+
+            <mat-color-picker-selector 
+                (changeSelectedColor)="selectedColor = $event">
+            </mat-color-picker-selector>
+
+            <mat-color-picker-collection [label]="usedColorLabel" 
+                                        [colors]="usedColors$ | async">
+            </mat-color-picker-collection>
+
+            <ng-content></ng-content>
+
+        </div>
+
+    </div>
+
+</ng-template>

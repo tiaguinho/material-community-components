@@ -1,0 +1,16 @@
+button {
+    width: 25px;
+    height: 25px;
+    cursor: pointer;
+    background-color: none;
+    border: 3px solid #dddddd;
+}
+
+.color-picker {
+    width: 180px;
+    min-height: 80px;
+    position: absolute;
+    padding: 5px;
+    background: #ffffff;
+    border: 1px solid #000000;
+}
