@@ -1,0 +1,8 @@
+<div class="color-picker-collection">
+    <label [id]="id">{{ label }}</label>
+    <div [id]="id">
+        <ng-container *ngFor="let color of colors">
+            <button type="button" [colorPickerOption]="color" (click)="setColor(color)"></button>
+        </ng-container>
+    </div>
+</div>
