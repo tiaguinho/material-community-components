@@ -22,7 +22,8 @@
 
             <mat-color-picker-collection [label]="usedColorLabel" 
                                          [hideEmpty]="hideEmpty"
-                                         [colors]="usedColors$ | async">
+                                         [colors]="usedColors$ | async"
+                                         (changeColor)="updateTmpSelectedColor($event)">
             </mat-color-picker-collection>
 
             <ng-content></ng-content>
