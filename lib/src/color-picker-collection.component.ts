@@ -11,7 +11,7 @@ import {
     Output,
     Renderer2
 } from "@angular/core";
-import { UUID } from 'angular2-uuid';
+import { coerceBooleanProperty } from '@angular/cdk/coercion';
 
 /**
  *
@@ -48,12 +48,13 @@ export class MatColorPickerOptionDirective implements AfterViewInit {
 })
 export class MatColorPickerCollectionComponent implements AfterContentChecked {
 
-    id: string = UUID.UUID();
-
     @Input() size: number = 30;
 
     @Input()
-    get label(): string { return this._label; }
+    set hideEmpty(value: boolean) { this._hideEmpty = coerceBooleanProperty(value); }
+    private _hideEmpty: boolean = false;
+
+    @Input()
     set label(value: string) { this._label = value; }
     private _label: string;
 
@@ -61,7 +62,6 @@ export class MatColorPickerCollectionComponent implements AfterContentChecked {
      * Array of colors
      */
     @Input()
-    get colors(): string[] { return this._colors; }
     set colors(values: string[]) { this._colors = values; }
     private _colors: string[];
 
@@ -81,7 +81,7 @@ export class MatColorPickerCollectionComponent implements AfterContentChecked {
     }
 
     private _getCollectionDiffSize(): number {
-        if (this._colors.length > this.size) {
+        if (this._colors.length > this.size || this._hideEmpty) {
             return 0;
         }
 
