@@ -20,7 +20,8 @@
         <mat-card-content>
 
             <mat-color-picker-collection [label]="usedColorLabel" 
-                                        [colors]="usedColors$ | async">
+                                         [hideEmpty]="hideEmpty"
+                                         [colors]="usedColors$ | async">
             </mat-color-picker-collection>
 
             <ng-content></ng-content>
@@ -30,10 +31,10 @@
         <mat-card-actions>
             <mat-grid-list cols="2" rowHeight="30px;">
                 <mat-grid-tile>
-                    <button mat-button>Cancel</button>
+                    <button mat-button (click)="toggle()">Cancel</button>
                 </mat-grid-tile>
                 <mat-grid-tile>
-                    <button mat-button>OK</button>
+                    <button mat-button (click)="updateSelectedColor()">OK</button>
                 </mat-grid-tile>
             </mat-grid-list>
         </mat-card-actions>

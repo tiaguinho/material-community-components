@@ -34,6 +34,11 @@ export class MatColorPickerComponent implements AfterContentInit, OnDestroy {
     set usedColorLabel(value: string) { this._usedColorLabel = value; }
     private _usedColorLabel: string = 'Used Colors';
 
+    @Input('hideEmptyUsedColors')
+    get hideEmpty(): boolean { return this._hideEmpty; }
+    set hideEmpty(value: boolean) { this._hideEmpty = coerceBooleanProperty(value); }
+    private _hideEmpty: boolean = false;
+
     @Input()
     get selectedColor(): string { return this._selectedColor; }
     set selectedColor(value: string) { this._selectedColor = value; }
@@ -65,7 +70,7 @@ export class MatColorPickerComponent implements AfterContentInit, OnDestroy {
         if (this._collections) {
             this._collections.forEach((collection: MatColorPickerCollectionComponent) => {
                 const subscription = collection.changeColor.subscribe(color => {
-                    this._updateSelectedColor(color);
+                    this._selectedColor = color;
                 });
 
                 this._collectionSubs.push(subscription);
@@ -83,18 +88,14 @@ export class MatColorPickerComponent implements AfterContentInit, OnDestroy {
         }
     }
 
-    private _updateSelectedColor(color: string): void {
-        this._selectedColor = color;
-        this.change.emit(color);
-
-        this.changeDetectorRef.markForCheck();
+    toggle() {
+        this.isOpen = !this.isOpen;
     }
 
-    toggle() {
+    updateSelectedColor() {
         if (this._isOpen) {
             this.colorPickerService.addColor(this._selectedColor);
+            this.change.emit(this._selectedColor);
         }
-
-        this.isOpen = !this.isOpen;
     }
 }
