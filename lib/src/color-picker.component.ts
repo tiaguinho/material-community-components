@@ -103,23 +103,32 @@ export class MatColorPickerComponent implements AfterContentInit, OnInit, OnDest
         }
     }
 
+    private _updateSelectedColor() {
+        if (this._isOpen) {
+            this._selectedColor = this._tmpSelectedColor.getValue();
+            this.change.emit(this._selectedColor);
+        }
+    }
+
     toggle() {
         this._isOpen = !this._isOpen;
+        if (!this._isOpen) {
+            this.colorPickerService.addColor(this._selectedColor);
+        }
     }
 
     updateTmpSelectedColor(color: string) {
         if (color) {
             this._tmpSelectedColor.next(color);
+            if (this._hideButtons) {
+                this._updateSelectedColor();
+            }
         }
     }
 
-    confirmSelectedColor() {
-        if (this._isOpen) {
-            this._selectedColor = this._tmpSelectedColor.getValue();
 
-            this.colorPickerService.addColor(this._selectedColor);
-            this.change.emit(this._selectedColor);
-        }
+    confirmSelectedColor() {
+        this._updateSelectedColor();
         this.toggle();
     }
 }
