@@ -9,13 +9,17 @@
 
     <mat-grid-tile [colspan]="2">
         
-        <mat-list>
-            <mat-list-item *ngFor="let opt of rgb">
-                <mat-form-field>
-                    <input matInput [placeholder]="opt.type" [value]="opt.value" />
-                </mat-form-field>
-            </mat-list-item>
-        </mat-list>
+        <form [formGroup]="rgbForm">
+            <mat-list>
+                <mat-list-item *ngFor="let opt of rgbKeys">
+                    <mat-form-field>
+                        <input matInput type="number"
+                              [placeholder]="opt"
+                              [formControlName]="opt"/>
+                    </mat-form-field>
+                </mat-list-item>
+            </mat-list>
+        </form>
 
     </mat-grid-tile>
 
@@ -27,9 +31,14 @@
         <div class="color-picker-selector-preview" [style.background]="selectedColor"></div>
     </mat-grid-tile>
     <mat-grid-tile [colspan]="2">
-        <mat-form-field>
-            <input matInput [value]="selectedColor" />
-        </mat-form-field>
+
+        <form [formGroup]="hexForm">
+            <mat-form-field>
+                <input matInput placeholder="hex" 
+                       formControlName="hexCode" [value]="selectedColor" />
+            </mat-form-field>
+        </form>
+
     </mat-grid-tile>
     
 </mat-grid-list>
