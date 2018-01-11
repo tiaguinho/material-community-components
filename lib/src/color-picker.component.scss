@@ -1,4 +1,4 @@
-button {
+.btn-picker {
     width: 25px;
     height: 25px;
     cursor: pointer;
@@ -7,10 +7,21 @@ button {
 }
 
 .color-picker {
-    width: 180px;
+    width: 255px;
     min-height: 80px;
-    position: absolute;
     padding: 5px;
-    background: #ffffff;
-    border: 1px solid #000000;
+
+    .color-picker-preview {
+        width: 100%;
+        height: 8px;
+    }
+}
+
+.mat-card-actions {
+    margin: 0!important;
+    border-top: 1px #dddddd solid;
+
+    button {
+        position: unset;
+    }
 }

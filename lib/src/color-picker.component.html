@@ -1,6 +1,9 @@
-<button type="button" (click)="toggle()" cdkOverlayOrigin
+<button type="button"
+    class="btn-picker"
+    cdkOverlayOrigin
     #trigger="cdkOverlayOrigin"
-    [style.backgroundColor]="selectedColor || 'none'">
+    [style.backgroundColor]="selectedColor || 'none'"
+    (click)="toggle()">
 </button>
 
 <ng-template
@@ -8,12 +11,13 @@
     [cdkConnectedOverlayOrigin]="trigger"
     [cdkConnectedOverlayOpen]="isOpen">
 
-    <div class="color-picker" role="dialog">
-        <div role="listbox" tabindex="0" cdkTrapFocus cdkTrapFocusAutoCapture>
+    <mat-card class="color-picker">
 
-            <mat-color-picker-selector 
-                (changeSelectedColor)="selectedColor = $event">
-            </mat-color-picker-selector>
+        <mat-color-picker-selector 
+            (changeSelectedColor)="selectedColor = $event">
+        </mat-color-picker-selector>
+
+        <mat-card-content>
 
             <mat-color-picker-collection [label]="usedColorLabel" 
                                         [colors]="usedColors$ | async">
@@ -21,8 +25,19 @@
 
             <ng-content></ng-content>
 
-        </div>
+        </mat-card-content>
 
-    </div>
+        <mat-card-actions>
+            <mat-grid-list cols="2" rowHeight="30px;">
+                <mat-grid-tile>
+                    <button mat-button>Cancel</button>
+                </mat-grid-tile>
+                <mat-grid-tile>
+                    <button mat-button>OK</button>
+                </mat-grid-tile>
+            </mat-grid-list>
+        </mat-card-actions>
+
+    </mat-card>
 
 </ng-template>
