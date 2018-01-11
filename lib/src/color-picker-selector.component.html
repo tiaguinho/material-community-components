@@ -1,23 +1,35 @@
-<div class="color-picker-selector">
-    <canvas #block height="150" width="150"></canvas>
-    <canvas #strip height="150" width="20"></canvas>
-</div>
+<mat-grid-list cols="10" rowHeight="150">
 
-<div class="color-picker-selector-preview" #colorPickerSelectorValue></div>
+    <mat-grid-tile [colspan]="8">
+        <div class="color-picker-selector">
+            <canvas #block height="150" width="180"></canvas>
+            <canvas #strip height="150" width="15"></canvas>
+        </div>
+    </mat-grid-tile>
 
-<div class="color-hex">
-    <label for="hex">#</label>
-    <input type="text" id="hex" [value]="selectedColor | async" />
-</div>
-<div class="color-value">
-    <label for="r">R</label>
-    <input type="text" id="r" [(ngModel)]="rgb.r" />
-</div>
-<div class="color-value">
-    <label for="g">G</label>
-    <input type="text" id="g" [(ngModel)]="rgb.g" />
-</div>
-<div class="color-value">
-    <label for="b">B</label>
-    <input type="text" id="b" [(ngModel)]="rgb.b" />
-</div>
+    <mat-grid-tile [colspan]="2">
+        
+        <mat-list>
+            <mat-list-item *ngFor="let opt of rgb">
+                <mat-form-field>
+                    <input matInput [placeholder]="opt.type" [value]="opt.value" />
+                </mat-form-field>
+            </mat-list-item>
+        </mat-list>
+
+    </mat-grid-tile>
+
+</mat-grid-list>
+
+<mat-grid-list cols="10" rowHeight="20px">
+
+    <mat-grid-tile [colspan]="8">
+        <div class="color-picker-selector-preview" [style.background]="selectedColor | async"></div>
+    </mat-grid-tile>
+    <mat-grid-tile [colspan]="2">
+        <mat-form-field>
+            <input matInput [value]="selectedColor | async" />
+        </mat-form-field>
+    </mat-grid-tile>
+    
+</mat-grid-list>
