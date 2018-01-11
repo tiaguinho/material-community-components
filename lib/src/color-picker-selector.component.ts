@@ -39,7 +39,7 @@ export class MatColorPickerSelectorComponent implements AfterViewInit, OnInit, O
     set selectedColor(value: string) {
         this._selectedColor = value || '';
 
-        if (!this.buttonIsPressed) {
+        if (!this._isPressed) {
             this._rgbaColor = this._getRgba();
             if (this._blockContext) {
                 this._fillGradient();
@@ -50,10 +50,6 @@ export class MatColorPickerSelectorComponent implements AfterViewInit, OnInit, O
 
     @Output() changeSelectedColor = new EventEmitter;
 
-    private _selectedColorSub: Subscription;
-
-    private buttonIsPressed: boolean = false;
-
     private _blockContext: any;
 
     private _stripContext: any;
@@ -61,6 +57,10 @@ export class MatColorPickerSelectorComponent implements AfterViewInit, OnInit, O
     private _rgbaColor: string = 'rgba(255,0,0,1)';
 
     private _tmpSelectedColor: BehaviorSubject<string>;
+
+    private _tmpSelectedColorSub: Subscription;
+
+    _isPressed: boolean = false;
 
     rgb: ColorOption[] = [
         { type: 'R', value: 0},
@@ -72,7 +72,7 @@ export class MatColorPickerSelectorComponent implements AfterViewInit, OnInit, O
 
     ngOnInit() {
         this._tmpSelectedColor = new BehaviorSubject<string>(this._selectedColor);
-        this._selectedColorSub = this._tmpSelectedColor.subscribe(color => {
+        this._tmpSelectedColorSub = this._tmpSelectedColor.subscribe(color => {
             if (color !== this._selectedColor) {
                 this.changeSelectedColor.emit(color);
             }
@@ -80,22 +80,24 @@ export class MatColorPickerSelectorComponent implements AfterViewInit, OnInit, O
     }
 
     ngOnDestroy() {
-        if (this._selectedColorSub && !this._selectedColorSub.closed) {
-            this._selectedColorSub.unsubscribe();
+        if (this._tmpSelectedColorSub && !this._tmpSelectedColorSub.closed) {
+            this._tmpSelectedColorSub.unsubscribe();
         }
     }
 
     ngAfterViewInit() {
-        this.render.listen(this._block.nativeElement, 'mousedown', () => this.pressButton());
-        this.render.listen(this._block.nativeElement, 'mouseup', () => this.pressButton());
+        this.render.listen(this._block.nativeElement, 'mousedown', () => this._isPressed = true);
+        this.render.listen(this._block.nativeElement, 'mouseup', () => this._isPressed = false);
+        this.render.listen(this._block.nativeElement, 'mouseout', () => this._isPressed = false);
         this.render.listen(this._block.nativeElement, 'mousemove', (e) => this.changeColor(e));
         this._blockContext = this._block.nativeElement.getContext('2d');
         this._blockContext.rect(0, 0,
             this._block.nativeElement.width,
             this._block.nativeElement.height);
 
-        this.render.listen(this._strip.nativeElement, 'mousedown', () => this.pressButton());
-        this.render.listen(this._strip.nativeElement, 'mouseup', () => this.pressButton());
+        this.render.listen(this._strip.nativeElement, 'mousedown', () => this._isPressed = true);
+        this.render.listen(this._strip.nativeElement, 'mouseup', () => this._isPressed = false);
+        this.render.listen(this._strip.nativeElement, 'mouseout', () => this._isPressed = false);
         this.render.listen(this._strip.nativeElement, 'mousemove', (e) => this.changeBaseColor(e));
         this._stripContext = this._strip.nativeElement.getContext('2d');
         this._stripContext.rect(0, 0,
@@ -147,13 +149,6 @@ export class MatColorPickerSelectorComponent implements AfterViewInit, OnInit, O
     /**
      * 
      */
-    private pressButton(): void {
-        this.buttonIsPressed = !this.buttonIsPressed;
-    }
-
-    /**
-     * 
-     */
     private _getRgba(data?: any): string {
         if (!this._selectedColor && !data) {
             return 'rgba(255,0,0,1)';
@@ -185,7 +180,7 @@ export class MatColorPickerSelectorComponent implements AfterViewInit, OnInit, O
      *
      */
     private changeBaseColor(e): void {
-        if (this.buttonIsPressed) {
+        if (this._isPressed) {
             const data = this._stripContext.getImageData(e.offsetX, e.offsetY, 1, 1).data;
             this._rgbaColor = this._getRgba(data);
             this._fillGradient();
@@ -197,7 +192,7 @@ export class MatColorPickerSelectorComponent implements AfterViewInit, OnInit, O
      *
      */
     private changeColor(e): void {
-        if (this.buttonIsPressed) {
+        if (this._isPressed) {
             const data = this._blockContext.getImageData(e.offsetX, e.offsetY, 1, 1).data;
             this.updateValues(data);
         }
