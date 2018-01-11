@@ -1,6 +1,6 @@
 <div class="color-picker-collection">
-    <h3>{{ _label }}</h3>
-    <button *ngFor="let color of _colors" 
+    <h3>{{ label }}</h3>
+    <button *ngFor="let color of colors" 
         mat-raise-button 
         [colorPickerOption]="color"
         (click)="setColor(color)">

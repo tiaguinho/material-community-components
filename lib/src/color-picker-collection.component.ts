@@ -64,6 +64,7 @@ export class MatColorPickerCollectionComponent implements AfterContentChecked {
      * Name of the collection
      */
     @Input()
+    get label(): string { return this._label; }
     set label(value: string) { this._label = value; }
     private _label: string;
 
@@ -71,6 +72,7 @@ export class MatColorPickerCollectionComponent implements AfterContentChecked {
      * Array of colors to be displayed
      */
     @Input()
+    get colors(): string[] { return this._colors; }
     set colors(values: string[]) { this._colors = values; }
     private _colors: string[];
 
