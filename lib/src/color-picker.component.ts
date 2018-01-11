@@ -108,7 +108,9 @@ export class MatColorPickerComponent implements AfterContentInit, OnInit, OnDest
     }
 
     updateTmpSelectedColor(color: string) {
-        this._tmpSelectedColor.next(color);
+        if (color) {
+            this._tmpSelectedColor.next(color);
+        }
     }
 
     confirmSelectedColor() {
