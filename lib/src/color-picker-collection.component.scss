@@ -1,12 +1,14 @@
-label {
-    font-size: 13px;
+.color-picker-collection {
+    h3 {
+        font-size: 14px;
+        padding: 8px 0;
+        margin: 0;
+    }
 }
 
 button {
     width: 15px;
     height: 15px;
     cursor: pointer;
-    border: 1px solid #000000;
-    padding: 0px;
     margin: 1px 3px 0 0;
 }
