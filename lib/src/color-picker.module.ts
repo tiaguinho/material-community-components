@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ReactiveFormsModule } from '@angular/forms';
 import { OverlayModule } from '@angular/cdk/overlay';
 import {
@@ -24,7 +23,6 @@ import {
 @NgModule({
     imports: [
         CommonModule,
-        NoopAnimationsModule,
         OverlayModule,
         ReactiveFormsModule,
         MatButtonModule,
