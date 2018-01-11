@@ -8,12 +8,14 @@ import {
     EventEmitter,
     Input,
     Output,
+    OnInit,
     OnDestroy,
     QueryList
 } from "@angular/core";
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { MatColorPickerCollectionComponent } from './color-picker-collection.component';
 import { MatColorPickerService } from './color-picker.service';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Subscription } from 'rxjs/Subscription';
 import { Observable } from 'rxjs/Observable';
 
@@ -24,7 +26,7 @@ import { Observable } from 'rxjs/Observable';
     preserveWhitespaces: false,
     changeDetection: ChangeDetectionStrategy.Default
 })
-export class MatColorPickerComponent implements AfterContentInit, OnDestroy {
+export class MatColorPickerComponent implements AfterContentInit, OnInit, OnDestroy {
 
     @ContentChildren(MatColorPickerCollectionComponent)
     _collections: QueryList<MatColorPickerCollectionComponent>;
@@ -44,15 +46,24 @@ export class MatColorPickerComponent implements AfterContentInit, OnDestroy {
     set selectedColor(value: string) { this._selectedColor = value; }
     private _selectedColor: string;
 
-    /**
-     * 
-     */
     @Input()
-    get isOpen(): boolean { return this._isOpen;  }
+    get isOpen(): boolean { return this._isOpen; }
     set isOpen(value: boolean) { this._isOpen = coerceBooleanProperty(value); }
     private _isOpen: boolean = false;
 
+    @Input()
+    get hideButtons(): boolean { return this._hideButtons; }
+    set hideButtons(value: boolean) { this._hideButtons = coerceBooleanProperty(value); }
+    private _hideButtons: boolean = false;
+
+    @Input() btnCancel: string = 'Cancel';
+
+    @Input() btnConfirm: string = 'Confirm';
+
     @Output() change = new EventEmitter;
+
+    get tmpSelectedColor$(): Observable<string> { return this._tmpSelectedColor.asObservable(); }
+    private _tmpSelectedColor: BehaviorSubject<string>;
 
     private _collectionSubs: Subscription[] = [];
 
@@ -66,11 +77,15 @@ export class MatColorPickerComponent implements AfterContentInit, OnDestroy {
         this.usedColors$ = colorPickerService.getColors();
     }
 
+    ngOnInit() {
+        this._tmpSelectedColor = new BehaviorSubject<string>(this._selectedColor);
+    }
+
     ngAfterContentInit() {
         if (this._collections) {
             this._collections.forEach((collection: MatColorPickerCollectionComponent) => {
                 const subscription = collection.changeColor.subscribe(color => {
-                    this._selectedColor = color;
+                    this.updateTmpSelectedColor(color);
                 });
 
                 this._collectionSubs.push(subscription);
@@ -89,13 +104,20 @@ export class MatColorPickerComponent implements AfterContentInit, OnDestroy {
     }
 
     toggle() {
-        this.isOpen = !this.isOpen;
+        this._isOpen = !this._isOpen;
     }
 
-    updateSelectedColor() {
+    updateTmpSelectedColor(color: string) {
+        this._tmpSelectedColor.next(color);
+    }
+
+    confirmSelectedColor() {
         if (this._isOpen) {
+            this._selectedColor = this._tmpSelectedColor.getValue();
+
             this.colorPickerService.addColor(this._selectedColor);
             this.change.emit(this._selectedColor);
         }
+        this.toggle();
     }
 }

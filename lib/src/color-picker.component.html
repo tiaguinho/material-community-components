@@ -13,8 +13,9 @@
 
     <mat-card class="color-picker">
 
-        <mat-color-picker-selector 
-            (changeSelectedColor)="selectedColor = $event">
+        <mat-color-picker-selector
+            [selectedColor]="tmpSelectedColor$ | async"
+            (changeSelectedColor)="updateTmpSelectedColor($event)">
         </mat-color-picker-selector>
 
         <mat-card-content>
@@ -28,13 +29,13 @@
 
         </mat-card-content>
 
-        <mat-card-actions>
+        <mat-card-actions *ngIf="!hideButtons">
             <mat-grid-list cols="2" rowHeight="30px;">
                 <mat-grid-tile>
-                    <button mat-button (click)="toggle()">Cancel</button>
+                    <button mat-button (click)="toggle()">{{ btnCancel }}</button>
                 </mat-grid-tile>
                 <mat-grid-tile>
-                    <button mat-button (click)="updateSelectedColor()">OK</button>
+                    <button mat-button (click)="confirmSelectedColor()">{{ btnConfirm }}</button>
                 </mat-grid-tile>
             </mat-grid-list>
         </mat-card-actions>
