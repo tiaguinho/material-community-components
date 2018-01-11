@@ -2,8 +2,8 @@
   <h1>Color Picker DEMO APP</h1>
 </div>
 
-<h3>First Picker</h3>
-<mat-color-picker [usedColorLabel]="'Minhas Cores'">
+<h3>Change used color label</h3>
+<mat-color-picker [usedColorLabel]="'My Colors'">
   
   <mat-color-picker-collection [label]="'First Collection'" 
                                [colors]="colors">
@@ -11,15 +11,40 @@
 
 </mat-color-picker>
 
-<!--
-<hr style="margin: 100px 0;" />
+<hr style="margin: 50px 0;" />
 
-<h3>Second Picker</h3>
-<mat-color-picker>
+<h3>Hide empty slot of colors</h3>
+<mat-color-picker hideEmptyUsedColors>
   
-  <mat-color-picker-collection [label]="'First Collection'" 
+  <mat-color-picker-collection [label]="'First Collection'"
+                               hideEmpty="true"
                                [colors]="colors">
   </mat-color-picker-collection>
 
 </mat-color-picker>
--->
+
+<hr style="margin: 50px 0;" />
+
+<h3>Change buttons label</h3>
+<mat-color-picker
+  [btnCancel]="'ESC'"
+  [btnConfirm]="'OK'">
+  
+  <mat-color-picker-collection [label]="'First Collection'"
+                               hideEmpty="true"
+                               [colors]="colors">
+  </mat-color-picker-collection>
+
+</mat-color-picker>
+
+<hr style="margin: 50px 0;" />
+
+<h3>Hide buttons</h3>
+<mat-color-picker hideButtons>
+  
+  <mat-color-picker-collection [label]="'First Collection'"
+                               hideEmpty="true"
+                               [colors]="colors">
+  </mat-color-picker-collection>
+
+</mat-color-picker>
