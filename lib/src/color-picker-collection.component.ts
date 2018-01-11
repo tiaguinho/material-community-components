@@ -14,13 +14,16 @@ import {
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 
 /**
- *
+ * This directive change the background of the button
  */
 @Directive({
     selector: '[colorPickerOption]',
 })
 export class MatColorPickerOptionDirective implements AfterViewInit {
 
+    /**
+     * Receive the color
+     */
     @Input('colorPickerOption')
     get color(): string { return this._color; }
     set color(value: string) { this._color = value; }
@@ -33,6 +36,7 @@ export class MatColorPickerOptionDirective implements AfterViewInit {
 
     ngAfterViewInit() {
         if (this.color) {
+            // apply the color
             this.render.setStyle(this.el.nativeElement, 'background-color', this.color);
         }
     }
@@ -48,23 +52,36 @@ export class MatColorPickerOptionDirective implements AfterViewInit {
 })
 export class MatColorPickerCollectionComponent implements AfterContentChecked {
 
-    @Input() size: number = 30;
-
+    /**
+     * Hide empty slots
+     * Empty slots are the difference between the collection size and limit
+     */
     @Input()
     set hideEmpty(value: boolean) { this._hideEmpty = coerceBooleanProperty(value); }
     private _hideEmpty: boolean = false;
 
+    /**
+     * Name of the collection
+     */
     @Input()
     set label(value: string) { this._label = value; }
     private _label: string;
 
     /**
-     * Array of colors
+     * Array of colors to be displayed
      */
     @Input()
     set colors(values: string[]) { this._colors = values; }
     private _colors: string[];
 
+    /**
+     * Size limit of the collection
+     */
+    @Input() size: number = 30;
+
+    /**
+     * Emit selected color value
+     */
     @Output() changeColor = new EventEmitter;
 
     constructor(
@@ -80,6 +97,11 @@ export class MatColorPickerCollectionComponent implements AfterContentChecked {
         }
     }
 
+    /**
+     * Return the difference between the limit and the collection size.
+     * Always return 0 when hideEmpty is true
+     * @returns number
+     */
     private _getCollectionDiffSize(): number {
         if (this._colors.length > this.size || this._hideEmpty) {
             return 0;
@@ -88,6 +110,10 @@ export class MatColorPickerCollectionComponent implements AfterContentChecked {
         return this.size - this._colors.length;
     }
 
+    /**
+     * Emit selected color value
+     * @param value string
+     */
     setColor(value: string) {
         this.changeColor.emit(value);
     }
