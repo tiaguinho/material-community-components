@@ -3,7 +3,7 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
-import { MatColorPickerModule } from '../../../lib';
+import { MatColorPickerModule } from '../../../lib/src';
 
 @NgModule({
   declarations: [
