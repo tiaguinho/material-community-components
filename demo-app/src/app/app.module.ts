@@ -1,8 +1,9 @@
 import { BrowserModule } from '@angular/platform-browser';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
-import { MatColorPickerModule } from '../../../lib/src/color-picker.module';
+import { MatColorPickerModule } from '../../../lib';
 
 @NgModule({
   declarations: [
@@ -10,6 +11,7 @@ import { MatColorPickerModule } from '../../../lib/src/color-picker.module';
   ],
   imports: [
     BrowserModule,
+    NoopAnimationsModule,
     MatColorPickerModule
   ],
   providers: [],
