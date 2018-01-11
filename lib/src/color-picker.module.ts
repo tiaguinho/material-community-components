@@ -1,7 +1,16 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule } from '@angular/forms';
 import { OverlayModule } from '@angular/cdk/overlay';
+import {
+    MatButtonModule,
+    MatCardModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatGridListModule,
+    MatListModule
+} from '@angular/material';
 
 import { MatColorPickerService } from './color-picker.service';
 
@@ -13,7 +22,18 @@ import {
 } from './color-picker-collection.component';
 
 @NgModule({
-    imports: [CommonModule, OverlayModule, FormsModule],
+    imports: [
+        CommonModule,
+        NoopAnimationsModule,
+        OverlayModule,
+        FormsModule,
+        MatButtonModule,
+        MatCardModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatGridListModule,
+        MatListModule
+    ],
     declarations: [
         MatColorPickerComponent,
         MatColorPickerSelectorComponent,
