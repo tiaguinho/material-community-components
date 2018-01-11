@@ -3,6 +3,7 @@ import {
     Component,
     ChangeDetectionStrategy,
     HostListener,
+    Input,
     ElementRef,
     EventEmitter,
     OnInit,
@@ -15,10 +16,9 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
 
-interface RGB {
-    r: number;
-    g: number;
-    b: number;
+interface ColorOption {
+    type: string;
+    value: number;
 }
 
 @Component({
@@ -34,7 +34,19 @@ export class MatColorPickerSelectorComponent implements AfterViewInit, OnInit, O
 
     @ViewChild('strip') _strip: ElementRef;
 
-    @ViewChild('colorPickerSelectorValue') preview: ElementRef;
+    @Input()
+    get selectedColor(): string { return this._selectedColor; }
+    set selectedColor(value: string) {
+        this._selectedColor = value || '';
+
+        if (!this.buttonIsPressed) {
+            this._rgbaColor = this._getRgba();
+            if (this._blockContext) {
+                this._fillGradient();
+            }
+        }
+    }
+    private _selectedColor: string = '';
 
     @Output() changeSelectedColor = new EventEmitter;
 
@@ -48,19 +60,23 @@ export class MatColorPickerSelectorComponent implements AfterViewInit, OnInit, O
 
     private _rgbaColor: string = 'rgba(255,0,0,1)';
 
-    get selectedColor(): Observable<string> { return this._selectedColor.asObservable(); }
-    private _selectedColor: BehaviorSubject<string> = new BehaviorSubject<string>('');
+    private _tmpSelectedColor: BehaviorSubject<string>;
 
-    rgb: RGB = { r: 0, g: 0, b: 0};
+    rgb: ColorOption[] = [
+        { type: 'R', value: 0},
+        { type: 'G', value: 0},
+        { type: 'B', value: 0}
+    ];
 
-    constructor(
-        private render: Renderer2
-    ) {}
+    constructor(private render: Renderer2) {}
 
     ngOnInit() {
-        this._selectedColorSub = this.selectedColor.subscribe(color =>
-            this.changeSelectedColor.emit(color)
-        );
+        this._tmpSelectedColor = new BehaviorSubject<string>(this._selectedColor);
+        this._selectedColorSub = this._tmpSelectedColor.subscribe(color => {
+            if (color !== this._selectedColor) {
+                this.changeSelectedColor.emit(color);
+            }
+        });
     }
 
     ngOnDestroy() {
@@ -138,12 +154,31 @@ export class MatColorPickerSelectorComponent implements AfterViewInit, OnInit, O
     /**
      * 
      */
-    private _getRgba(data: any): string {
-        return `rgba(${data[0]}, ${data[1]}, ${data[2]}, 1)`;
+    private _getRgba(data?: any): string {
+        if (!this._selectedColor && !data) {
+            return 'rgba(255,0,0,1)';
+        }
+
+        if (data) {
+            return `rgba(${data[0]}, ${data[1]}, ${data[2]}, 1)`;
+        }
+
+        const hex = this._selectedColor.replace('#', '');
+        const r = parseInt(hex.slice(0, 2), 16);
+        const g = parseInt(hex.slice(2, 4), 16);
+        const b = parseInt(hex.slice(4, 6), 16);
+
+        this.rgb = [
+            { type: 'R', value: r},
+            { type: 'G', value: g},
+            { type: 'B', value: b}
+        ];
+
+        return `rgba(${r}, ${g}, ${b}, 1)`;
     }
 
     private _getHex(data: any): string {
-        return `${data[0].toString(16)}${data[1].toString(16)}${data[2].toString(16)}`;
+        return `#${data[0].toString(16)}${data[1].toString(16)}${data[2].toString(16)}`;
     }
 
     /**
@@ -170,14 +205,12 @@ export class MatColorPickerSelectorComponent implements AfterViewInit, OnInit, O
 
     private updateValues(data: any): void {
         if (data) {
-            this.rgb = { r: data[0], g: data[1], b: data[2] };
-
-            this._selectedColor.next(this._getHex(data));
-            this.render.setStyle(
-                this.preview.nativeElement,
-                'background-color',
-                this._getRgba(data)
-            );
+            this.rgb = [
+                { type: 'R', value: data[0]},
+                { type: 'G', value: data[1]},
+                { type: 'B', value: data[2]}
+            ];
+            this._tmpSelectedColor.next(this._getHex(data));
         }
     }
 
