@@ -275,8 +275,18 @@ export class MatColorPickerSelectorComponent implements AfterViewInit, OnInit, O
      * @returns string
      */
     private _getHex(data: any): string {
-        return `#${data[0].toString(16)}${data[1].toString(16)}${data[2].toString(16)}`
-                .toUpperCase();
+        const hex = new Array(3);
+        hex[0] = data[0].toString(16);
+        hex[1] = data[1].toString(16);
+        hex[2] = data[2].toString(16);
+
+        hex.forEach((val, key) => {
+            if (val.length === 1) {
+                hex[key] += '0';
+            }
+        });
+
+        return `#${hex[0]}${hex[1]}${hex[2]}`.toUpperCase();
     }
 
     /**
