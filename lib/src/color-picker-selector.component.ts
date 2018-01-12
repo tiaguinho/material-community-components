@@ -346,6 +346,7 @@ export class MatColorPickerSelectorComponent implements AfterViewInit, OnInit, O
      */
     private updateValues(data: any): void {
         if (data) {
+            this._updateRGB(data);
             this._tmpSelectedColor.next(this._getHex(data));
         }
     }
