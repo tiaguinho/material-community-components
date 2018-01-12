@@ -1,11 +1,31 @@
 {
     "$schema": "../node_modules/ng-packagr/package.schema.json",
     "name": "mat-color-picker",
-    "version": "0.0.2",
+    "version": "0.0.3",
     "ngPackage": {
         "lib": {
             "entryFile": "src/index.ts"
         },
         "dest": "dist"
-    }
+    },
+    "author": "Tiago Temporin",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/tiaguinho/mat-color-picker/issues"
+    },
+    "homepage": "https://github.com/tiaguinho/mat-color-picker#readme",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/tiaguinho/mat-color-picker.git"
+    },
+    "keywords": [
+        "angular",
+        "material",
+        "color-picker",
+        "color",
+        "ng",
+        "ng-color-picker",
+        "ngx-color-picker",
+        "mat-color-picker"
+    ]
 }
