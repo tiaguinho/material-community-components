@@ -1,6 +1,6 @@
 # MatColorPicker
 
-Simple color picker created with Angular Material.
+Small on size, big on features! MatColorPicker is created with Angular Material and CDK.
 
 ![alt text](https://github.com/tiaguinho/mat-color-picker/raw/master/images/screenshot-1.png "Screenshot")
 
