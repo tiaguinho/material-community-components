@@ -84,6 +84,16 @@ export class MatColorPickerSelectorComponent implements AfterViewInit, OnInit, O
     private _tmpSelectedColorSub: Subscription;
 
     /**
+     * Subscription of the hexForm values change
+     */
+    private _hexValuesSub: Subscription;
+
+    /**
+     * Subscription of the rbgForm values change
+     */
+    private _rgbValuesSub: Subscription;
+
+    /**
      * Validate if the mouse button is pressed
      */
     _isPressed: boolean = false;
@@ -140,6 +150,12 @@ export class MatColorPickerSelectorComponent implements AfterViewInit, OnInit, O
     ngOnDestroy() {
         if (this._tmpSelectedColorSub && !this._tmpSelectedColorSub.closed) {
             this._tmpSelectedColorSub.unsubscribe();
+        }
+        if (this._hexValuesSub && !this._hexValuesSub.closed) {
+            this._hexValuesSub.unsubscribe();
+        }
+        if (this._rgbValuesSub && !this._rgbValuesSub.closed) {
+            this._rgbValuesSub.unsubscribe();
         }
     }
 
@@ -209,7 +225,7 @@ export class MatColorPickerSelectorComponent implements AfterViewInit, OnInit, O
      */
     private _onChanges() {
         // validate digited code and update when digitation is finished
-        this.hexForm.get('hexCode').valueChanges.subscribe(value => {
+        this._hexValuesSub = this.hexForm.get('hexCode').valueChanges.subscribe(value => {
             if (!this._isPressed) {
                 if (value.length === 7) {
                     this.selectedColor = value;
@@ -217,7 +233,7 @@ export class MatColorPickerSelectorComponent implements AfterViewInit, OnInit, O
             }
         });
 
-        this.rgbForm.valueChanges.subscribe(controls => {
+        this._rgbValuesSub = this.rgbForm.valueChanges.subscribe(controls => {
             const data: number[] = [];
             for (const key in controls) {
                 if (!controls[key] || controls[key] > 255) {
