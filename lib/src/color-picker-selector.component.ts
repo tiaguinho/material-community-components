@@ -7,10 +7,12 @@ import {
     ElementRef,
     EventEmitter,
     OnInit,
+    OnChanges,
     OnDestroy,
     Output,
     Renderer2,
-    ViewChild
+    ViewChild,
+    SimpleChanges
 } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
@@ -29,7 +31,8 @@ interface ColorOption {
     preserveWhitespaces: false,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class MatColorPickerSelectorComponent implements AfterViewInit, OnInit, OnDestroy {
+export class MatColorPickerSelectorComponent implements
+    AfterViewInit, OnInit, OnChanges, OnDestroy {
 
     /**
      * ElemenRef of the main color
@@ -50,17 +53,7 @@ export class MatColorPickerSelectorComponent implements AfterViewInit, OnInit, O
      */
     @Input()
     get selectedColor(): string { return this._selectedColor; }
-    set selectedColor(value: string) {
-        this._selectedColor = value || '';
-
-        if (!this._isPressed) {
-            this._updateRGB();
-            this._updateRGBA();
-            if (this._blockContext) {
-                this._fillGradient();
-            }
-        }
-    }
+    set selectedColor(value: string) { this._selectedColor = value || ''; }
     private _selectedColor: string = '';
 
     /**
@@ -142,6 +135,23 @@ export class MatColorPickerSelectorComponent implements AfterViewInit, OnInit, O
 
         // watch changes on forms
         this._onChanges();
+    }
+
+    /**
+     * Update RGB, RGBA and Gradient when selectedColor change and
+     * the mouse button is pressed
+     * @param changes SimpleChanges
+     */
+    ngOnChanges(changes: SimpleChanges) {
+        if ('selectedColor' in changes) {
+            if (!this._isPressed) {
+                this._updateRGB();
+                this._updateRGBA();
+                if (this._blockContext) {
+                    this._fillGradient();
+                }
+            }
+        }
     }
 
     /**
