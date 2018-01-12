@@ -9,7 +9,7 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "packagr": "ng-packagr -p lib/package.json"
+    "packagr": "ng-packagr -p lib/package.json && cp README.md dist/"
   },
   "private": true,
   "dependencies": {
