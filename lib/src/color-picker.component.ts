@@ -149,8 +149,11 @@ export class MatColorPickerComponent implements AfterContentInit, OnInit, OnDest
      */
     private _updateSelectedColor() {
         if (this._isOpen) {
-            this._selectedColor = this._tmpSelectedColor.getValue();
-            this.change.emit(this._selectedColor);
+            const tmpSelectedColor = this._tmpSelectedColor.getValue();
+            if (this._selectedColor !== tmpSelectedColor) {
+                this._selectedColor = tmpSelectedColor;
+                this.change.emit(this._selectedColor);
+            }
         }
     }
 
