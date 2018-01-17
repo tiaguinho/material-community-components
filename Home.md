@@ -11,6 +11,6 @@ npm install --save mat-color-picker
 
 ## Classes
 
-* MatColorPicker
-* MatColorPickerCollection
+* (MatColorPicker)[https://github.com/tiaguinho/mat-color-picker/wiki/MatColorPicker]
+* (MatColorPickerCollection)(https://github.com/tiaguinho/mat-color-picker/wiki/MatColorPickerCollection)
 
