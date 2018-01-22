@@ -53,7 +53,7 @@ export class MatColorPickerSelectorComponent implements
      */
     @Input()
     get selectedColor(): string { return this._selectedColor; }
-    set selectedColor(value: string) { this._selectedColor = value || ''; }
+    set selectedColor(value: string) { this._selectedColor = value || 'none'; }
     private _selectedColor: string = '';
 
     /**
@@ -144,7 +144,7 @@ export class MatColorPickerSelectorComponent implements
      */
     ngOnChanges(changes: SimpleChanges) {
         if ('selectedColor' in changes) {
-            if (!this._isPressed) {
+            if (!this._isPressed && changes['selectedColor'].currentValue !== 'none') {
                 this._updateRGB();
                 this._updateRGBA();
                 if (this._blockContext) {
@@ -236,10 +236,8 @@ export class MatColorPickerSelectorComponent implements
     private _onChanges() {
         // validate digited code and update when digitation is finished
         this._hexValuesSub = this.hexForm.get('hexCode').valueChanges.subscribe(value => {
-            if (!this._isPressed) {
-                if (value.length === 7) {
-                    this.selectedColor = value;
-                }
+            if (!this._isPressed && value.length === 7) {
+                this.selectedColor = value;
             }
         });
 
@@ -358,6 +356,16 @@ export class MatColorPickerSelectorComponent implements
         if (data) {
             this._updateRGB(data);
             this._tmpSelectedColor.next(this._getHex(data));
+        }
+    }
+
+    /**
+     * Remove color
+     */
+    transparent(): void {
+        if (this._selectedColor !== 'none') {
+            this._updateRGB(['', '', '']);
+            this._tmpSelectedColor.next('none');
         }
     }
 

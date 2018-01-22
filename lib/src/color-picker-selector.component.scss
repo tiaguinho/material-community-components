@@ -9,9 +9,28 @@ canvas {
 
 .color-picker-selector-preview {
   width: 177px;
-  height: 18px;
-  margin-left: -18px;
+  height: 15px;
+  margin-right: 5px;
   border: 1px solid rgba(0,0,0,.2);
+}
+
+.color-picker-remove-color {
+  width: 15px;
+  height: 15px;
+  margin: 0px;
+  padding: 0px;
+  cursor: pointer;
+  border-radius: 0px;
+  border: 1px solid rgba(0,0,0,.2);
+
+  .transparent {
+    width: 18px;
+    height: 2px;
+    border-bottom: 2px solid red;
+    transform: translateY(-3px) translateX(-2px) rotate(45deg); 
+    -webkit-transform: translateY(-3px) translateX(-2px) rotate(45deg); 
+    position: absolute;
+  }
 }
 
 mat-form-field {

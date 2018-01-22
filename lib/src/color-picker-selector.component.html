@@ -29,6 +29,9 @@
 
     <mat-grid-tile [colspan]="8">
         <div class="color-picker-selector-preview" [style.background]="selectedColor"></div>
+        <button class="color-picker-remove-color" (click)="transparent()">
+            <div class="transparent"></div>
+        </button>
     </mat-grid-tile>
     <mat-grid-tile [colspan]="2">
 
