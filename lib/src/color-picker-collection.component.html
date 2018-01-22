@@ -1,7 +1,8 @@
 <div class="color-picker-collection">
     <h3>{{ label }}</h3>
     <button *ngFor="let color of colors" 
-        mat-raise-button 
+        class="mat-elevation-z2"
+        mat-mini-fab
         [colorPickerOption]="color"
         (click)="setColor(color)">
     </button>

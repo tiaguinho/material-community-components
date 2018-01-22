@@ -37,7 +37,7 @@ export class MatColorPickerOptionDirective implements AfterViewInit {
     ngAfterViewInit() {
         if (this.color) {
             // apply the color
-            this.render.setStyle(this.el.nativeElement, 'background-color', this.color);
+            this.render.setStyle(this.el.nativeElement, 'background', this.color);
         }
     }
 
