@@ -1,9 +1,10 @@
-<button type="button"
-    class="btn-picker"
-    cdkOverlayOrigin
-    #trigger="cdkOverlayOrigin"
-    [style.backgroundColor]="selectedColor || 'none'"
-    (click)="toggle()">
+<button type="button" class="btn-picker"
+        cdkOverlayOrigin
+        #trigger="cdkOverlayOrigin"
+        [ngClass]="{ 'empty': selectedColor === 'none' }"
+        [style.background]="selectedColor"
+        (click)="toggle()">
+    <div class="transparent" *ngIf="selectedColor === 'none'"></div>
 </button>
 
 <ng-template

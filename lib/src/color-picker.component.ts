@@ -24,7 +24,7 @@ import { Observable } from 'rxjs/Observable';
     templateUrl: './color-picker.component.html',
     styleUrls: ['./color-picker.component.scss'],
     preserveWhitespaces: false,
-    changeDetection: ChangeDetectionStrategy.Default
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MatColorPickerComponent implements AfterContentInit, OnInit, OnDestroy {
 
@@ -56,7 +56,7 @@ export class MatColorPickerComponent implements AfterContentInit, OnInit, OnDest
     @Input()
     get selectedColor(): string { return this._selectedColor; }
     set selectedColor(value: string) { this._selectedColor = value; }
-    private _selectedColor: string;
+    private _selectedColor: string = 'none';
 
     /**
      * Define if the panel will be initiated open
@@ -152,7 +152,7 @@ export class MatColorPickerComponent implements AfterContentInit, OnInit, OnDest
             const tmpSelectedColor = this._tmpSelectedColor.getValue();
             if (this._selectedColor !== tmpSelectedColor) {
                 this._selectedColor = tmpSelectedColor;
-                this.change.emit(this._selectedColor);
+                this.change.next(this._selectedColor);
             }
         }
     }
@@ -162,7 +162,7 @@ export class MatColorPickerComponent implements AfterContentInit, OnInit, OnDest
      */
     toggle() {
         this._isOpen = !this._isOpen;
-        if (!this._isOpen) {
+        if (!this._isOpen && this._selectedColor !== 'none') {
             this.colorPickerService.addColor(this._selectedColor);
         }
     }
