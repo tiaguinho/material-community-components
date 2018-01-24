@@ -82,6 +82,11 @@ export class MatColorPickerCollectionComponent implements AfterContentChecked {
     @Input() size: number = 30;
 
     /**
+     * Show transparent option
+     */
+    @Input() transparent: boolean = false;
+
+    /**
      * Emit selected color value
      */
     @Output() changeColor = new EventEmitter;
@@ -110,6 +115,13 @@ export class MatColorPickerCollectionComponent implements AfterContentChecked {
         }
 
         return this.size - this._colors.length;
+    }
+
+    /**
+     * Remove color
+     */
+    setTransparent(): void {
+        this.changeColor.emit('none');
     }
 
     /**

@@ -1,8 +1,15 @@
 <div class="color-picker-collection">
     <h3>{{ label }}</h3>
+
+    <button mat-mini-fab *ngIf="transparent"
+            class="color-picker-remove-color mat-elevation-z0"
+            (click)="setTransparent()">
+        <div class="transparent"></div>
+    </button>
+
     <button *ngFor="let color of colors" 
             mat-mini-fab
-            class="mat-elevation-z2"
+            class="mat-elevation-z0"
             [disabled]="!color || color === 'none'"
             [colorPickerOption]="color"
             (click)="setColor(color)">
