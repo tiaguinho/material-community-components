@@ -13,6 +13,17 @@
 
 <hr style="margin: 50px 0;" />
 
+<h3>Define used colors init value</h3>
+<mat-color-picker [usedColorLabel]="'My Colors'" [usedColorStart]="usedStart">
+  
+  <mat-color-picker-collection [label]="'First Collection'" 
+                               [colors]="colors">
+  </mat-color-picker-collection>
+
+</mat-color-picker>
+
+<hr style="margin: 50px 0;" />
+
 <h3>Hide empty slot of colors</h3>
 <mat-color-picker hideEmptyUsedColors>
   
