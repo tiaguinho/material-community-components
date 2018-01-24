@@ -19,3 +19,4 @@ This is the main class of the component.
 | Name | Description |
 | --- | --- |
 | change: EventEmitter | Event that is emitted when the color is selected |
+| clickOut: EventEmitter | Event emitted when is user clicks outside of the component |
