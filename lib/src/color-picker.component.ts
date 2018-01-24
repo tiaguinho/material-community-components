@@ -43,6 +43,17 @@ export class MatColorPickerComponent implements AfterContentInit, OnInit, OnDest
     private _usedColorLabel: string = 'Used Colors';
 
     /**
+     * Set initial value for used color
+     */
+    @Input() set usedColorStart(colors: string[]) {
+        if (colors && colors.length > 0) {
+            for (const color of colors) {
+                this.colorPickerService.addColor(color);
+            }
+        }
+    }
+
+    /**
      * Hide empty slots from the collection UsedColors
      */
     @Input('hideEmptyUsedColors')
