@@ -21,7 +21,8 @@
 
         <mat-card-content>
 
-            <mat-color-picker-collection [label]="usedColorLabel" 
+            <mat-color-picker-collection [label]="usedColorLabel"
+                                         [transparent]="true"
                                          [hideEmpty]="hideEmpty"
                                          [colors]="usedColors$ | async"
                                          (changeColor)="updateTmpSelectedColor($event)">
