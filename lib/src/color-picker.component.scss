@@ -1,3 +1,9 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,700');
+
+.mat-card {
+    font-family: 'Open Sans', sans-serif;
+}
+
 .btn-picker {
     width: 25px;
     height: 25px;
@@ -11,9 +17,9 @@
 }
 
 .color-picker {
-    width: 255px;
+    width: 260px;
     min-height: 80px;
-    padding: 5px;
+    padding: 0 0 8px 0;
 
     .color-picker-preview {
         width: 100%;
@@ -32,9 +38,15 @@
 
 .mat-card-actions {
     margin: 0!important;
+    padding: 8px;
     border-top: 1px #dddddd solid;
 
     button {
         position: unset;
+        color: #100214;
+        text-transform: uppercase;
+        font-family: 'Open Sans', sans-serif;
+        font-size: 12px;
+        font-weight: 400;
     }
 }
