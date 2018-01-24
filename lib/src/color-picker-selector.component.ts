@@ -87,6 +87,11 @@ export class MatColorPickerSelectorComponent implements
     private _rgbValuesSub: Subscription;
 
     /**
+     * Handle color of the text
+     */
+    textClass: string = 'black';
+
+    /**
      * Validate if the mouse button is pressed
      */
     _isPressed: boolean = false;
@@ -143,14 +148,18 @@ export class MatColorPickerSelectorComponent implements
      * @param changes SimpleChanges
      */
     ngOnChanges(changes: SimpleChanges) {
-        if ('selectedColor' in changes) {
-            if (!this._isPressed && changes['selectedColor'].currentValue !== 'none') {
+        if ('selectedColor' in changes && changes['selectedColor'].currentValue !== 'none') {
+            if (!this._isPressed) {
                 this._updateRGB();
                 this._updateRGBA();
                 if (this._blockContext) {
                     this._fillGradient();
                 }
             }
+
+            const rgb = this._getRGB();
+            const o = Math.round(((rgb[0] * 299) + (rgb[1] * 587) + (rgb[2] * 114)) / 1000);
+            this.textClass = (o > 125) ? 'black' : 'white';
         }
     }
 
@@ -356,16 +365,6 @@ export class MatColorPickerSelectorComponent implements
         if (data) {
             this._updateRGB(data);
             this._tmpSelectedColor.next(this._getHex(data));
-        }
-    }
-
-    /**
-     * Remove color
-     */
-    transparent(): void {
-        if (this._selectedColor !== 'none') {
-            this._updateRGB(['', '', '']);
-            this._tmpSelectedColor.next('none');
         }
     }
 

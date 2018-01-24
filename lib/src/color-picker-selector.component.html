@@ -1,47 +1,27 @@
-<mat-grid-list cols="10" rowHeight="150">
+<div class="color-picker-selector">
+    <canvas #block height="170" width="230" id="picker"></canvas>
+    <canvas #strip height="160" width="20" id="colors"></canvas>
+</div>
 
-    <mat-grid-tile [colspan]="8">
-        <div class="color-picker-selector">
-            <canvas #block height="150" width="180"></canvas>
-            <canvas #strip height="150" width="15"></canvas>
-        </div>
-    </mat-grid-tile>
+<div class="color-picker-selector-preview" [style.background]="selectedColor">
 
-    <mat-grid-tile [colspan]="2">
-        
-        <form [formGroup]="rgbForm">
-            <mat-list>
-                <mat-list-item *ngFor="let opt of rgbKeys">
-                    <mat-form-field>
-                        <input matInput type="number"
-                              [placeholder]="opt"
-                              [formControlName]="opt"/>
-                    </mat-form-field>
-                </mat-list-item>
-            </mat-list>
-        </form>
+    <form [formGroup]="hexForm">
+        <mat-form-field class="hex-input" floatLabel="always" [ngClass]="textClass">
+            <input matInput placeholder="HEX"
+                   formControlName="hexCode" [value]="selectedColor"/>
+        </mat-form-field>
+    </form>
 
-    </mat-grid-tile>
+    <form [formGroup]="rgbForm">
+        <mat-form-field class="rgb-input" floatLabel="always" [ngClass]="textClass">
+            <input matInput type="number" placeholder="RGB" formControlName="R"/>
+        </mat-form-field>
+        <mat-form-field class="rgb-input" floatLabel="always" [ngClass]="textClass">
+            <input matInput type="number" formControlName="G"/>
+        </mat-form-field>
+        <mat-form-field class="rgb-input" floatLabel="always" [ngClass]="textClass">
+            <input matInput type="number" formControlName="B"/>
+        </mat-form-field>
+    </form>
 
-</mat-grid-list>
-
-<mat-grid-list cols="10" rowHeight="20px">
-
-    <mat-grid-tile [colspan]="8">
-        <div class="color-picker-selector-preview" [style.background]="selectedColor"></div>
-        <button class="color-picker-remove-color" (click)="transparent()">
-            <div class="transparent"></div>
-        </button>
-    </mat-grid-tile>
-    <mat-grid-tile [colspan]="2">
-
-        <form [formGroup]="hexForm">
-            <mat-form-field>
-                <input matInput placeholder="hex" 
-                       formControlName="hexCode" [value]="selectedColor" />
-            </mat-form-field>
-        </form>
-
-    </mat-grid-tile>
-    
-</mat-grid-list>
+</div>

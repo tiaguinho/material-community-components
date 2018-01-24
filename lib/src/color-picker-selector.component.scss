@@ -1,41 +1,54 @@
 canvas {
-  &:first-child {
-    margin-right: 5px;
+  &#colors {
+    margin: 5px;
   }
   &:hover {
     cursor: crosshair;
   }
 }
 
-.color-picker-selector-preview {
-  width: 177px;
-  height: 15px;
-  margin-right: 5px;
-  border: 1px solid rgba(0,0,0,.2);
+.color-picker-selector {
+  height: 170px;
 }
 
-.color-picker-remove-color {
-  width: 15px;
-  height: 15px;
-  margin: 0px;
-  padding: 0px;
-  cursor: pointer;
-  border-radius: 0px;
-  border: 1px solid rgba(0,0,0,.2);
+/deep/ mat-form-field {
+  font-family: "Open Sans";
+  font-size: 11px;
+  font-weight: bold;
 
-  .transparent {
-    width: 18px;
-    height: 2px;
-    border-bottom: 2px solid red;
-    transform: translateY(-3px) translateX(-2px) rotate(45deg); 
-    -webkit-transform: translateY(-3px) translateX(-2px) rotate(45deg); 
-    position: absolute;
+  &.black {
+    color: #100214;
+    label { color: #100214; }
+    .mat-form-field-underline { background-color: #100214; }
+  }
+  &.white {
+    color: #ffffff;
+    label { color: #ffffff; }
+    .mat-form-field-underline { background-color: #ffffff; }
   }
 }
 
-mat-form-field {
-  width: 50px;
-  &.mat-form-field {
-    font-size: 12px;
+.color-picker-selector-preview {
+  height: 40px;
+  padding: 15px;
+  border-bottom: 1px #E1E1E1 solid;
+
+  form {
+    display: inline-block;
+    position: relative;
+  }
+
+  .hex-input {
+    width: 75px;
+    margin-right: 20px;
+
+    input { font-size: 16px; font-weight: normal; }
+  }
+
+  .rgb-input {
+    width: 40px;
+    margin-right: 5px;
+
+    input { font-size: 16px; font-weight: normal; }
   }
 }
