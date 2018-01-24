@@ -101,6 +101,11 @@ export class MatColorPickerComponent implements AfterContentInit, OnInit, OnDest
     @Output() change = new EventEmitter;
 
     /**
+     * Event emitted when is clicked outside of the component
+     */
+    @Output() clickOut = new EventEmitter;
+
+    /**
      * Return a Observable with the color the user is picking
      */
     get tmpSelectedColor$(): Observable<string> { return this._tmpSelectedColor.asObservable(); }
@@ -176,6 +181,14 @@ export class MatColorPickerComponent implements AfterContentInit, OnInit, OnDest
         if (!this._isOpen && this._selectedColor !== 'none') {
             this.colorPickerService.addColor(this._selectedColor);
         }
+    }
+
+    /**
+     * Update selected color, close the panel and notify the user
+     */
+    backdropClick(): void {
+        this.confirmSelectedColor();
+        this.clickOut.emit(null);
     }
 
     /**

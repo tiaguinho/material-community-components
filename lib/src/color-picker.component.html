@@ -9,8 +9,11 @@
 
 <ng-template
     cdkConnectedOverlay
+    hasBackdrop
+    cdkConnectedOverlayBackdropClass="mat-color-picker-backdrop"
     [cdkConnectedOverlayOrigin]="trigger"
-    [cdkConnectedOverlayOpen]="isOpen">
+    [cdkConnectedOverlayOpen]="isOpen"
+    (backdropClick)="backdropClick()">
 
     <mat-card class="color-picker">
 
