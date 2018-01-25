@@ -38,7 +38,17 @@ export class MatColorPickerSelectorComponent implements
      * ElemenRef of the main color
      */
     @ViewChild('block') _block: ElementRef;
-    // hold _block context
+
+    /**
+     * ElemenRef of the pointer main color
+     */
+    @ViewChild('blockPointer') _bp: ElementRef;
+
+    /**
+     * Canvas of the block
+     */
+    @ViewChild('blockCanvas') set blockCursor(el: ElementRef) { this._bc = el; }
+    private _bc: ElementRef;
     private _blockContext: any;
 
     /**
@@ -47,6 +57,12 @@ export class MatColorPickerSelectorComponent implements
     @ViewChild('strip') _strip: ElementRef;
     // hold _strip context
     private _stripContext: any;
+
+    /**
+     * Container of the strip
+     */
+    @ViewChild('stripContainer') set stripCursor(el: ElementRef) { this._sc = el; }
+    private _sc: ElementRef;
 
     /**
      * Receive selected color from the component
@@ -183,10 +199,10 @@ export class MatColorPickerSelectorComponent implements
         this.render.listen(this._block.nativeElement, 'mouseup', () => this._isPressed = false);
         this.render.listen(this._block.nativeElement, 'mouseout', () => this._isPressed = false);
         this.render.listen(this._block.nativeElement, 'mousemove', (e) => this.changeColor(e));
-        this._blockContext = this._block.nativeElement.getContext('2d');
+        this._blockContext = this._bc.nativeElement.getContext('2d');
         this._blockContext.rect(0, 0,
-            this._block.nativeElement.width,
-            this._block.nativeElement.height);
+            this._bc.nativeElement.width,
+            this._bc.nativeElement.height);
 
         this.render.listen(this._strip.nativeElement, 'mousedown', () => this._isPressed = true);
         this.render.listen(this._strip.nativeElement, 'mouseup', () => this._isPressed = false);
@@ -197,7 +213,7 @@ export class MatColorPickerSelectorComponent implements
             this._strip.nativeElement.width,
             this._strip.nativeElement.height);
         const grd1 = this._stripContext.createLinearGradient(0, 0, 0,
-            this._block.nativeElement.height);
+            this._bc.nativeElement.height);
         grd1.addColorStop(0, 'rgba(255, 0, 0, 1)');
         grd1.addColorStop(0.17, 'rgba(255, 255, 0, 1)');
         grd1.addColorStop(0.34, 'rgba(0, 255, 0, 1)');
@@ -217,26 +233,26 @@ export class MatColorPickerSelectorComponent implements
     private _fillGradient(): void {
         this._blockContext.fillStyle = this._rgbaColor;
         this._blockContext.fillRect(0, 0,
-            this._block.nativeElement.width,
-            this._block.nativeElement.height);
+            this._bc.nativeElement.width,
+            this._bc.nativeElement.height);
 
         const grdWhite = this._stripContext.createLinearGradient(0, 0,
-            this._block.nativeElement.width, 0);
+            this._bc.nativeElement.width, 0);
         grdWhite.addColorStop(0, 'rgba(255,255,255,1)');
         grdWhite.addColorStop(1, 'rgba(255,255,255,0)');
         this._blockContext.fillStyle = grdWhite;
         this._blockContext.fillRect(0, 0,
-            this._block.nativeElement.width,
-            this._block.nativeElement.height);
+            this._bc.nativeElement.width,
+            this._bc.nativeElement.height);
 
         const grdBlack = this._stripContext.createLinearGradient(0, 0, 0,
-            this._block.nativeElement.height);
+            this._bc.nativeElement.height);
         grdBlack.addColorStop(0, 'rgba(0,0,0,0)');
         grdBlack.addColorStop(1, 'rgba(0,0,0,1)');
         this._blockContext.fillStyle = grdBlack;
         this._blockContext.fillRect(0, 0,
-            this._block.nativeElement.width,
-            this._block.nativeElement.height);
+            this._bc.nativeElement.width,
+            this._bc.nativeElement.height);
     }
 
     /**
@@ -339,6 +355,7 @@ export class MatColorPickerSelectorComponent implements
      */
     private changeBaseColor(e): void {
         if (this._isPressed) {
+            this.render.setStyle(this._sc.nativeElement, 'background-position-y', `${e.offsetY}px`);
             const data = this._stripContext.getImageData(e.offsetX, e.offsetY, 1, 1).data;
             this._updateRGBA(data);
             this._fillGradient();
@@ -352,6 +369,9 @@ export class MatColorPickerSelectorComponent implements
      */
     private changeColor(e): void {
         if (this._isPressed) {
+            this.render.setStyle(this._bp.nativeElement, 'top', `${e.offsetY - 5}px`);
+            this.render.setStyle(this._bp.nativeElement, 'left', `${e.offsetX - 5}px`);
+
             const data = this._blockContext.getImageData(e.offsetX, e.offsetY, 1, 1).data;
             this.updateValues(data);
         }

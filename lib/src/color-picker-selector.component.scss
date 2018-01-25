@@ -7,6 +7,36 @@ canvas {
   }
 }
 
+.picker-selector {
+  position: absolute;
+  width: 230px;
+  height: 170px;
+  top: 0;
+  left: 0;
+  z-index: 10;
+  cursor: crosshair;
+}
+
+.picker-position {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  z-index: 1;
+  border: 1px #ddd solid;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, .3);
+}
+
+.colors-position {
+  position: absolute;
+  width: 30px;
+  height: 160px;
+  top: 0px;
+  right: 0px;
+  z-index: 1;
+  background: url('data:image/gif;base64,R0lGODdhHgAIALMAAAAAADU1NTk5OUJCQkpKSlZWVltbW2pqaoCAgP///wAAAAAAAAAAAAAAAAAAAAAAACH5BAkAAAoALAAAAAAeAAgAAAQw0BhFq734yjJm/p8xFEVAeGCqGERACmahgkUrvPH81cFdnjoQy8VBBTOiguSokkQAADs=') no-repeat;
+}
+
 .color-picker-selector {
   height: 170px;
 }

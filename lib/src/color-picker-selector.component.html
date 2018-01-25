@@ -1,6 +1,13 @@
 <div class="color-picker-selector">
-    <canvas #block height="170" width="230" id="picker"></canvas>
-    <canvas #strip height="160" width="20" id="colors"></canvas>
+    
+    <div #block class="picker-selector"></div>
+    <canvas #blockCanvas height="170" width="230" id="picker"></canvas>
+    <div #blockPointer class="picker-position" style="top: 0px;left: 220px;"></div>
+    
+
+    <div #stripContainer class="colors-position" style="background-position-y: 0px;">
+        <canvas #strip height="160" width="20" id="colors"></canvas>
+    </div>
 </div>
 
 <div class="color-picker-selector-preview" [style.background]="selectedColor">
