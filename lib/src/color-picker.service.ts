@@ -21,6 +21,10 @@ export class MatColorPickerService {
 
         const colors = this._colors.getValue();
         if (!colors.find(_color => _color === color)) {
+            if (color.length > 7) {
+                color = color.substr(0, 7);
+            }
+
             colors.push(color);
             this._colors.next(colors);
         }
