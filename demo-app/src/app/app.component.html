@@ -13,6 +13,30 @@
 
 <hr style="margin: 50px 0;" />
 
+<h3 [style.color]="selectedColor">Change color when confirm</h3>
+<mat-color-picker [usedColorLabel]="'My Colors'" (selected)="selectedColor = $event">
+  
+  <mat-color-picker-collection [label]="'First Collection'" 
+                               [colors]="colors">
+  </mat-color-picker-collection>
+
+</mat-color-picker>
+
+<hr style="margin: 50px 0;" />
+
+<h3 [style.color]="changeColor">Change color on change</h3>
+<mat-color-picker [usedColorLabel]="'My Colors'"
+                  (change)="changeColor = $event"
+                  (selected)="changeColor = $event">
+  
+  <mat-color-picker-collection [label]="'First Collection'" 
+                               [colors]="colors">
+  </mat-color-picker-collection>
+
+</mat-color-picker>
+
+<hr style="margin: 50px 0;" />
+
 <h3>Define used colors init value</h3>
 <mat-color-picker [usedColorLabel]="'My Colors'" [usedColorStart]="usedStart">
   
