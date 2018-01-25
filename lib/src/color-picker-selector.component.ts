@@ -132,7 +132,9 @@ export class MatColorPickerSelectorComponent implements
         this._tmpSelectedColor = new BehaviorSubject<string>(this._selectedColor);
         this._tmpSelectedColorSub = this._tmpSelectedColor.subscribe(color => {
             if (color !== this._selectedColor) {
-                this.hexForm.setValue({hexCode: color});
+                if (this.hexForm.get('hexCode').value !== color) {
+                    this.hexForm.setValue({hexCode: color});
+                }
                 this.changeSelectedColor.emit(color);
             }
         });
@@ -146,12 +148,15 @@ export class MatColorPickerSelectorComponent implements
         const rgbGroup: any = {};
         const rgbValue: number[] = this._getRGB();
         this.rgbKeys.forEach((key, index) => rgbGroup[key] =
-            new FormControl(rgbValue[index], [
-                Validators.min(0),
-                Validators.max(256),
-                Validators.minLength(1),
-                Validators.maxLength(3)
-            ]));
+            new FormControl(rgbValue[index], {
+                validators: [
+                    Validators.min(0),
+                    Validators.max(256),
+                    Validators.minLength(1),
+                    Validators.maxLength(3)
+                ],
+                updateOn: 'blur'
+            }));
         this.rgbForm = this.formBuilder.group(rgbGroup);
 
         // watch changes on forms
@@ -262,7 +267,7 @@ export class MatColorPickerSelectorComponent implements
         // validate digited code and update when digitation is finished
         this._hexValuesSub = this.hexForm.get('hexCode').valueChanges.subscribe(value => {
             if (!this._isPressed && value.length === 7) {
-                this.selectedColor = value;
+                this._tmpSelectedColor.next(value);
             }
         });
 
