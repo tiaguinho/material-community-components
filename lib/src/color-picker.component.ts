@@ -96,9 +96,14 @@ export class MatColorPickerComponent implements AfterContentInit, OnInit, OnDest
     @Input() btnConfirm: string = 'Confirm';
 
     /**
-     * Emit changes when panel is closed
+     * Event emitted when user change the selected color (without confirm)
      */
     @Output() change = new EventEmitter;
+
+    /**
+     * Event emitted when selected color is confirm
+     */
+    @Output() selected = new EventEmitter;
 
     /**
      * Event emitted when is clicked outside of the component
@@ -168,7 +173,7 @@ export class MatColorPickerComponent implements AfterContentInit, OnInit, OnDest
             const tmpSelectedColor = this._tmpSelectedColor.getValue();
             if (this._selectedColor !== tmpSelectedColor) {
                 this._selectedColor = tmpSelectedColor;
-                this.change.next(this._selectedColor);
+                this.selected.next(this._selectedColor);
             }
         }
     }
@@ -198,10 +203,19 @@ export class MatColorPickerComponent implements AfterContentInit, OnInit, OnDest
     updateTmpSelectedColor(color: string) {
         if (color) {
             this._tmpSelectedColor.next(color);
+            this.change.next(color);
             if (this._hideButtons) {
                 this._updateSelectedColor();
             }
         }
+    }
+
+    /**
+     * Cancel the selection and close the panel
+     */
+    cancelSelection() {
+        this.selected.emit(this._selectedColor);
+        this.toggle();
     }
 
     /**
