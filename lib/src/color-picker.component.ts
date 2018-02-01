@@ -15,6 +15,7 @@ import {
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { MatColorPickerCollectionComponent } from './color-picker-collection.component';
 import { MatColorPickerService } from './color-picker.service';
+import { EMPTY_COLOR, coerceHexaColor } from './color-picker';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Subscription } from 'rxjs/Subscription';
 import { Observable } from 'rxjs/Observable';
@@ -66,7 +67,13 @@ export class MatColorPickerComponent implements AfterContentInit, OnInit, OnDest
      */
     @Input()
     get selectedColor(): string { return this._selectedColor; }
-    set selectedColor(value: string) { this._selectedColor = value; }
+    set selectedColor(value: string) {
+        if (this._selectedColor !== value) {
+            this.changeDetectorRef.markForCheck();
+        }
+
+        this._selectedColor = coerceHexaColor(value);
+    }
     private _selectedColor: string = 'none';
 
     /**
@@ -183,7 +190,7 @@ export class MatColorPickerComponent implements AfterContentInit, OnInit, OnDest
      */
     toggle() {
         this._isOpen = !this._isOpen;
-        if (!this._isOpen && this._selectedColor !== 'none') {
+        if (!this._isOpen && this._selectedColor !== EMPTY_COLOR) {
             this.colorPickerService.addColor(this._selectedColor);
         }
     }
