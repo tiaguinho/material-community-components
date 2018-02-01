@@ -12,36 +12,7 @@ import {
     Renderer2
 } from "@angular/core";
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
-
-/**
- * This directive change the background of the button
- */
-@Directive({
-    selector: '[colorPickerOption]',
-})
-export class MatColorPickerOptionDirective implements AfterViewInit {
-
-    /**
-     * Receive the color
-     */
-    @Input('colorPickerOption')
-    get color(): string { return this._color; }
-    set color(value: string) { this._color = value; }
-    private _color: string = 'none';
-
-    constructor(
-        private el: ElementRef,
-        private render: Renderer2
-    ) {}
-
-    ngAfterViewInit() {
-        if (this.color) {
-            // apply the color
-            this.render.setStyle(this.el.nativeElement, 'background', this.color);
-        }
-    }
-
-}
+import { EMPTY_COLOR } from './color-picker';
 
 @Component({
     selector: 'mat-color-picker-collection',
@@ -121,7 +92,7 @@ export class MatColorPickerCollectionComponent implements AfterContentChecked {
      * Remove color
      */
     setTransparent(): void {
-        this.changeColor.emit('none');
+        this.changeColor.emit(EMPTY_COLOR);
     }
 
     /**
