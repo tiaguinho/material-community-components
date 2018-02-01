@@ -1,4 +1,5 @@
 import { Injectable } from "@angular/core";
+import { coerceHexaColor, isValidColor } from './color-picker';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Observable } from 'rxjs/Observable';
 
@@ -15,16 +16,12 @@ export class MatColorPickerService {
      * @param color string
      */
     addColor(color: string): void {
-        if (!color) {
-            return;
-        }
+        if (!color || !isValidColor(color)) { return; }
+
+        color = coerceHexaColor(color);
 
         const colors = this._colors.getValue();
         if (!colors.find(_color => _color === color)) {
-            if (color.length > 7) {
-                color = color.substr(0, 7);
-            }
-
             colors.push(color);
             this._colors.next(colors);
         }
