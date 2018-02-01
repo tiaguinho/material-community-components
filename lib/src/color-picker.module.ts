@@ -15,10 +15,12 @@ import { MatColorPickerService } from './color-picker.service';
 
 import { MatColorPickerComponent } from './color-picker.component';
 import { MatColorPickerSelectorComponent } from './color-picker-selector.component';
+import { MatColorPickerCollectionComponent } from './color-picker-collection.component';
 import {
-    MatColorPickerCollectionComponent,
+    MatConnectedColorPickerDirective,
+    MatColorPickerOriginDirective,
     MatColorPickerOptionDirective
-} from './color-picker-collection.component';
+} from './color-picker.directives';
 
 @NgModule({
     imports: [
@@ -34,12 +36,16 @@ import {
     ],
     declarations: [
         MatColorPickerComponent,
+        MatConnectedColorPickerDirective,
         MatColorPickerSelectorComponent,
+        MatColorPickerOriginDirective,
         MatColorPickerOptionDirective,
         MatColorPickerCollectionComponent
     ],
     exports: [
         MatColorPickerComponent,
+        MatConnectedColorPickerDirective,
+        MatColorPickerOriginDirective,
         MatColorPickerCollectionComponent
     ],
     providers: [MatColorPickerService],
