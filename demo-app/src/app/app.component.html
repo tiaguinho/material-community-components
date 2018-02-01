@@ -13,6 +13,17 @@
 
 <hr style="margin: 50px 0;" />
 
+<h3>Connect color picker with an input</h3>
+<mat-color-picker matConnectedColorPicker
+                  [matConnectedColorPickerOrigin]="trigger">
+</mat-color-picker>
+
+<mat-form-field>
+  <input matInput matColorPickerOrigin #trigger="matColorPickerOrigin" />
+</mat-form-field>
+
+<hr style="margin: 50px 0;" />
+
 <h3 [style.color]="selectedColor">Change color when confirm</h3>
 <mat-color-picker [usedColorLabel]="'My Colors'" (selected)="selectedColor = $event">
   
