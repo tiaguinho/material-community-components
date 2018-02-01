@@ -15,6 +15,7 @@ import {
     SimpleChanges
 } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { EMPTY_COLOR, coerceHexaColor, isValidColor } from './color-picker';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
@@ -69,7 +70,7 @@ export class MatColorPickerSelectorComponent implements
      */
     @Input()
     get selectedColor(): string { return this._selectedColor; }
-    set selectedColor(value: string) { this._selectedColor = value || 'none'; }
+    set selectedColor(value: string) { this._selectedColor = value || EMPTY_COLOR; }
     private _selectedColor: string = '';
 
     /**
@@ -131,11 +132,11 @@ export class MatColorPickerSelectorComponent implements
     ngOnInit() {
         this._tmpSelectedColor = new BehaviorSubject<string>(this._selectedColor);
         this._tmpSelectedColorSub = this._tmpSelectedColor.subscribe(color => {
-            if (color !== this._selectedColor) {
+            if (color !== this._selectedColor && isValidColor(color)) {
                 if (this.hexForm.get('hexCode').value !== color) {
                     this.hexForm.setValue({hexCode: color});
                 }
-                this.changeSelectedColor.emit(color);
+                this.changeSelectedColor.emit(coerceHexaColor(color));
             }
         });
 
@@ -169,7 +170,7 @@ export class MatColorPickerSelectorComponent implements
      * @param changes SimpleChanges
      */
     ngOnChanges(changes: SimpleChanges) {
-        if ('selectedColor' in changes && changes['selectedColor'].currentValue !== 'none') {
+        if ('selectedColor' in changes && changes['selectedColor'].currentValue !== EMPTY_COLOR) {
             if (!this._isPressed) {
                 this._updateRGB();
                 this._updateRGBA();
@@ -266,8 +267,8 @@ export class MatColorPickerSelectorComponent implements
     private _onChanges() {
         // validate digited code and update when digitation is finished
         this._hexValuesSub = this.hexForm.get('hexCode').valueChanges.subscribe(value => {
-            if (!this._isPressed && value.length === 7) {
-                this._tmpSelectedColor.next(value);
+            if (!this._isPressed && isValidColor(value)) {
+                this._tmpSelectedColor.next(coerceHexaColor(value));
             }
         });
 
@@ -324,7 +325,7 @@ export class MatColorPickerSelectorComponent implements
             }
         });
 
-        return `#${hex[0]}${hex[1]}${hex[2]}`.toUpperCase();
+        return coerceHexaColor(`${hex[0]}${hex[1]}${hex[2]}`);
     }
 
     /**
