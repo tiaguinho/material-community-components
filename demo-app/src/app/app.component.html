@@ -37,6 +37,7 @@
 
 <h3 [style.color]="changeColor">Change color on change</h3>
 <mat-color-picker [usedColorLabel]="'My Colors'"
+                  [usedSizeColors]="'50'"
                   (change)="changeColor = $event"
                   (selected)="changeColor = $event">
   
