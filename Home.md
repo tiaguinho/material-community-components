@@ -30,4 +30,6 @@ ng serve -aot
 
 * [MatColorPicker](https://github.com/tiaguinho/mat-color-picker/wiki/MatColorPicker)
 * [MatColorPickerCollection](https://github.com/tiaguinho/mat-color-picker/wiki/MatColorPickerCollection)
+* [MatColorPickerOriginDirective](https://github.com/tiaguinho/mat-color-picker/wiki/MatColorPickerDirectives)
+* [MatConnectedColorPickerDirective](https://github.com/tiaguinho/mat-color-picker/wiki/MatColorPickerDirectives)
 
