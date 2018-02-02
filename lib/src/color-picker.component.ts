@@ -93,6 +93,11 @@ export class MatColorPickerComponent implements AfterContentInit, OnInit, OnDest
     private _hideButtons: boolean = false;
 
     /**
+     * Set the size of the used colors
+     */
+    @Input() usedSizeColors: number = 30;
+
+    /**
      * Change btnCancel label
      */
     @Input() btnCancel: string = 'Cancel';
