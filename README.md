@@ -74,6 +74,10 @@ Import the component in your module.
 
 For more example you can our [app-demo](https://github.com/tiaguinho/mat-color-picker/blob/master/demo-app) folder or read the full [documentation](https://github.com/tiaguinho/mat-color-picker/wiki)
 
+## License
+
+[The MIT License (MIT) Copyright (c) 2018](http://opensource.org/licenses/MIT) 
+
 ## Sponsors
 
 ![alt text](https://github.com/tiaguinho/mat-color-picker/raw/master/images/sponsor-egoi.png "E-goi")
