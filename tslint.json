@@ -62,7 +62,8 @@
     "no-eval": true,
     "no-inferrable-types": [
       true,
-      "ignore-params"
+      "ignore-params",
+      "ignore-properties"
     ],
     "no-misused-new": true,
     "no-non-null-assertion": true,
@@ -121,16 +122,14 @@
     "directive-selector": [
       true,
       "attribute",
-      "app",
-      "camelCase",
-      "mat"
+      ["app", "mat"],
+      "camelCase"
     ],
     "component-selector": [
       true,
       "element",
-      "app",
-      "kebab-case",
-      "mat"
+      ["app", "mat"],
+      "kebab-case"
     ],
     "no-output-on-prefix": true,
     "use-input-property-decorator": true,
