@@ -11,7 +11,7 @@ import {
     OnInit,
     OnDestroy,
     QueryList
-} from "@angular/core";
+} from '@angular/core';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { MatColorPickerCollectionComponent } from './color-picker-collection.component';
 import { MatColorPickerService } from './color-picker.service';
