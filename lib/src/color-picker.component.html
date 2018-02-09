@@ -15,42 +15,35 @@
     [cdkConnectedOverlayOpen]="isOpen"
     (backdropClick)="backdropClick()">
 
-    <mat-card class="color-picker">
+    <div class="mat-color-picker-overlay mat-elevation-z6">
 
         <mat-color-picker-selector
             [selectedColor]="tmpSelectedColor$ | async"
             (changeSelectedColor)="updateTmpSelectedColor($event)">
         </mat-color-picker-selector>
 
-        <mat-card-content>
+        <mat-color-picker-collection [label]="usedColorLabel"
+                                        [size]="usedSizeColors"
+                                        [transparent]="true"
+                                        [hideEmpty]="hideEmpty"
+                                        [colors]="usedColors$ | async"
+                                        (changeColor)="updateTmpSelectedColor($event)">
+        </mat-color-picker-collection>
 
-            <mat-color-picker-collection [label]="usedColorLabel"
-                                         [size]="usedSizeColors"
-                                         [transparent]="true"
-                                         [hideEmpty]="hideEmpty"
-                                         [colors]="usedColors$ | async"
-                                         (changeColor)="updateTmpSelectedColor($event)">
-            </mat-color-picker-collection>
+        <ng-content></ng-content>
 
-            <ng-content></ng-content>
+        <div class="mat-color-picker-actions" *ngIf="!hideButtons">
+            
+            <button mat-button (click)="cancelSelection()">
+                {{ btnCancel }}
+            </button>
+    
+            <button mat-button (click)="confirmSelectedColor()">
+                {{ btnConfirm }}
+            </button>
 
-        </mat-card-content>
+        </div>
 
-        <mat-card-actions *ngIf="!hideButtons">
-            <mat-grid-list cols="2" rowHeight="30px;">
-                <mat-grid-tile>
-                    <button mat-button (click)="cancelSelection()">
-                        {{ btnCancel }}
-                    </button>
-                </mat-grid-tile>
-                <mat-grid-tile>
-                    <button mat-button (click)="confirmSelectedColor()">
-                        {{ btnConfirm }}
-                    </button>
-                </mat-grid-tile>
-            </mat-grid-list>
-        </mat-card-actions>
-
-    </mat-card>
+    </div>
 
 </ng-template>
