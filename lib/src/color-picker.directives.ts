@@ -14,14 +14,15 @@ import { Subscription } from 'rxjs/Subscription';
  * This directive change the background of the button
  */
 @Directive({
-    selector: '[colorPickerOption]',
+    selector: '[matColorPickerOption], [mat-color-picker-option]',
+    exportAs: 'matColorPickerOption'
 })
 export class MatColorPickerOptionDirective implements AfterViewInit {
 
     /**
      * Receive the color
      */
-    @Input('colorPickerOption')
+    @Input('matColorPickerOption')
     get color(): string { return this._color; }
     set color(value: string) { this._color = value; }
     private _color: string = EMPTY_COLOR;
