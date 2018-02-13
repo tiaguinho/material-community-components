@@ -2,6 +2,18 @@
 export const EMPTY_COLOR = 'none';
 
 /**
+ * This interface represents one color. Using this interface instead simple string
+ * will help screen readers, because the text attribute ir set to the aria-label of
+ * the option
+ */
+export interface MatColorPickerItem {
+    text: string;
+    value: string;
+}
+
+export type MatColorPickerOption = string | MatColorPickerItem;
+
+/**
  * Verify if color has # as a first char. If not, add this char
  * to the color
  * @param color string
