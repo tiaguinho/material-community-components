@@ -13,6 +13,32 @@
 
 <hr style="margin: 50px 0;" />
 
+<h3>Colors as objects</h3>
+<mat-color-picker>
+  
+  <mat-color-picker-collection [label]="'First Object Collection'" 
+                               [colors]="items">
+  </mat-color-picker-collection>
+
+</mat-color-picker>
+
+<hr style="margin: 50px 0;" />
+
+<h3>Connect color picker with an input</h3>
+<mat-color-picker matConnectedColorPicker
+                  [matConnectedColorPickerOrigin]="trigger">
+</mat-color-picker>
+
+<form novalidate [formGroup]="form" (ngSubmit)="onSubmit(form)">
+  <mat-form-field>
+    <input matInput matColorPickerOrigin #trigger="matColorPickerOrigin" formControlName="color" />
+  </mat-form-field>
+
+  <button type="submit" mat-raised-button color="primary">Submit <small>(look the console)</small></button>
+</form>
+
+<hr style="margin: 50px 0;" />
+
 <h3 [style.color]="selectedColor">Change color when confirm</h3>
 <mat-color-picker [usedColorLabel]="'My Colors'" (selected)="selectedColor = $event">
   
@@ -26,6 +52,7 @@
 
 <h3 [style.color]="changeColor">Change color on change</h3>
 <mat-color-picker [usedColorLabel]="'My Colors'"
+                  [usedSizeColors]="'50'"
                   (change)="changeColor = $event"
                   (selected)="changeColor = $event">
   

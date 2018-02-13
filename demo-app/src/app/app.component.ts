@@ -1,18 +1,24 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatColorPickerItem } from '../../../lib/src';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
 
   selectedColor: string;
 
   changeColor: string;
 
+  form: FormGroup;
+
+  // last line will not be show in used colors because they are invalid values
   usedStart: string[] = ['#FF3380', '#CCCC00', '#66E64D', '#4D80CC', '#9900B3',
-                         '#E64D66', '#4DB380', '#FF4D4D', '#99E6E6', '#6666FF'];
+                         '#E64D66', '#4DB380', '#FF4D4D', '#99E6E6', '#6666FF',
+                         '#000zzz', 'zzzzzz'];
 
   colors: string[] = ['#FF6633', '#FFB399', '#FF33FF', '#FFFF99', '#00B3E6',
                       '#E6B333', '#3366E6', '#999966', '#99FF99', '#B34D4D',
@@ -24,4 +30,22 @@ export class AppComponent {
                       '#4D8066', '#809980', '#E6FF80', '#1AFF33', '#999933',
                       '#FF3380', '#CCCC00', '#66E64D', '#4D80CC', '#9900B3',
                       '#E64D66', '#4DB380', '#FF4D4D', '#99E6E6', '#6666FF'];
+
+    items: MatColorPickerItem[] = [
+      { text: 'Black', value: '#000000' },
+      { text: 'White', value: '#FFFFFF' },
+      { text: 'Gray', value: '#CCCCCC' }
+    ];
+
+  constructor(private formBuilder: FormBuilder) {}
+
+  ngOnInit() {
+    this.form = this.formBuilder.group({
+      'color': ['#000000', Validators.required]
+    });
+  }
+
+  onSubmit({ value, valid }): void {
+    console.log(value, valid);
+  }
 }

@@ -14,6 +14,7 @@
 
 .color-picker-remove-color {
     background-color: #ffffff;
+    border: 1px solid #E1E1E1;
   
     .transparent {
         width: 20px;
@@ -28,6 +29,5 @@ button {
     width: 22px;
     height: 22px;
     cursor: pointer;
-    border: 1px solid #E1E1E1;
     margin: 3px;
 }

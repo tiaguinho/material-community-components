@@ -1,5 +1,8 @@
 # MatColorPicker
 
+<span class="badge-npmversion">[![npm version](https://badge.fury.io/js/mat-color-picker.svg)](https://badge.fury.io/js/mat-color-picker)</span>
+<span class="badge-npmdownloads"><a href="https://npmjs.org/package/mat-color-picker" title="View this project on NPM"><img src="https://img.shields.io/badge/downloads-450%2Fmonth-brightgreen.svg" alt="NPM downloads" /></a></span>
+
 Small on size, big on features! MatColorPicker is created with Angular Material and CDK.
 
 ![alt text](https://github.com/tiaguinho/mat-color-picker/raw/master/images/screenshot-1.png "Screenshot")
@@ -70,6 +73,10 @@ Import the component in your module.
 ```
 
 For more example you can our [app-demo](https://github.com/tiaguinho/mat-color-picker/blob/master/demo-app) folder or read the full [documentation](https://github.com/tiaguinho/mat-color-picker/wiki)
+
+## License
+
+[The MIT License (MIT) Copyright (c) 2018](http://opensource.org/licenses/MIT) 
 
 ## Sponsors
 

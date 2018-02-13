@@ -14,20 +14,20 @@
 
     <form [formGroup]="hexForm">
         <mat-form-field class="hex-input" floatLabel="always" [ngClass]="textClass">
-            <input matInput placeholder="HEX"
+            <input matInput placeholder="HEX" maxlength="7"
                    formControlName="hexCode" [value]="selectedColor"/>
         </mat-form-field>
     </form>
 
     <form [formGroup]="rgbForm">
         <mat-form-field class="rgb-input" floatLabel="always" [ngClass]="textClass">
-            <input matInput type="number" placeholder="RGB" formControlName="R"/>
+            <input matInput type="number" placeholder="RGB" maxlength="3" formControlName="R"/>
         </mat-form-field>
         <mat-form-field class="rgb-input" floatLabel="always" [ngClass]="textClass">
-            <input matInput type="number" formControlName="G"/>
+            <input matInput type="number" maxlength="3" formControlName="G"/>
         </mat-form-field>
         <mat-form-field class="rgb-input" floatLabel="always" [ngClass]="textClass">
-            <input matInput type="number" formControlName="B"/>
+            <input matInput type="number" maxlength="3" formControlName="B"/>
         </mat-form-field>
     </form>
 

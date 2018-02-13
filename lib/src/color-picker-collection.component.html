@@ -1,17 +1,19 @@
-<div class="color-picker-collection">
+<div class="color-picker-collection" role="listbox" aria-label="Select a color">
     <h3>{{ label }}</h3>
 
     <button mat-mini-fab *ngIf="transparent"
             class="color-picker-remove-color mat-elevation-z0"
+            role="option" aria-label="transparent"
             (click)="setTransparent()">
-        <div class="transparent"></div>
+            <div class="transparent"></div>
     </button>
 
     <button *ngFor="let color of colors" 
             mat-mini-fab
             class="mat-elevation-z0"
+            role="option"
             [disabled]="!color || color === 'none'"
-            [colorPickerOption]="color"
+            [matColorPickerOption]="color"
             (click)="setColor(color)">
     </button>
 </div>
