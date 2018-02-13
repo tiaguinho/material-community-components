@@ -201,7 +201,10 @@ export class MatColorPickerSelectorComponent implements
     }
 
     ngAfterViewInit() {
-        this.render.listen(this._block.nativeElement, 'mousedown', () => this._isPressed = true);
+        this.render.listen(this._block.nativeElement, 'mousedown', (e) => {
+            this._isPressed = true;
+            this.changeColor(e);
+        });
         this.render.listen(this._block.nativeElement, 'mouseup', () => this._isPressed = false);
         this.render.listen(this._block.nativeElement, 'mouseout', () => this._isPressed = false);
         this.render.listen(this._block.nativeElement, 'mousemove', (e) => this.changeColor(e));
@@ -210,7 +213,10 @@ export class MatColorPickerSelectorComponent implements
             this._bc.nativeElement.width,
             this._bc.nativeElement.height);
 
-        this.render.listen(this._strip.nativeElement, 'mousedown', () => this._isPressed = true);
+        this.render.listen(this._strip.nativeElement, 'mousedown', (e) => {
+            this._isPressed = true;
+            this.changeBaseColor(e);
+        });
         this.render.listen(this._strip.nativeElement, 'mouseup', () => this._isPressed = false);
         this.render.listen(this._strip.nativeElement, 'mouseout', () => this._isPressed = false);
         this.render.listen(this._strip.nativeElement, 'mousemove', (e) => this.changeBaseColor(e));
