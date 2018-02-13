@@ -1,9 +1,5 @@
 @import url('https://fonts.googleapis.com/css?family=Open+Sans:400,700');
 
-.mat-card {
-    font-family: 'Open Sans', sans-serif;
-}
-
 .btn-picker {
     width: 25px;
     height: 25px;
@@ -16,12 +12,16 @@
     }
 }
 
-.color-picker {
+.mat-color-picker-overlay {
+    display: flex;
     width: 260px;
     min-height: 80px;
-    padding: 0 0 8px 0;
+    flex-direction: column;
+    padding: 0;
+    background: #ffffff;
+    font-family: 'Open Sans', sans-serif;
 
-    .color-picker-preview {
+    .mat-color-picker-preview {
         width: 100%;
         height: 8px;
     }
@@ -36,17 +36,17 @@
     position: absolute;
 }
 
-.mat-card-actions {
-    margin: 0!important;
-    padding: 8px;
+.mat-color-picker-actions {
+    display: flex;
+    padding: 4px;
     border-top: 1px #dddddd solid;
 
     button {
-        position: unset;
         color: #100214;
         text-transform: uppercase;
         font-family: 'Open Sans', sans-serif;
         font-size: 12px;
         font-weight: 400;
+        flex-grow: 1;
     }
 }

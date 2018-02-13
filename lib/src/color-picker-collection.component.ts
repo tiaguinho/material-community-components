@@ -10,7 +10,7 @@ import {
     Input,
     Output,
     Renderer2
-} from "@angular/core";
+} from '@angular/core';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { EMPTY_COLOR } from './color-picker';
 

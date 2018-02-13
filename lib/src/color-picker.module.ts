@@ -4,11 +4,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { OverlayModule } from '@angular/cdk/overlay';
 import {
     MatButtonModule,
-    MatCardModule,
     MatFormFieldModule,
-    MatInputModule,
-    MatGridListModule,
-    MatListModule
+    MatInputModule
 } from '@angular/material';
 
 import { MatColorPickerService } from './color-picker.service';
@@ -28,11 +25,8 @@ import {
         OverlayModule,
         ReactiveFormsModule,
         MatButtonModule,
-        MatCardModule,
         MatFormFieldModule,
-        MatInputModule,
-        MatGridListModule,
-        MatListModule
+        MatInputModule
     ],
     declarations: [
         MatColorPickerComponent,
