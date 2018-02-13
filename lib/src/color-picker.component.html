@@ -15,7 +15,8 @@
     [cdkConnectedOverlayOpen]="isOpen"
     (backdropClick)="backdropClick()">
 
-    <div class="mat-color-picker-overlay mat-elevation-z6">
+    <div class="mat-color-picker-overlay mat-elevation-z6"
+         role="dialog" aria-label="Color picker">
 
         <mat-color-picker-selector
             [selectedColor]="tmpSelectedColor$ | async"
@@ -23,22 +24,22 @@
         </mat-color-picker-selector>
 
         <mat-color-picker-collection [label]="usedColorLabel"
-                                        [size]="usedSizeColors"
-                                        [transparent]="true"
-                                        [hideEmpty]="hideEmpty"
-                                        [colors]="usedColors$ | async"
-                                        (changeColor)="updateTmpSelectedColor($event)">
+                                     [size]="usedSizeColors"
+                                     [transparent]="true"
+                                     [hideEmpty]="hideEmpty"
+                                     [colors]="usedColors$ | async"
+                                     (changeColor)="updateTmpSelectedColor($event)">
         </mat-color-picker-collection>
 
         <ng-content></ng-content>
 
-        <div class="mat-color-picker-actions" *ngIf="!hideButtons">
+        <div  *ngIf="!hideButtons" class="mat-color-picker-actions">
             
-            <button mat-button (click)="cancelSelection()">
+            <button mat-button role="button" aria-label="Cancel" (click)="cancelSelection()">
                 {{ btnCancel }}
             </button>
     
-            <button mat-button (click)="confirmSelectedColor()">
+            <button mat-button role="button" aria-label="Confirm" (click)="confirmSelectedColor()">
                 {{ btnConfirm }}
             </button>
 
