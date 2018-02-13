@@ -1,7 +1,8 @@
 import { BrowserModule } from '@angular/platform-browser';
+import { ReactiveFormsModule } from '@angular/forms';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
-import { MatFormFieldModule, MatInputModule } from '@angular/material';
+import { MatButtonModule, MatFormFieldModule, MatInputModule } from '@angular/material';
 
 import { AppComponent } from './app.component';
 import { MatColorPickerModule } from '../../../lib/src';
@@ -13,6 +14,8 @@ import { MatColorPickerModule } from '../../../lib/src';
   imports: [
     BrowserModule,
     NoopAnimationsModule,
+    ReactiveFormsModule,
+    MatButtonModule,
     MatFormFieldModule,
     MatInputModule,
     MatColorPickerModule

@@ -1,15 +1,18 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
 
   selectedColor: string;
 
   changeColor: string;
+
+  form: FormGroup;
 
   // last line will not be show in used colors because they are invalid values
   usedStart: string[] = ['#FF3380', '#CCCC00', '#66E64D', '#4D80CC', '#9900B3',
@@ -26,4 +29,16 @@ export class AppComponent {
                       '#4D8066', '#809980', '#E6FF80', '#1AFF33', '#999933',
                       '#FF3380', '#CCCC00', '#66E64D', '#4D80CC', '#9900B3',
                       '#E64D66', '#4DB380', '#FF4D4D', '#99E6E6', '#6666FF'];
+
+  constructor(private formBuilder: FormBuilder) {}
+
+  ngOnInit() {
+    this.form = this.formBuilder.group({
+      'color': ['#000000', Validators.required]
+    });
+  }
+
+  onSubmit({ value, valid }): void {
+    console.log(value, valid);
+  }
 }

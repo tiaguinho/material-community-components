@@ -18,9 +18,13 @@
                   [matConnectedColorPickerOrigin]="trigger">
 </mat-color-picker>
 
-<mat-form-field>
-  <input matInput matColorPickerOrigin #trigger="matColorPickerOrigin" />
-</mat-form-field>
+<form novalidate [formGroup]="form" (ngSubmit)="onSubmit(form)">
+  <mat-form-field>
+    <input matInput matColorPickerOrigin #trigger="matColorPickerOrigin" formControlName="color" />
+  </mat-form-field>
+
+  <button type="submit" mat-raised-button color="primary">Submit <small>(look the console)</small></button>
+</form>
 
 <hr style="margin: 50px 0;" />
 
