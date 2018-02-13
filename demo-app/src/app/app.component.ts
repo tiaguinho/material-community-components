@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatColorPickerItem } from '../../../lib/src';
 
 @Component({
   selector: 'app-root',
@@ -29,6 +30,12 @@ export class AppComponent implements OnInit {
                       '#4D8066', '#809980', '#E6FF80', '#1AFF33', '#999933',
                       '#FF3380', '#CCCC00', '#66E64D', '#4D80CC', '#9900B3',
                       '#E64D66', '#4DB380', '#FF4D4D', '#99E6E6', '#6666FF'];
+
+    items: MatColorPickerItem[] = [
+      { text: 'Black', value: '#000000' },
+      { text: 'White', value: '#FFFFFF' },
+      { text: 'Gray', value: '#CCCCCC' }
+    ];
 
   constructor(private formBuilder: FormBuilder) {}
 
