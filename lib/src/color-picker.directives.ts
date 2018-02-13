@@ -13,7 +13,7 @@ import {
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { MatColorPickerComponent } from './color-picker.component';
-import { EMPTY_COLOR, coerceHexaColor, isValidColor } from './color-picker';
+import { EMPTY_COLOR, coerceHexaColor, isValidColor, MatColorPickerOption } from './color-picker';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Subscription } from 'rxjs/Subscription';
 
@@ -30,9 +30,9 @@ export class MatColorPickerOptionDirective implements AfterViewInit {
      * Receive the color
      */
     @Input('matColorPickerOption')
-    get color(): string { return this._color; }
-    set color(value: string) { this._color = value; }
-    private _color: string = EMPTY_COLOR;
+    get color(): MatColorPickerOption { return this._color; }
+    set color(value: MatColorPickerOption) { this._color = value; }
+    private _color: MatColorPickerOption = EMPTY_COLOR;
 
     constructor(
         private elementRef: ElementRef,
@@ -40,9 +40,19 @@ export class MatColorPickerOptionDirective implements AfterViewInit {
     ) {}
 
     ngAfterViewInit() {
-        if (this.color && isValidColor(this.color)) {
-            // apply the color
-            this.render.setStyle(this.elementRef.nativeElement, 'background', coerceHexaColor(this.color));
+        if (this.color) {
+            let color: string;
+            if (typeof this.color === 'string') {
+                color = this.color;
+            } else {
+                color = this.color.value;
+                this.render.setAttribute(this.elementRef.nativeElement, 'aria-label', this.color.text);
+            }
+
+            if (isValidColor(color)) {
+                // apply the color
+                this.render.setStyle(this.elementRef.nativeElement, 'background', coerceHexaColor(color));
+            }
         }
     }
 
