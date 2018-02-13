@@ -12,7 +12,7 @@ import {
     Renderer2
 } from '@angular/core';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
-import { EMPTY_COLOR } from './color-picker';
+import { EMPTY_COLOR, MatColorPickerOption } from './color-picker';
 
 @Component({
     selector: 'mat-color-picker-collection',
@@ -43,9 +43,9 @@ export class MatColorPickerCollectionComponent implements AfterContentChecked {
      * Array of colors to be displayed
      */
     @Input()
-    get colors(): string[] { return this._colors; }
-    set colors(values: string[]) { this._colors = values; }
-    private _colors: string[];
+    get colors(): MatColorPickerOption[] { return this._colors; }
+    set colors(values: MatColorPickerOption[]) { this._colors = values; }
+    private _colors: MatColorPickerOption[];
 
     /**
      * Size limit of the collection
@@ -60,7 +60,7 @@ export class MatColorPickerCollectionComponent implements AfterContentChecked {
     /**
      * Emit selected color value
      */
-    @Output() changeColor = new EventEmitter;
+    @Output() changeColor: EventEmitter<string> = new EventEmitter<string>();
 
     constructor(
         private changeDetectorRef: ChangeDetectorRef
@@ -97,10 +97,11 @@ export class MatColorPickerCollectionComponent implements AfterContentChecked {
 
     /**
      * Emit selected color value
-     * @param value string
+     * @param option MatColorPickerOption
      */
-    setColor(value: string) {
-        this.changeColor.emit(value);
+    setColor(option: MatColorPickerOption) {
+        const color = typeof option === 'string' ? option : option.value;
+        this.changeColor.emit(color);
     }
 
 }
