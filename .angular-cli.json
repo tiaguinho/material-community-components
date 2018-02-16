@@ -1,12 +1,12 @@
 {
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
   "project": {
-    "name": "mat-color-picker"
+    "name": "material-community-components"
   },
   "apps": [
     {
       "name": "demo",
-      "root": "demo-app/src",
+      "root": "src/demo-app",
       "outDir": "dist/demo-app",
       "assets": [
         "assets",
@@ -15,7 +15,7 @@
       "index": "index.html",
       "main": "main.ts",
       "polyfills": "polyfills.ts",
-      "test": "test.ts",
+      "test": "../../test.ts",
       "tsconfig": "tsconfig.app.json",
       "testTsconfig": "tsconfig.spec.json",
       "prefix": "app",
@@ -30,9 +30,9 @@
       }
     },
     {
-      "name": "mat-color-picker",
-      "prefix": "mat",
-      "root": "lib/src",
+      "name": "material-community-components",
+      "root": "src/lib",
+      "test": "../../test.ts",
       "appRoot": ""
     }
   ],
@@ -62,6 +62,8 @@
   },
   "defaults": {
     "styleExt": "css",
-    "component": {}
+    "component": {
+      "changeDetection": "OnPush"
+    }
   }
 }
