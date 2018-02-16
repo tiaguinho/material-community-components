@@ -2,46 +2,42 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 import { OverlayModule } from '@angular/cdk/overlay';
-import {
-    MatButtonModule,
-    MatFormFieldModule,
-    MatInputModule
-} from '@angular/material';
+import { MatButtonModule, MatFormFieldModule, MatInputModule } from '@angular/material';
 
-import { MatColorPickerService } from './color-picker.service';
+import { MccColorPickerService } from './color-picker.service';
 
-import { MatColorPickerComponent } from './color-picker.component';
-import { MatColorPickerSelectorComponent } from './color-picker-selector.component';
-import { MatColorPickerCollectionComponent } from './color-picker-collection.component';
+import { MccColorPickerComponent } from './color-picker.component';
+import { MccColorPickerSelectorComponent } from './color-picker-selector.component';
+import { MccColorPickerCollectionComponent } from './color-picker-collection.component';
 import {
-    MatConnectedColorPickerDirective,
-    MatColorPickerOriginDirective,
-    MatColorPickerOptionDirective
+  MccConnectedColorPickerDirective,
+  MccColorPickerOriginDirective,
+  MccColorPickerOptionDirective,
 } from './color-picker.directives';
 
 @NgModule({
-    imports: [
-        CommonModule,
-        OverlayModule,
-        ReactiveFormsModule,
-        MatButtonModule,
-        MatFormFieldModule,
-        MatInputModule
-    ],
-    declarations: [
-        MatColorPickerComponent,
-        MatConnectedColorPickerDirective,
-        MatColorPickerSelectorComponent,
-        MatColorPickerOriginDirective,
-        MatColorPickerOptionDirective,
-        MatColorPickerCollectionComponent
-    ],
-    exports: [
-        MatColorPickerComponent,
-        MatConnectedColorPickerDirective,
-        MatColorPickerOriginDirective,
-        MatColorPickerCollectionComponent
-    ],
-    providers: [MatColorPickerService],
+  imports: [
+    CommonModule,
+    OverlayModule,
+    ReactiveFormsModule,
+    MatButtonModule,
+    MatFormFieldModule,
+    MatInputModule,
+  ],
+  declarations: [
+    MccColorPickerComponent,
+    MccConnectedColorPickerDirective,
+    MccColorPickerSelectorComponent,
+    MccColorPickerOriginDirective,
+    MccColorPickerOptionDirective,
+    MccColorPickerCollectionComponent,
+  ],
+  exports: [
+    MccColorPickerComponent,
+    MccConnectedColorPickerDirective,
+    MccColorPickerOriginDirective,
+    MccColorPickerCollectionComponent,
+  ],
+  providers: [MccColorPickerService],
 })
-export class MatColorPickerModule {}
+export class MccColorPickerModule {}

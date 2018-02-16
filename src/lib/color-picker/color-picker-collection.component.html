@@ -1,19 +1,12 @@
-<div class="color-picker-collection" role="listbox" aria-label="Select a color">
-    <h3>{{ label }}</h3>
+<div class="mcc-color-picker-collection" role="listbox" aria-label="Select a color">
+        <h3>{{ label }}</h3>
 
-    <button mat-mini-fab *ngIf="transparent"
-            class="color-picker-remove-color mat-elevation-z0"
-            role="option" aria-label="transparent"
-            (click)="setTransparent()">
-            <div class="transparent"></div>
-    </button>
+        <button mat-mini-fab *ngIf="transparent" class="mcc-color-picker-remove-color mat-elevation-z0" role="option" aria-label="transparent"
+                (click)="setTransparent()">
+                <div class="mcc-color-picker-transparent"></div>
+        </button>
 
-    <button *ngFor="let color of colors" 
-            mat-mini-fab
-            class="mat-elevation-z0"
-            role="option"
-            [disabled]="!color || color === 'none'"
-            [matColorPickerOption]="color"
-            (click)="setColor(color)">
-    </button>
+        <button *ngFor="let color of colors" mat-mini-fab class="mat-elevation-z0" role="option" [disabled]="!color || color === 'none'"
+                [mccColorPickerOption]="color" (click)="setColor(color)">
+        </button>
 </div>

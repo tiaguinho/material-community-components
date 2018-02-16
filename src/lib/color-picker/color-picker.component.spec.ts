@@ -1,24 +1,19 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
-import { MatColorPickerComponent } from './color-picker.component';
+import { MccColorPickerComponent } from './color-picker.component';
 
-describe('MatColorPickerComponent', () => {
+describe('MccColorPickerComponent', () => {
+  let comp: MccColorPickerComponent;
+  let fixture: ComponentFixture<MccColorPickerComponent>;
 
-    let comp: MatColorPickerComponent;
-    let fixture: ComponentFixture<MatColorPickerComponent>;
-
-
-    beforeEach(() => {
-
-        TestBed.configureTestingModule({
-            declarations: [MatColorPickerComponent],
-        });
-
-        fixture = TestBed.createComponent(MatColorPickerComponent);
-
-        comp = fixture.componentInstance;
-
+  beforeEach(() => {
+    TestBed.configureTestingModule({
+      declarations: [MccColorPickerComponent],
     });
 
+    fixture = TestBed.createComponent(MccColorPickerComponent);
+
+    comp = fixture.componentInstance;
+  });
 });

@@ -1,44 +1,28 @@
-<button type="button" class="btn-picker"
-        cdkOverlayOrigin
-        #trigger="cdkOverlayOrigin"
-        [ngClass]="{ 'empty': selectedColor === 'none' }"
-        [style.background]="selectedColor"
-        (click)="toggle()">
+<button type="button" class="btn-picker" cdkOverlayOrigin #trigger="cdkOverlayOrigin" [ngClass]="{ 'empty': selectedColor === 'none' }"
+    [style.background]="selectedColor" (click)="toggle()">
     <div class="transparent" *ngIf="selectedColor === 'none'"></div>
 </button>
 
-<ng-template
-    cdkConnectedOverlay
-    hasBackdrop
-    cdkConnectedOverlayBackdropClass="mat-color-picker-backdrop"
-    [cdkConnectedOverlayOrigin]="trigger"
-    [cdkConnectedOverlayOpen]="isOpen"
-    (backdropClick)="backdropClick()">
+<ng-template cdkConnectedOverlay hasBackdrop cdkConnectedOverlayBackdropClass="mcc-color-picker-backdrop" [cdkConnectedOverlayOrigin]="trigger"
+    [cdkConnectedOverlayOpen]="isOpen" (backdropClick)="backdropClick()">
 
-    <div class="mat-color-picker-overlay mat-elevation-z6"
-         role="dialog" aria-label="Color picker">
+    <div class="mcc-color-picker-overlay mat-elevation-z6" role="dialog" aria-label="Color picker">
 
-        <mat-color-picker-selector
-            [selectedColor]="tmpSelectedColor$ | async"
-            (changeSelectedColor)="updateTmpSelectedColor($event)">
-        </mat-color-picker-selector>
+        <mcc-color-picker-selector [selectedColor]="tmpSelectedColor$ | async" (changeSelectedColor)="updateTmpSelectedColor($event)">
+        </mcc-color-picker-selector>
 
-        <mat-color-picker-collection [label]="usedColorLabel"
-                                     [size]="usedSizeColors"
-                                     [transparent]="true"
-                                     [hideEmpty]="hideEmpty"
-                                     [colors]="usedColors$ | async"
-                                     (changeColor)="updateTmpSelectedColor($event)">
-        </mat-color-picker-collection>
+        <mcc-color-picker-collection [label]="usedColorLabel" [size]="usedSizeColors" [transparent]="true" [hideEmpty]="hideEmpty"
+            [colors]="usedColors$ | async" (changeColor)="updateTmpSelectedColor($event)">
+        </mcc-color-picker-collection>
 
         <ng-content></ng-content>
 
-        <div  *ngIf="!hideButtons" class="mat-color-picker-actions">
-            
+        <div *ngIf="!hideButtons" class="mcc-color-picker-actions">
+
             <button mat-button role="button" aria-label="Cancel" (click)="cancelSelection()">
                 {{ btnCancel }}
             </button>
-    
+
             <button mat-button role="button" aria-label="Confirm" (click)="confirmSelectedColor()">
                 {{ btnConfirm }}
             </button>

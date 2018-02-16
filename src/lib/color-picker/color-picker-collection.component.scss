@@ -1,33 +1,33 @@
-.color-picker-collection {
-    min-height: 50px;
-    padding: 10px 18px;
+.mcc-color-picker-collection {
+  min-height: 50px;
+  padding: 10px 18px;
 
-    h3 {
-        color: #100214;
-        text-transform: uppercase;
-        font-family: "Open Sans", sans-serif;
-        font-size: 12px;
-        font-weight: 700;
-        margin: 0 0 10px 0;
-    }
+  h3 {
+    color: #100214;
+    text-transform: uppercase;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    margin: 0 0 10px 0;
+  }
 }
 
-.color-picker-remove-color {
-    background-color: #ffffff;
-    border: 1px solid #E1E1E1;
-  
-    .transparent {
-        width: 20px;
-        height: 1px;
-        border-bottom: 1px solid red;
-        transform: translateY(-4px) translateX(0px) rotate(45deg);
-        -webkit-transform: translateY(-4px) translateX(0px) rotate(45deg);
-    }
+.mcc-color-picker-remove-color {
+  background-color: #ffffff;
+  border: 1px solid #e1e1e1;
+
+  .mcc-color-picker-transparent {
+    width: 20px;
+    height: 1px;
+    border-bottom: 1px solid red;
+    transform: translateY(-4px) translateX(0px) rotate(45deg);
+    -webkit-transform: translateY(-4px) translateX(0px) rotate(45deg);
   }
+}
 
 button {
-    width: 22px;
-    height: 22px;
-    cursor: pointer;
-    margin: 3px;
+  width: 22px;
+  height: 22px;
+  cursor: pointer;
+  margin: 3px;
 }

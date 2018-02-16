@@ -1,33 +1,32 @@
-<div class="color-picker-selector">
-    
-    <div #block class="picker-selector"></div>
-    <canvas #blockCanvas height="170" width="230" id="picker"></canvas>
-    <div #blockPointer class="picker-position" style="top: 0px;left: 220px;"></div>
-    
+<div class="mcc-color-picker-selector">
 
-    <div #stripContainer class="colors-position" style="background-position-y: 0px;">
+    <div #block class="mcc-picker-selector"></div>
+    <canvas #blockCanvas height="170" width="230" id="picker"></canvas>
+    <div #blockPointer class="mcc-picker-position" style="top: 0px;left: 220px;"></div>
+
+
+    <div #stripContainer class="mcc-colors-position" style="background-position-y: 0px;">
         <canvas #strip height="160" width="20" id="colors"></canvas>
     </div>
 </div>
 
-<div class="color-picker-selector-preview" [style.background]="selectedColor">
+<div class="mcc-color-picker-selector-preview" [style.background]="selectedColor">
 
     <form [formGroup]="hexForm">
         <mat-form-field class="hex-input" floatLabel="always" [ngClass]="textClass">
-            <input matInput placeholder="HEX" maxlength="7"
-                   formControlName="hexCode" [value]="selectedColor"/>
+            <input matInput placeholder="HEX" maxlength="7" formControlName="hexCode" [value]="selectedColor" />
         </mat-form-field>
     </form>
 
     <form [formGroup]="rgbForm">
         <mat-form-field class="rgb-input" floatLabel="always" [ngClass]="textClass">
-            <input matInput type="number" placeholder="RGB" maxlength="3" formControlName="R"/>
+            <input matInput type="number" placeholder="RGB" maxlength="3" formControlName="R" />
         </mat-form-field>
         <mat-form-field class="rgb-input" floatLabel="always" [ngClass]="textClass">
-            <input matInput type="number" maxlength="3" formControlName="G"/>
+            <input matInput type="number" maxlength="3" formControlName="G" />
         </mat-form-field>
         <mat-form-field class="rgb-input" floatLabel="always" [ngClass]="textClass">
-            <input matInput type="number" maxlength="3" formControlName="B"/>
+            <input matInput type="number" maxlength="3" formControlName="B" />
         </mat-form-field>
     </form>
 

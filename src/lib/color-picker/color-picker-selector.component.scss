@@ -7,7 +7,7 @@ canvas {
   }
 }
 
-.picker-selector {
+.mcc-picker-selector {
   position: absolute;
   width: 230px;
   height: 170px;
@@ -17,51 +17,60 @@ canvas {
   cursor: crosshair;
 }
 
-.picker-position {
+.mcc-picker-position {
   position: absolute;
   width: 10px;
   height: 10px;
   z-index: 1;
   border: 1px #ddd solid;
   border-radius: 50%;
-  background: rgba(0, 0, 0, .3);
+  background: rgba(0, 0, 0, 0.3);
 }
 
-.colors-position {
+.mcc-colors-position {
   position: absolute;
   width: 30px;
   height: 160px;
   top: 0px;
   right: 0px;
   z-index: 1;
-  background: url('data:image/gif;base64,R0lGODdhHgAIALMAAAAAADU1NTk5OUJCQkpKSlZWVltbW2pqaoCAgP///wAAAAAAAAAAAAAAAAAAAAAAACH5BAkAAAoALAAAAAAeAAgAAAQw0BhFq734yjJm/p8xFEVAeGCqGERACmahgkUrvPH81cFdnjoQy8VBBTOiguSokkQAADs=') no-repeat;
+  background: url('data:image/gif;base64,R0lGODdhHgAIALMAAAAAADU1NTk5OUJCQkpKSlZWVltbW2pqaoCAgP///wAAAAAAAAAAAAAAAAAAAAAAACH5BAkAAAoALAAAAAAeAAgAAAQw0BhFq734yjJm/p8xFEVAeGCqGERACmahgkUrvPH81cFdnjoQy8VBBTOiguSokkQAADs=')
+    no-repeat;
 }
 
-.color-picker-selector {
+.mcc-color-picker-selector {
   height: 170px;
 }
 
 /deep/ mat-form-field {
-  font-family: "Open Sans";
+  font-family: 'Open Sans';
   font-size: 11px;
   font-weight: bold;
 
   &.black {
     color: #100214;
-    label { color: #100214; }
-    .mat-form-field-underline { background-color: #100214; }
+    label {
+      color: #100214;
+    }
+    .mat-form-field-underline {
+      background-color: #100214;
+    }
   }
   &.white {
     color: #ffffff;
-    label { color: #ffffff; }
-    .mat-form-field-underline { background-color: #ffffff; }
+    label {
+      color: #ffffff;
+    }
+    .mat-form-field-underline {
+      background-color: #ffffff;
+    }
   }
 }
 
-.color-picker-selector-preview {
+.mcc-color-picker-selector-preview {
   height: 40px;
   padding: 15px;
-  border-bottom: 1px #E1E1E1 solid;
+  border-bottom: 1px #e1e1e1 solid;
 
   form {
     display: inline-block;
@@ -72,13 +81,19 @@ canvas {
     width: 75px;
     margin-right: 20px;
 
-    input { font-size: 16px; font-weight: normal; }
+    input {
+      font-size: 16px;
+      font-weight: normal;
+    }
   }
 
   .rgb-input {
     width: 40px;
     margin-right: 5px;
 
-    input { font-size: 16px; font-weight: normal; }
+    input {
+      font-size: 16px;
+      font-weight: normal;
+    }
   }
 }

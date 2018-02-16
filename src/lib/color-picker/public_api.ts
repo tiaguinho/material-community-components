@@ -1,2 +1,2 @@
-export { MatColorPickerModule } from './color-picker.module';
-export { MatColorPickerItem } from './color-picker';
+export { MccColorPickerModule } from './color-picker.module';
+export { MccColorPickerItem } from './color-picker';
