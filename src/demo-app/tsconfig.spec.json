@@ -11,7 +11,7 @@
     ]
   },
   "files": [
-    "test.ts"
+    "../../test.ts"
   ],
   "include": [
     "**/*.spec.ts",

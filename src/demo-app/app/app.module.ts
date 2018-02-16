@@ -5,7 +5,7 @@ import { NgModule } from '@angular/core';
 import { MatButtonModule, MatFormFieldModule, MatInputModule } from '@angular/material';
 
 import { AppComponent } from './app.component';
-import { MatColorPickerModule } from '../../../lib/src';
+import { MatColorPickerModule } from '../../lib';
 
 @NgModule({
   declarations: [

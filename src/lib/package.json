@@ -1,6 +1,6 @@
 {
     "$schema": "../node_modules/ng-packagr/package.schema.json",
-    "name": "mat-color-picker",
+    "name": "material-community-components",
     "version": "1.2.3",
     "ngPackage": {
         "lib": {
@@ -11,12 +11,12 @@
     "author": "Tiago Temporin",
     "license": "MIT",
     "bugs": {
-        "url": "https://github.com/tiaguinho/mat-color-picker/issues"
+        "url": "https://github.com/tiaguinho/material-community-components/issues"
     },
-    "homepage": "https://github.com/tiaguinho/mat-color-picker#readme",
+    "homepage": "https://github.com/tiaguinho/material-community-components#readme",
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/tiaguinho/mat-color-picker.git"
+        "url": "git+https://github.com/tiaguinho/material-community-components.git"
     },
     "keywords": [
         "angular",
@@ -26,7 +26,7 @@
         "ng",
         "ng-color-picker",
         "ngx-color-picker",
-        "mat-color-picker"
+        "material-community-components"
     ],
     "dependencies": {
         "@angular/animations": "^5.0.0",

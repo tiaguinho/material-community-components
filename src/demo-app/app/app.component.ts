@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MatColorPickerItem } from '../../../lib/src';
+import { MatColorPickerItem } from '../../lib/color-picker';
 
 @Component({
   selector: 'app-root',
