@@ -1,26 +1,24 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { ReactiveFormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
-import { MatButtonModule, MatFormFieldModule, MatInputModule } from '@angular/material';
+import { MatButtonModule, MatIconModule, MatToolbarModule } from '@angular/material';
 
 import { AppComponent } from './app.component';
-import { MatColorPickerModule } from '../../lib';
+
+import { routes } from './app.router';
 
 @NgModule({
-  declarations: [
-    AppComponent
-  ],
   imports: [
     BrowserModule,
+    RouterModule.forRoot(routes),
     NoopAnimationsModule,
-    ReactiveFormsModule,
     MatButtonModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatColorPickerModule
+    MatIconModule,
+    MatToolbarModule,
   ],
+  declarations: [AppComponent],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
