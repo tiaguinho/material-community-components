@@ -1,52 +1,53 @@
 @import url('https://fonts.googleapis.com/css?family=Open+Sans:400,700');
 
 .btn-picker {
-    width: 25px;
-    height: 25px;
-    cursor: pointer;
-    background: none;
-    border: 2px solid #dddddd;
+  width: 25px;
+  height: 25px;
+  cursor: pointer;
+  background: none;
+  border: 2px solid #dddddd;
 
-    &.empty {
-        background: #ffffff!important;
-    }
+  &.empty {
+    background: #ffffff !important;
+  }
 }
 
 .mat-color-picker-overlay {
-    display: flex;
-    width: 260px;
-    min-height: 80px;
-    flex-direction: column;
-    padding: 0;
-    background: #ffffff;
-    font-family: 'Open Sans', sans-serif;
+  display: flex;
+  width: 260px;
+  min-height: 80px;
+  position: relative;
+  flex-direction: column;
+  padding: 0;
+  background: #ffffff;
+  font-family: 'Open Sans', sans-serif;
 
-    .mat-color-picker-preview {
-        width: 100%;
-        height: 8px;
-    }
+  .mat-color-picker-preview {
+    width: 100%;
+    height: 8px;
+  }
 }
 
 .transparent {
-    width: 32px;
-    height: 2px;
-    border-bottom: 2px solid red;
-    transform: translateY(-3px) translateX(-2px) rotate(45deg);
-    -webkit-transform: translateY(-2px) translateX(-11px) rotate(45deg);
-    position: absolute;
+  width: 32px;
+  height: 2px;
+  border-bottom: 2px solid red;
+  transform: translateY(-3px) translateX(-2px) rotate(45deg);
+  -webkit-transform: translateY(-2px) translateX(-11px) rotate(45deg);
+  position: absolute;
 }
 
 .mat-color-picker-actions {
-    display: flex;
-    padding: 4px;
-    border-top: 1px #dddddd solid;
+  display: flex;
+  padding: 4px;
+  border-top: 1px #dddddd solid;
 
-    button {
-        color: #100214;
-        text-transform: uppercase;
-        font-family: 'Open Sans', sans-serif;
-        font-size: 12px;
-        font-weight: 400;
-        flex-grow: 1;
-    }
+  button {
+    color: #100214;
+    text-transform: uppercase;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 12px;
+    font-weight: 400;
+    flex-grow: 1;
+  }
 }
