@@ -27,7 +27,7 @@
 
 <!-- color picker component content -->
 <ng-template cdkPortal #overlayPanel="cdkPortal">
-    
+
     <div class="mat-color-picker-overlay mat-elevation-z6"
          role="dialog" aria-label="Color picker">
 
@@ -36,7 +36,7 @@
             (changeSelectedColor)="updateTmpSelectedColor($event)">
         </mat-color-picker-selector>
 
-        <mat-color-picker-collection [label]="usedColorLabel"
+        <mat-color-picker-collection *ngIf="!hideUsedColors" [label]="usedColorLabel"
                                         [size]="usedSizeColors"
                                         [transparent]="true"
                                         [hideEmpty]="hideEmpty"
@@ -47,7 +47,7 @@
         <ng-content></ng-content>
 
         <div  *ngIf="!hideButtons" class="mat-color-picker-actions">
-            
+
             <button mat-button role="button" aria-label="Cancel" (click)="cancelSelection()">
                 {{ btnCancel }}
             </button>
