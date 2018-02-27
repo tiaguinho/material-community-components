@@ -71,6 +71,18 @@ export class MatColorPickerComponent implements AfterContentInit, OnInit, OnDest
   private _hideEmpty: boolean = false;
 
   /**
+   * Hide UsedColors collection
+   */
+  @Input('hideUsedColors')
+  get hideUsedColors(): boolean {
+    return this._hideUsedColors;
+  }
+  set hideUsedColors(value: boolean) {
+    this._hideUsedColors = coerceBooleanProperty(value);
+  }
+  private _hideUsedColors: boolean = false;
+
+  /**
    * Start with a color selected
    */
   @Input()

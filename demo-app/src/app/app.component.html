@@ -6,7 +6,7 @@
 <mat-color-picker [overlay]="false"
                   [usedColorLabel]="'My Colors'"
                   (selected)="selectedColor = $event">
-  
+
   <mat-color-picker-collection [colors]="colors"></mat-color-picker-collection>
 
 </mat-color-picker>
@@ -15,8 +15,8 @@
 
 <h3>Change used color label</h3>
 <mat-color-picker [usedColorLabel]="'My Colors'">
-  
-  <mat-color-picker-collection [label]="'First Collection'" 
+
+  <mat-color-picker-collection [label]="'First Collection'"
                                [colors]="colors">
   </mat-color-picker-collection>
 
@@ -26,8 +26,8 @@
 
 <h3>Colors as objects</h3>
 <mat-color-picker>
-  
-  <mat-color-picker-collection [label]="'First Object Collection'" 
+
+  <mat-color-picker-collection [label]="'First Object Collection'"
                                [colors]="items">
   </mat-color-picker-collection>
 
@@ -52,8 +52,8 @@
 
 <h3 [style.color]="selectedColor">Change color when confirm</h3>
 <mat-color-picker [usedColorLabel]="'My Colors'" (selected)="selectedColor = $event">
-  
-  <mat-color-picker-collection [label]="'First Collection'" 
+
+  <mat-color-picker-collection [label]="'First Collection'"
                                [colors]="colors">
   </mat-color-picker-collection>
 
@@ -66,8 +66,8 @@
                   [usedSizeColors]="'50'"
                   (change)="changeColor = $event"
                   (selected)="changeColor = $event">
-  
-  <mat-color-picker-collection [label]="'First Collection'" 
+
+  <mat-color-picker-collection [label]="'First Collection'"
                                [colors]="colors">
   </mat-color-picker-collection>
 
@@ -77,8 +77,8 @@
 
 <h3>Define used colors init value</h3>
 <mat-color-picker [usedColorLabel]="'My Colors'" [usedColorStart]="usedStart">
-  
-  <mat-color-picker-collection [label]="'First Collection'" 
+
+  <mat-color-picker-collection [label]="'First Collection'"
                                [colors]="colors">
   </mat-color-picker-collection>
 
@@ -88,7 +88,7 @@
 
 <h3>Hide empty slot of colors</h3>
 <mat-color-picker hideEmptyUsedColors>
-  
+
   <mat-color-picker-collection [label]="'First Collection'"
                                hideEmpty="true"
                                [colors]="colors">
@@ -98,11 +98,18 @@
 
 <hr style="margin: 50px 0;" />
 
+<h3>Hide Used colors</h3>
+<mat-color-picker [hideUsedColors]="true">
+
+</mat-color-picker>
+
+<hr style="margin: 50px 0;" />
+
 <h3>Change buttons label</h3>
 <mat-color-picker
   [btnCancel]="'ESC'"
   [btnConfirm]="'OK'">
-  
+
   <mat-color-picker-collection [label]="'First Collection'"
                                hideEmpty="true"
                                [colors]="colors">
@@ -114,7 +121,7 @@
 
 <h3>Hide buttons</h3>
 <mat-color-picker hideButtons>
-  
+
   <mat-color-picker-collection [label]="'First Collection'"
                                hideEmpty="true"
                                [colors]="colors">
