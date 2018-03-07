@@ -27,12 +27,23 @@ body {
 }
 
 .mat-card {
+  padding: 0px !important;
   margin-bottom: 30px;
+}
+
+.mat-card-header {
+  padding: 24px 24px 5px 24px;
+  background: #e5e5e5;
 }
 
 .mat-card-title {
   margin: 0;
   padding: 0;
+  color: rgba(0, 0, 0, 0.5);
   font-weight: 400;
-  font-size: 18px !important;
+  font-size: 14px !important;
+}
+
+.mat-card-content {
+  padding: 24px;
 }
