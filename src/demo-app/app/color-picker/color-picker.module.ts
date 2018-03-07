@@ -5,6 +5,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import {
   MatButtonModule,
   MatFormFieldModule,
+  MatIconModule,
   MatInputModule,
   MatCardModule,
 } from '@angular/material';
@@ -22,6 +23,7 @@ import { routes } from './color-picker.router';
     MatButtonModule,
     MatCardModule,
     MatFormFieldModule,
+    MatIconModule,
     MatInputModule,
     MccColorPickerModule,
   ],
