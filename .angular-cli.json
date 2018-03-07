@@ -8,10 +8,7 @@
       "name": "demo",
       "root": "src/demo-app",
       "outDir": "dist/demo-app",
-      "assets": [
-        "assets",
-        "favicon.ico"
-      ],
+      "assets": ["assets", "favicon.ico"],
       "index": "index.html",
       "main": "main.ts",
       "polyfills": "polyfills.ts",
@@ -19,9 +16,7 @@
       "tsconfig": "tsconfig.app.json",
       "testTsconfig": "tsconfig.spec.json",
       "prefix": "app",
-      "styles": [
-        "styles.css"
-      ],
+      "styles": ["styles.scss"],
       "scripts": [],
       "environmentSource": "environments/environment.ts",
       "environments": {
