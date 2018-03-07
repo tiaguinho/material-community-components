@@ -1,0 +1,75 @@
+<h1 class="page-title">
+  <mat-icon>timer</mat-icon>
+  Timer Picker
+</h1>
+<p class="page-subtitle">Some examples of how to use the
+  <span>mcc-timer-picker</span> component</p>
+
+<!-- USING WITH INPUT -->
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>
+      Connect with an input
+    </mat-card-title>
+  </mat-card-header>
+
+  <mat-card-content>
+    <form novalidate [formGroup]="form" (ngSubmit)="onSubmit(form)">
+      <mat-form-field>
+        <mcc-timer-picker mccConnectedTimerPicker [mccConnectedTimerPickerOrigin]="inputTrigger"></mcc-timer-picker>
+        <input matInput mccTimerPickerOrigin #inputTrigger="mccTimerPickerOrigin" placeholder="Timer" formControlName="timer" />
+      </mat-form-field>
+    </form>
+  </mat-card-content>
+</mat-card>
+
+<!-- USING WITH 24h FORMAT -->
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>
+      Convert value to 24h
+    </mat-card-title>
+  </mat-card-header>
+
+  <mat-card-content>
+    <form novalidate [formGroup]="form" (ngSubmit)="onSubmit(form)">
+      <mat-form-field>
+        <mcc-timer-picker mccConnectedTimerPicker [mccConnectedTimerPickerOrigin]="formatTrigger" [mccTimerPickerFormat]="'24'"></mcc-timer-picker>
+        <input matInput mccTimerPickerOrigin #formatTrigger="mccTimerPickerOrigin" placeholder="Timer" formControlName="timer" />
+      </mat-form-field>
+    </form>
+  </mat-card-content>
+</mat-card>
+
+<!-- USING WITHOUT BUTTONS -->
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>
+      Hide buttons
+    </mat-card-title>
+  </mat-card-header>
+
+  <mat-card-content>
+    <form novalidate [formGroup]="form" (ngSubmit)="onSubmit(form)">
+      <mat-form-field>
+        <mcc-timer-picker mccConnectedTimerPicker [mccConnectedTimerPickerOrigin]="buttonTrigger" [hideButtons]="true"></mcc-timer-picker>
+        <input matInput mccTimerPickerOrigin #buttonTrigger="mccTimerPickerOrigin" placeholder="Timer" formControlName="timer" />
+      </mat-form-field>
+    </form>
+  </mat-card-content>
+</mat-card>
+
+<!-- COMPONETN OPENED -->
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>
+      Opened component
+    </mat-card-title>
+  </mat-card-header>
+
+  <mat-card-content>
+
+    <mcc-timer-picker></mcc-timer-picker>
+
+  </mat-card-content>
+</mat-card>
