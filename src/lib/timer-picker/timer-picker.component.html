@@ -1,0 +1,63 @@
+<!-- show component inside overlay -->
+<ng-container *ngIf="connected">
+  <ng-template cdkConnectedOverlay hasBackdrop cdkConnectedOverlayBackdropClass="mcc-timer-picker-backdrop" [cdkConnectedOverlayOrigin]="trigger"
+    [cdkConnectedOverlayOpen]="isOpen" (backdropClick)="backdropClick()">
+
+    <ng-template [cdkPortalOutlet]="panelComponent"></ng-template>
+
+  </ng-template>
+</ng-container>
+
+<ng-template *ngIf="!connected" [cdkPortalOutlet]="panelComponent"></ng-template>
+
+<ng-template cdkPortal #panelComponent="cdkPortal">
+  <div class="mcc-timer-picker-overlay mat-elevation-z6" role="dialog" aria-label="Timer picker">
+
+    <div class="mcc-timer-picker-header mat-primary">
+      <button mat-icon-button class="mcc-timer-picker-hours" [ngClass]="{ 'mcc-active': focus === 'hour' }" (click)="focus = 'hour'">
+        {{ hour }}
+      </button>
+      <span class="mcc-timer-picker-separator"></span>
+      <button mat-icon-button class="mcc-timer-picker-minutes" [ngClass]="{ 'mcc-active': focus === 'min' }" (click)="focus = 'min'">
+        {{ minute }}
+      </button>
+
+      <div class="mcc-timer-picker-am-pm">
+        <button mat-icon-button [ngClass]="{ 'mcc-active': period === 'am' }" (click)="changePeriod('am')">
+          AM
+        </button>
+        <button mat-icon-button [ngClass]="{ 'mcc-active': period === 'pm' }" (click)="changePeriod('pm')">
+          PM
+        </button>
+      </div>
+    </div>
+
+    <div class="mcc-timer-picker-content">
+
+      <div class="mcc-timer-picker-clock">
+        <div class="mcc-timer-picker-dot"></div>
+        <div class="mcc-timer-picker-line" [ngClass]="getSelectedClass()"></div>
+        <ng-container *ngFor="let option of clock$ | async;let i = index;">
+          <button mat-icon-button class="mcc-timer-picker-option" [ngClass]="{ 'mcc-timer-picker-option-selected': focus === 'hour' && hour == option || focus === 'min' && minute === option }"
+            [id]="'option-'+i" (click)="select(option)">
+            {{ option }}
+          </button>
+        </ng-container>
+      </div>
+
+    </div>
+
+    <div *ngIf="!hideButtons" class="mcc-timer-picker-actions" dir="rtl">
+
+      <button mat-button role="button" aria-label="Confirm" (click)="confirmSelectedTime()">
+        {{ btnConfirm }}
+      </button>
+
+      <button mat-button role="button" aria-label="Cancel" (click)="cancelSelection()">
+        {{ btnCancel }}
+      </button>
+
+    </div>
+
+  </div>
+</ng-template>

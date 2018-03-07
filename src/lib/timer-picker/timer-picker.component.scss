@@ -1,0 +1,244 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto');
+
+$primary: #00796b;
+
+.mcc-timer-picker-overlay {
+  width: 325px;
+  height: 480px;
+}
+
+.mcc-timer-picker-header {
+  display: flex;
+  width: 215px;
+  height: 65px;
+  padding: 15px 0 15px 110px;
+  background: $primary;
+}
+
+.mcc-timer-picker-hours,
+.mcc-timer-picker-minutes {
+  width: 63px;
+  height: 63px;
+  font-family: 'Roboto', sans-serif;
+  font-size: 50px;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.3);
+
+  &.mcc-standalone {
+    text-align: right;
+  }
+  &.mcc-active {
+    color: rgba(255, 255, 255, 1);
+  }
+}
+
+.mcc-timer-picker-separator {
+  font-family: 'Roboto', sans-serif;
+  font-size: 43px;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.3);
+  margin: 5px 5px 0 0;
+
+  &::after {
+    content: ':';
+  }
+}
+
+.mcc-timer-picker-am-pm {
+  display: flex;
+  flex-direction: column;
+  margin: 10px;
+
+  button {
+    width: 25px;
+    height: 25px;
+    line-height: 25px;
+    font-family: 'Roboto', sans-serif;
+    font-size: 12px;
+    font-weight: 400;
+    color: rgba(255, 255, 255, 0.3);
+
+    &.mcc-active {
+      color: rgba(255, 255, 255, 1);
+    }
+  }
+}
+
+.mcc-timer-picker-content {
+  width: inherit;
+  height: 310px;
+  padding: 15px 0;
+  background-color: #ffffff;
+}
+
+.mcc-timer-picker-clock {
+  position: relative;
+  width: 300px;
+  height: 300px;
+  margin: 0 auto;
+  background-color: #eeeeee;
+  border-radius: 50%;
+  text-align: center;
+
+  .mcc-timer-picker-dot {
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background-color: $primary;
+    top: 147px;
+    left: 147px;
+  }
+
+  .mcc-timer-picker-line {
+    position: absolute;
+    width: 115px;
+    height: 2px;
+    background-color: $primary;
+
+    // 12h or 00m
+    &.selected-index-0 {
+      top: 92px;
+      left: 92px;
+      transform: rotateZ(90deg);
+    }
+    // 11h or 55m
+    &.selected-index-1 {
+      top: 101px;
+      left: 58px;
+      transform: rotateZ(414deg);
+    }
+    // 1h or 05m
+    &.selected-index-2 {
+      top: 100px;
+      left: 128px;
+      transform: rotateZ(126deg);
+    }
+    // 10h or 50m
+    &.selected-index-3 {
+      top: 123px;
+      left: 39px;
+      transform: rotateZ(386deg);
+    }
+    // 2h or 10m
+    &.selected-index-4 {
+      top: 124px;
+      left: 142px;
+      transform: rotateZ(153deg);
+    }
+    // 9h or 45m
+    &.selected-index-5 {
+      top: 149px;
+      left: 34px;
+      transform: rotateZ(360deg);
+    }
+    // 3h or 15m
+    &.selected-index-6 {
+      top: 149px;
+      left: 147px;
+      transform: rotateZ(180deg);
+    }
+    // 8h or 40m
+    &.selected-index-7 {
+      top: 177px;
+      left: 42px;
+      transform: rotateZ(331deg);
+    }
+    // 4h or 20m
+    &.selected-index-8 {
+      top: 178px;
+      left: 142px;
+      transform: rotateZ(210deg);
+    }
+    // 7h or 35m
+    &.selected-index-9 {
+      top: 196px;
+      left: 58px;
+      transform: rotateZ(306deg);
+    }
+    // 5h or 25m
+    &.selected-index-10 {
+      top: 195px;
+      left: 128px;
+      transform: rotateZ(233deg);
+    }
+    // 6h or 30m
+    &.selected-index-11 {
+      top: 208px;
+      left: 92px;
+      transform: rotateZ(270deg);
+    }
+  }
+
+  .mcc-timer-picker-option {
+    position: absolute;
+
+    &.mcc-timer-picker-option-selected {
+      color: #ffffff;
+      background-color: $primary;
+    }
+
+    &#option-0 {
+      top: 0;
+      left: 130px;
+    }
+    &#option-1 {
+      top: 25px;
+      left: 55px;
+    }
+    &#option-2 {
+      top: 25px;
+      right: 55px;
+    }
+    &#option-3 {
+      top: 70px;
+      left: 15px;
+    }
+    &#option-4 {
+      top: 70px;
+      right: 15px;
+    }
+    &#option-5 {
+      top: 130px;
+      left: 0;
+    }
+    &#option-6 {
+      top: 130px;
+      right: 0;
+    }
+    &#option-7 {
+      bottom: 65px;
+      left: 15px;
+    }
+    &#option-8 {
+      bottom: 65px;
+      right: 15px;
+    }
+    &#option-9 {
+      bottom: 25px;
+      left: 55px;
+    }
+    &#option-10 {
+      bottom: 25px;
+      right: 55px;
+    }
+    &#option-11 {
+      bottom: 0;
+      left: 130px;
+    }
+  }
+}
+
+.mcc-timer-picker-actions {
+  display: flex;
+  padding: 4px;
+  background-color: #ffffff;
+
+  button {
+    color: #100214;
+    text-transform: uppercase;
+    font-family: 'Roboto', sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+  }
+}
