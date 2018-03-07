@@ -1,16 +1,30 @@
-# MatColorPicker
+# Material Community Components   <span class="badge-npmversion">[![npm version](https://badge.fury.io/js/material-community-components.svg)](https://badge.fury.io/js/material-community-components)</span>
 
-<span class="badge-npmversion">[![npm version](https://badge.fury.io/js/mat-color-picker.svg)](https://badge.fury.io/js/mat-color-picker)</span>
-<span class="badge-npmdownloads"><a href="https://npmjs.org/package/mat-color-picker" title="View this project on NPM"><img src="https://img.shields.io/badge/downloads-450%2Fmonth-brightgreen.svg" alt="NPM downloads" /></a></span>
+Small on size, big on features!
 
-Small on size, big on features! MatColorPicker is created with Angular Material and CDK.
+The idea of Material Community Components is to provide components that aren't present in Angular Material.
 
-![alt text](https://github.com/tiaguinho/mat-color-picker/raw/master/images/screenshot-1.png "Screenshot")
+All the components are created using just Angular, Material and CDK.
+
+## Components Status
+
+All the components have the prefix ```mcc``` followed by the package name.
+
+| Component    | Status         | package |
+| ------------ | -------------- | ---- |
+| Color Picker | Available      | mcc-color-picker  |
+| Date Picker  | -              | ---  |
+| File Manager | -              | ---  |
+| Button Group | -              | ---  |
+| Timer Picker | Available      | mcc-timer-picker  |
+
+If you are missing some components, please follow the [CONTRIBUTION GUIDELINE](https://github.com/tiaguinho/material-community-components/blob/master/CONTRIBUTING) to open a issue.
 
 ## Install
 
 ### step: 1
-We use some components from Material. To be able to use this component you have to install ```@angular/animations```. If you follow all the steps on [Material Guide](https://material.angular.io/guide/getting-started), you already have this step done.
+
+We use some components from Material. To be able to use this component you have to install `@angular/animations`. If you follow all the steps on [Material Guide](https://material.angular.io/guide/getting-started), you already have this step done.
 
 ```bash
     npm install --save @angular/animations
@@ -44,40 +58,26 @@ export class PizzaPartyAppModule { }
 
 ### step: 2
 
-Install the component
+Install material community components package:
 
 ```bash
-    npm install mat-color-picker
+    npm install material-community-components
 ```
 
-### step: 3
+or
 
-Import the component in your module.
-
-```typescript
-    import { MatColorPickerModule } from 'mat-color-picker';
-
-@NgModule({
-  imports: [
-    ...
-    MatColorPickerModule
-    ...
-  ],
-  ...
-})
+```bash
+  yarn add material-community-components
 ```
+
 ## How to use
 
-```html
-    <mat-color-picker></mat-color-picker>
-```
-
-For more example you can our [app-demo](https://github.com/tiaguinho/mat-color-picker/blob/master/demo-app) folder or read the full [documentation](https://github.com/tiaguinho/mat-color-picker/wiki)
+For more example you can our [app-demo](https://github.com/tiaguinho/material-community-components/blob/master/demo-app) folder or read the full [documentation](https://github.com/tiaguinho/material-community-components/wiki)
 
 ## License
 
-[The MIT License (MIT) Copyright (c) 2018](http://opensource.org/licenses/MIT) 
+[The MIT License (MIT) Copyright (c) 2018](http://opensource.org/licenses/MIT)
 
 ## Sponsors
 
-![alt text](https://github.com/tiaguinho/mat-color-picker/raw/master/images/sponsor-egoi.png "E-goi")
+![alt text](https://github.com/tiaguinho/material-community-components/raw/master/images/sponsor-egoi.png 'E-goi')
