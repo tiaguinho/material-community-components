@@ -1,8 +1,14 @@
-<mat-toolbar color="primary">
+<mat-toolbar color="primary" class="mat-elevation-z4">
   <button mat-button routerLink="/color-picker">
     <mat-icon>colorize</mat-icon>
     Color Picker
   </button>
+  <button mat-button routerLink="/timer-picker">
+    <mat-icon>timer</mat-icon>
+    Timer Picker
+  </button>
 </mat-toolbar>
 
-<router-outlet></router-outlet>
+<div class="container">
+  <router-outlet></router-outlet>
+</div>
