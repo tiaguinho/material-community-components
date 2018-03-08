@@ -6,6 +6,8 @@ The idea of Material Community Components is to provide components that aren't p
 
 All the components are created using just Angular, Material and CDK.
 
+Check out our [live demo](https://material-community-components-demo.stackblitz.io)
+
 ## Components Status
 
 All the components have the prefix ```mcc``` followed by the package name.
