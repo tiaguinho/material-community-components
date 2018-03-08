@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 import { OverlayModule } from '@angular/cdk/overlay';
+import { PortalModule } from '@angular/cdk/portal';
 import { MatButtonModule, MatFormFieldModule, MatInputModule } from '@angular/material';
 
 import { MccColorPickerService } from './color-picker.service';
@@ -18,6 +19,7 @@ import {
 @NgModule({
   imports: [
     CommonModule,
+    PortalModule,
     OverlayModule,
     ReactiveFormsModule,
     MatButtonModule,
@@ -40,4 +42,4 @@ import {
   ],
   providers: [MccColorPickerService],
 })
-export class MccColorPickerModule {}
+export class MccColorPickerModule { }

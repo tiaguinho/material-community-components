@@ -1,7 +1,7 @@
 {
     "$schema": "../node_modules/ng-packagr/package.schema.json",
     "name": "material-community-components",
-    "version": "1.2.3",
+    "version": "2.4.3",
     "ngPackage": {
         "lib": {
             "entryFile": "src/index.ts"
@@ -23,9 +23,13 @@
         "material",
         "color-picker",
         "color",
+        "timer-picker",
+        "timer",
         "ng",
         "ng-color-picker",
         "ngx-color-picker",
+        "ng-timer-picker",
+        "ngx-timer-picker",
         "material-community-components"
     ],
     "dependencies": {

@@ -71,6 +71,18 @@ export class MccColorPickerComponent implements AfterContentInit, OnInit, OnDest
   private _hideEmpty: boolean = false;
 
   /**
+   * Hide UsedColors collection
+   */
+  @Input('hideUsedColors')
+  get hideUsedColors(): boolean {
+    return this._hideUsedColors;
+  }
+  set hideUsedColors(value: boolean) {
+    this._hideUsedColors = coerceBooleanProperty(value);
+  }
+  private _hideUsedColors: boolean = false;
+
+  /**
    * Start with a color selected
    */
   @Input()
@@ -97,6 +109,18 @@ export class MccColorPickerComponent implements AfterContentInit, OnInit, OnDest
     this._isOpen = coerceBooleanProperty(value);
   }
   private _isOpen: boolean = false;
+
+  /**
+   * Define if the panel will show in overlay or not
+   */
+  @Input()
+  get overlay(): boolean {
+    return this._overlay;
+  }
+  set overlay(value: boolean) {
+    this._overlay = coerceBooleanProperty(value);
+  }
+  private _overlay: boolean = true;
 
   /**
    * Hide the action buttons (cancel/confirm)
@@ -162,7 +186,7 @@ export class MccColorPickerComponent implements AfterContentInit, OnInit, OnDest
     private elementRef: ElementRef,
     private changeDetectorRef: ChangeDetectorRef,
     private colorPickerService: MccColorPickerService
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.usedColors$ = this.colorPickerService.getColors();
@@ -201,7 +225,7 @@ export class MccColorPickerComponent implements AfterContentInit, OnInit, OnDest
    * Update selected color and emit the change
    */
   private _updateSelectedColor() {
-    if (this._isOpen) {
+    if (this._isOpen || !this.overlay) {
       const tmpSelectedColor = this._tmpSelectedColor.getValue();
       if (this._selectedColor !== tmpSelectedColor) {
         this._selectedColor = tmpSelectedColor;

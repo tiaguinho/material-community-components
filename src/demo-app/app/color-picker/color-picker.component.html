@@ -5,6 +5,23 @@
 <p class="page-subtitle">Some examples of how to use the
   <span>mcc-color-picker</span> component</p>
 
+<!-- WITHOUT OVERLAY -->
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>
+      <span [style.color]="selectedColor">Component without overlay</span>
+    </mat-card-title>
+  </mat-card-header>
+
+  <mat-card-content>
+    <mcc-color-picker [overlay]="false" [usedColorLabel]="'My Colors'" (selected)="selectedColor = $event">
+
+      <mcc-color-picker-collection [colors]="colors"></mcc-color-picker-collection>
+
+    </mcc-color-picker>
+  </mat-card-content>
+</mat-card>
+
 <!-- CHANGE USED COLOR LABEL -->
 <mat-card>
   <mat-card-header>
