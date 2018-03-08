@@ -230,6 +230,8 @@ export class MccColorPickerComponent implements AfterContentInit, OnInit, OnDest
       if (this._selectedColor !== tmpSelectedColor) {
         this._selectedColor = tmpSelectedColor;
         this.selected.next(this._selectedColor);
+      } else {
+        this.selected.emit(this._selectedColor);
       }
     }
   }
