@@ -1,10 +1,10 @@
 {
-    "$schema": "../node_modules/ng-packagr/package.schema.json",
+    "$schema": "../../node_modules/ng-packagr/package.schema.json",
     "name": "material-community-components",
     "version": "2.4.3",
     "ngPackage": {
         "lib": {
-            "entryFile": "src/index.ts"
+            "entryFile": "public_api.ts"
         },
         "dest": "dist"
     },
