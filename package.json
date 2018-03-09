@@ -9,7 +9,7 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "packagr": "ng-packagr -p lib/package.json && cp README.md dist/",
+    "packagr": "ng-packagr -p src/lib/package.json && cp README.md src/lib/dist/",
     "commitmsg": "validate-commit-msg"
   },
   "private": true,
@@ -48,7 +48,7 @@
     "karma-coverage-istanbul-reporter": "^1.2.1",
     "karma-jasmine": "~1.1.0",
     "karma-jasmine-html-reporter": "^0.2.2",
-    "ng-packagr": "^1.6.0",
+    "ng-packagr": "^2.0.0",
     "protractor": "~5.1.2",
     "ts-node": "~3.3.0",
     "tslint": "~5.9.1",
