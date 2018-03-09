@@ -1,10 +1,8 @@
-# Material Community Components   <span class="badge-npmversion">[![npm version](https://badge.fury.io/js/material-community-components.svg)](https://badge.fury.io/js/material-community-components)</span>
+Small in size but big in features!
 
-Small on size, big on features!
+The idea of the [Material Community Components]() is to provide components that aren't available in the [Angular Material2](https://material.angular.io) yet.
 
-The idea of Material Community Components is to provide components that aren't present in Angular Material.
-
-All the components are created using just Angular, Material and CDK.
+All the components are created using just [Angular](https://angular.io), [Material 2](https://material.angular.io) and [CDK](https://material.angular.io/cdk).
 
 Check out our [live demo](https://material-community-components-demo.stackblitz.io)
 
@@ -20,19 +18,19 @@ All the components have the prefix ```mcc``` followed by the package name.
 | Button Group | -              | ---  |
 | Timer Picker | Available      | mcc-timer-picker  |
 
-If you are missing some components, please follow the [CONTRIBUTION GUIDELINE](https://github.com/tiaguinho/material-community-components/blob/master/CONTRIBUTING) to open a issue.
+If you miss any component, please follow the [CONTRIBUTION GUIDELINE](https://github.com/tiaguinho/material-community-components/blob/master/CONTRIBUTING.md) to open an issue.
 
 ## Install
 
 ### step: 1
 
-We use some components from Material. To be able to use this component you have to install `@angular/animations`. If you follow all the steps on [Material Guide](https://material.angular.io/guide/getting-started), you already have this step done.
+We use some components from the [Angular Material](https://material.angular.io/). To be able to use this component, you have to install the `@angular/animations`. If you follow all the steps in [Material Guide](https://material.angular.io/guide/getting-started), you already have this step done.
 
 ```bash
     npm install --save @angular/animations
 ```
 
-Note: @angular/animations uses the WebAnimation API that isn't supported by all browsers yet. If you want to support Material component animations in these browsers, you'll have to include a [polyfill](https://github.com/web-animations/web-animations-js).
+Note: [@angular/animations](https://angular.io/guide/animations) uses the WebAnimation API that isn't supported by all browsers yet. If you want to support Material component animations in these browsers, you'll have to include a [polyfill](https://github.com/web-animations/web-animations-js).
 
 ```typescript
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
@@ -45,7 +43,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 export class PizzaPartyAppModule { }
 ```
 
-If you don't want to add another dependency to your project, you can use the NoopAnimationsModule.
+If you don't want to add another dependency to your project, you can use the [NoopAnimationsModule](https://angular.io/api/platform-browser/animations/NoopAnimationsModule).
 
 ```typescript
 import {NoopAnimationsModule} from '@angular/platform-browser/animations';
@@ -74,7 +72,7 @@ or
 
 ## How to use
 
-For more example you can see our [app-demo](https://github.com/tiaguinho/material-community-components/blob/master/src/demo-app) folder or read the full [documentation](https://github.com/tiaguinho/material-community-components/wiki)
+For more examples, you can see our [app-demo](https://github.com/tiaguinho/material-community-components/blob/master/src/demo-app) folder or read the full [documentation](https://github.com/tiaguinho/material-community-components/wiki)
 
 ## License
 
