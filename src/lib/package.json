@@ -1,49 +1,49 @@
 {
-    "$schema": "../../node_modules/ng-packagr/package.schema.json",
-    "name": "material-community-components",
-    "version": "2.4.3",
-    "ngPackage": {
-        "lib": {
-            "entryFile": "index.ts"
-        },
-        "dest": "dist"
+  "$schema": "../../node_modules/ng-packagr/package.schema.json",
+  "name": "material-community-components",
+  "version": "2.5.4",
+  "ngPackage": {
+    "lib": {
+      "entryFile": "index.ts"
     },
-    "author": "Tiago Temporin",
-    "license": "MIT",
-    "bugs": {
-        "url": "https://github.com/tiaguinho/material-community-components/issues"
-    },
-    "homepage": "https://github.com/tiaguinho/material-community-components#readme",
-    "repository": {
-        "type": "git",
-        "url": "git+https://github.com/tiaguinho/material-community-components.git"
-    },
-    "keywords": [
-        "angular",
-        "material",
-        "color-picker",
-        "color",
-        "timer-picker",
-        "timer",
-        "ng",
-        "ng-color-picker",
-        "ngx-color-picker",
-        "ng-timer-picker",
-        "ngx-timer-picker",
-        "material-community-components"
-    ],
-    "dependencies": {
-        "@angular/animations": "^5.0.0",
-        "@angular/cdk": "^5.0.0",
-        "@angular/common": "^5.0.0",
-        "@angular/compiler": "^5.0.0",
-        "@angular/core": "^5.0.0",
-        "@angular/forms": "^5.0.0",
-        "@angular/material": "^5.0.4",
-        "@angular/platform-browser": "^5.0.0",
-        "@angular/platform-browser-dynamic": "^5.0.0",
-        "core-js": "^2.4.1",
-        "rxjs": "^5.5.2",
-        "zone.js": "^0.8.14"
-    }
+    "dest": "dist"
+  },
+  "author": "Tiago Temporin",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/tiaguinho/material-community-components/issues"
+  },
+  "homepage": "https://github.com/tiaguinho/material-community-components#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tiaguinho/material-community-components.git"
+  },
+  "keywords": [
+    "angular",
+    "material",
+    "color-picker",
+    "color",
+    "timer-picker",
+    "timer",
+    "ng",
+    "ng-color-picker",
+    "ngx-color-picker",
+    "ng-timer-picker",
+    "ngx-timer-picker",
+    "material-community-components"
+  ],
+  "dependencies": {
+    "@angular/animations": "^5.0.0",
+    "@angular/cdk": "^5.0.0",
+    "@angular/common": "^5.0.0",
+    "@angular/compiler": "^5.0.0",
+    "@angular/core": "^5.0.0",
+    "@angular/forms": "^5.0.0",
+    "@angular/material": "^5.0.4",
+    "@angular/platform-browser": "^5.0.0",
+    "@angular/platform-browser-dynamic": "^5.0.0",
+    "core-js": "^2.4.1",
+    "rxjs": "^5.5.2",
+    "zone.js": "^0.8.14"
+  }
 }
