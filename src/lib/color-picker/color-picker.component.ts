@@ -7,6 +7,7 @@ import {
   ElementRef,
   EventEmitter,
   Input,
+  Inject,
   Output,
   OnInit,
   OnDestroy,
@@ -94,9 +95,9 @@ export class MccColorPickerComponent implements AfterContentInit, OnInit, OnDest
       this.changeDetectorRef.markForCheck();
     }
 
-    this._selectedColor = coerceHexaColor(value);
+    this._selectedColor = coerceHexaColor(value) || this.emptyColor;
   }
-  private _selectedColor: string = 'none';
+  private _selectedColor: string;
 
   /**
    * Define if the panel will be initiated open
@@ -185,10 +186,15 @@ export class MccColorPickerComponent implements AfterContentInit, OnInit, OnDest
   constructor(
     private elementRef: ElementRef,
     private changeDetectorRef: ChangeDetectorRef,
-    private colorPickerService: MccColorPickerService
-  ) { }
+    private colorPickerService: MccColorPickerService,
+    @Inject(EMPTY_COLOR) public emptyColor: string
+  ) {}
 
   ngOnInit() {
+    if (!this._selectedColor) {
+      this._selectedColor = this.emptyColor;
+    }
+
     this.usedColors$ = this.colorPickerService.getColors();
     this._tmpSelectedColor = new BehaviorSubject<string>(this._selectedColor);
   }
@@ -241,7 +247,7 @@ export class MccColorPickerComponent implements AfterContentInit, OnInit, OnDest
    */
   toggle() {
     this._isOpen = !this._isOpen;
-    if (!this._isOpen && this._selectedColor !== EMPTY_COLOR) {
+    if (!this._isOpen && this._selectedColor !== this.emptyColor) {
       this.colorPickerService.addColor(this._selectedColor);
     }
   }

@@ -6,7 +6,7 @@
                 <div class="mcc-color-picker-transparent"></div>
         </button>
 
-        <button *ngFor="let color of colors" mat-mini-fab class="mat-elevation-z0" role="option" [disabled]="!color || color === 'none'"
+        <button *ngFor="let color of colors" mat-mini-fab class="mat-elevation-z0" role="option" [disabled]="!color || color === emptyColor"
                 [mccColorPickerOption]="color" (click)="setColor(color)">
         </button>
 </div>

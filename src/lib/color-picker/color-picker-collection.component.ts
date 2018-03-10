@@ -8,6 +8,7 @@ import {
   ElementRef,
   EventEmitter,
   Input,
+  Inject,
   Output,
   Renderer2,
 } from '@angular/core';
@@ -71,7 +72,10 @@ export class MccColorPickerCollectionComponent implements AfterContentChecked {
    */
   @Output() changeColor: EventEmitter<string> = new EventEmitter<string>();
 
-  constructor(private changeDetectorRef: ChangeDetectorRef) {}
+  constructor(
+    private changeDetectorRef: ChangeDetectorRef,
+    @Inject(EMPTY_COLOR) public emptyColor: string
+  ) {}
 
   ngAfterContentChecked() {
     if (this._colors && this._colors.length !== this.size) {
@@ -99,7 +103,7 @@ export class MccColorPickerCollectionComponent implements AfterContentChecked {
    * Remove color
    */
   setTransparent(): void {
-    this.changeColor.emit(EMPTY_COLOR);
+    this.changeColor.emit(this.emptyColor);
   }
 
   /**

@@ -1,5 +1,14 @@
+import { InjectionToken } from '@angular/core';
+
 /** Contant used as empty color */
-export const EMPTY_COLOR = 'none';
+export const EMPTY_COLOR = new InjectionToken<string>('empty-color');
+
+/**
+ *
+ */
+export interface ColorPickerConfig {
+  empty_color: string;
+}
 
 /**
  * This interface represents one color. Using this interface instead simple string
@@ -20,7 +29,7 @@ export type MccColorPickerOption = string | MccColorPickerItem;
  */
 export function coerceHexaColor(color: string): string {
   if (!isValidColor(color)) {
-    return EMPTY_COLOR;
+    return;
   }
 
   if (color.indexOf('#') !== 0) {

@@ -6,6 +6,7 @@ import {
   forwardRef,
   HostBinding,
   Input,
+  Inject,
   OnDestroy,
   OnInit,
   Output,
@@ -35,9 +36,15 @@ export class MccColorPickerOptionDirective implements AfterViewInit {
   set color(value: MccColorPickerOption) {
     this._color = value;
   }
-  private _color: MccColorPickerOption = EMPTY_COLOR;
+  private _color: MccColorPickerOption;
 
-  constructor(private elementRef: ElementRef, private render: Renderer2) {}
+  constructor(
+    private elementRef: ElementRef,
+    private render: Renderer2,
+    @Inject(EMPTY_COLOR) private emptyColor: string
+  ) {
+    this._color = emptyColor;
+  }
 
   ngAfterViewInit() {
     if (this.color) {
@@ -51,7 +58,11 @@ export class MccColorPickerOptionDirective implements AfterViewInit {
 
       if (isValidColor(color)) {
         // apply the color
-        this.render.setStyle(this.elementRef.nativeElement, 'background', coerceHexaColor(color));
+        this.render.setStyle(
+          this.elementRef.nativeElement,
+          'background',
+          coerceHexaColor(color) || this.emptyColor
+        );
       }
     }
   }
@@ -85,14 +96,18 @@ export class MccColorPickerOriginDirective implements ControlValueAccessor {
   /**
    * Reference to the element on which the directive is applied.
    */
-  constructor(private elementRef: ElementRef, private renderer: Renderer2) {
+  constructor(
+    private elementRef: ElementRef,
+    private renderer: Renderer2,
+    @Inject(EMPTY_COLOR) private emptyColor: string
+  ) {
     // listen changes onkeyup and update color picker
     renderer.listen(elementRef.nativeElement, 'keyup', (event: KeyboardEvent) => {
       const value: string = event.currentTarget['value'];
       if (event.isTrusted && isValidColor(value)) {
-        this.writeValueFromKeyup(coerceHexaColor(value));
+        this.writeValueFromKeyup(coerceHexaColor(value) || this.emptyColor);
       } else {
-        this.writeValueFromKeyup(EMPTY_COLOR);
+        this.writeValueFromKeyup(emptyColor);
       }
     });
   }

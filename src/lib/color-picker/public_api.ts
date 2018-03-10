@@ -1,2 +1,2 @@
 export { MccColorPickerModule } from './color-picker.module';
-export { MccColorPickerItem } from './color-picker';
+export { MccColorPickerItem, EMPTY_COLOR } from './color-picker';

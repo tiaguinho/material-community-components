@@ -4,6 +4,7 @@ import {
   ChangeDetectionStrategy,
   HostListener,
   Input,
+  Inject,
   ElementRef,
   EventEmitter,
   OnInit,
@@ -78,7 +79,7 @@ export class MccColorPickerSelectorComponent
     return this._selectedColor;
   }
   set selectedColor(value: string) {
-    this._selectedColor = value || EMPTY_COLOR;
+    this._selectedColor = value || this.emptyColor;
   }
   private _selectedColor: string = '';
 
@@ -133,7 +134,11 @@ export class MccColorPickerSelectorComponent
   rgbKeys = ['R', 'G', 'B'];
   rgbForm: FormGroup;
 
-  constructor(private formBuilder: FormBuilder, private render: Renderer2) {}
+  constructor(
+    private formBuilder: FormBuilder,
+    private render: Renderer2,
+    @Inject(EMPTY_COLOR) private emptyColor: string
+  ) {}
 
   ngOnInit() {
     this._tmpSelectedColor = new BehaviorSubject<string>(this._selectedColor);
@@ -142,7 +147,7 @@ export class MccColorPickerSelectorComponent
         if (this.hexForm.get('hexCode').value !== color) {
           this.hexForm.setValue({ hexCode: color });
         }
-        this.changeSelectedColor.emit(coerceHexaColor(color));
+        this.changeSelectedColor.emit(coerceHexaColor(color) || this.emptyColor);
       }
     });
 
@@ -178,7 +183,7 @@ export class MccColorPickerSelectorComponent
    * @param changes SimpleChanges
    */
   ngOnChanges(changes: SimpleChanges) {
-    if ('selectedColor' in changes && changes['selectedColor'].currentValue !== EMPTY_COLOR) {
+    if ('selectedColor' in changes && changes['selectedColor'].currentValue !== this.emptyColor) {
       if (!this._isPressed) {
         this._updateRGB();
         this._updateRGBA();
@@ -279,7 +284,7 @@ export class MccColorPickerSelectorComponent
     // validate digited code and update when digitation is finished
     this._hexValuesSub = this.hexForm.get('hexCode').valueChanges.subscribe(value => {
       if (!this._isPressed && isValidColor(value)) {
-        this._tmpSelectedColor.next(coerceHexaColor(value));
+        this._tmpSelectedColor.next(coerceHexaColor(value) || this.emptyColor);
       }
     });
 
@@ -336,7 +341,7 @@ export class MccColorPickerSelectorComponent
       }
     });
 
-    return coerceHexaColor(`${hex[0]}${hex[1]}${hex[2]}`);
+    return coerceHexaColor(`${hex[0]}${hex[1]}${hex[2]}`) || this.emptyColor;
   }
 
   /**
