@@ -332,7 +332,7 @@ export class MccColorPickerSelectorComponent
 
     hex.forEach((val, key) => {
       if (val.length === 1) {
-        hex[key] += '0';
+        hex[key] = '0' + hex[key];
       }
     });
 
