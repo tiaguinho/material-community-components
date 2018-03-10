@@ -4,7 +4,7 @@
     "version": "2.4.3",
     "ngPackage": {
         "lib": {
-            "entryFile": "public_api.ts"
+            "entryFile": "index.ts"
         },
         "dest": "dist"
     },
