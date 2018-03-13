@@ -300,8 +300,12 @@ export class MccColorPickerSelectorComponent
       }
 
       const hex = this._getHex(data);
-      if (hex !== this._selectedColor && hex.length === 7) {
-        this._tmpSelectedColor.next(hex);
+      if (hex !== this._selectedColor
+        && hex.length === 7) {
+        const currentHex = this._getRGB();
+        if ((data[0] !== currentHex[0] || data[1] !== currentHex[1] || data[2] !== currentHex[2])) {
+          this._tmpSelectedColor.next(hex);
+        }
       }
     });
   }
@@ -315,7 +319,6 @@ export class MccColorPickerSelectorComponent
     if (data) {
       return [data[0], data[1], data[2]];
     }
-
     const hex = this._selectedColor.replace('#', '');
     const r = parseInt(hex.slice(0, 2), 16);
     const g = parseInt(hex.slice(2, 4), 16);
