@@ -1,7 +1,7 @@
 {
   "$schema": "../../node_modules/ng-packagr/package.schema.json",
   "name": "material-community-components",
-  "version": "2.5.4",
+  "version": "2.5.6",
   "ngPackage": {
     "lib": {
       "entryFile": "index.ts"
@@ -32,16 +32,16 @@
     "ngx-timer-picker",
     "material-community-components"
   ],
-  "dependencies": {
-    "@angular/animations": "^5.0.0",
-    "@angular/cdk": "^5.0.0",
-    "@angular/common": "^5.0.0",
-    "@angular/compiler": "^5.0.0",
-    "@angular/core": "^5.0.0",
-    "@angular/forms": "^5.0.0",
-    "@angular/material": "^5.0.4",
-    "@angular/platform-browser": "^5.0.0",
-    "@angular/platform-browser-dynamic": "^5.0.0",
+  "peerDependencies": {
+    "@angular/animations": ">4.3.x",
+    "@angular/cdk": ">4.3.x",
+    "@angular/common": ">4.3.x",
+    "@angular/compiler": ">4.3.x",
+    "@angular/core": ">4.3.x",
+    "@angular/forms": ">4.3.x",
+    "@angular/material": ">4.3.x",
+    "@angular/platform-browser": ">4.3.x",
+    "@angular/platform-browser-dynamic": ">4.3.x",
     "core-js": "^2.4.1",
     "rxjs": "^5.5.2",
     "zone.js": "^0.8.14"
