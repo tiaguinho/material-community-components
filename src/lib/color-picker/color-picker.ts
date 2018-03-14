@@ -45,7 +45,9 @@ export function coerceHexaColor(color: string): string {
  */
 export function isValidColor(color: string): boolean {
   // validate if color is an hexadecimal
-  if (!color || color.charAt(0) !== '#' || color.length > 7) {
+  if (!color ||
+    (color.length > 0 && color.charAt(0) === '#' && color.length > 7) ||
+    (color.length > 0 && color.charAt(0) !== '#' && color.length > 6)) {
     return false;
   }
 
