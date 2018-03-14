@@ -216,8 +216,10 @@ export class MccConnectedColorPickerDirective implements AfterViewInit, OnDestro
   private _attachColorPicker(): void {
     // subscribe to origin change to update color picker
     this._originSub = this.origin.change.subscribe(value => {
-      if (isValidColor(value) ||
-        (value === this.emptyColor && this.colorPicker.selectedColor !== this.emptyColor)) {
+      if (
+        isValidColor(value) ||
+        (value === this.emptyColor && this.colorPicker.selectedColor !== this.emptyColor)
+      ) {
         this.colorPicker.updateTmpSelectedColor(value);
       }
       this.colorPicker.selectedColor = value;

@@ -45,18 +45,20 @@ export function coerceHexaColor(color: string): string {
  */
 export function isValidColor(color: string): boolean {
   // validate if color is an hexadecimal
-  if (!color || color.length < 6 || color.length > 7) {
+  if (!color || color.charAt(0) !== '#' || color.length > 7) {
     return false;
   }
 
   // validate rgb of the color
   const hex = color.replace('#', '');
-  const r = parseInt(hex.slice(0, 2), 16);
-  const g = parseInt(hex.slice(2, 4), 16);
-  const b = parseInt(hex.slice(4, 6), 16);
+  if (hex.length === 6) {
+    const r = parseInt(hex.slice(0, 2), 16);
+    const g = parseInt(hex.slice(2, 4), 16);
+    const b = parseInt(hex.slice(4, 6), 16);
 
-  if (Number.isNaN(r) || Number.isNaN(g) || Number.isNaN(b)) {
-    return false;
+    if (Number.isNaN(r) || Number.isNaN(g) || Number.isNaN(b)) {
+      return false;
+    }
   }
 
   return true;
