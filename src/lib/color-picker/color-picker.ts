@@ -28,12 +28,12 @@ export type MccColorPickerOption = string | MccColorPickerItem;
  * @param color string
  */
 export function coerceHexaColor(color: string): string {
-  if (!isValidColor(color)) {
-    return;
+  if (color && color.indexOf('#') !== 0) {
+    color = `#${color}`;
   }
 
-  if (color.indexOf('#') !== 0) {
-    color = `#${color}`;
+  if (!isValidColor(color)) {
+    return;
   }
 
   return color.toUpperCase();
