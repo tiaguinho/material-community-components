@@ -9,7 +9,7 @@
 </div>
 
 <div class="mcc-color-picker-selector-preview" [style.background]="selectedColor">
-    <ng-container *ngIf="!hideForms">
+    <ng-container *ngIf="!hideHexForms">
         <form [formGroup]="hexForm">
             <mat-form-field class="hex-input" floatLabel="always" [ngClass]="textClass">
                 <input matInput placeholder="HEX" maxlength="7" formControlName="hexCode" [value]="selectedColor" />
