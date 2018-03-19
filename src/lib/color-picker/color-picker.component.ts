@@ -60,6 +60,18 @@ export class MccColorPickerComponent implements AfterContentInit, OnInit, OnDest
   }
 
   /**
+   * Hide the hexadecimal color forms.
+   */
+  @Input()
+  get hideHexForms(): boolean {
+    return this._hideHexForms;
+  }
+  set hideHexForms(value: boolean) {
+    this._hideHexForms = value;
+  }
+  private _hideHexForms: boolean = false;
+
+  /**
    * Hide empty slots from the collection UsedColors
    */
   @Input('hideEmptyUsedColors')
