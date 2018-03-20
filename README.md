@@ -8,15 +8,15 @@ Check out our [live demo](https://material-community-components-demo.stackblitz.
 
 ## Components Status
 
-All the components have the prefix ```mcc``` followed by the package name.
+All the components have the prefix `mcc` followed by the package name.
 
-| Component    | Status         | package |
-| ------------ | -------------- | ---- |
-| Color Picker | Available      | mcc-color-picker  |
-| Date Picker  | -              | ---  |
-| File Manager | -              | ---  |
-| Button Group | -              | ---  |
-| Timer Picker | Available      | mcc-timer-picker  |
+| Component    | Status    | package          |
+| ------------ | --------- | ---------------- |
+| Button Group | -         | ---              |
+| Color Picker | Available | mcc-color-picker |
+| File Manager | -         | ---              |
+| Scrollspy    | In Development | --- |
+| Timer Picker | Available | mcc-timer-picker |
 
 If you miss any component, please follow the [CONTRIBUTION GUIDELINE](https://github.com/tiaguinho/material-community-components/blob/master/CONTRIBUTING.md) to open an issue.
 
