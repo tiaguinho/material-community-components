@@ -289,10 +289,10 @@ export class MccColorPickerSelectorComponent
     });
 
     this._rgbValuesSub = this.rgbForm.valueChanges.subscribe(controls => {
-      const data: number[] = [];
+      const data: string[] = [];
       for (const key in controls) {
         if (!controls[key] || controls[key] > 255) {
-          data.push(0);
+          data.push('');
           continue;
         }
 
@@ -302,10 +302,7 @@ export class MccColorPickerSelectorComponent
       const hex = this._getHex(data);
       if (hex !== this._selectedColor
         && hex.length === 7) {
-        const currentHex = this._getRGB();
-        if ((data[0] !== currentHex[0] || data[1] !== currentHex[1] || data[2] !== currentHex[2])) {
           this._tmpSelectedColor.next(hex);
-        }
       }
     });
   }
