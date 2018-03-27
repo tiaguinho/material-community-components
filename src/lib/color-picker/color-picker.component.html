@@ -24,7 +24,7 @@
         <mcc-color-picker-selector [selectedColor]="tmpSelectedColor$ | async" (changeSelectedColor)="updateTmpSelectedColor($event)">
         </mcc-color-picker-selector>
 
-        <mcc-color-picker-collection *ngIf="!hideUsedColors" [label]="usedColorLabel" [size]="usedSizeColors" [transparent]="true"
+        <mcc-color-picker-collection *ngIf="!hideUsedColors" [label]="usedColorLabel" [size]="usedSizeColors" [transparent]="!hideTransparent"
             [hideEmpty]="hideEmpty" [colors]="usedColors$ | async" (changeColor)="updateTmpSelectedColor($event)">
         </mcc-color-picker-collection>
 

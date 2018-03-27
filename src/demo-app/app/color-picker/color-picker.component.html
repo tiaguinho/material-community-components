@@ -151,6 +151,23 @@
 </mat-card>
 
 
+<!-- HIDE TRANSPARENT OPTION OF USED COLORS -->
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>Hide transparaent option of used colors</mat-card-title>
+  </mat-card-header>
+
+  <mat-card-content>
+    <mcc-color-picker hideTransparentUsedColors>
+
+      <mcc-color-picker-collection [label]="'First Collection'" hideEmpty="true" [colors]="colors">
+      </mcc-color-picker-collection>
+
+    </mcc-color-picker>
+  </mat-card-content>
+</mat-card>
+
+
 <!-- CHANGE BUTTONS LABEL -->
 <mat-card>
   <mat-card-header>

@@ -72,6 +72,18 @@ export class MccColorPickerComponent implements AfterContentInit, OnInit, OnDest
   private _hideEmpty: boolean = false;
 
   /**
+   * Hide transparent option of UsedColors
+   */
+  @Input('hideTransparentUsedColors')
+  get hideTransparent(): boolean {
+    return this._hideTransparent;
+  }
+  set hideTransparent(value: boolean) {
+    this._hideTransparent = coerceBooleanProperty(value);
+  }
+  private _hideTransparent: boolean = false;
+
+  /**
    * Hide UsedColors collection
    */
   @Input('hideUsedColors')
