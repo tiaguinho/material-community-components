@@ -87,7 +87,7 @@ export class MccColorPickerSelectorComponent
   /**
    * Hide the hexadecimal color forms.
    */
-  @Input()
+  @Input('hideHexForms')
   get hideHexForms(): boolean {
     return this._hideHexForms;
   }
