@@ -9,6 +9,7 @@ This is the main class of the component.
 | usedColorLabel: string | Change the label of the used colors collection |
 | usedColorStart: string[] | Set initial value for used colors collection |
 | hideEmpty: boolean | Hide all empty slots of the default collection |
+| hideHexForms: boolean | Hide the hexadecimal colors forms located below the color picker selector |
 | selectedColor: string | Define initially selected color |
 | isOpen: boolean | Define if panel will initiate open |
 | hideButtons: boolean | Hide the buttons (confirm/cancel) |
