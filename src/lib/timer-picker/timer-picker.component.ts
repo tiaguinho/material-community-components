@@ -1,7 +1,6 @@
 import {
   Component,
   ChangeDetectionStrategy,
-  ElementRef,
   EventEmitter,
   Input,
   Output,

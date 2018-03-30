@@ -4,11 +4,9 @@ import {
   Directive,
   ElementRef,
   forwardRef,
-  HostBinding,
   Input,
   Inject,
   OnDestroy,
-  OnInit,
   Output,
   Renderer2,
 } from '@angular/core';
