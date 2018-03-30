@@ -11,8 +11,8 @@ import {
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { MccTimerPickerComponent } from './timer-picker.component';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import { Subscription } from 'rxjs/Subscription';
+import { BehaviorSubject } from 'rxjs';
+import { Subscription } from 'rxjs';
 
 @Directive({
   selector: '[mccTimerPickerOrigin], [mcc-timer-picker-origin]',
