@@ -1,7 +1,6 @@
 import { Injectable, Inject } from '@angular/core';
 import { coerceHexaColor, isValidColor, EMPTY_COLOR } from './color-picker';
-import { BehaviorSubject } from 'rxjs';
-import { Observable } from 'rxjs';
+import { Observable, BehaviorSubject } from 'rxjs';
 
 @Injectable()
 export class MccColorPickerService {

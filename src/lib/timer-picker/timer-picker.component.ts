@@ -7,8 +7,7 @@ import {
 } from '@angular/core';
 import { CdkOverlayOrigin } from '@angular/cdk/overlay';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
-import { BehaviorSubject } from 'rxjs';
-import { Observable } from 'rxjs';
+import { Observable, BehaviorSubject } from 'rxjs';
 import {
   MccTimerPickerTimeType,
   MccTimerPickerFormat,

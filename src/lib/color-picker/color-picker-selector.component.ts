@@ -16,8 +16,7 @@ import {
 } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { EMPTY_COLOR, coerceHexaColor, isValidColor } from './color-picker';
-import { BehaviorSubject } from 'rxjs';
-import { Subscription } from 'rxjs';
+import { Subscription, BehaviorSubject } from 'rxjs';
 
 interface ColorOption {
   type: string;
