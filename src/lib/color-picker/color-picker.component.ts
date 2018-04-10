@@ -72,6 +72,18 @@ export class MccColorPickerComponent implements AfterContentInit, OnInit, OnDest
   private _hideEmpty: boolean = false;
 
   /**
+   * Hide transparent option of UsedColors
+   */
+  @Input('hideTransparentUsedColors')
+  get hideTransparent(): boolean {
+    return this._hideTransparent;
+  }
+  set hideTransparent(value: boolean) {
+    this._hideTransparent = coerceBooleanProperty(value);
+  }
+  private _hideTransparent: boolean = false;
+
+  /**
    * Hide UsedColors collection
    */
   @Input('hideUsedColors')
@@ -134,6 +146,19 @@ export class MccColorPickerComponent implements AfterContentInit, OnInit, OnDest
     this._hideButtons = coerceBooleanProperty(value);
   }
   private _hideButtons: boolean = false;
+
+
+  /**
+   * Hide the color picker selector
+   */
+  @Input()
+  get hideColorPickerSelector(): boolean {
+    return this._hideColorPickerSelector;
+  }
+  set hideColorPickerSelector(value: boolean) {
+    this._hideColorPickerSelector = coerceBooleanProperty(value);
+  }
+  private _hideColorPickerSelector: boolean = false;
 
   /**
    * Set the size of the used colors

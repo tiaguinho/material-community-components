@@ -1,6 +1,6 @@
 {
   "name": "material-community-components",
- "version": "2.5.7",
+  "version": "2.6.8",
   "license": "MIT",
   "scripts": {
     "ng": "ng",

@@ -106,8 +106,6 @@ export class MccColorPickerOriginDirective implements ControlValueAccessor {
       const value: string = event.currentTarget['value'];
       if (event.isTrusted && isValidColor(value)) {
         this.writeValueFromKeyup(coerceHexaColor(value) || this.emptyColor);
-      } else {
-        this.writeValueFromKeyup(emptyColor);
       }
     });
   }
