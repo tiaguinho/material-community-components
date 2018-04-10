@@ -36,4 +36,11 @@ export class MccColorPickerService {
   getColors(): Observable<string[]> {
     return this._colors.asObservable();
   }
+
+  /**
+   * Reset the array of used colors
+   */
+  resetUseColors(): void {
+    this._colors.next([]);
+  }
 }
