@@ -56,6 +56,25 @@
   </mat-card-content>
 </mat-card>
 
+<!-- RESET USED COLORS -->
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>Reset used colors</mat-card-title>
+  </mat-card-header>
+
+  <mat-card-content>
+
+    <button mat-button (click)="reset()">RESET</button>
+
+    <mcc-color-picker>
+
+      <mcc-color-picker-collection [label]="'First Object Collection'">
+      </mcc-color-picker-collection>
+
+    </mcc-color-picker>
+  </mat-card-content>
+</mat-card>
+
 <!-- CONNECT COLOR PICKER WITH AN INPUT -->
 <mat-card>
   <mat-card-header>

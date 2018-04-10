@@ -1,6 +1,6 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MccColorPickerItem } from '../../../lib/color-picker';
+import { MccColorPickerItem, MccColorPickerService } from '../../../lib/color-picker';
 
 @Component({
   selector: 'app-color-picker',
@@ -91,12 +91,19 @@ export class ColorPickerComponent implements OnInit {
     { text: 'Gray', value: '#CCCCCC' },
   ];
 
-  constructor(private formBuilder: FormBuilder) {}
+  constructor(
+    private formBuilder: FormBuilder,
+    private mccColorPickerService: MccColorPickerService
+  ) {}
 
   ngOnInit() {
     this.form = this.formBuilder.group({
       color: ['#000000', Validators.required],
     });
+  }
+
+  reset(): void {
+    this.mccColorPickerService.resetUseColors();
   }
 
   onSubmit({ value, valid }): void {
