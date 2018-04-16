@@ -261,9 +261,12 @@ export class MccColorPickerComponent implements AfterContentInit, OnInit, OnDest
       if (this._selectedColor !== tmpSelectedColor) {
         this._selectedColor = tmpSelectedColor;
         this.selected.next(this._selectedColor);
+        //finally emit the changes for updating the origin
+        this.change.next(this._selectedColor);
       } else {
         this.selected.emit(this._selectedColor);
       }
+
     }
   }
 
@@ -292,7 +295,9 @@ export class MccColorPickerComponent implements AfterContentInit, OnInit, OnDest
   updateTmpSelectedColor(color: string) {
     if (color) {
       this._tmpSelectedColor.next(color);
-      this.change.next(color);
+
+      //bugfix: no emittance till either confirm clicked or hidden buttons
+      // this.change.next(color);
       if (this._hideButtons) {
         this._updateSelectedColor();
       }

@@ -117,9 +117,11 @@ export class MccColorPickerOriginDirective implements ControlValueAccessor {
   writeValue(color: string) {
     this.renderer.setProperty(this.elementRef.nativeElement, 'value', color);
     this.change.next(color);
-    if (this.propagateChanges) {
-      this.propagateChanges(color);
-    }
+
+    //in write value the view is updated - no propagation needed
+    //if (this.propagateChanges) {
+    //  this.propagateChanges(color);
+    //}
   }
 
   /**
