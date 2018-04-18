@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,600');
+@import url('https://fonts.googleapis.com/css?family=Roboto+Mono|Roboto:300,400');
 @import url('https://fonts.googleapis.com/icon?family=Material+Icons');
 @import '~@angular/material/prebuilt-themes/indigo-pink.css';
 
@@ -6,8 +6,13 @@ html,
 body {
   padding: 0;
   margin: 0;
-  font-family: 'Open Sans', sans-serif;
-  background-color: #f5f5f5;
+  font-family: Roboto, sans-serif;
+  background-color: #f9f9f9;
+}
+
+code,
+pre {
+  font-family: 'Roboto Mono', monospace;
 }
 
 .page-title {
@@ -26,9 +31,67 @@ body {
   font-weight: 600;
 }
 
+h2 {
+  font-weight: 300;
+  margin: 20px 0 15px 0;
+  border-bottom: 1px solid #dadada;
+  padding-bottom: 8px;
+}
+
+h3 {
+  font-weight: 400;
+}
+
+hr {
+  margin: 35px 0;
+  border: 1px dashed #ccc;
+}
+
+.code-snippet {
+  display: block;
+  font-size: 13px;
+  margin: 16px auto;
+  padding: 20px;
+  overflow-x: auto;
+  background: rgba(0, 0, 0, 0.01);
+  border: 0.5px solid rgba(0, 0, 0, 0.03);
+  border-radius: 5px;
+}
+
+.table-api-documentation {
+  width: 100%;
+  box-sizing: border-box;
+  border: 0px;
+  border-collapse: collapse;
+  border-radius: 2px;
+  border-spacing: 0;
+
+  th {
+    background: #f5f5f5;
+    font-weight: 400;
+    padding: 13px 32px;
+    text-align: left;
+  }
+  td {
+    border: 1px solid rgba(0, 0, 0, 0.03);
+    font-size: 14px;
+    font-weight: 400;
+    padding: 8px 16px;
+
+    code {
+      font-size: 90% !important;
+    }
+
+    .api-description {
+      font-size: 15px !important;
+    }
+  }
+}
+
 .mat-card {
   padding: 0px !important;
-  margin-bottom: 30px;
+  margin-top: 20px;
+  margin-bottom: 10px;
 }
 
 .mat-card-header {
