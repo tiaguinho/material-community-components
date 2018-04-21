@@ -4,7 +4,7 @@ The idea of the [Material Community Components]() is to provide components that 
 
 All the components are created using just [Angular](https://angular.io), [Material 2](https://material.angular.io) and [CDK](https://material.angular.io/cdk).
 
-Check out our [live demo](https://material-community-components-demo.stackblitz.io)
+Check out our [documentation & live demo](https://tiaguinho.github.io/material-community-components/)
 
 ## Components Status
 
@@ -15,7 +15,7 @@ All the components have the prefix `mcc` followed by the package name.
 | Button Group | -         | ---              |
 | Color Picker | Available | mcc-color-picker |
 | File Manager | -         | ---              |
-| Scrollspy    | In Development | --- |
+| Scrollspy    | In Test   | ---              |
 | Timer Picker | Available | mcc-timer-picker |
 
 If you miss any component, please follow the [CONTRIBUTION GUIDELINE](https://github.com/tiaguinho/material-community-components/blob/master/CONTRIBUTING.md) to open an issue.
