@@ -1,5 +1,4 @@
-import { Component, OnInit } from '@angular/core';
-import { environment } from '../environments/environment';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-root',
@@ -7,10 +6,4 @@ import { environment } from '../environments/environment';
   styleUrls: ['./app.component.scss'],
   preserveWhitespaces: false,
 })
-export class AppComponent implements OnInit {
-  prefix: string;
-
-  ngOnInit() {
-    this.prefix = environment.prefix;
-  }
-}
+export class AppComponent {}

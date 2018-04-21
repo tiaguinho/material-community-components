@@ -1,18 +1,17 @@
 import { Routes } from '@angular/router';
 import { AppComponent } from './app.component';
-import { environment } from '../environments/environment';
 
 export const routes: Routes = [
   {
-    path: `${environment.prefix}color-picker`,
+    path: 'color-picker',
     loadChildren: './color-picker/color-picker.module#ColorPickerModule',
   },
   {
-    path: `${environment.prefix}timer-picker`,
+    path: 'timer-picker',
     loadChildren: './timer-picker/timer-picker.module#TimerPickerModule',
   },
   {
-    path: `${environment.prefix}scrollspy`,
+    path: 'scrollspy',
     loadChildren: './scrollspy/scrollspy.module#ScrollspyModule',
   },
 ];
