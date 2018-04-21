@@ -7,7 +7,7 @@
     {
       "name": "demo",
       "root": "src/demo-app",
-      "outDir": "docs",
+      "outDir": "dist/prod",
       "assets": ["assets", "favicon.ico"],
       "index": "index.html",
       "main": "main.ts",
