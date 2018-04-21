@@ -3,6 +3,10 @@ import { AppComponent } from './app.component';
 
 export const routes: Routes = [
   {
+    path: '',
+    loadChildren: './home/home.module#HomeModule',
+  },
+  {
     path: 'color-picker',
     loadChildren: './color-picker/color-picker.module#ColorPickerModule',
   },
