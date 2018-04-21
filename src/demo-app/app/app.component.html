@@ -1,13 +1,13 @@
 <mat-toolbar color="primary" class="mat-elevation-z4">
-  <button mat-button routerLink="/color-picker">
+  <button mat-button [routerLink]="'/'+prefix+'color-picker'">
     <mat-icon>colorize</mat-icon>
     Color Picker
   </button>
-  <button mat-button routerLink="/timer-picker">
+  <button mat-button [routerLink]="'/'+prefix+'timer-picker'">
     <mat-icon>timer</mat-icon>
     Timer Picker
   </button>
-  <button mat-button routerLink="/scrollspy">
+  <button mat-button [routerLink]="'/'+prefix+'scrollspy'">
     <mat-icon>view_list</mat-icon>
     Scrollspy
   </button>
