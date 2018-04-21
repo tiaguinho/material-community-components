@@ -192,6 +192,45 @@
 
 <hr />
 
+<h2>Services</h2>
+
+<h3>MccColorPickerService</h3>
+<p>You can use service to add, get and reset the used colors component data.</p>
+
+<h4>Methods</h4>
+
+<table class="table-api-documentation">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <code>addColor(color: string): void</code>
+      </td>
+      <td class="api-description">Add new color to the used color collection</td>
+    </tr>
+    <tr>
+      <td>
+        <code>getColors(): Observable{{ '<' }}string[]{{ '>' }}</code>
+      </td>
+      <td class="api-description">Return observable of used color collection</td>
+    </tr>
+    <tr>
+      <td>
+        <code>resetUsedColors(): void</code>
+      </td>
+      <td class="api-description">Clear the used color collection</td>
+    </tr>
+  </tbody>
+</table>
+
+
+<hr />
+
 <h2>Directives</h2>
 
 <p>Using the
