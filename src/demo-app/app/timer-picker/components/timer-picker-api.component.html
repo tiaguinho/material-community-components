@@ -1,0 +1,91 @@
+<h2>Components</h2>
+
+<h3>MccTimerPicker</h3>
+<p>This is the main class of the component.</p>
+
+<h4>Inputs</h4>
+<table class="table-api-documentation">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <code>hideButtons: boolean</code>
+      </td>
+      <td class="api-description">Hide the buttons (confirm/cancel)</td>
+    </tr>
+    <tr>
+      <td>
+        <code>mccTimerPickerFormat: MccTimerPickerFormat</code>
+      </td>
+      <td class="api-description">Define the format that timer-picker will output the selected time (default: 12)</td>
+    </tr>
+    <tr>
+      <td>
+        <code>btnCancel: string</code>
+      </td>
+      <td class="api-description">Cancel button text (default: Cancel)</td>
+    </tr>
+    <tr>
+      <td>
+        <code>btnConfirm: string</code>
+      </td>
+      <td class="api-description">Confirm button text (default: Confirm)</td>
+    </tr>
+  </tbody>
+</table>
+
+<h4>Outputs</h4>
+<table class="table-api-documentation">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <code>selected: string</code>
+      </td>
+      <td class="api-description">Output the selected timer</td>
+    </tr>
+  </tbody>
+</table>
+
+<hr />
+
+<h2>Directives</h2>
+
+<h3>MccTimerPickerOriginDirective</h3>
+
+<p>This directive is used on the trigger component. If we associate the directive an input text, when the input is focused the
+  timer picker will open on the screen</p>
+
+<h3>MccConnectedTimerPickerDirective</h3>
+
+<p>Directive used on the
+  <code>MccTimerPickerComponent</code> to connect to an element (
+  <code>MccTimerPickerOriginDirective</code>)</p>
+
+<h4>Inputs</h4>
+<table class="table-api-documentation">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <code>mccConnectedTimerPickerOrigin: MccTimerPickerOriginDirective</code>
+      </td>
+      <td class="api-description">Element that timer picker has to connect</td>
+    </tr>
+  </tbody>
+</table>

@@ -159,6 +159,19 @@ export class MccColorPickerComponent implements AfterContentInit, OnInit, OnDest
   }
   private _hideButtons: boolean = false;
 
+
+  /**
+   * Hide the color picker selector
+   */
+  @Input()
+  get hideColorPickerSelector(): boolean {
+    return this._hideColorPickerSelector;
+  }
+  set hideColorPickerSelector(value: boolean) {
+    this._hideColorPickerSelector = coerceBooleanProperty(value);
+  }
+  private _hideColorPickerSelector: boolean = false;
+
   /**
    * Set the size of the used colors
    */

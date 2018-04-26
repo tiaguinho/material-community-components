@@ -1,0 +1,38 @@
+p {
+  font-size: 13px;
+  line-height: 22px;
+}
+
+.menu {
+  width: 200px;
+  background: #ffffff;
+  position: fixed;
+
+  .content {
+    position: relative;
+
+    h4 {
+      display: block;
+      text-align: center;
+    }
+
+    li {
+      font-size: 13px;
+      font-weight: 300;
+      line-height: 23px;
+
+      a {
+        cursor: pointer;
+
+        &.focused {
+          font-weight: 600;
+          text-decoration: underline;
+        }
+      }
+    }
+  }
+}
+
+mat-card {
+  margin-left: 230px;
+}
