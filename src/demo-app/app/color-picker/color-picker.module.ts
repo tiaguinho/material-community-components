@@ -8,10 +8,13 @@ import {
   MatIconModule,
   MatInputModule,
   MatCardModule,
+  MatTabsModule,
 } from '@angular/material';
 import { MccColorPickerModule } from '../../../lib';
 
 import { ColorPickerComponent } from './color-picker.component';
+import { ColorPickerApiComponent } from './components/color-picker-api.component';
+import { ColorPickerExamplesComponent } from './components/color-picker-examples.component';
 
 import { routes } from './color-picker.router';
 
@@ -25,8 +28,9 @@ import { routes } from './color-picker.router';
     MatFormFieldModule,
     MatIconModule,
     MatInputModule,
+    MatTabsModule,
     MccColorPickerModule,
   ],
-  declarations: [ColorPickerComponent],
+  declarations: [ColorPickerComponent, ColorPickerApiComponent, ColorPickerExamplesComponent],
 })
 export class ColorPickerModule {}
