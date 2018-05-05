@@ -1,6 +1,5 @@
 import {
   AfterContentInit,
-  AfterContentChecked,
   Input,
   ContentChildren,
   Directive,
@@ -10,7 +9,6 @@ import {
 } from '@angular/core';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { MccScrollspyService } from './scrollspy.service';
-import { fromEvent } from 'rxjs/observable/fromEvent';
 
 @Directive({
   selector: '[mccScrollspyItem], [mcc-scrollspy-item]',
