@@ -15,7 +15,7 @@ All the components have the prefix `mcc` followed by the package name.
 | Button Group | -         | ---              |
 | Color Picker | Available | mcc-color-picker |
 | File Manager | -         | ---              |
-| Scrollspy    | In Test   | ---              |
+| Scrollspy    | Available | mcc-scrollspy    |
 | Timer Picker | Available | mcc-timer-picker |
 
 If you miss any component, please follow the [CONTRIBUTION GUIDELINE](https://github.com/tiaguinho/material-community-components/blob/master/CONTRIBUTING.md) to open an issue.
