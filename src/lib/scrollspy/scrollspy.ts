@@ -1,5 +1,5 @@
 import { MccScrollspyItemDirective } from './scrollspy.directives';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { BehaviorSubject } from 'rxjs';
 
 // scrollspy animations
 export const SCROLLSPY_ANIMATION_SMOOTH = 'smooth';

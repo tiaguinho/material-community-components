@@ -1,16 +1,12 @@
 import {
-  AfterViewInit,
   AfterContentChecked,
   Component,
   ChangeDetectionStrategy,
   ChangeDetectorRef,
-  Directive,
-  ElementRef,
   EventEmitter,
   Input,
   Inject,
   Output,
-  Renderer2,
 } from '@angular/core';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { EMPTY_COLOR, MccColorPickerOption } from './color-picker';

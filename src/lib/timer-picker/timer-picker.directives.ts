@@ -9,10 +9,9 @@ import {
   OnDestroy,
   Renderer2,
 } from '@angular/core';
-import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { MccTimerPickerComponent } from './timer-picker.component';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import { Subscription } from 'rxjs/Subscription';
+import { Subscription, BehaviorSubject } from 'rxjs';
 
 @Directive({
   selector: '[mccTimerPickerOrigin], [mcc-timer-picker-origin]',

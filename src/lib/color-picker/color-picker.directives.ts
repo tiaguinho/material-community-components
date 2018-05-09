@@ -4,19 +4,16 @@ import {
   Directive,
   ElementRef,
   forwardRef,
-  HostBinding,
   Input,
   Inject,
   OnDestroy,
-  OnInit,
   Output,
   Renderer2,
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { MccColorPickerComponent } from './color-picker.component';
 import { EMPTY_COLOR, coerceHexaColor, isValidColor, MccColorPickerOption } from './color-picker';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import { Subscription } from 'rxjs/Subscription';
+import { Subscription, BehaviorSubject } from 'rxjs';
 
 /**
  * This directive change the background of the button

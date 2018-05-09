@@ -17,9 +17,7 @@ import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { MccColorPickerCollectionComponent } from './color-picker-collection.component';
 import { MccColorPickerService } from './color-picker.service';
 import { EMPTY_COLOR, coerceHexaColor } from './color-picker';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import { Subscription } from 'rxjs/Subscription';
-import { Observable } from 'rxjs/Observable';
+import { Subscription, Observable, BehaviorSubject } from 'rxjs';
 
 @Component({
   selector: 'mcc-color-picker',
