@@ -21,7 +21,8 @@
 
     <div class="mcc-color-picker-overlay mat-elevation-z6" role="dialog" aria-label="Color picker">
 
-        <mcc-color-picker-selector [selectedColor]="tmpSelectedColor$ | async" (changeSelectedColor)="updateTmpSelectedColor($event)" *ngIf="!hideColorPickerSelector">
+        <mcc-color-picker-selector [selectedColor]="tmpSelectedColor$ | async" (changeSelectedColor)="updateTmpSelectedColor($event)" [hideHexForms]="hideHexForms"
+        *ngIf="!hideColorPickerSelector>
         </mcc-color-picker-selector>
 
         <mcc-color-picker-collection *ngIf="!hideUsedColors" [label]="usedColorLabel" [size]="usedSizeColors" [transparent]="!hideTransparent"
