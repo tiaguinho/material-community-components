@@ -1,6 +1,6 @@
 <!-- show component inside overlay -->
 <ng-container *ngIf="connected">
-  <ng-template cdkConnectedOverlay hasBackdrop cdkConnectedOverlayBackdropClass="mcc-timer-picker-backdrop" [cdkConnectedOverlayOrigin]="trigger"
+  <ng-template cdkConnectedOverlay cdkConnectedOverlayHasBackdrop cdkConnectedOverlayBackdropClass="mcc-timer-picker-backdrop" [cdkConnectedOverlayOrigin]="trigger"
     [cdkConnectedOverlayOpen]="isOpen" (backdropClick)="backdropClick()">
 
     <ng-template [cdkPortalOutlet]="panelComponent"></ng-template>

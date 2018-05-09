@@ -5,8 +5,8 @@
         <div class="transparent" *ngIf="selectedColor === emptyColor"></div>
     </button>
 
-    <ng-template cdkConnectedOverlay hasBackdrop cdkConnectedOverlayBackdropClass="mcc-color-picker-backdrop" [cdkConnectedOverlayOrigin]="trigger"
-        [cdkConnectedOverlayOpen]="isOpen" (backdropClick)="backdropClick()">
+    <ng-template cdkConnectedOverlay cdkConnectedOverlayHasBackdrop cdkConnectedOverlayBackdropClass="mcc-color-picker-backdrop"
+        [cdkConnectedOverlayOrigin]="trigger" [cdkConnectedOverlayOpen]="isOpen" (backdropClick)="backdropClick()">
 
         <ng-template [cdkPortalOutlet]="overlayPanel"></ng-template>
 
@@ -21,8 +21,8 @@
 
     <div class="mcc-color-picker-overlay mat-elevation-z6" role="dialog" aria-label="Color picker">
 
-        <mcc-color-picker-selector [selectedColor]="tmpSelectedColor$ | async" (changeSelectedColor)="updateTmpSelectedColor($event)" [hideHexForms]="hideHexForms"
-        *ngIf="!hideColorPickerSelector>
+        <mcc-color-picker-selector [selectedColor]="tmpSelectedColor$ | async" (changeSelectedColor)="updateTmpSelectedColor($event)"
+            [hideHexForms]="hideHexForms" *ngIf="!hideColorPickerSelector">
         </mcc-color-picker-selector>
 
         <mcc-color-picker-collection *ngIf="!hideUsedColors" [label]="usedColorLabel" [size]="usedSizeColors" [transparent]="!hideTransparent"
