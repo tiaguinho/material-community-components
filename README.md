@@ -72,7 +72,7 @@ or
 
 ## How to use
 
-For more examples, you can see our [app-demo](https://github.com/tiaguinho/material-community-components/blob/master/src/demo-app) folder or read the full [documentation](https://github.com/tiaguinho/material-community-components/wiki)
+For more examples, you can see our [app-demo](https://github.com/tiaguinho/material-community-components/blob/master/src/demo-app/app) folder or read the full [documentation](https://tiaguinho.github.io/material-community-components)
 
 ## License
 
