@@ -1,22 +1,22 @@
 import {
   AfterViewInit,
-  Component,
   ChangeDetectionStrategy,
-  Input,
-  Inject,
+  Component,
   ElementRef,
   EventEmitter,
-  OnInit,
+  Inject,
+  Input,
   OnChanges,
   OnDestroy,
+  OnInit,
   Output,
   Renderer2,
-  ViewChild,
   SimpleChanges,
+  ViewChild,
 } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { BehaviorSubject, Subscription } from 'rxjs';
 import { EMPTY_COLOR, coerceHexaColor, isValidColor } from './color-picker';
-import { Subscription, BehaviorSubject } from 'rxjs';
 
 interface ColorOption {
   type: string;
@@ -69,6 +69,21 @@ export class MccColorPickerSelectorComponent
   private _sc: ElementRef;
 
   /**
+   * Change height base of the selector
+   */
+  @Input('height')
+  set height(value: number) {
+    this._height = value;
+  }
+  get selectorHeight(): number {
+    return this._height;
+  }
+  get stripHeight(): number {
+    return this._height - 10;
+  }
+  private _height: number = 170;
+
+  /**
    * Receive selected color from the component
    */
   @Input()
@@ -79,7 +94,6 @@ export class MccColorPickerSelectorComponent
     this._selectedColor = value || this.emptyColor;
   }
   private _selectedColor: string = '';
-
 
   /**
    * Hide the hexadecimal color forms.
@@ -310,9 +324,8 @@ export class MccColorPickerSelectorComponent
       }
 
       const hex = this._getHex(data);
-      if (hex !== this._selectedColor
-        && hex.length === 7) {
-          this._tmpSelectedColor.next(hex);
+      if (hex !== this._selectedColor && hex.length === 7) {
+        this._tmpSelectedColor.next(hex);
       }
     });
   }

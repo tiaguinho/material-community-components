@@ -1,23 +1,23 @@
+import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import {
   AfterContentInit,
-  Component,
-  ContentChildren,
   ChangeDetectionStrategy,
   ChangeDetectorRef,
+  Component,
+  ContentChildren,
   ElementRef,
   EventEmitter,
-  Input,
   Inject,
-  Output,
-  OnInit,
+  Input,
   OnDestroy,
+  OnInit,
+  Output,
   QueryList,
 } from '@angular/core';
-import { coerceBooleanProperty } from '@angular/cdk/coercion';
+import { BehaviorSubject, Observable, Subscription } from 'rxjs';
+import { EMPTY_COLOR, coerceHexaColor } from './color-picker';
 import { MccColorPickerCollectionComponent } from './color-picker-collection.component';
 import { MccColorPickerService } from './color-picker.service';
-import { EMPTY_COLOR, coerceHexaColor } from './color-picker';
-import { Subscription, Observable, BehaviorSubject } from 'rxjs';
 
 @Component({
   selector: 'mcc-color-picker',
@@ -157,6 +157,17 @@ export class MccColorPickerComponent implements AfterContentInit, OnInit, OnDest
   }
   private _hideButtons: boolean = false;
 
+  /**
+   * Define new height for the selector
+   */
+  @Input()
+  get colorPickerSelectorHeight(): number {
+    return this._colorPickerSelectorHeight;
+  }
+  set colorPickerSelectorHeight(height: number) {
+    this._colorPickerSelectorHeight = height;
+  }
+  private _colorPickerSelectorHeight: number = 170;
 
   /**
    * Hide the color picker selector

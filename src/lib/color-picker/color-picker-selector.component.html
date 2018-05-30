@@ -1,10 +1,10 @@
-<div class="mcc-color-picker-selector">
+<div class="mcc-color-picker-selector" [ngStyle]="{ 'height.px': selectorHeight }">
     <div #block class="mcc-picker-selector"></div>
-    <canvas #blockCanvas height="170" width="230" id="picker"></canvas>
+    <canvas #blockCanvas [height]="selectorHeight" width="230" id="picker"></canvas>
     <div #blockPointer class="mcc-picker-position" style="top: 0px;left: 220px;"></div>
 
     <div #stripContainer class="mcc-colors-position" style="background-position-y: 0px;">
-        <canvas #strip height="160" width="20" id="colors"></canvas>
+        <canvas #strip [height]="stripHeight" width="20" id="colors"></canvas>
     </div>
 </div>
 
