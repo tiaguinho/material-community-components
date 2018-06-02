@@ -80,4 +80,4 @@ For more examples, you can see our [app-demo](https://github.com/tiaguinho/mater
 
 ## Sponsors
 
-![alt text](https://github.com/tiaguinho/material-community-components/raw/master/images/sponsor-egoi.png 'E-goi')
+[![alt text](https://github.com/tiaguinho/material-community-components/raw/master/images/sponsor-egoi.png 'E-goi')](https://www.e-goi.com)
