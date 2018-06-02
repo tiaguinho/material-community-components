@@ -15,6 +15,7 @@ import {
   QueryList,
 } from '@angular/core';
 import { BehaviorSubject, Observable, Subscription } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { EMPTY_COLOR, coerceHexaColor } from './color-picker';
 import { MccColorPickerCollectionComponent } from './color-picker-collection.component';
 import { MccColorPickerService } from './color-picker.service';
@@ -56,6 +57,15 @@ export class MccColorPickerComponent implements AfterContentInit, OnInit, OnDest
       }
     }
   }
+
+  /**
+   * Set usedColor to be used in reverse
+   */
+  @Input()
+  set reverseUsedColors(reverse: boolean) {
+    this._reverseUsedColor = coerceBooleanProperty(reverse);
+  }
+  private _reverseUsedColor: boolean = false;
 
   /**
    * Hide the hexadecimal color forms.
@@ -220,14 +230,18 @@ export class MccColorPickerComponent implements AfterContentInit, OnInit, OnDest
   private _tmpSelectedColor: BehaviorSubject<string>;
 
   /**
+   * Observable with all the colors used by the user
+   */
+  get usedColors$(): Observable<string[]> {
+    return this.colorPickerService
+      .getColors()
+      .pipe(map(colors => (!this._reverseUsedColor ? colors : [...colors].reverse())));
+  }
+
+  /**
    * Array of subscriptions from the collections
    */
   private _collectionSubs: Subscription[] = [];
-
-  /**
-   * Observable with all the colors used by the user
-   */
-  usedColors$: Observable<string[]>;
 
   constructor(
     private elementRef: ElementRef,
@@ -241,7 +255,6 @@ export class MccColorPickerComponent implements AfterContentInit, OnInit, OnDest
       this._selectedColor = this.emptyColor;
     }
 
-    this.usedColors$ = this.colorPickerService.getColors();
     this._tmpSelectedColor = new BehaviorSubject<string>(this._selectedColor);
   }
 
