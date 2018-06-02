@@ -33,6 +33,24 @@
   </mat-card-content>
 </mat-card>
 
+<!-- REVERSE USED COLOR -->
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>
+      Show used color in reverse
+    </mat-card-title>
+  </mat-card-header>
+
+  <mat-card-content>
+    <mcc-color-picker [usedColorLabel]="'My Colors'" reverseUsedColors>
+
+      <mcc-color-picker-collection [label]="'First Collection'" [colors]="colors">
+      </mcc-color-picker-collection>
+
+    </mcc-color-picker>
+  </mat-card-content>
+</mat-card>
+
 <!-- COLORS AS OBJECTS -->
 <mat-card>
   <mat-card-header>
