@@ -315,7 +315,11 @@ export class MccColorPickerComponent implements AfterContentInit, OnInit, OnDest
    * Update selected color, close the panel and notify the user
    */
   backdropClick(): void {
-    this.confirmSelectedColor();
+    if (this._hideButtons) {
+      this.confirmSelectedColor();
+    } else {
+      this.cancelSelection();
+    }
     this.clickOut.emit(null);
   }
 
@@ -338,6 +342,7 @@ export class MccColorPickerComponent implements AfterContentInit, OnInit, OnDest
    */
   cancelSelection() {
     this.selected.emit(this._selectedColor);
+    this.change.next(this._selectedColor);
     this.toggle();
   }
 
