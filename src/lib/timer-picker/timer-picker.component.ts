@@ -29,17 +29,17 @@ export class MccTimerPickerComponent {
   /**
    * Receive selected _hour after confirm
    */
-  private _selectedHour: MccTimerPickerHour;
+  private _selectedHour: MccTimerPickerHour = '12';
 
   /**
    * Receive selected _minute after confirm
    */
-  private _selectedMinute: MccTimerPickerMinute;
+  private _selectedMinute: MccTimerPickerMinute = '00';
 
   /**
    * Receive selected _period after confirm
    */
-  private _selectedPeriod: MccTimerPickerPeriod;
+  private _selectedPeriod: MccTimerPickerPeriod = 'am';
 
   /**
    * Current value (hour/minute) to create the clock
