@@ -27,7 +27,7 @@
   <mat-card-content>
     <form novalidate [formGroup]="form" (ngSubmit)="onSubmit(form)">
       <mat-form-field>
-        <mcc-timer-picker mccConnectedTimerPicker [mccConnectedTimerPickerOrigin]="minMaxInputTrigger" mccTimerPickerMin="09:45 am" mccTimerPickerMax="08:30 pm"></mcc-timer-picker>
+        <mcc-timer-picker mccConnectedTimerPicker [mccConnectedTimerPickerOrigin]="minMaxInputTrigger" mccTimerPickerMin="09:45" mccTimerPickerMax="20:30"></mcc-timer-picker>
         <input matInput mccTimerPickerOrigin #minMaxInputTrigger="mccTimerPickerOrigin" placeholder="Timer" formControlName="timer" />
       </mat-form-field>
     </form>

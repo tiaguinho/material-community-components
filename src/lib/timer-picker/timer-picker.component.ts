@@ -185,9 +185,22 @@ export class MccTimerPickerComponent {
    * @param time string
    */
   parseTimeInput(time: string): [number, number, string] {
-    return time.split(/\s|:/).map((fragment, index) => {
+    const parsed = time.split(/\s|:/).map((fragment, index) => {
       return index === 2 ? fragment : parseInt(fragment, 10);
-    }) as [number, number, string];
+    });
+
+    if (parsed.length === 2) {
+      // assume we are using 24 hour time format
+      const hours = parsed[0] as number;
+      if (hours > 11) {
+        parsed[0] = hours - 12;
+        parsed.push('pm');
+      } else {
+        parsed.push('am');
+      }
+    }
+
+    return parsed as [number, number, string];
   }
 
   /**
