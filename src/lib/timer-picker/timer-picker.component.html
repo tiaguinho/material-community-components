@@ -39,7 +39,7 @@
         <div class="mcc-timer-picker-line" [ngClass]="getSelectedClass()"></div>
         <ng-container *ngFor="let option of clock$ | async;let i = index;">
           <button mat-icon-button class="mcc-timer-picker-option" [ngClass]="{ 'mcc-timer-picker-option-selected': focus === 'hour' && hour == option || focus === 'min' && minute === option }"
-            [id]="'option-'+i" (click)="select(option)">
+            [id]="'option-'+i" (click)="select(option)" [disabled]="isOptionDisabled(option)">
             {{ option }}
           </button>
         </ng-container>

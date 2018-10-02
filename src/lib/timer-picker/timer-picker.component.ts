@@ -115,6 +115,10 @@ export class MccTimerPickerComponent {
    */
   @Input('mccTimerPickerFormat') format: MccTimerPickerFormat = '12';
 
+  @Input('mccTimerPickerMin') min: string = '00:00 am';
+
+  @Input('mccTimerPickerMax') max: string = '12:00 pm';
+
   /**
    * Change btnCancel label
    */
@@ -174,6 +178,46 @@ export class MccTimerPickerComponent {
     if (this._hideButtons) {
       this.confirmSelectedTime();
     }
+  }
+
+  /**
+   * Returns array containing time, hour and period fragments from time string
+   * @param time string
+   */
+  parseTimeInput(time: string): [number, number, string] {
+    return time.split(/\s|:/).map((fragment, index) => {
+      return index === 2 ? fragment : parseInt(fragment, 10);
+    }) as [number, number, string];
+  }
+
+  /**
+   * Returns true if option value is not valid
+   * @param value MccTimerPickerHour | MccTimerPickerMinute
+   */
+  isOptionDisabled(value: MccTimerPickerHour | MccTimerPickerMinute): boolean {
+
+    const [minHour, minMinutes, minPeriod] = this.parseTimeInput(this.min);
+    const [maxHour, maxMinutes, maxPeriod] = this.parseTimeInput(this.max);
+
+    const optionValue = parseInt(value, 10);
+    const selectedHour = parseInt(this._hour, 10);
+    const selectedPeriod = this._period;
+
+    if (this.focus === 'hour') {
+      if (optionValue < minHour && selectedPeriod === minPeriod) {
+        return true;
+      } else if (optionValue > maxHour && selectedPeriod === maxPeriod) {
+        return true;
+      }
+    } else {
+      if (selectedHour === minHour && selectedPeriod === minPeriod && optionValue < minMinutes) {
+        return true;
+      } else if (selectedHour === maxHour && selectedPeriod === maxPeriod && optionValue > maxMinutes) {
+        return true;
+      }
+    }
+
+    return false;
   }
 
   /**
