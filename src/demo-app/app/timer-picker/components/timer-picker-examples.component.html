@@ -16,6 +16,24 @@
   </mat-card-content>
 </mat-card>
 
+<!-- WITH MIN AND MAX VALUE -->
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>
+      Use custom range
+    </mat-card-title>
+  </mat-card-header>
+
+  <mat-card-content>
+    <form novalidate [formGroup]="form" (ngSubmit)="onSubmit(form)">
+      <mat-form-field>
+        <mcc-timer-picker mccConnectedTimerPicker [mccConnectedTimerPickerOrigin]="minMaxInputTrigger" mccTimerPickerMin="09:45" mccTimerPickerMax="20:30"></mcc-timer-picker>
+        <input matInput mccTimerPickerOrigin #minMaxInputTrigger="mccTimerPickerOrigin" placeholder="Timer" formControlName="timer" />
+      </mat-form-field>
+    </form>
+  </mat-card-content>
+</mat-card>
+
 <!-- USING WITH 24h FORMAT -->
 <mat-card>
   <mat-card-header>
