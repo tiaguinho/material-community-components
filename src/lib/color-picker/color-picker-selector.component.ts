@@ -189,7 +189,7 @@ export class MccColorPickerSelectorComponent
           validators: [
             Validators.min(0),
             Validators.max(256),
-            Validators.minLength(1),
+            Validators.required,
             Validators.maxLength(3),
           ],
           updateOn: 'blur',
