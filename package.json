@@ -74,6 +74,7 @@
         "test",
         "chore",
         "revert",
+        "release",
         "ci",
         "build"
       ],
