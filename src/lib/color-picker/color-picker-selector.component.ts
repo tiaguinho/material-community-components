@@ -16,6 +16,7 @@ import {
 } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { BehaviorSubject, Subscription } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { EMPTY_COLOR, coerceHexaColor, isValidColor } from './color-picker';
 
 interface ColorOption {
@@ -306,11 +307,13 @@ export class MccColorPickerSelectorComponent
    */
   private _onChanges() {
     // validate digited code and update when digitation is finished
-    this._hexValuesSub = this.hexForm.get('hexCode').valueChanges.subscribe(value => {
-      if (!this._isPressed && isValidColor(value)) {
-        this._tmpSelectedColor.next(coerceHexaColor(value) || this.emptyColor);
-      }
-    });
+    this._hexValuesSub = this.hexForm.get('hexCode').valueChanges
+      .pipe(map(color => color !== this.emptyColor ? coerceHexaColor(color) : color))
+      .subscribe(value => {
+        if (!this._isPressed && isValidColor(value)) {
+          this._tmpSelectedColor.next(value || this.emptyColor);
+        }
+      });
 
     this._rgbValuesSub = this.rgbForm.valueChanges.subscribe(controls => {
       const data: string[] = [];
