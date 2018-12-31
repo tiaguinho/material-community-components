@@ -7,10 +7,10 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-          key: material-community-components-{{ .Branch }}-{{ checksum "package.json" }}
+          key: material-community-components-{{ .Branch }}-{{ checksum "yarn.lock" }}
       - run: yarn install
       - save_cache:
-          key: material-community-components-{{ .Branch }}-{{ checksum "package.json" }}
+          key: material-community-components-{{ .Branch }}-{{ checksum "yarn.lock" }}
           paths:
             - "node_modules"
       - run: yarn test -- --no-watch --no-progress --browsers=ChromeHeadlessCI
