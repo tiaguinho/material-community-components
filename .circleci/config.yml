@@ -1,0 +1,16 @@
+version: 2
+jobs:
+  build:
+    working_directory: ~/material-community-components
+    docker:
+      - image: circleci/node:8-browsers
+    steps:
+      - checkout
+      - restore_cache:
+        key: material-community-components-{{ .Branch }}-{{ checksum "package.json" }}
+      - run: yarn install
+      - save_cache:
+        key: material-community-components-{{ .Branch }}-{{ checksum "package.json" }}
+        paths:
+          - "node_modules"
+      - run: yarn test -- --no-watch --no-progress --browsers=ChromeHeadlessCI
