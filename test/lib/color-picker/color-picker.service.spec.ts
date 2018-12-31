@@ -1,15 +1,35 @@
 import { TestBed } from '@angular/core/testing';
 import { MccColorPickerService } from '../../../src/lib/color-picker/color-picker.service';
+import { EMPTY_COLOR } from '../../../src/lib/color-picker/color-picker';
 
 describe('MccColorPickerService', () => {
 
   let service: MccColorPickerService;
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [MccColorPickerService]
+      providers: [{ provide: EMPTY_COLOR, useValue: 'none'}]
     });
 
-    service = TestBed.get(MccColorPickerService);
+    const emptyColorToken = TestBed.get(EMPTY_COLOR);
+    service = new MccColorPickerService(emptyColorToken);
+  });
+
+  it('should add color', (done: DoneFn) => {
+    const color = '#FFFFFF';
+
+    service.addColor(color);
+    service.getColors().subscribe(colors => {
+      expect(colors[0]).toBe(color);
+      done();
+    });
+  });
+
+  it('should reset used colors', (done: DoneFn) => {
+    service.resetUseColors();
+    service.getColors().subscribe(colors => {
+      expect(colors.length).toBe(0);
+      done();
+    });
   });
 
 });
