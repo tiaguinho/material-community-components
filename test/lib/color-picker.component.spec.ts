@@ -1,5 +1,5 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { MccColorPickerComponent } from './color-picker.component';
+/*import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { MccColorPickerComponent } from '../../src/lib/color-picker/color-picker.component';
 
 describe('MccColorPickerComponent', () => {
   let comp: MccColorPickerComponent;
@@ -14,4 +14,4 @@ describe('MccColorPickerComponent', () => {
 
     comp = fixture.componentInstance;
   });
-});
+});*/
