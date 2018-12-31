@@ -1,4 +1,7 @@
+# Material Community Components
 Small in size but big in features!
+
+[![CircleCI](https://circleci.com/gh/tiaguinho/material-community-components/tree/master.svg?style=svg)](https://circleci.com/gh/tiaguinho/material-community-components/tree/master)
 
 The idea of the [Material Community Components]() is to provide components that aren't available in the [Angular Material2](https://material.angular.io) yet.
 
