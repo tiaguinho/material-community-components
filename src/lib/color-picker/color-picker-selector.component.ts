@@ -315,7 +315,7 @@ export class MccColorPickerSelectorComponent
     this._rgbValuesSub = this.rgbForm.valueChanges.subscribe(controls => {
       const data: string[] = [];
       for (const key in controls) {
-        if (!controls[key] || controls[key] > 255) {
+        if (!controls[key] && controls[key] !== 0 || controls[key] > 255) {
           data.push('');
           continue;
         }
