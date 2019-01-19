@@ -69,6 +69,44 @@ describe('MccTimerPickerComponent', () => {
     expect(actions).toBeNull();
   });
 
+
+  it('should emit time with hide buttons', () => {
+    comp.hideButtons = true;
+
+    fixture.detectChanges();
+
+    const btnPeriod = fixture.debugElement.queryAll(By.css('.mcc-timer-picker-am-pm button'))[1];
+    btnPeriod.triggerEventHandler('click', null);
+
+    fixture.detectChanges();
+
+    comp.confirmSelectedTime();
+  });
+
+  it('should return 13:00 am with hide buttons', () => {
+    comp.hideButtons = true;
+
+    comp.selected.subscribe(selected => {
+      expect(selected).toBe('1:00 am');
+    })
+
+    const btnHour = fixture.debugElement.query(By.css('#option-2'));
+    btnHour.triggerEventHandler('click', null);
+  });
+
+  it('should cancel de selection', () => {
+    comp.cancelSelection();
+
+    expect(comp.isOpen).toBeFalsy();
+  });
+
+  it('should return selected hour 12:00 am with a backdrop click', () => {
+    comp.selected.subscribe(selected => {
+      expect(selected).toBe('12:00 am');
+    });
+    comp.backdropClick();
+  });
+
   it('should return selected hour 12:30 am', () => {
     const btnHour = fixture.debugElement.query(By.css('#option-0'));
     btnHour.triggerEventHandler('click', null);
@@ -125,5 +163,77 @@ describe('MccTimerPickerComponent', () => {
     });
     comp.confirmSelectedTime();
   });
+
+  it('should return selected hour 11:50', () => {
+    comp.format = '24';
+
+    const btnHour = fixture.debugElement.query(By.css('#option-1'));
+    btnHour.triggerEventHandler('click', null);
+
+    fixture.detectChanges();
+
+    const btnMin = fixture.debugElement.query(By.css('#option-3'));
+    btnMin.triggerEventHandler('click', null);
+
+    comp.selected.subscribe(selected => {
+      expect(selected).toEqual('11:50');
+    });
+    comp.confirmSelectedTime();
+  });
+
+  it('should not change focus', () => {
+    comp.focus = 'hour';
+  });
+
+  it('should change focus to min and back to hour', () => {
+    comp.focus = 'min';
+    comp.focus = 'hour';
+  });
+
+  it('should disable options less than 10h', () => {
+    comp.format = '24';
+    comp.min = '10:30';
+    comp.max = '13:00';
+
+    fixture.detectChanges();
+  });
+
+  it('should disable options greater than 11h', () => {
+    comp.format = '24';
+    comp.max = '11:00';
+
+    fixture.detectChanges();
+  });
+
+  it('should disable options less than 11h30', () => {
+    comp.format = '24';
+    comp.min = '11:30';
+
+    const btnHour = fixture.debugElement.query(By.css('#option-1'));
+    btnHour.triggerEventHandler('click', null);
+
+    fixture.detectChanges();
+
+    const btnMin = fixture.debugElement.query(By.css('#option-3'));
+    btnMin.triggerEventHandler('click', null);
+
+    fixture.detectChanges();
+  });
+
+  it('should disable options greater than 11h30', () => {
+    comp.format = '24';
+    comp.max = '11:30';
+
+    const btnHour = fixture.debugElement.query(By.css('#option-1'));
+    btnHour.triggerEventHandler('click', null);
+
+    fixture.detectChanges();
+
+    const btnMin = fixture.debugElement.query(By.css('#option-3'));
+    btnMin.triggerEventHandler('click', null);
+
+    fixture.detectChanges();
+  });
+
 
 });
