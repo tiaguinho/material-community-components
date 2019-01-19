@@ -42,7 +42,11 @@ import {
     MccColorPickerOriginDirective,
     MccColorPickerCollectionComponent,
   ],
-  providers: [MccColorPickerService, { provide: EMPTY_COLOR, useValue: 'none' }],
+  providers: [
+    MccColorPickerService,
+    { provide: EMPTY_COLOR, useValue: 'none' },
+    { provide: USED_COLORS, useValue: [] }
+  ],
 })
 export class MccColorPickerModule {
   /**
