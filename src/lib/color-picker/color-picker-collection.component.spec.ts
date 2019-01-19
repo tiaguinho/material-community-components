@@ -1,9 +1,9 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { ComponentFixture, ComponentFixtureAutoDetect, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { MccColorPickerCollectionComponent } from '../../../src/lib/color-picker/color-picker-collection.component';
-import { MccColorPickerOptionDirective } from '../../../src/lib/color-picker/color-picker.directives';
-import { EMPTY_COLOR } from '../../../src/lib/color-picker/color-picker';
+import { MccColorPickerCollectionComponent } from './color-picker-collection.component';
+import { MccColorPickerOptionDirective } from './color-picker.directives';
+import { EMPTY_COLOR } from './color-picker';
 
 describe('MccColorPickerCollectionComponent', () => {
   let comp: MccColorPickerCollectionComponent;

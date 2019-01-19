@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
-import { MccColorPickerService } from '../../../src/lib/color-picker/color-picker.service';
-import { EMPTY_COLOR } from '../../../src/lib/color-picker/color-picker';
+import { MccColorPickerService } from './color-picker.service';
+import { EMPTY_COLOR } from './color-picker';
 
 describe('MccColorPickerService', () => {
 

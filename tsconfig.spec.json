@@ -11,7 +11,7 @@
     ]
   },
   "files": [
-    "test/test.ts",
+    "src/lib/test.ts",
     "src/demo-app/polyfills.ts"
   ]
 }

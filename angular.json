@@ -118,9 +118,9 @@
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
-            "main": "test/test.ts",
-            "karmaConfig": "test/karma.conf.js",
-            "tsConfig": "test/tsconfig.spec.json"
+            "main": "src/lib/test.ts",
+            "karmaConfig": "src/lib/karma.conf.js",
+            "tsConfig": "src/lib/tsconfig.spec.json"
           }
         },
         "lint": {
