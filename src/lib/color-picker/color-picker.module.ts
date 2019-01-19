@@ -5,7 +5,7 @@ import { OverlayModule } from '@angular/cdk/overlay';
 import { PortalModule } from '@angular/cdk/portal';
 import { MatButtonModule, MatFormFieldModule, MatInputModule } from '@angular/material';
 
-import { EMPTY_COLOR, ColorPickerConfig } from './color-picker';
+import { EMPTY_COLOR, USED_COLORS, ColorPickerConfig } from './color-picker';
 
 import { MccColorPickerService } from './color-picker.service';
 
@@ -51,7 +51,10 @@ export class MccColorPickerModule {
   static forRoot(config: ColorPickerConfig): ModuleWithProviders {
     return {
       ngModule: MccColorPickerModule,
-      providers: [{ provide: EMPTY_COLOR, useValue: config.empty_color }],
+      providers: [
+        { provide: EMPTY_COLOR, useValue: config.empty_color || 'none' },
+        { provide: USED_COLORS, useValue: config.used_colors || [] }
+      ],
     };
   }
 }

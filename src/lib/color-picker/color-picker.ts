@@ -3,11 +3,15 @@ import { InjectionToken } from '@angular/core';
 /** Contant used as empty color */
 export const EMPTY_COLOR = new InjectionToken<string>('empty-color');
 
+/** Constante to set usedColorStart from the module import */
+export const USED_COLORS = new InjectionToken<string[]>('used-colors');
+
 /**
  *
  */
 export interface ColorPickerConfig {
-  empty_color: string;
+  empty_color?: string;
+  used_colors?: string[];
 }
 
 /**

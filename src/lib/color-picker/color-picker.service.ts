@@ -1,5 +1,5 @@
 import { Injectable, Inject } from '@angular/core';
-import { coerceHexaColor, isValidColor, EMPTY_COLOR } from './color-picker';
+import { coerceHexaColor, isValidColor, EMPTY_COLOR, USED_COLORS } from './color-picker';
 import { Observable, BehaviorSubject } from 'rxjs';
 
 @Injectable()
@@ -9,7 +9,12 @@ export class MccColorPickerService {
    */
   private _colors: BehaviorSubject<string[]> = new BehaviorSubject<string[]>([]);
 
-  constructor(@Inject(EMPTY_COLOR) private emptyColor: string) {}
+  constructor(
+    @Inject(EMPTY_COLOR) private emptyColor: string,
+    @Inject(USED_COLORS) private usedColors: string[]
+  ) {
+    this._colors.next(usedColors);
+  }
 
   /**
    * Add new color to used colors
