@@ -1,10 +1,12 @@
 import { TestBed } from '@angular/core/testing';
 import { MccColorPickerService } from './color-picker.service';
 import { EMPTY_COLOR, USED_COLORS } from './color-picker';
+import { doesNotThrow } from 'assert';
 
 describe('MccColorPickerService', () => {
-
+  const color = '#FFFFFF';
   let service: MccColorPickerService;
+
   beforeEach(() => {
     TestBed.configureTestingModule({
       providers: [
@@ -19,11 +21,27 @@ describe('MccColorPickerService', () => {
   });
 
   it('should add color', (done: DoneFn) => {
-    const color = '#FFFFFF';
-
     service.addColor(color);
     service.getColors().subscribe(colors => {
       expect(colors[0]).toBe(color);
+      done();
+    });
+  });
+
+  it('should return undefined for the invalid color', (done: DoneFn) => {
+    service.addColor(color);
+    service.addColor('');
+    service.getColors().subscribe(colors => {
+      expect(colors.length).toBe(1);
+      done();
+    });
+  });
+
+  it('should not add the color because de color already exists', (done: DoneFn) => {
+    service.addColor(color);
+    service.addColor(color);
+    service.getColors().subscribe(colors => {
+      expect(colors.length).toBe(1);
       done();
     });
   });

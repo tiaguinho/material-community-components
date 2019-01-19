@@ -119,4 +119,18 @@ describe('MccColorPickerCollectionComponent', () => {
     option.triggerEventHandler('click', null);
   });
 
+  it('should select black color', (done: DoneFn) => {
+    comp.colors = [{ text: 'black', value: '#000000' }, { text: 'white', value: '#FFFFFF'}];
+
+    fixture.detectChanges();
+
+    comp.changeColor.subscribe(color => {
+      expect(color).toEqual('#000000');
+      done();
+    });
+
+    const option = fixture.debugElement.query(By.directive(MccColorPickerOptionDirective));
+    option.triggerEventHandler('click', null);
+  });
+
 });
