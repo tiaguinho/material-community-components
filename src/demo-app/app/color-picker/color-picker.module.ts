@@ -29,7 +29,9 @@ import { routes } from './color-picker.router';
     MatIconModule,
     MatInputModule,
     MatTabsModule,
-    MccColorPickerModule,
+    MccColorPickerModule.forRoot({
+      used_colors: ['#000000', '#123456', '#777666']
+    }),
   ],
   declarations: [ColorPickerComponent, ColorPickerApiComponent, ColorPickerExamplesComponent],
 })
