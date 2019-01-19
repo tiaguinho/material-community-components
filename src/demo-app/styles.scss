@@ -1,6 +1,28 @@
 @import url('https://fonts.googleapis.com/css?family=Roboto+Mono|Roboto:300,400');
 @import url('https://fonts.googleapis.com/icon?family=Material+Icons');
-@import '~@angular/material/prebuilt-themes/indigo-pink.css';
+@import '~@angular/material/theming';
+@import '../lib/theming';
+
+@include mat-core();
+
+// Define the palettes for your theme using the Material Design palettes available in palette.scss
+// (imported above). For each palette, you can optionally specify a default, lighter, and darker
+// hue. Available color palettes: https://material.io/design/color/
+$demo-primary: mat-palette($mat-green);
+$demo-accent: mat-palette($mat-pink, A200, A100, A400);
+
+// The warn palette is optional (defaults to red).
+$demo-warn: mat-palette($mat-red);
+
+// Create the theme object (a Sass map containing all of the palettes).
+$demo-theme: mat-light-theme($demo-primary, $demo-accent, $demo-warn);
+
+// build angular material theme
+@include angular-material-theme($demo-theme);
+
+// pass angular material theme to material community components
+@include mcc-theme($demo-theme);
+
 
 html,
 body {
