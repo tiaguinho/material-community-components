@@ -3,6 +3,7 @@ Small in size but big in features!
 
 [![npm version](https://badge.fury.io/js/material-community-components.svg)](https://badge.fury.io/js/material-community-components)
 [![CircleCI](https://circleci.com/gh/tiaguinho/material-community-components/tree/master.svg?style=svg)](https://circleci.com/gh/tiaguinho/material-community-components/tree/master)
+[![patreon](https://img.shields.io/badge/patreon-donate-yellow.svg)](https://www.patreon.com/temporin)
 
 The idea of the [Material Community Components]() is to provide components that aren't available in the [Angular Material2](https://material.angular.io) yet.
 
