@@ -266,9 +266,6 @@ Apache-2.0
 @angular/forms
 MIT
 
-@angular/platform-browser
-MIT
-
 tslib
 Apache-2.0
 Apache License
@@ -328,10 +325,10 @@ If the Work includes a "NOTICE" text file as part of its distribution, then any 
 END OF TERMS AND CONDITIONS
 
 
-@angular/core
+@angular/common
 MIT
 
-@angular/common
+@angular/platform-browser
 MIT
 
 @angular/material/button
@@ -346,9 +343,12 @@ MIT
 
 @angular/material/toolbar
 
+@angular/core
+MIT
+
 core-js
 MIT
-Copyright (c) 2014-2018 Denis Pushkarev
+Copyright (c) 2014-2017 Denis Pushkarev
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
