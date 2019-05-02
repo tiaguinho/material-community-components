@@ -71,6 +71,7 @@ canvas {
   height: 40px;
   padding: 15px;
   border-bottom: 1px #e1e1e1 solid;
+  box-sizing: content-box;
 
   form {
     display: inline-block;
