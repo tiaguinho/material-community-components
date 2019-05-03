@@ -341,8 +341,7 @@ export class MccColorPickerComponent implements AfterContentInit, OnInit, OnDest
    * Cancel the selection and close the panel
    */
   cancelSelection() {
-    this.selected.emit(this._selectedColor);
-    this.change.next(this._selectedColor);
+    this._tmpSelectedColor.next(this._selectedColor);
     this.toggle();
   }
 
