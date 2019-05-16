@@ -11,7 +11,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/prod",
+            "outputPath": "dist/material-community-components",
             "index": "src/demo-app/index.html",
             "main": "src/demo-app/main.ts",
             "tsConfig": "src/demo-app/tsconfig.app.json",
