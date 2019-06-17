@@ -12,8 +12,7 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "packagr": "ng-packagr -p src/lib/package.json && yarn build:lib:scss && cp README.md src/lib/dist/",
-    "commitmsg": "validate-commit-msg"
+    "packagr": "ng-packagr -p src/lib/package.json && yarn build:lib:scss && cp README.md src/lib/dist/"
   },
   "private": true,
   "peerDependencies": {
@@ -90,5 +89,10 @@
   },
   "dependencies": {
     "scss-bundle": "^2.5.1"
+  },
+  "husky": {
+    "hooks": {
+      "commit-msg": "validate-commit-msg"
+    }
   }
 }
