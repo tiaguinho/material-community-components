@@ -33,17 +33,17 @@
     "material-community-components"
   ],
   "peerDependencies": {
-    "@angular/animations": ">8.0.x",
-    "@angular/cdk": ">8.0.x",
-    "@angular/common": ">8.0.x",
-    "@angular/compiler": ">8.0.x",
-    "@angular/core": ">8.0.x",
-    "@angular/forms": ">8.0.x",
-    "@angular/material": ">8.0.x",
-    "@angular/platform-browser": ">8.0.x",
-    "@angular/platform-browser-dynamic": ">8.0.x",
+    "@angular/animations": "^8.0.0",
+    "@angular/cdk": "^8.0.0",
+    "@angular/common": "^8.0.0",
+    "@angular/compiler": "^8.0.0",
+    "@angular/core": "^8.0.0",
+    "@angular/forms": "^8.0.0",
+    "@angular/material": "^8.0.0",
+    "@angular/platform-browser": "^8.0.0",
+    "@angular/platform-browser-dynamic": "^8.0.0",
     "core-js": "^2.4.1",
-    "rxjs": ">=6.4.x",
+    "rxjs": ">=6.4.0",
     "zone.js": "^0.9.1"
   }
 }
