@@ -3,18 +3,18 @@ import { Routes } from '@angular/router';
 export const routes: Routes = [
   {
     path: '',
-    loadChildren: './home/home.module#HomeModule',
+    loadChildren: () => import('./home/home.module').then(m => m.HomeModule),
   },
   {
     path: 'color-picker',
-    loadChildren: './color-picker/color-picker.module#ColorPickerModule',
+    loadChildren: () => import('./color-picker/color-picker.module').then(m => m.ColorPickerModule),
   },
   {
     path: 'timer-picker',
-    loadChildren: './timer-picker/timer-picker.module#TimerPickerModule',
+    loadChildren: () => import('./timer-picker/timer-picker.module').then(m => m.TimerPickerModule),
   },
   {
     path: 'scrollspy',
-    loadChildren: './scrollspy/scrollspy.module#ScrollspyModule',
+    loadChildren: () => import('./scrollspy/scrollspy.module').then(m => m.ScrollspyModule),
   },
 ];
