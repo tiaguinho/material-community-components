@@ -1,5 +1,6 @@
-import { Component, ChangeDetectorRef, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ChangeDetectorRef, OnInit, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
 import { MccScrollspyService, MccScrollspyItemDirective } from '../../../../lib';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-scrollspy-examples',
@@ -8,8 +9,10 @@ import { MccScrollspyService, MccScrollspyItemDirective } from '../../../../lib'
   preserveWhitespaces: false,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ScrollspyExamplesComponent implements OnInit {
+export class ScrollspyExamplesComponent implements OnInit, OnDestroy {
   items: MccScrollspyItemDirective[];
+
+  private _subscription: Subscription;
 
   constructor(
     private mccScrolspyService: MccScrollspyService,
@@ -17,10 +20,16 @@ export class ScrollspyExamplesComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.mccScrolspyService.group('My Scrollspy').subscribe(items => {
+    this._subscription = this.mccScrolspyService.group('My Scrollspy').subscribe(items => {
       this.items = items;
       this.changeDetectorRef.detectChanges();
     });
+  }
+
+  ngOnDestroy() {
+    if (this._subscription && !this._subscription.closed) {
+      this._subscription.unsubscribe();
+    }
   }
 
   scrollTo(id: string): void {
