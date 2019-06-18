@@ -31,7 +31,7 @@ import { EMPTY_COLOR, USED_COLORS } from './color-picker';
 })
 class TestComponent implements OnInit {
   form: FormGroup;
-  @ViewChild('colorPicker') colorPicker: MccColorPickerComponent;
+  @ViewChild('colorPicker', {static: true}) colorPicker: MccColorPickerComponent;
 
   constructor(private fb: FormBuilder) {}
 
