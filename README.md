@@ -22,6 +22,7 @@ All the components have the prefix `mcc` followed by the package name.
 | File Manager | -         | ---              |
 | Google Recaptcha | -         | ---              |
 | Scrollspy    | Available | mcc-scrollspy    |
+| Speed Dial   | Available | mcc-speed-dial   |
 | Timer Picker | Available | mcc-timer-picker |
 
 If you miss any component, please follow the [CONTRIBUTION GUIDELINE](https://github.com/tiaguinho/material-community-components/blob/master/CONTRIBUTING.md) to open an issue.
