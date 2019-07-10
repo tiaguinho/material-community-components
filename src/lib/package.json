@@ -1,7 +1,7 @@
 {
   "$schema": "../../node_modules/ng-packagr/package.schema.json",
   "name": "material-community-components",
-  "version": "3.4.3",
+  "version": "5.0.0",
   "ngPackage": {
     "lib": {
       "entryFile": "index.ts"
@@ -19,11 +19,13 @@
     "url": "git+https://github.com/tiaguinho/material-community-components.git"
   },
   "keywords": [
+    "color-picker",
+    "timer-picker",
+    "scrollspy",
+    "speed-dial",
+    "color",
     "angular",
     "material",
-    "color-picker",
-    "color",
-    "timer-picker",
     "timer",
     "ng",
     "ng-color-picker",
