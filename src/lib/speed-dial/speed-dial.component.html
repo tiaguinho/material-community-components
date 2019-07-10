@@ -1,0 +1,8 @@
+<div class="mcc-speed-dial-container" [ngClass]="'mcc-speed-dial-direction-' + direction">
+  <button mat-fab [@spin]="spin && isOpen ? 'open' : 'closed'" class="mat-elevation-z1" (mouseenter)="hoverStart()"
+    (mouseleave)="hoverStop()" (click)="toggle()">
+    <ng-content></ng-content>
+  </button>
+
+  <ng-content select="mcc-speed-dial-actions"></ng-content>
+</div>

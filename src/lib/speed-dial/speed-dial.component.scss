@@ -1,0 +1,96 @@
+@mixin mcc-speed-dial-container($box-orient, $flex-direction) {
+  -webkit-box-orient: $box-orient;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: $flex-direction;
+  flex-direction: $flex-direction;  
+}
+
+@mixin mcc-speed-dial-box-order($ordinal-group, $order) {
+  -webkit-box-ordinal-group: $ordinal-group;
+  -webkit-order: $order;
+  order: $order;
+}
+
+@mixin mcc-speed-dial-actions($box-orient, $box-direction, $flex-direction, $ordinal-group, $order, $action-item-margin-direction) {
+  -webkit-box-orient: $box-orient;
+  -webkit-box-direction: $box-direction;
+  -webkit-flex-direction: $flex-direction;
+  flex-direction: $flex-direction;
+
+  @include mcc-speed-dial-box-order($ordinal-group, $order);
+
+  .mat-mini-fab {
+    margin-#{$action-item-margin-direction}: 10px;
+  }
+}
+
+.mcc-speed-dial-container {
+  position: relative;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+  align-items: center;
+  z-index: 20;
+
+  button {
+    pointer-events: auto;
+    z-index: 24;
+  }
+
+  ::ng-deep mcc-speed-dial-actions {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: flex;
+    height: auto;
+  }
+
+  &.mcc-speed-dial-direction-up {
+    @include mcc-speed-dial-container(vertical, column);
+
+    button {
+      @include mcc-speed-dial-box-order(3, 2);
+    }
+
+    ::ng-deep mcc-speed-dial-actions {
+      @include mcc-speed-dial-actions(vertical, reverse, column-reverse, 2, 1, bottom);
+    }
+  }
+
+  &.mcc-speed-dial-direction-down {
+    @include mcc-speed-dial-container(vertical, column);
+
+    button {
+      @include mcc-speed-dial-box-order(2, 1);
+    }
+
+    ::ng-deep mcc-speed-dial-actions {
+      @include mcc-speed-dial-actions(vertical, normal, column, 3, 2, top);
+    }
+  }
+
+  &.mcc-speed-dial-direction-left {
+    @include mcc-speed-dial-container(horizontal, row);
+
+    button {
+      @include mcc-speed-dial-box-order(3, 2);
+    }
+
+    ::ng-deep mcc-speed-dial-actions {
+      @include mcc-speed-dial-actions(horizontal, normal, row-reverse, 2, 1, right);
+    }
+  }
+
+  &.mcc-speed-dial-direction-right {
+    @include mcc-speed-dial-container(horizontal, row);
+
+    button {
+      @include mcc-speed-dial-box-order(2, 1);
+    }
+
+    ::ng-deep mcc-speed-dial-actions {
+      @include mcc-speed-dial-actions(horizontal, normal, row, 3, 2, left);
+    }
+  }
+}

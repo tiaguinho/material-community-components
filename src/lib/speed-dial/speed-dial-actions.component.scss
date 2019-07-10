@@ -1,0 +1,17 @@
+mcc-speed-dial-actions {
+  .speed-dial-item-animation-scale {
+    -webkit-transform: scale(0);
+    transform: scale(0);
+    -webkit-transition: all .3s cubic-bezier(.55, 0, .55, .2);
+    transition: all .3s cubic-bezier(.55, 0, .55, .2);
+    -webkit-transition-duration: .14286s;
+    transition-duration: .14286s;
+  }
+
+  .speed-dial-item-animation-fling {
+    display: block;
+    opacity: 1;
+    -webkit-transition: all .3s cubic-bezier(.55, 0, .55, .2);
+    transition: all .3s cubic-bezier(.55, 0, .55, .2);
+  }
+}
