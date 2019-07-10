@@ -1,0 +1,74 @@
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>
+      <span>Basic Usage</span>
+    </mat-card-title>
+  </mat-card-header>
+
+  <mat-card-content>
+    <form [formGroup]="form">
+      <mat-grid-list cols="3" rowHeight="250px">
+        <mat-grid-tile colspan="3">
+          <mcc-speed-dial [direction]="direction" [open]="open" [spin]="spin" [mouseHover]="mouse_hover">
+            <!-- This icon can be anything you want -->
+            <mat-icon>add</mat-icon>
+
+            <mcc-speed-dial-actions [animation]="animation">
+              <button mat-mini-fab>
+                <mat-icon>search</mat-icon>
+              </button>
+              <button mat-mini-fab>
+                <mat-icon>edit</mat-icon>
+              </button>
+              <button mat-mini-fab>
+                <mat-icon>home</mat-icon>
+              </button>
+            </mcc-speed-dial-actions>
+          </mcc-speed-dial>
+        </mat-grid-tile>
+
+        <mat-grid-tile colspan="1">
+          <strong>Direction</strong>
+
+          <mat-radio-group formControlName="direction">
+            <ul>
+              <li *ngFor="let direction of directions">
+                <mat-radio-button [value]="direction">
+                  {{direction}}
+                </mat-radio-button>
+              </li>
+            </ul>
+          </mat-radio-group>
+        </mat-grid-tile>
+        <mat-grid-tile colspan="1">
+          <strong>Options</strong>
+
+          <ul>
+            <li>
+              <mat-checkbox formControlName="open">Open</mat-checkbox>
+            </li>
+            <li>
+              <mat-checkbox formControlName="spin">Spin</mat-checkbox>
+            </li>
+            <li>
+              <mat-checkbox formControlName="mouse_hover">Mouse hover</mat-checkbox>
+            </li>
+          </ul>
+        </mat-grid-tile>
+        <mat-grid-tile colspan="1">
+          <strong>Animations</strong>
+
+          <mat-radio-group formControlName="animation">
+            <ul>
+              <li *ngFor="let animation of animations">
+                <mat-radio-button [value]="animation">
+                  {{animation}}
+                </mat-radio-button>
+              </li>
+            </ul>
+          </mat-radio-group>
+        </mat-grid-tile>
+      </mat-grid-list>
+    </form>
+  </mat-card-content>
+</mat-card>

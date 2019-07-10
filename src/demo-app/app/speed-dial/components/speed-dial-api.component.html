@@ -1,0 +1,102 @@
+<h2>Components</h2>
+
+<h3>MccSpeedDial</h3>
+<p>This is the main class of the component.</p>
+
+<h4>Inputs</h4>
+<table class="table-api-documentation">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <code>open: boolean</code>
+      </td>
+      <td class="api-description">Set initial open state of the component</td>
+    </tr>
+    <tr>
+      <td>
+        <code>mouseHover: boolean</code>
+      </td>
+      <td class="api-description">When enabled, handle open/closed state on mouse hover</td>
+    </tr>
+    <tr>
+      <td>
+        <code>spin: boolean</code>
+      </td>
+      <td class="api-description">Enable/disable spin animation</td>
+    </tr>
+    <tr>
+      <td>
+        <code>direction: DIRECTION</code>
+      </td>
+      <td class="api-description">Define direction of the actions button</td>
+    </tr>
+  </tbody>
+</table>
+
+<h4>Outputs</h4>
+<table class="table-api-documentation">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <code>openStateChange: EventEmitter</code>
+      </td>
+      <td class="api-description">Event emitted when the open state change</td>
+    </tr>
+  </tbody>
+</table>
+
+<hr />
+
+<h3>MccSpeedDialActions</h3>
+<p>This class is used to pass action buttons that will be showed when fab speed dial is opened.</p>
+
+<h4>Inputs</h4>
+<table class="table-api-documentation">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <code>animation: ANIMATION</code>
+      </td>
+      <td class="api-description">Set type of animation that will be executed on open/close</td>
+    </tr>
+  </tbody>
+</table>
+
+<hr />
+
+<h3>Types</h3>
+
+<table class="table-api-documentation">
+  <tbody>
+    <tr>
+      <td>
+        <code>DIRECTION</code>
+      </td>
+      <td class="api-description">up | down | left | right</td>
+    </tr>
+    <tr>
+      <td>
+        <code>ANIMATION</code>
+      </td>
+      <td class="api-description">scale | fling</td>
+    </tr>
+  </tbody>
+</table>
