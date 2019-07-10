@@ -17,4 +17,8 @@ export const routes: Routes = [
     path: 'scrollspy',
     loadChildren: () => import('./scrollspy/scrollspy.module').then(m => m.ScrollspyModule),
   },
+  {
+    path: 'speed-dial',
+    loadChildren: () => import('./speed-dial/speed-dial.module').then(m => m.SpeedDialModule),
+  },
 ];
