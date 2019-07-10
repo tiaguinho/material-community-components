@@ -1,5 +1,5 @@
 # Material Community Components
-Small in size but big in features!
+Angular Material components that are not implemented in official package.
 
 [![npm version](https://badge.fury.io/js/material-community-components.svg)](https://badge.fury.io/js/material-community-components)
 [![CircleCI](https://circleci.com/gh/tiaguinho/material-community-components/tree/master.svg?style=svg)](https://circleci.com/gh/tiaguinho/material-community-components/tree/master)
