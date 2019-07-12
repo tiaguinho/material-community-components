@@ -1,14 +1,14 @@
 {
   "name": "material-community-components",
-  "version": "5.0.0",
+  "version": "5.0.1",
   "license": "MIT",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build --prod",
     "build:lib:scss": "scss-bundle -c scss-bundle.config.json",
-    "build:docs": "ng build --prod --baseHref \"https://tiaguinho.github.io/material-community-components/\" && cp dist/material-community-components/index.html dist/material-community-components/404.html",
-    "docs:deploy": "npx angular-cli-ghpages --dir=dist/material-community-components",
+    "build:docs": "ng build --prod --base-href https://tiaguinho.github.io/material-community-components/",
+    "docs:deploy": "npx ngh --dir=dist/material-community-components",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
@@ -16,7 +16,7 @@
   },
   "private": true,
   "peerDependencies": {
-    "core-js": "^2.4.1"
+    "core-js": "^3.1.4"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~0.800.0",

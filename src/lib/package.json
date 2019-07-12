@@ -1,7 +1,7 @@
 {
   "$schema": "../../node_modules/ng-packagr/package.schema.json",
   "name": "material-community-components",
-  "version": "5.0.0",
+  "version": "5.0.1",
   "ngPackage": {
     "lib": {
       "entryFile": "index.ts"
@@ -44,7 +44,7 @@
     "@angular/material": "^8.0.0",
     "@angular/platform-browser": "^8.0.0",
     "@angular/platform-browser-dynamic": "^8.0.0",
-    "core-js": "^2.4.1",
+    "core-js": "^3.1.4",
     "rxjs": ">=6.4.0",
     "zone.js": "^0.9.1"
   }
