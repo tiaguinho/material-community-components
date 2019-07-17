@@ -1,13 +1,13 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
+import { MatCardModule, MatGridListModule, MatIconModule, MatSidenavModule, MatTabsModule } from '@angular/material';
 import { RouterModule } from '@angular/router';
-import { MatCardModule, MatIconModule, MatSidenavModule, MatTabsModule } from '@angular/material';
 import { MccScrollspyModule } from '../../../lib';
-
-import { ScrollspyComponent } from './scrollspy.component';
 import { ScrollspyExamplesComponent } from './components/scrollspy-examples.component';
-
+import { ScrollspyComponent } from './scrollspy.component';
 import { routes } from './scrollspy.router';
+
+
 
 @NgModule({
   imports: [
@@ -16,9 +16,10 @@ import { routes } from './scrollspy.router';
     MccScrollspyModule,
     MatCardModule,
     MatIconModule,
+    MatGridListModule,
     MatSidenavModule,
     MatTabsModule,
   ],
   declarations: [ScrollspyComponent, ScrollspyExamplesComponent],
 })
-export class ScrollspyModule {}
+export class ScrollspyModule { }

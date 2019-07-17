@@ -1,0 +1,14 @@
+::ng-deep .mat-grid-list {
+  border-bottom: 1px solid #dadada;
+}
+::ng-deep .mat-grid-tile:first-child .mat-figure {
+  justify-content: flex-start;
+  align-items: flex-start;
+
+  h2 {
+    border: 0px;
+  }
+}
+.source-code {
+  height: 35px;
+}
