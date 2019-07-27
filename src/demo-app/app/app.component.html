@@ -1,38 +1,41 @@
-<mat-toolbar color="primary" class="mat-elevation-z4">
-  <button mat-button routerLink="/color-picker">
-    <mat-icon>colorize</mat-icon>
-    Color Picker
-  </button>
-  <button mat-button routerLink="/timer-picker">
-    <mat-icon>timer</mat-icon>
-    Timer Picker
-  </button>
-  <button mat-button routerLink="/speed-dial">
-    <mat-icon>add_circle_outline</mat-icon>
-    Speed Dial
-  </button>
-  <button mat-button routerLink="/scrollspy">
-    <mat-icon>view_list</mat-icon>
-    Scrollspy
-  </button>
-</mat-toolbar>
+<mat-sidenav-container>
+  <mat-sidenav #sidenav class="mobile">
+    <button mat-button (click)="sidenav.toggle()">
+      <mat-icon>close</mat-icon>
+    </button>
 
-<div class="container">
-  <router-outlet></router-outlet>
-</div>
+    <app-menu></app-menu>
+  </mat-sidenav>
 
-<footer>
-  <div class="angular">
-    <a href="http://angular.io">
-      <img src="https://material.angular.io/assets/img/homepage/angular-white-transparent.svg" alt="Angular">
-    </a>
-  </div>
-  <div class="version">
-    Current Version: 5.0.1
-  </div>
-  <div class="github">
-    <a href="https://github.com/tiaguinho/material-community-components">
-      <img src="https://material.angular.io/assets/img/homepage/github-circle-white-transparent.svg" />
-    </a>
-  </div>
-</footer>
+  <mat-sidenav-content>
+    <mat-toolbar color="primary" class="mat-elevation-z4">
+      <ng-template #toggle>
+        <button mat-button (click)="sidenav.toggle()">
+          <mat-icon>menu</mat-icon>
+        </button>
+      </ng-template>
+
+      <app-menu *ngIf="!mobile else toggle"></app-menu>
+    </mat-toolbar>
+
+    <div class="container">
+      <router-outlet></router-outlet>
+    </div>
+
+    <footer>
+      <div class="angular">
+        <a href="http://angular.io">
+          <img src="https://material.angular.io/assets/img/homepage/angular-white-transparent.svg" alt="Angular">
+        </a>
+      </div>
+      <div class="version">
+        Current Version: 5.0.1
+      </div>
+      <div class="github">
+        <a href="https://github.com/tiaguinho/material-community-components">
+          <img src="https://material.angular.io/assets/img/homepage/github-circle-white-transparent.svg" />
+        </a>
+      </div>
+    </footer>
+  </mat-sidenav-content>
+</mat-sidenav-container>

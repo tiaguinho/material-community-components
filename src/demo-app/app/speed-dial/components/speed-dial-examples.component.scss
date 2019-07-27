@@ -1,3 +1,7 @@
+::ng-deep .mat-grid-tile .mat-figure {
+  flex-flow: column;
+}
+
 strong {
   font-size: 1rem;
   font-weight: 600;
