@@ -74,6 +74,8 @@ THE SOFTWARE.
 
 @angular/material/radio
 
+@angular/material/sidenav
+
 @angular/material/tabs
 
 @angular/material/toolbar
