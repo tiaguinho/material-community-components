@@ -66,11 +66,15 @@ THE SOFTWARE.
 
 @angular/material/checkbox
 
+@angular/material/core
+
 @angular/material/form-field
 
 @angular/material/grid-list
 
 @angular/material/icon
+
+@angular/material/list
 
 @angular/material/radio
 
