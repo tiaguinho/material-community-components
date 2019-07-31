@@ -1,5 +1,13 @@
+.mat-toolbar {
+  color: #ffffff;
+
+  .example-fill-remaining-space {
+    flex: 1 1 auto;
+  }
+}
+
 .mat-icon {
-  font-size: 20px;
+  font-size: 1.5rem;
 }
 
 :host {
