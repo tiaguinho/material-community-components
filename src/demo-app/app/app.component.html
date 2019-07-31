@@ -1,24 +1,44 @@
-<mat-sidenav-container>
-  <mat-sidenav #sidenav class="mobile">
-    <button mat-button (click)="sidenav.toggle()">
-      <mat-icon>close</mat-icon>
-    </button>
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav #drawer class="sidenav" fixedInViewport [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+    [mode]="(isHandset$ | async) ? 'over' : 'side'" [opened]="(isHandset$ | async) === false">
+    <mat-toolbar>Components</mat-toolbar>
 
-    <app-menu></app-menu>
+    <mat-nav-list>
+      <mat-list-item>
+        <a routerLink="/color-picker">
+          <mat-icon>colorize</mat-icon>
+          Color Picker
+        </a>
+      </mat-list-item>
+
+      <mat-list-item>
+        <a routerLink="/timer-picker">
+          <mat-icon>timer</mat-icon>
+          Timer Picker
+        </a>
+      </mat-list-item>
+
+      <mat-list-item>
+        <a routerLink="/speed-dial">
+          <mat-icon>add_circle_outline</mat-icon>
+          Speed Dial
+        </a>
+      </mat-list-item>
+
+      <mat-list-item>
+        <a routerLink="/scrollspy">
+          <mat-icon>view_list</mat-icon>
+          Scrollspy
+        </a>
+      </mat-list-item>
+    </mat-nav-list>
   </mat-sidenav>
 
   <mat-sidenav-content>
     <mat-toolbar color="primary" class="mat-elevation-z4">
-      <ng-template #toggle>
-        <button mat-button (click)="sidenav.toggle()">
-          <mat-icon>menu</mat-icon>
-        </button>
-      </ng-template>
-
-      <app-menu *ngIf="!mobile else toggle"></app-menu>
-
-      <span class="example-fill-remaining-space"></span>
-
+      <button type="button" mat-icon-button (click)="drawer.toggle()" *ngIf="isHandset$ | async">
+        <mat-icon>menu</mat-icon>
+      </button>
       <span>Material Community Components</span>
     </mat-toolbar>
 
