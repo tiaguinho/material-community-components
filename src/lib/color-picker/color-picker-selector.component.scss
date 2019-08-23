@@ -49,7 +49,7 @@ canvas {
 
   &.black {
     color: #100214;
-    label {
+    label.mat-form-field-label {
       color: #100214;
     }
     .mat-form-field-underline {
@@ -58,7 +58,7 @@ canvas {
   }
   &.white {
     color: #ffffff;
-    label {
+    label.mat-form-field-label {
       color: #ffffff;
     }
     .mat-form-field-underline {
