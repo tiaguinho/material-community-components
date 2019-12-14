@@ -55,7 +55,7 @@ export class MccColorPickerModule {
   /**
    *
    */
-  static forRoot(config: ColorPickerConfig): ModuleWithProviders {
+  static forRoot(config: ColorPickerConfig): ModuleWithProviders<MccColorPickerModule> {
     return {
       ngModule: MccColorPickerModule,
       providers: [

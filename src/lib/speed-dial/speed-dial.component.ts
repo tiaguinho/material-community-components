@@ -14,7 +14,7 @@ export class MccSpeedDialComponent implements AfterViewInit, OnChanges {
   /**
    * Hold speed-dial-actions component inside this component
    */
-  @ContentChild(MccSpeedDialActionsComponent, { static: false }) actions: MccSpeedDialActionsComponent;
+  @ContentChild(MccSpeedDialActionsComponent) actions: MccSpeedDialActionsComponent;
 
   /**
    * Set initial 'open' state
