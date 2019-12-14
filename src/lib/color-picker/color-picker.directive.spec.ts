@@ -5,8 +5,9 @@ import { By } from '@angular/platform-browser';
 import { ReactiveFormsModule, FormGroup, FormBuilder } from '@angular/forms';
 import { PortalModule } from '@angular/cdk/portal';
 import { OverlayModule } from '@angular/cdk/overlay';
-import { MatButtonModule, MatInputModule, MatFormFieldModule } from '@angular/material';
-import { MccColorPickerComponent } from './color-picker.component';
+import { MatButtonModule } from '@angular/material/button';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';import { MccColorPickerComponent } from './color-picker.component';
 import { MccColorPickerSelectorComponent } from './color-picker-selector.component';
 import { MccColorPickerCollectionComponent } from './color-picker-collection.component';
 import { MccColorPickerService } from './color-picker.service';
@@ -16,6 +17,7 @@ import {
   MccColorPickerOptionDirective
 } from './color-picker.directives';
 import { EMPTY_COLOR, USED_COLORS } from './color-picker';
+
 
 //
 @Component({

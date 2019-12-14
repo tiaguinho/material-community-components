@@ -30,7 +30,7 @@
     "@angular/core": "^8.2.14",
     "@angular/forms": "^8.2.14",
     "@angular/language-service": "^8.0.1",
-    "@angular/material": "^8.2.3",
+    "@angular/material": "^9.0.0-rc.5",
     "@angular/platform-browser": "^8.2.14",
     "@angular/platform-browser-dynamic": "^8.2.14",
     "@angular/router": "^8.2.14",

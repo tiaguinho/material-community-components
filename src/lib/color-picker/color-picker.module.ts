@@ -3,7 +3,9 @@ import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 import { OverlayModule } from '@angular/cdk/overlay';
 import { PortalModule } from '@angular/cdk/portal';
-import { MatButtonModule, MatFormFieldModule, MatInputModule } from '@angular/material';
+import { MatButtonModule } from '@angular/material/button';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 
 import { EMPTY_COLOR, USED_COLORS, ColorPickerConfig } from './color-picker';
 
@@ -17,6 +19,7 @@ import {
   MccColorPickerOriginDirective,
   MccColorPickerOptionDirective,
 } from './color-picker.directives';
+
 
 @NgModule({
   imports: [
