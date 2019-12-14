@@ -17,8 +17,13 @@
             "main": "src/demo-app/main.ts",
             "tsConfig": "src/demo-app/tsconfig.app.json",
             "polyfills": "src/demo-app/polyfills.ts",
-            "assets": ["src/demo-app/assets", "src/demo-app/favicon.ico"],
-            "styles": ["src/demo-app/styles.scss"],
+            "assets": [
+              "src/demo-app/assets",
+              "src/demo-app/favicon.ico"
+            ],
+            "styles": [
+              "src/demo-app/styles.scss"
+            ],
             "scripts": []
           },
           "configurations": {
@@ -67,8 +72,12 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": ["demo-app/src/tsconfig.app.json"],
-            "exclude": ["**/node_modules/**"]
+            "tsConfig": [
+              "demo-app/src/tsconfig.app.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
           }
         }
       }
@@ -88,8 +97,12 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": ["demo-app/e2e/tsconfig.e2e.json"],
-            "exclude": ["**/node_modules/**"]
+            "tsConfig": [
+              "demo-app/e2e/tsconfig.e2e.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
           }
         }
       }
@@ -134,7 +147,9 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "exclude": ["**/node_modules/**"]
+            "exclude": [
+              "**/node_modules/**"
+            ]
           }
         }
       }
@@ -154,8 +169,12 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": ["demo-app/e2e/tsconfig.e2e.json"],
-            "exclude": ["**/node_modules/**"]
+            "tsConfig": [
+              "demo-app/e2e/tsconfig.e2e.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
           }
         }
       }
@@ -172,5 +191,8 @@
     "@schematics/angular:directive": {
       "prefix": "app"
     }
+  },
+  "cli": {
+    "analytics": false
   }
 }
