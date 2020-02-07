@@ -22,7 +22,7 @@
     "@angular-devkit/build-angular": "~0.900.1",
     "@angular-devkit/core": "9.0.1",
     "@angular/animations": "^9.0.0",
-    "@angular/cdk": "^8.0.1",
+    "@angular/cdk": "^9.0.0",
     "@angular/cli": "^9.0.1",
     "@angular/common": "^9.0.0",
     "@angular/compiler": "^9.0.0",
@@ -30,7 +30,7 @@
     "@angular/core": "^9.0.0",
     "@angular/forms": "^9.0.0",
     "@angular/language-service": "^9.0.0",
-    "@angular/material": "^8.0.1",
+    "@angular/material": "^9.0.0",
     "@angular/platform-browser": "^9.0.0",
     "@angular/platform-browser-dynamic": "^9.0.0",
     "@angular/router": "^9.0.0",
@@ -86,9 +86,9 @@
     }
   },
   "dependencies": {
-    "scss-bundle": "^2.5.1"
-  ,    "tslib": "^1.10.0"
-},
+    "scss-bundle": "^2.5.1",
+    "tslib": "^1.10.0"
+  },
   "husky": {
     "hooks": {
       "commit-msg": "validate-commit-msg"
