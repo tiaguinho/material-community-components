@@ -36,17 +36,17 @@ export class MccColorPickerSelectorComponent
   /**
    * ElemenRef of the main color
    */
-   @ViewChild('block', {static: false}) _block: ElementRef;
+   @ViewChild('block') _block: ElementRef;
 
   /**
    * ElemenRef of the pointer main color
    */
-  @ViewChild('blockPointer', {static: false}) _bp: ElementRef;
+  @ViewChild('blockPointer') _bp: ElementRef;
 
   /**
    * Canvas of the block
    */
-  @ViewChild('blockCanvas', {static: false})
+  @ViewChild('blockCanvas')
   set blockCursor(el: ElementRef) {
     this._bc = el;
   }
@@ -56,14 +56,14 @@ export class MccColorPickerSelectorComponent
   /**
    * ElementRef of the color base
    */
-  @ViewChild('strip', {static: false}) _strip: ElementRef;
+  @ViewChild('strip') _strip: ElementRef;
   // hold _strip context
   private _stripContext: any;
 
   /**
    * Container of the strip
    */
-  @ViewChild('stripContainer', {static: false})
+  @ViewChild('stripContainer')
   set stripCursor(el: ElementRef) {
     this._sc = el;
   }
