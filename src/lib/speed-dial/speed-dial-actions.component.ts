@@ -1,5 +1,5 @@
 import { AfterContentInit, Component, ContentChildren, Input, QueryList, Renderer2, ViewEncapsulation } from '@angular/core';
-import { MatButton } from '@angular/material';
+import { MatButton } from '@angular/material/button';
 import { BehaviorSubject } from 'rxjs';
 import { ANIMATION, Z_INDEX } from './animations';
 import { DIRECTION } from './directions';
