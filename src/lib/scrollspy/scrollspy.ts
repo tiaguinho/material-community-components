@@ -1,4 +1,4 @@
-import { MccScrollspyItemDirective } from './scrollspy.directives';
+import { MccScrollspyItemDirective } from './scrollspy.directive';
 import { BehaviorSubject } from 'rxjs';
 
 // scrollspy animations

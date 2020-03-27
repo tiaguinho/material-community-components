@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 
 import { MccScrollspyService } from './scrollspy.service';
-import { MccScrollspyGroupDirective, MccScrollspyItemDirective } from './scrollspy.directives';
+import { MccScrollspyGroupDirective, MccScrollspyItemDirective } from './scrollspy.directive';
 
 @NgModule({
   imports: [CommonModule, ScrollingModule],

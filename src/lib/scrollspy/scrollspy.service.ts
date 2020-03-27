@@ -1,5 +1,5 @@
 import { Injectable, Inject, OnDestroy } from '@angular/core';
-import { MccScrollspyItemDirective } from './scrollspy.directives';
+import { MccScrollspyItemDirective } from './scrollspy.directive';
 import { MccScrollspyGroup, SCROLLSPY_ANIMATION_SMOOTH } from './scrollspy';
 import { Subscription, Observable, BehaviorSubject, fromEvent } from 'rxjs';
 import { debounceTime, withLatestFrom } from 'rxjs/operators';
