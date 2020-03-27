@@ -1,7 +1,7 @@
 {
   "$schema": "../../node_modules/ng-packagr/package.schema.json",
   "name": "material-community-components",
-  "version": "5.0.1",
+  "version": "6.0.0",
   "ngPackage": {
     "lib": {
       "entryFile": "index.ts"
@@ -23,6 +23,8 @@
     "timer-picker",
     "scrollspy",
     "speed-dial",
+    "color picker",
+    "timer picker",
     "color",
     "angular",
     "material",
@@ -35,17 +37,17 @@
     "material-community-components"
   ],
   "peerDependencies": {
-    "@angular/animations": "^8.0.0",
-    "@angular/cdk": "^8.0.0",
-    "@angular/common": "^8.0.0",
-    "@angular/compiler": "^8.0.0",
-    "@angular/core": "^8.0.0",
-    "@angular/forms": "^8.0.0",
-    "@angular/material": "^8.0.0",
-    "@angular/platform-browser": "^8.0.0",
-    "@angular/platform-browser-dynamic": "^8.0.0",
-    "core-js": "^3.1.4",
-    "rxjs": ">=6.4.0",
-    "zone.js": "^0.9.1"
+    "@angular/animations": "^9.1.0",
+    "@angular/cdk": "^9.2.0",
+    "@angular/common": "^9.1.0",
+    "@angular/compiler": "^9.1.0",
+    "@angular/core": "^9.1.0",
+    "@angular/forms": "^9.1.0",
+    "@angular/material": "^9.2.0",
+    "@angular/platform-browser": "^9.1.0",
+    "@angular/platform-browser-dynamic": "^9.1.0",
+    "core-js": "^3.6.4",
+    "rxjs": "~6.5.4",
+    "zone.js": "^0.10.3"
   }
 }
