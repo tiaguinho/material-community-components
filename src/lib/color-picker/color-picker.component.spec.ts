@@ -24,6 +24,19 @@ describe('MccColorPickerComponent', () => {
 
   const colors = ['#FFFFFF', '#000000'];
 
+  // convert rgb to hex
+  const toHex = color => {
+    const parts = color.match(/^rgb\((\d+),\s*(\d+),\s*(\d+)\)$/);
+    delete(parts[0]);
+    for (let i = 1; i <= 3; ++i) {
+        parts[i] = parseInt(parts[i]).toString(16);
+        if (parts[i].length === 1) {
+          parts[i] = '0' + parts[i];
+        }
+    }
+    return '#' + parts.join('').toUpperCase();
+  };
+
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [
@@ -97,7 +110,7 @@ describe('MccColorPickerComponent', () => {
   it('should not add any color', (done: DoneFn) => {
     comp.usedColorStart = [];
     fixture.detectChanges();
-    
+
     service.getColors().subscribe(resp => {
       expect(resp.length).toBe(0);
       done();
@@ -112,8 +125,8 @@ describe('MccColorPickerComponent', () => {
     const collection = fixture.debugElement.query(By.css('mcc-color-picker-collection'));
     const buttons = collection.queryAll(By.css('button'));
 
-    expect(buttons[1].styles['background']).toBe(colors[1]);
-    expect(buttons[2].styles['background']).toBe(colors[0]);
+    expect(toHex(buttons[1].styles['background'])).toBe(colors[1]);
+    expect(toHex(buttons[2].styles['background'])).toBe(colors[0]);
   });
 
   it('should hide form hex', () => {
@@ -145,7 +158,7 @@ describe('MccColorPickerComponent', () => {
     const collection = fixture.debugElement.query(By.css('mcc-color-picker-collection'));
     const buttons = collection.queryAll(By.css('button'));
 
-    expect(buttons[0].styles['background']).toBe(colors[0]);
+    expect(toHex(buttons[0].styles['background'])).toBe(colors[0]);
   });
 
   it('should hide buttons', () => {
