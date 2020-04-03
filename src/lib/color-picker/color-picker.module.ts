@@ -58,7 +58,7 @@ export class MccColorPickerModule {
     return {
       ngModule: MccColorPickerModule,
       providers: [
-        { provide: EMPTY_COLOR, useValue: config.empty_color || 'none' },
+        { provide: EMPTY_COLOR, useValue: ('empty_color' in config ? config.empty_color : 'none') },
         { provide: USED_COLORS, useValue: config.used_colors || [] }
       ],
     };
