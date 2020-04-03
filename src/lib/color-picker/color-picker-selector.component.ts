@@ -342,6 +342,11 @@ export class MccColorPickerSelectorComponent
     if (data) {
       return [data[0], data[1], data[2]];
     }
+
+    if (!this._selectedColor) {
+      return [null, null, null];
+    }
+
     const hex = this._selectedColor.replace('#', '');
     const r = parseInt(hex.slice(0, 2), 16);
     const g = parseInt(hex.slice(2, 4), 16);

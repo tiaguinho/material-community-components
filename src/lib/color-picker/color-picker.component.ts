@@ -328,7 +328,7 @@ export class MccColorPickerComponent implements AfterContentInit, OnInit, OnDest
    * @param color string
    */
   updateTmpSelectedColor(color: string) {
-    if (color) {
+    if (color || color === this.emptyColor) {
       this._tmpSelectedColor.next(color);
       this.change.next(color);
       if (this._hideButtons) {
