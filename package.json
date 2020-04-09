@@ -7,6 +7,7 @@
     "start": "ng serve",
     "build": "ng build --prod",
     "build:lib:scss": "scss-bundle -c scss-bundle.config.json",
+    "docs": "ng deploy --base-href=https://tiaguinho.github.io/material-community-components/",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
