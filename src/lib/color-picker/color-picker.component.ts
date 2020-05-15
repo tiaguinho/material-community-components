@@ -220,6 +220,11 @@ export class MccColorPickerComponent implements AfterContentInit, OnInit, OnDest
    * Event emitted when is clicked outside of the component
    */
   @Output() clickOut = new EventEmitter();
+  
+  /**
+   * Event emitted when is clicked outside of the component
+   */
+  @Output() canceled = new EventEmitter();
 
   /**
    * Return a Observable with the color the user is picking
@@ -342,6 +347,7 @@ export class MccColorPickerComponent implements AfterContentInit, OnInit, OnDest
    */
   cancelSelection() {
     this._tmpSelectedColor.next(this._selectedColor);
+    this.canceled.emit(null);
     this.toggle();
   }
 
