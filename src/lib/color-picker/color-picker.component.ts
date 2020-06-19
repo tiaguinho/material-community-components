@@ -199,12 +199,12 @@ export class MccColorPickerComponent implements AfterContentInit, OnInit, OnDest
   /**
    * Change btnCancel label
    */
-  @Input() btnCancel: string = 'Cancel';
+  @Input() btnCancelLabel: string = 'Cancel';
 
   /**
    * Change btnConfirm label
    */
-  @Input() btnConfirm: string = 'Confirm';
+  @Input() btnConfirmLabel: string = 'Confirm';
 
   /**
    * Event emitted when user change the selected color (without confirm)
