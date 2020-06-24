@@ -15,6 +15,8 @@ export class ColorPickerExamplesComponent implements OnInit {
 
   form: FormGroup;
 
+  disabled = false;
+
   // last line will not be show in used colors because they are invalid values
   usedStart: string[] = [
     '#FF3380',

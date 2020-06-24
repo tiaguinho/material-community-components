@@ -15,6 +15,26 @@
   </mat-card-content>
 </mat-card>
 
+<!-- DISABLE -->
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>Change buttons label</mat-card-title>
+  </mat-card-header>
+
+  <mat-card-content>
+    <mcc-color-picker [disabled]="disabled">
+
+      <mcc-color-picker-collection [label]="'First Collection'" hideEmpty="true" [colors]="colors">
+      </mcc-color-picker-collection>
+
+    </mcc-color-picker>
+
+    <button mat-raised-button (click)="disabled = !disabled" color="primary" style="margin-left: 1rem;">Disable
+      /Enable</button>
+  </mat-card-content>
+</mat-card>
+
+
 <!-- CHANGE USED COLOR LABEL -->
 <mat-card>
   <mat-card-header>
@@ -219,7 +239,6 @@
     </mcc-color-picker>
   </mat-card-content>
 </mat-card>
-
 
 <!-- CHANGE BUTTONS LABEL -->
 <mat-card>
