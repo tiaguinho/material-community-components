@@ -10,6 +10,9 @@
   &.empty {
     background: #ffffff !important;
   }
+  &.disabled {
+    opacity: .5;
+  }
 }
 
 .mcc-color-picker-overlay {

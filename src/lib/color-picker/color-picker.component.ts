@@ -35,6 +35,18 @@ export class MccColorPickerComponent implements AfterContentInit, OnInit, OnDest
   _collections: QueryList<MccColorPickerCollectionComponent>;
 
   /**
+   * Disable color-picker of showing up
+   */
+  @Input()
+  get disabled(): boolean {
+    return this._disabled;
+  }
+  set disabled(disabled: boolean) {
+    this._disabled = coerceBooleanProperty(disabled);
+  }
+  private _disabled: boolean = false;
+
+  /**
    * Change label of the collection UsedColors
    */
   @Input()
@@ -305,9 +317,11 @@ export class MccColorPickerComponent implements AfterContentInit, OnInit, OnDest
    * Open/close color picker panel
    */
   toggle() {
-    this._isOpen = !this._isOpen;
-    if (!this._isOpen && this._selectedColor !== this.emptyColor) {
-      this.colorPickerService.addColor(this._selectedColor);
+    if (!this._disabled) {
+      this._isOpen = !this._isOpen;
+      if (!this._isOpen && this._selectedColor !== this.emptyColor) {
+        this.colorPickerService.addColor(this._selectedColor);
+      }
     }
   }
 
