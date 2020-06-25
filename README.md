@@ -105,7 +105,7 @@ $demo-theme: mat-light-theme($demo-primary, $demo-accent, $demo-warn);
 // pass angular material theme to material community components
 @include mcc-theme($demo-theme);
 ```
-***this is only available for the ```timer-picker``` component***
+***this is available for ```timer-picker``` and ```speed-dial```***
 
 ## How to use
 
