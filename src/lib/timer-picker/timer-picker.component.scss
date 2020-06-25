@@ -32,6 +32,22 @@ $primary: #00796b;
   }
 }
 
+.mcc-timer-picker-24hours {
+  width: 63px;
+  height: 63px;
+  font-family: 'Roboto', sans-serif;
+  font-size: 50px;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.3);
+
+  &.mcc-standalone {
+    text-align: right;
+  }
+  &.mcc-active {
+    color: rgba(255, 255, 255, 1);
+  }
+}
+
 .mcc-timer-picker-separator {
   font-family: 'Roboto', sans-serif;
   font-size: 43px;
@@ -82,22 +98,28 @@ $primary: #00796b;
 
   .mcc-timer-picker-dot {
     position: absolute;
-    width: 8px;
-    height: 8px;
+    width: 10px;
+    height: 10px;
     border-radius: 50%;
     background-color: $primary;
-    top: 125px;
-    left: 125px;
+    top: 120px;
+    left: 120px;
   }
 
   .mcc-timer-picker-line {
     position: absolute;
     width: 2px;
     height: 100px;
-    top: 11.5%;
-    left: 51%;
+    top: 10%;
+    left: 124px;
     transform-origin: 50% 100%;
     background-color: $primary;
+
+    // size for internal clock
+    &.hour-format-24 {
+      height: 75px;
+      top: 20%;
+    }
 
     // 12h or 00m
     &.selected-index-0 {
@@ -164,6 +186,64 @@ $primary: #00796b;
   .mcc-timer-picker-option {
     position: absolute;
 
+    &.hours {
+      &.mat-icon-button {
+        width: 26px;
+        height: 26px;
+        line-height: 10px;
+        font-size: 70%;
+      }
+
+      &#option-hour-0 {
+        top: 45px;
+        left: 112px;
+      }
+      &#option-hour-1 {
+        top: 57px;
+        left: 80px;
+      }
+      &#option-hour-2 {
+        top: 57px;
+        right: 80px;
+      }
+      &#option-hour-3 {
+        top: 81px;
+        left: 57px;
+      }
+      &#option-hour-4 {
+        top: 81px;
+        right: 57px;
+      }
+      &#option-hour-5 {
+        top: 112px;
+        left: 45px;
+      }
+      &#option-hour-6 {
+        top: 112px;
+        right: 45px;
+      }
+      &#option-hour-7 {
+        bottom: 81px;
+        left: 57px;
+      }
+      &#option-hour-8 {
+        bottom: 81px;
+        right: 57px;
+      }
+      &#option-hour-9 {
+        bottom: 57px;
+        left: 80px;
+      }
+      &#option-hour-10 {
+        bottom: 57px;
+        right: 80px;
+      }
+      &#option-hour-11 {
+        bottom: 45px;
+        left: 112px;
+      }
+    }
+
     &.mcc-timer-picker-option-selected {
       color: #ffffff;
       background-color: $primary;
@@ -171,51 +251,51 @@ $primary: #00796b;
 
     &#option-0 {
       top: 0;
-      left: 113px;
+      left: 105px;
     }
     &#option-1 {
-      top: 25px;
-      left: 55px;
+      top: 15px;
+      left: 52px;
     }
     &#option-2 {
-      top: 25px;
-      right: 55px;
+      top: 16px;
+      right: 52px;
     }
     &#option-3 {
-      top: 63px;
-      left: 20px;
+      top: 52px;
+      left: 16px;
     }
     &#option-4 {
-      top: 63px;
-      right: 20px;
+      top: 52px;
+      right: 16px;
     }
     &#option-5 {
-      top: 113px;
+      top: 105px;
       left: 0;
     }
     &#option-6 {
-      top: 113px;
+      top: 105px;
       right: 0;
     }
     &#option-7 {
-      bottom: 55px;
-      left: 20px;
+      bottom: 52px;
+      left: 16px;
     }
     &#option-8 {
-      bottom: 55px;
-      right: 20px;
+      bottom: 52px;
+      right: 16px;
     }
     &#option-9 {
-      bottom: 20px;
-      left: 63px;
+      bottom: 16px;
+      left: 52px;
     }
     &#option-10 {
-      bottom: 20px;
-      right: 55px;
+      bottom: 16px;
+      right: 52px;
     }
     &#option-11 {
       bottom: 0;
-      left: 113px;
+      left: 105px;
     }
   }
 }

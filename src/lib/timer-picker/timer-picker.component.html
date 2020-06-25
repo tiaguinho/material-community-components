@@ -22,7 +22,7 @@
         {{ minute }}
       </button>
 
-      <div class="mcc-timer-picker-am-pm">
+      <div class="mcc-timer-picker-am-pm" *ngIf="format === '12'">
         <button mat-icon-button [ngClass]="{ 'mcc-active': period === 'am' }" (click)="changePeriod('am')">
           AM
         </button>
@@ -38,10 +38,22 @@
         <div class="mcc-timer-picker-dot"></div>
         <div class="mcc-timer-picker-line" [ngClass]="getSelectedClass()"></div>
         <ng-container *ngFor="let option of clock$ | async;let i = index;">
-          <button mat-icon-button class="mcc-timer-picker-option" [ngClass]="{ 'mcc-timer-picker-option-selected': focus === 'hour' && hour == option || focus === 'min' && minute === option }"
+          <button mat-icon-button class="mcc-timer-picker-option" [ngClass]="{
+          'mcc-timer-picker-option-selected': focus === 'hour' && hour == option || focus === 'min' && minute === option }"
             [id]="'option-'+i" (click)="select(option)" [disabled]="isOptionDisabled(option)">
             {{ option }}
           </button>
+
+        </ng-container>
+
+        <ng-container *ngIf="format === '24' && focus === 'hour'">
+          <ng-container *ngFor="let option of hours24; let i = index;">
+            <button mat-icon-button class="mcc-timer-picker-option hours" [ngClass]="{
+              'mcc-timer-picker-option-selected': hour == option}"
+                    [id]="'option-hour-'+i" (click)="select(option)" [disabled]="isOptionDisabled(option)">
+              {{ option }}
+            </button>
+          </ng-container>
         </ng-container>
       </div>
 

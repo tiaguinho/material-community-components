@@ -12,9 +12,11 @@ import {
   MccTimerPickerTimeType,
   MccTimerPickerFormat,
   MccTimerPickerHour,
+  MccTimerPicker24Hour,
   MccTimerPickerMinute,
   MccTimerPickerPeriod,
   HOURS,
+  HOURS24,
   MINUTES,
 } from './timer-picker';
 
@@ -29,7 +31,7 @@ export class MccTimerPickerComponent {
   /**
    * Receive selected _hour after confirm
    */
-  private _selectedHour: MccTimerPickerHour = '12';
+  private _selectedHour: MccTimerPickerHour | MccTimerPicker24Hour  = '12';
 
   /**
    * Receive selected _minute after confirm
@@ -48,6 +50,13 @@ export class MccTimerPickerComponent {
     return this._clock.asObservable();
   }
   private _clock: BehaviorSubject<string[]> = new BehaviorSubject(HOURS);
+
+  /**
+   * Return hours in 24h format
+   */
+  get hours24(): string[] {
+    return HOURS24;
+  }
 
   /**
    * Type there is in focus (hour/minute)
@@ -77,10 +86,10 @@ export class MccTimerPickerComponent {
   /**
    * Return temporary selected hour (const HOURS)
    */
-  get hour(): MccTimerPickerHour {
+  get hour(): MccTimerPickerHour | MccTimerPicker24Hour {
     return this._hour;
   }
-  private _hour: MccTimerPickerHour = '12';
+  private _hour: MccTimerPickerHour | MccTimerPicker24Hour = '12';
 
   /**
    * Return temporary selected minute (const MINUTES)
@@ -154,7 +163,16 @@ export class MccTimerPickerComponent {
   getSelectedClass(): string {
     let name = 'selected-index-';
     if (this.focus === 'hour') {
-      name += HOURS.findIndex(h => h === this.hour);
+      // convert to number
+      const hour = parseInt(this.hour, 10);
+
+      // check if hour is mid night or afternoon in 24h format
+      if (hour === 0 || hour > 12) {
+        name += HOURS24.findIndex(h => h === this.hour);
+        name += ' hour-format-24';
+      } else {
+        name += HOURS.findIndex(h => h === this.hour);
+      }
     } else {
       name += MINUTES.findIndex(m => m === this.minute);
     }
