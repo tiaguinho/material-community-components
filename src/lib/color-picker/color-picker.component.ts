@@ -283,6 +283,9 @@ export class MccColorPickerComponent implements AfterContentInit, OnInit, OnDest
         this._collectionSubs.push(subscription);
       });
     }
+
+    // change selected color on service
+    this.selected.subscribe(color => this.colorPickerService.changeSelectedColor(color));
   }
 
   /**
@@ -322,6 +325,8 @@ export class MccColorPickerComponent implements AfterContentInit, OnInit, OnDest
       if (!this._isOpen && this._selectedColor !== this.emptyColor) {
         this.colorPickerService.addColor(this._selectedColor);
       }
+
+      this.colorPickerService.changeSelectedColor(this._selectedColor);
     }
   }
 

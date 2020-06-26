@@ -9,6 +9,11 @@ export class MccColorPickerService {
    */
   private _colors: BehaviorSubject<string[]> = new BehaviorSubject<string[]>([]);
 
+  /**
+   * Hold current selected color
+   */
+  private _selectedColor: BehaviorSubject<string> = new BehaviorSubject<string>('');
+
   constructor(
     @Inject(EMPTY_COLOR) private emptyColor: string,
     @Inject(USED_COLORS) private usedColors: string[]
@@ -46,5 +51,20 @@ export class MccColorPickerService {
    */
   resetUseColors(): void {
     this._colors.next([]);
+  }
+
+  /**
+   * Change internal selected color
+   * @param color
+   */
+  changeSelectedColor(color: string) {
+    this._selectedColor.next(color);
+  }
+
+  /**
+   * Return internal selected color
+   */
+  getSelectedColor(): Observable<string> {
+    return this._selectedColor.asObservable();
   }
 }

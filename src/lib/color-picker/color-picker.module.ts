@@ -6,6 +6,7 @@ import { PortalModule } from '@angular/cdk/portal';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { MatIconModule } from '@angular/material/icon';
 
 import { EMPTY_COLOR, USED_COLORS, ColorPickerConfig } from './color-picker';
 
@@ -29,6 +30,7 @@ import {
     MatButtonModule,
     MatFormFieldModule,
     MatInputModule,
+    MatIconModule
   ],
   declarations: [
     MccColorPickerComponent,

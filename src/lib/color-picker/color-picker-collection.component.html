@@ -8,5 +8,9 @@
 
         <button *ngFor="let color of colors" mat-mini-fab class="mat-elevation-z0" role="option" [disabled]="!color || color === emptyColor"
                 [mccColorPickerOption]="color" (click)="setColor(color)">
+          <mat-icon *ngIf="selectedColor === color; else emptyIcon">done</mat-icon>
+          <ng-template #emptyIcon>
+            <mat-icon></mat-icon>
+          </ng-template>
         </button>
 </div>

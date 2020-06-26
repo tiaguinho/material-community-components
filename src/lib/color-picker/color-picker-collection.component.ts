@@ -1,5 +1,6 @@
 import {
   AfterContentChecked,
+  OnInit,
   Component,
   ChangeDetectionStrategy,
   ChangeDetectorRef,
@@ -10,6 +11,7 @@ import {
 } from '@angular/core';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { EMPTY_COLOR, MccColorPickerOption } from './color-picker';
+import { MccColorPickerService } from './color-picker.service';
 
 @Component({
   selector: 'mcc-color-picker-collection',
@@ -18,7 +20,7 @@ import { EMPTY_COLOR, MccColorPickerOption } from './color-picker';
   preserveWhitespaces: false,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class MccColorPickerCollectionComponent implements AfterContentChecked {
+export class MccColorPickerCollectionComponent implements OnInit, AfterContentChecked {
   /**
    * Hide empty slots
    * Empty slots are the difference between the collection size and limit
@@ -68,10 +70,26 @@ export class MccColorPickerCollectionComponent implements AfterContentChecked {
    */
   @Output() changeColor: EventEmitter<string> = new EventEmitter<string>();
 
+  /**
+   * Return selected color
+   */
+  get selectedColor(): string {
+    return this._selectedColor;
+  }
+  private _selectedColor: string;
+
   constructor(
     private changeDetectorRef: ChangeDetectorRef,
+    private colorPickerService: MccColorPickerService,
     @Inject(EMPTY_COLOR) public emptyColor: string
   ) {}
+
+  ngOnInit() {
+    // get current selected color
+    this.colorPickerService.getSelectedColor().subscribe(color => {
+      this._selectedColor = color;
+    });
+  }
 
   ngAfterContentChecked() {
     if (this._colors && this._colors.length !== this.size) {
@@ -108,6 +126,8 @@ export class MccColorPickerCollectionComponent implements AfterContentChecked {
    */
   setColor(option: MccColorPickerOption) {
     const color = typeof option === 'string' ? option : option.value;
+
+    this.colorPickerService.changeSelectedColor(color);
     this.changeColor.emit(color);
   }
 }

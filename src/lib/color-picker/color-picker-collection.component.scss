@@ -30,4 +30,13 @@ button {
   height: 22px;
   cursor: pointer;
   margin: 3px;
+
+  mat-icon {
+    width: 10px;
+    height: 10px;
+    color: #ffffff;
+    font-size: .8rem;
+    font-weight: 600;
+    margin: -1.3rem 0 0 -.15rem;
+  }
 }
