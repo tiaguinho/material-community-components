@@ -94,5 +94,10 @@
     "hooks": {
       "commit-msg": "validate-commit-msg"
     }
+  },
+  "resolutions": {
+    "**/**/minimist": ">=0.2.1 <1.0.0 || >=1.2.3",
+    "**/**/yargs-parser": ">=13.1.2 <14.0.0 || >=15.0.1 <16.0.0 || >=18.1.2",
+    "**/**/http-proxy": ">=1.18.1"
   }
 }
