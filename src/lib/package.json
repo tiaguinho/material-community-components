@@ -37,17 +37,17 @@
     "material-community-components"
   ],
   "peerDependencies": {
-    "@angular/animations": "^9.1.0",
-    "@angular/cdk": "^9.2.0",
-    "@angular/common": "^9.1.0",
-    "@angular/compiler": "^9.1.0",
-    "@angular/core": "^9.1.0",
-    "@angular/forms": "^9.1.0",
-    "@angular/material": "^9.2.0",
-    "@angular/platform-browser": "^9.1.0",
-    "@angular/platform-browser-dynamic": "^9.1.0",
+    "@angular/animations": "^10.0.0",
+    "@angular/cdk": "^10.0.0",
+    "@angular/common": "^10.0.0",
+    "@angular/compiler": "^10.0.0",
+    "@angular/core": "^10.0.0",
+    "@angular/forms": "^10.0.0",
+    "@angular/material": "^10.0.0",
+    "@angular/platform-browser": "^10.0.0",
+    "@angular/platform-browser-dynamic": "^10.0.0",
     "core-js": "^3.6.4",
-    "rxjs": "~6.5.4",
+    "rxjs": "~6.5.5",
     "zone.js": "^0.10.3"
   }
 }
