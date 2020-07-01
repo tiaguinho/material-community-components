@@ -8,6 +8,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { MatIconModule } from '@angular/material/icon';
 import { MccColorPickerComponent } from './color-picker.component';
 import { MccColorPickerCollectionComponent } from './color-picker-collection.component';
 import { MccColorPickerSelectorComponent } from './color-picker-selector.component';
@@ -46,7 +47,8 @@ describe('MccColorPickerComponent', () => {
         PortalModule,
         MatFormFieldModule,
         MatButtonModule,
-        MatInputModule
+        MatInputModule,
+        MatIconModule
       ],
       declarations: [
         MccColorPickerOptionDirective,
@@ -68,8 +70,8 @@ describe('MccColorPickerComponent', () => {
       }
     });
 
-    service = TestBed.get(MccColorPickerService);
-    emptyColor = TestBed.get(EMPTY_COLOR);
+    service = TestBed.inject(MccColorPickerService);
+    emptyColor = TestBed.inject(EMPTY_COLOR);
     fixture = TestBed.createComponent(MccColorPickerComponent);
 
     comp = fixture.componentInstance;

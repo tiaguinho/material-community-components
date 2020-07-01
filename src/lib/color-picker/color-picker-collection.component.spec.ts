@@ -3,7 +3,8 @@ import { ComponentFixture, ComponentFixtureAutoDetect, TestBed } from '@angular/
 import { By } from '@angular/platform-browser';
 import { MccColorPickerCollectionComponent } from './color-picker-collection.component';
 import { MccColorPickerOptionDirective } from './color-picker.directives';
-import { EMPTY_COLOR } from './color-picker';
+import { MccColorPickerService } from './color-picker.service';
+import { EMPTY_COLOR, USED_COLORS } from './color-picker';
 
 describe('MccColorPickerCollectionComponent', () => {
   let comp: MccColorPickerCollectionComponent;
@@ -13,8 +14,10 @@ describe('MccColorPickerCollectionComponent', () => {
     TestBed.configureTestingModule({
       declarations: [MccColorPickerCollectionComponent, MccColorPickerOptionDirective],
       providers: [
+        MccColorPickerService,
         { provide: ComponentFixtureAutoDetect, useValue: true },
-        { provide: EMPTY_COLOR, useValue: 'none' }
+        { provide: EMPTY_COLOR, useValue: 'none' },
+        { provide: USED_COLORS, useValue: [] }
       ]
     });
 
@@ -58,7 +61,7 @@ describe('MccColorPickerCollectionComponent', () => {
 
     fixture.detectChanges();
 
-    const transparentColor = fixture.nativeElement.querySelector('.mcc-color-picker-remove-color'); 
+    const transparentColor = fixture.nativeElement.querySelector('.mcc-color-picker-remove-color');
     expect(transparentColor).not.toBeNull();
   });
 

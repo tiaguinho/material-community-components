@@ -15,8 +15,8 @@ describe('MccColorPickerService', () => {
       ]
     });
 
-    const emptyColorToken = TestBed.get(EMPTY_COLOR);
-    const usedColorsToken = TestBed.get(USED_COLORS);
+    const emptyColorToken = TestBed.inject(EMPTY_COLOR);
+    const usedColorsToken = TestBed.inject(USED_COLORS);
     service = new MccColorPickerService(emptyColorToken, usedColorsToken);
   });
 

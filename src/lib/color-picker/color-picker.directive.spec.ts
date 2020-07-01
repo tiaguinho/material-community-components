@@ -8,11 +8,12 @@ import { OverlayModule } from '@angular/cdk/overlay';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { MatIconModule } from '@angular/material/icon';
 import { MccColorPickerComponent } from './color-picker.component';
 import { MccColorPickerSelectorComponent } from './color-picker-selector.component';
 import { MccColorPickerCollectionComponent } from './color-picker-collection.component';
 import { MccColorPickerService } from './color-picker.service';
-import { 
+import {
   MccConnectedColorPickerDirective,
   MccColorPickerOriginDirective,
   MccColorPickerOptionDirective
@@ -58,6 +59,7 @@ describe('MccConnectedColorPickerdirective', () => {
         OverlayModule,
         MatButtonModule,
         MatInputModule,
+        MatIconModule,
         MatFormFieldModule,
         ReactiveFormsModule
       ],
@@ -77,7 +79,7 @@ describe('MccConnectedColorPickerdirective', () => {
       ]
     });
 
-    service = TestBed.get(MccColorPickerService);
+    service = TestBed.inject(MccColorPickerService);
     fixture = TestBed.createComponent(TestComponent);
     comp = fixture.componentInstance;
   });
