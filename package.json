@@ -18,11 +18,11 @@
     "core-js": "^3.1.4"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "~0.901.0",
-    "@angular-devkit/core": "^9.1.0",
+    "@angular-devkit/build-angular": "~0.1000.0",
+    "@angular-devkit/core": "^10.0.0",
     "@angular/animations": "^10.0.2",
     "@angular/cdk": "^9.2.0",
-    "@angular/cli": "^9.1.0",
+    "@angular/cli": "^10.0.0",
     "@angular/common": "^10.0.2",
     "@angular/compiler": "^10.0.2",
     "@angular/compiler-cli": "^10.0.2",
@@ -42,15 +42,15 @@
     "core-js": "^3.6.4",
     "cz-conventional-changelog": "^3.1.0",
     "husky": "^4.2.3",
-    "jasmine-core": "^3.5.0",
-    "jasmine-spec-reporter": "~5.0.1",
-    "karma": "~4.4.1",
+    "jasmine-core": "~3.5.0",
+    "jasmine-spec-reporter": "~5.0.0",
+    "karma": "~5.0.0",
     "karma-chrome-launcher": "~3.1.0",
-    "karma-coverage-istanbul-reporter": "~2.1.1",
-    "karma-jasmine": "~3.1.1",
-    "karma-jasmine-html-reporter": "~1.5.3",
-    "ng-packagr": "^9.1.0",
-    "protractor": "~5.4.3",
+    "karma-coverage-istanbul-reporter": "~3.0.2",
+    "karma-jasmine": "~3.3.0",
+    "karma-jasmine-html-reporter": "^1.5.0",
+    "ng-packagr": "^10.0.0",
+    "protractor": "~7.0.0",
     "rxjs": "^6.5.4",
     "ts-node": "~8.8.1",
     "tslint": "~6.1.0",
@@ -87,8 +87,8 @@
   },
   "dependencies": {
     "scss-bundle": "^2.5.1",
-    "tslib": "^1.10.0"
-  },
+    "tslib": "^2.0.0"
+},
   "husky": {
     "hooks": {
       "commit-msg": "validate-commit-msg"
