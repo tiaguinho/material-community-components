@@ -1,0 +1,19 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "module": "esnext",
+    "outDir": "./dist/out-tsc",
+    "baseUrl": ".",
+    "sourceMap": true,
+    "declaration": false,
+    "moduleResolution": "node",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "target": "esnext",
+    "typeRoots": ["node_modules/@types"],
+    "lib": ["esnext", "dom"],
+    "paths": {
+      "material-community-components": ["src/lib/*"]
+    }
+  }
+}
