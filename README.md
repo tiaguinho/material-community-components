@@ -17,10 +17,7 @@ All the components have the prefix `mcc` followed by the package name.
 
 | Component    | Status    | package          |
 | ------------ | --------- | ---------------- |
-| Carousel | -         | ---              |
 | Color Picker | Available | mcc-color-picker |
-| File Manager | -         | ---              |
-| Google Recaptcha | -         | ---              |
 | Scrollspy    | Available | mcc-scrollspy    |
 | Speed Dial   | Available | mcc-speed-dial   |
 | Timer Picker | Available | mcc-timer-picker |
