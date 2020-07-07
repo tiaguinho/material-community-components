@@ -9,6 +9,9 @@ export const USED_COLORS = new InjectionToken<string[]>('used-colors');
 /** Customize selected color icon */
 export const SELECTED_COLOR_ICON = new InjectionToken<string>('selected-color-icon');
 
+/** Disable selected color icon */
+export const DISABLE_SELECTED_COLOR_ICON = new InjectionToken<boolean>('disable-selected-color-icon');
+
 /**
  *
  */
@@ -16,6 +19,7 @@ export interface ColorPickerConfig {
   empty_color?: string;
   used_colors?: string[];
   selected_icon?: string;
+  disable_selected_icon?: boolean;
 }
 
 /**

@@ -8,7 +8,13 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 
-import { EMPTY_COLOR, USED_COLORS, SELECTED_COLOR_ICON, ColorPickerConfig } from './color-picker';
+import {
+  EMPTY_COLOR,
+  USED_COLORS,
+  SELECTED_COLOR_ICON,
+  DISABLE_SELECTED_COLOR_ICON,
+  ColorPickerConfig
+} from './color-picker';
 
 import { MccColorPickerService } from './color-picker.service';
 
@@ -48,6 +54,7 @@ import {
   ],
   providers: [
     MccColorPickerService,
+    { provide: DISABLE_SELECTED_COLOR_ICON, useValue: false },
     { provide: SELECTED_COLOR_ICON, useValue: 'done' },
     { provide: EMPTY_COLOR, useValue: 'none' },
     { provide: USED_COLORS, useValue: [] }
@@ -61,6 +68,7 @@ export class MccColorPickerModule {
     return {
       ngModule: MccColorPickerModule,
       providers: [
+        { provide: DISABLE_SELECTED_COLOR_ICON, useValue: config.disable_selected_icon || false },
         { provide: SELECTED_COLOR_ICON, useValue: config.selected_icon || 'done' },
         { provide: EMPTY_COLOR, useValue: ('empty_color' in config ? config.empty_color : 'none') },
         { provide: USED_COLORS, useValue: config.used_colors || [] }

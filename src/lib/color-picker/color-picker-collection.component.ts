@@ -9,8 +9,13 @@ import {
   Inject,
   Output,
 } from '@angular/core';
+import {
+  DISABLE_SELECTED_COLOR_ICON,
+  EMPTY_COLOR,
+  SELECTED_COLOR_ICON,
+  MccColorPickerOption
+} from './color-picker';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
-import {EMPTY_COLOR, MccColorPickerOption, SELECTED_COLOR_ICON} from './color-picker';
 import { MccColorPickerService } from './color-picker.service';
 
 @Component({
@@ -82,7 +87,8 @@ export class MccColorPickerCollectionComponent implements OnInit, AfterContentCh
     private changeDetectorRef: ChangeDetectorRef,
     private colorPickerService: MccColorPickerService,
     @Inject(EMPTY_COLOR) public emptyColor: string,
-    @Inject(SELECTED_COLOR_ICON) public selectedIcon: string
+    @Inject(SELECTED_COLOR_ICON) public selectedIcon: string,
+    @Inject(DISABLE_SELECTED_COLOR_ICON) public disableSelectedIcon: boolean
   ) {}
 
   ngOnInit() {
