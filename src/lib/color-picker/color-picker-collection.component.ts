@@ -10,7 +10,7 @@ import {
   Output,
 } from '@angular/core';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
-import { EMPTY_COLOR, MccColorPickerOption } from './color-picker';
+import {EMPTY_COLOR, MccColorPickerOption, SELECTED_COLOR_ICON} from './color-picker';
 import { MccColorPickerService } from './color-picker.service';
 
 @Component({
@@ -81,7 +81,8 @@ export class MccColorPickerCollectionComponent implements OnInit, AfterContentCh
   constructor(
     private changeDetectorRef: ChangeDetectorRef,
     private colorPickerService: MccColorPickerService,
-    @Inject(EMPTY_COLOR) public emptyColor: string
+    @Inject(EMPTY_COLOR) public emptyColor: string,
+    @Inject(SELECTED_COLOR_ICON) public selectedIcon: string
   ) {}
 
   ngOnInit() {
