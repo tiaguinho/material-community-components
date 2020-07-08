@@ -18,7 +18,7 @@ import {
   MccColorPickerOriginDirective,
   MccColorPickerOptionDirective
 } from './color-picker.directives';
-import { EMPTY_COLOR, USED_COLORS } from './color-picker';
+import { DISABLE_SELECTED_COLOR_ICON, EMPTY_COLOR, SELECTED_COLOR_ICON, USED_COLORS } from './color-picker';
 
 //
 @Component({
@@ -74,6 +74,8 @@ describe('MccConnectedColorPickerdirective', () => {
       ],
       providers: [
         MccColorPickerService,
+        { provide: DISABLE_SELECTED_COLOR_ICON, useValue: false },
+        { provide: SELECTED_COLOR_ICON, useValue: 'done' },
         { provide: EMPTY_COLOR, useValue: 'none'},
         { provide: USED_COLORS, useValue: [] }
       ]
