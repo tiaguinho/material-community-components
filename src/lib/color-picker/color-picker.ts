@@ -12,6 +12,9 @@ export const SELECTED_COLOR_ICON = new InjectionToken<string>('selected-color-ic
 /** Disable selected color icon */
 export const DISABLE_SELECTED_COLOR_ICON = new InjectionToken<boolean>('disable-selected-color-icon');
 
+/** Enable alpha selector **/
+export const ENABLE_ALPHA_SELECTOR = new InjectionToken<boolean>('enable-alpha-selector');
+
 /**
  *
  */
@@ -20,6 +23,7 @@ export interface ColorPickerConfig {
   used_colors?: string[];
   selected_icon?: string;
   disable_selected_icon?: boolean;
+  enable_alpha_selector?: boolean;
 }
 
 /**
@@ -35,6 +39,27 @@ export interface MccColorPickerItem {
 export type MccColorPickerOption = string | MccColorPickerItem;
 
 /**
+ * Convert RGB to HEX color
+ * @param color string
+ * @return string
+ */
+export function convertRgbToHex(color) {
+  let hex = '#';
+
+  const numbers = color.match(/\d+/g);
+  if (!numbers || numbers.length < 3) {
+    return color;
+  }
+
+  for (let i = 0; i < 3; i++) {
+    const code = parseInt(numbers[i], 10).toString(16);
+    hex += code.length === 1 ? `0${code}` : code;
+  }
+
+  return hex;
+}
+
+/**
  * Verify if color has # as a first char. If not, add this char
  * to the color
  * @param color string
@@ -42,6 +67,10 @@ export type MccColorPickerOption = string | MccColorPickerItem;
 export function coerceHexaColor(color: string): string {
   if (color && color.indexOf('#') !== 0) {
     color = `#${color}`;
+  }
+
+  if (color.includes('rgb')) {
+    color = convertRgbToHex(color);
   }
 
   if (!isValidColor(color)) {
