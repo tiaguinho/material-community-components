@@ -13,6 +13,7 @@ import {
   USED_COLORS,
   SELECTED_COLOR_ICON,
   DISABLE_SELECTED_COLOR_ICON,
+  ENABLE_ALPHA_SELECTOR,
   ColorPickerConfig
 } from './color-picker';
 
@@ -55,6 +56,7 @@ import {
   providers: [
     MccColorPickerService,
     { provide: DISABLE_SELECTED_COLOR_ICON, useValue: false },
+    { provide: ENABLE_ALPHA_SELECTOR, useValue: false },
     { provide: SELECTED_COLOR_ICON, useValue: 'done' },
     { provide: EMPTY_COLOR, useValue: 'none' },
     { provide: USED_COLORS, useValue: [] }
@@ -69,6 +71,7 @@ export class MccColorPickerModule {
       ngModule: MccColorPickerModule,
       providers: [
         { provide: DISABLE_SELECTED_COLOR_ICON, useValue: config.disable_selected_icon || false },
+        { provide: ENABLE_ALPHA_SELECTOR, useValue: config.enable_alpha_selector || false },
         { provide: SELECTED_COLOR_ICON, useValue: config.selected_icon || 'done' },
         { provide: EMPTY_COLOR, useValue: ('empty_color' in config ? config.empty_color : 'none') },
         { provide: USED_COLORS, useValue: config.used_colors || [] }
