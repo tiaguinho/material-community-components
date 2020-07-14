@@ -1,5 +1,6 @@
 canvas {
-  &#colors {
+  &#colors,
+  &#alpha {
     margin: 5px;
   }
   &:hover {
@@ -31,11 +32,26 @@ canvas {
   position: absolute;
   width: 30px;
   height: 160px;
-  top: 0px;
   right: 0px;
+  top: 0px;
   z-index: 1;
   background: url('data:image/gif;base64,R0lGODdhHgAIALMAAAAAADU1NTk5OUJCQkpKSlZWVltbW2pqaoCAgP///wAAAAAAAAAAAAAAAAAAAAAAACH5BAkAAAoALAAAAAAeAAgAAAQw0BhFq734yjJm/p8xFEVAeGCqGERACmahgkUrvPH81cFdnjoQy8VBBTOiguSokkQAADs=')
     no-repeat;
+
+  &.alpha-enabled {
+    right: 40px;
+  }
+}
+
+.mcc-alpha-position {
+  position: absolute;
+  width: 30px;
+  height: 160px;
+  top: 0px;
+  right: 5px;
+  z-index: 1;
+  background: url('data:image/gif;base64,R0lGODdhHgAIALMAAAAAADU1NTk5OUJCQkpKSlZWVltbW2pqaoCAgP///wAAAAAAAAAAAAAAAAAAAAAAACH5BAkAAAoALAAAAAAeAAgAAAQw0BhFq734yjJm/p8xFEVAeGCqGERACmahgkUrvPH81cFdnjoQy8VBBTOiguSokkQAADs=')
+  no-repeat;
 }
 
 .mcc-color-picker-selector {
