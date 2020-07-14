@@ -20,7 +20,9 @@
 <!-- color picker component content -->
 <ng-template cdkPortal #overlayPanel="cdkPortal">
 
-    <div class="mcc-color-picker-overlay mat-elevation-z6" role="dialog" aria-label="Color picker">
+    <div class="mcc-color-picker-overlay mat-elevation-z6" [ngClass]="{'alpha-enabled': showAlphaSelector }"
+         role="dialog"
+         aria-label="Color picker">
 
         <mcc-color-picker-selector *ngIf="!hideColorPickerSelector" [selectedColor]="tmpSelectedColor$ | async" [hideHexForms]="hideHexForms"
             [height]="colorPickerSelectorHeight" (changeSelectedColor)="updateTmpSelectedColor($event)">

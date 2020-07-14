@@ -17,13 +17,16 @@
 
 .mcc-color-picker-overlay {
   display: flex;
-  width: 260px;
+  width: 270px;
   min-height: 80px;
   position: relative;
   flex-direction: column;
   padding: 0;
   background: #ffffff;
   font-family: 'Open Sans', sans-serif;
+  &.alpha-enabled {
+    width: 316px;
+  }
 
   .mcc-color-picker-preview {
     width: 100%;

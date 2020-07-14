@@ -16,7 +16,7 @@ import {
 } from '@angular/core';
 import { BehaviorSubject, Observable, Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { EMPTY_COLOR, coerceHexaColor } from './color-picker';
+import { EMPTY_COLOR, ENABLE_ALPHA_SELECTOR, coerceHexaColor } from './color-picker';
 import { MccColorPickerCollectionComponent } from './color-picker-collection.component';
 import { MccColorPickerService } from './color-picker.service';
 
@@ -232,7 +232,7 @@ export class MccColorPickerComponent implements AfterContentInit, OnInit, OnDest
    * Event emitted when is clicked outside of the component
    */
   @Output() clickOut = new EventEmitter();
-  
+
   /**
    * Event emitted when is clicked outside of the component
    */
@@ -264,7 +264,8 @@ export class MccColorPickerComponent implements AfterContentInit, OnInit, OnDest
     private elementRef: ElementRef,
     private changeDetectorRef: ChangeDetectorRef,
     private colorPickerService: MccColorPickerService,
-    @Inject(EMPTY_COLOR) public emptyColor: string
+    @Inject(EMPTY_COLOR) public emptyColor: string,
+    @Inject(ENABLE_ALPHA_SELECTOR) public showAlphaSelector: boolean
   ) {}
 
   ngOnInit() {
@@ -314,7 +315,11 @@ export class MccColorPickerComponent implements AfterContentInit, OnInit, OnDest
       const tmpSelectedColor = this._tmpSelectedColor.getValue();
       if (this._selectedColor !== tmpSelectedColor) {
         this._selectedColor = tmpSelectedColor;
-        this.selected.next(this._selectedColor);
+        if (this.showAlphaSelector) {
+          this.selected.next(this._selectedColor);
+        } else {
+          this.selected.next(coerceHexaColor(this._selectedColor));
+        }
       } else {
         this.selected.emit(this._selectedColor);
       }
