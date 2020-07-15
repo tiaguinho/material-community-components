@@ -12,6 +12,7 @@ import { RouterModule } from '@angular/router';
 import { MccColorPickerModule } from '../../../lib';
 import { ColorPickerComponent } from './color-picker.component';
 import { routes } from './color-picker.router';
+import { ColorPickerAlphaComponent } from './components/color-picker-alpha.component';
 import { ColorPickerApiComponent } from './components/color-picker-api.component';
 import { ColorPickerExamplesComponent } from './components/color-picker-examples.component';
 
@@ -33,6 +34,6 @@ import { ColorPickerExamplesComponent } from './components/color-picker-examples
       used_colors: ['#000000', '#123456', '#777666']
     }),
   ],
-  declarations: [ColorPickerComponent, ColorPickerApiComponent, ColorPickerExamplesComponent],
+  declarations: [ColorPickerAlphaComponent, ColorPickerComponent, ColorPickerApiComponent, ColorPickerExamplesComponent],
 })
 export class ColorPickerModule { }

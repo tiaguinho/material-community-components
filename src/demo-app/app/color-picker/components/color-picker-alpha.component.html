@@ -1,0 +1,53 @@
+<!-- CHANGE USED COLOR LABEL -->
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>
+      Change used color label (with Alpha enabled)
+    </mat-card-title>
+  </mat-card-header>
+
+  <mat-card-content>
+    <mcc-color-picker [usedColorLabel]="'My Colors'">
+
+      <mcc-color-picker-collection [label]="'First Collection'" [colors]="colors">
+      </mcc-color-picker-collection>
+
+    </mcc-color-picker>
+  </mat-card-content>
+</mat-card>
+
+<!-- REVERSE USED COLOR -->
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>
+      Show used color in reverse (with Alpha enabled)
+    </mat-card-title>
+  </mat-card-header>
+
+  <mat-card-content>
+    <mcc-color-picker [usedColorLabel]="'My Colors'" reverseUsedColors>
+
+      <mcc-color-picker-collection [label]="'First Collection'" [colors]="colors">
+      </mcc-color-picker-collection>
+
+    </mcc-color-picker>
+  </mat-card-content>
+</mat-card>
+
+<!-- CHANGE COLOR WHEN CONFIRM -->
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>
+      <span [style.color]="selectedColor">Change color when confirm (with Alpha enabled)</span>
+    </mat-card-title>
+  </mat-card-header>
+
+  <mat-card-content>
+    <mcc-color-picker [usedColorLabel]="'My Colors'" (selected)="selectedColor = $event">
+
+      <mcc-color-picker-collection [label]="'First Collection'" [colors]="colors">
+      </mcc-color-picker-collection>
+
+    </mcc-color-picker>
+  </mat-card-content>
+</mat-card>
