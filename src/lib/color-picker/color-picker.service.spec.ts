@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 import { MccColorPickerService } from './color-picker.service';
-import { DISABLE_SELECTED_COLOR_ICON, EMPTY_COLOR, SELECTED_COLOR_ICON, USED_COLORS } from './color-picker';
+import { DISABLE_SELECTED_COLOR_ICON, ENABLE_ALPHA_SELECTOR, EMPTY_COLOR, SELECTED_COLOR_ICON, USED_COLORS } from './color-picker';
 import { doesNotThrow } from 'assert';
 
 describe('MccColorPickerService', () => {
@@ -10,6 +10,7 @@ describe('MccColorPickerService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       providers: [
+        { provide: ENABLE_ALPHA_SELECTOR, useValue: false },
         { provide: DISABLE_SELECTED_COLOR_ICON, useValue: false },
         { provide: SELECTED_COLOR_ICON, useValue: 'done' },
         { provide: EMPTY_COLOR, useValue: 'none'},

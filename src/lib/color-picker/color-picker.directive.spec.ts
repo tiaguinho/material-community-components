@@ -18,7 +18,7 @@ import {
   MccColorPickerOriginDirective,
   MccColorPickerOptionDirective
 } from './color-picker.directives';
-import { DISABLE_SELECTED_COLOR_ICON, EMPTY_COLOR, SELECTED_COLOR_ICON, USED_COLORS } from './color-picker';
+import { DISABLE_SELECTED_COLOR_ICON, ENABLE_ALPHA_SELECTOR, EMPTY_COLOR, SELECTED_COLOR_ICON, USED_COLORS } from './color-picker';
 
 //
 @Component({
@@ -74,6 +74,7 @@ describe('MccConnectedColorPickerdirective', () => {
       ],
       providers: [
         MccColorPickerService,
+        { provide: ENABLE_ALPHA_SELECTOR, useValue: false },
         { provide: DISABLE_SELECTED_COLOR_ICON, useValue: false },
         { provide: SELECTED_COLOR_ICON, useValue: 'done' },
         { provide: EMPTY_COLOR, useValue: 'none'},
