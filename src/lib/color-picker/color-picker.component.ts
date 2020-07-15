@@ -313,15 +313,18 @@ export class MccColorPickerComponent implements AfterContentInit, OnInit, OnDest
   private _updateSelectedColor() {
     if (this._isOpen || !this.overlay) {
       const tmpSelectedColor = this._tmpSelectedColor.getValue();
+      let color: string;
+      if (this.showAlphaSelector) {
+        color = tmpSelectedColor;
+      } else {
+        color = coerceHexaColor(tmpSelectedColor);
+      }
+
       if (this._selectedColor !== tmpSelectedColor) {
         this._selectedColor = tmpSelectedColor;
-        if (this.showAlphaSelector) {
-          this.selected.next(this._selectedColor);
-        } else {
-          this.selected.next(coerceHexaColor(this._selectedColor));
-        }
+        this.selected.next(color);
       } else {
-        this.selected.emit(this._selectedColor);
+        this.selected.emit(color);
       }
     }
   }
@@ -358,6 +361,10 @@ export class MccColorPickerComponent implements AfterContentInit, OnInit, OnDest
    */
   updateTmpSelectedColor(color: string) {
     if (color || color === this.emptyColor) {
+      if (!this.showAlphaSelector) {
+        color = coerceHexaColor(color);
+      }
+
       this._tmpSelectedColor.next(color);
       this.change.next(color);
       if (this._hideButtons) {
