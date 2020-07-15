@@ -65,12 +65,16 @@ export function convertRgbToHex(color) {
  * @param color string
  */
 export function coerceHexaColor(color: string): string {
-  if (color && color.indexOf('#') !== 0) {
-    color = `#${color}`;
+  if (!color) {
+    return '';
   }
 
   if (color.includes('rgb')) {
     color = convertRgbToHex(color);
+  }
+
+  if (color.indexOf('#') !== 0) {
+    color = `#${color}`;
   }
 
   if (!isValidColor(color)) {
