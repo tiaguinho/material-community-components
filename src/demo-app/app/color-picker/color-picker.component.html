@@ -27,7 +27,7 @@
     </mat-grid-list>
 
     <p>When import the
-      <code>MccColorPickerModule</code>, you can provide a configuration for the empy value.</p>
+      <code>MccColorPickerModule</code>, you can provide some configurations.</p>
 
     <pre class="code-snippet"><code class="lang-typescript"> import {{ '{' }} MccColorPickerModule {{ '}' }} from 'material-community-components';
 
@@ -37,14 +37,62 @@
       MccColorPickerModule.forRoot({{ '{' }}
         <span class="hljs-attribute">empty_color</span>: <span class="hljs-string">'transparent',</span>
         <span class="hljs-attribute">used_colors</span>: <span class="hljs-string">['#000000', '#FFF555']</span>
+        <span class="hljs-attribute">selected_icon</span>: <span class="hljs-string">'check'</span>
+        <span class="hljs-attribute">disable_selected_icon</span>: <span class="hljs-string">false</span>
+        <span class="hljs-attribute">enable_alpha_selector</span>: <span class="hljs-string">false</span>
       {{ '}' }})
     ]
     ...
   {{ '}' }})
 </code></pre>
-    <p>The default value is
-      <code>none</code>, but you can set anything you want.
-    </p>
+
+    <h4>Configurations</h4>
+    <table class="table-api-documentation">
+      <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <td>
+          <code>empty_color: string</code>
+        </td>
+        <td class="api-description">Define any color you want</td>
+        <td class="api-description">none</td>
+      </tr>
+      <tr>
+        <td>
+          <code>used_colors: string[]</code>
+        </td>
+        <td class="api-description">Define list of colors to start used colors</td>
+        <td class="api-description">[]</td>
+      </tr>
+      <tr>
+        <td>
+          <code>selected_icon: string</code>
+        </td>
+        <td class="api-description">Define icon to be used on selected colors</td>
+        <td class="api-description">done</td>
+      </tr>
+      <tr>
+        <td>
+          <code>disable_selected_icon: boolean</code>
+        </td>
+        <td class="api-description">Disable selected icon showed when color is selected</td>
+        <td class="api-description">false</td>
+      </tr>
+      <tr>
+        <td>
+          <code>enable_alpha_selector: boolean</code>
+        </td>
+        <td class="api-description">Enable alpha selector option</td>
+        <td class="api-description">false</td>
+      </tr>
+      </tbody>
+    </table>
 
     <p>For the
       <code>@Input</code> and
