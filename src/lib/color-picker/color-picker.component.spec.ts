@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy } from '@angular/core';
+import {ChangeDetectionStrategy, Component} from '@angular/core';
 import { ComponentFixture, ComponentFixtureAutoDetect, TestBed, fakeAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { OverlayModule } from '@angular/cdk/overlay';
@@ -265,5 +265,27 @@ describe('MccColorPickerComponent', () => {
 
     comp.backdropClick();
   }));
+
+  it('should keep isOpen state after try toggle', () => {
+    comp.disabled = true;
+    comp.ngAfterContentInit();
+    fixture.detectChanges();
+
+    const initial = comp.isOpen;
+    comp.toggle();
+
+    expect(comp.isOpen).toBe(initial);
+  });
+
+  it('should hide used colors', () => {
+    comp.hideUsedColors = true;
+    comp.usedColorStart = colors;
+    comp.ngAfterContentInit();
+    fixture.detectChanges();
+
+    const collections = fixture.debugElement.queryAll(By.css('mcc-color-picker-collection'));
+
+    expect(collections.length).toBe(0);
+  });
 
 });
