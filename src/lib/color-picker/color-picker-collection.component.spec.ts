@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy } from '@angular/core';
+import { MatIconModule } from '@angular/material/icon';
 import { ComponentFixture, ComponentFixtureAutoDetect, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { MccColorPickerCollectionComponent } from './color-picker-collection.component';
@@ -12,6 +13,9 @@ describe('MccColorPickerCollectionComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
+      imports: [
+        MatIconModule
+      ],
       declarations: [MccColorPickerCollectionComponent, MccColorPickerOptionDirective],
       providers: [
         MccColorPickerService,
