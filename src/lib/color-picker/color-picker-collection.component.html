@@ -10,7 +10,8 @@
                 [mccColorPickerOption]="color" (click)="setColor(color)">
 
           <ng-container *ngIf="!disableSelectedIcon">
-            <mat-icon *ngIf="selectedColor === color; else emptyIcon">{{ selectedIcon }}</mat-icon>
+            <mat-icon *ngIf="selectedColor === color; else emptyIcon"
+                      [svgIcon]="selectedSvgIcon">{{ selectedIcon }}</mat-icon>
             <ng-template #emptyIcon>
               <mat-icon></mat-icon>
             </ng-template>

@@ -13,8 +13,12 @@ import {
   DISABLE_SELECTED_COLOR_ICON,
   EMPTY_COLOR,
   SELECTED_COLOR_ICON,
+  SELECTED_COLOR_SVG_ICON,
+  SVG_SELECTED_ICON_NAME,
   MccColorPickerOption
 } from './color-picker';
+import { DomSanitizer } from '@angular/platform-browser';
+import { MatIconRegistry } from '@angular/material/icon';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { MccColorPickerService } from './color-picker.service';
 
@@ -83,11 +87,30 @@ export class MccColorPickerCollectionComponent implements OnInit, AfterContentCh
   }
   private _selectedColor: string;
 
+  /**
+   * Return selected color icon
+   */
+  get selectedIcon(): string {
+    return this._selectedIcon;
+  }
+  private _selectedIcon: string;
+
+  /**
+   * Return selected svg color icon
+   */
+  get selectedSvgIcon(): string {
+    return this._selectedSvgIcon;
+  }
+  private _selectedSvgIcon: string;
+
   constructor(
     private changeDetectorRef: ChangeDetectorRef,
     private colorPickerService: MccColorPickerService,
+    private sanitizer: DomSanitizer,
+    private svgRegister: MatIconRegistry,
     @Inject(EMPTY_COLOR) public emptyColor: string,
-    @Inject(SELECTED_COLOR_ICON) public selectedIcon: string,
+    @Inject(SELECTED_COLOR_ICON) private selectedColorIcon: string,
+    @Inject(SELECTED_COLOR_SVG_ICON) public selectedColorSvgIcon: string,
     @Inject(DISABLE_SELECTED_COLOR_ICON) public disableSelectedIcon: boolean
   ) {}
 
@@ -96,6 +119,17 @@ export class MccColorPickerCollectionComponent implements OnInit, AfterContentCh
     this.colorPickerService.getSelectedColor().subscribe(color => {
       this._selectedColor = color;
     });
+
+    // remove selected color icon when svg icon is defined
+    if (!this.selectedColorSvgIcon) {
+      this._selectedIcon = this.selectedColorIcon;
+    } else {
+      this.svgRegister.addSvgIcon(
+        SVG_SELECTED_ICON_NAME,
+        this.sanitizer.bypassSecurityTrustResourceUrl(this.selectedColorSvgIcon)
+      );
+      this._selectedSvgIcon = SVG_SELECTED_ICON_NAME;
+    }
   }
 
   ngAfterContentChecked() {
