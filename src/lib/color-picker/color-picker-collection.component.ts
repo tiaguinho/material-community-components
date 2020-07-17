@@ -14,11 +14,8 @@ import {
   EMPTY_COLOR,
   SELECTED_COLOR_ICON,
   SELECTED_COLOR_SVG_ICON,
-  SVG_SELECTED_ICON_NAME,
   MccColorPickerOption
 } from './color-picker';
-import { DomSanitizer } from '@angular/platform-browser';
-import { MatIconRegistry } from '@angular/material/icon';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { MccColorPickerService } from './color-picker.service';
 
@@ -106,8 +103,6 @@ export class MccColorPickerCollectionComponent implements OnInit, AfterContentCh
   constructor(
     private changeDetectorRef: ChangeDetectorRef,
     private colorPickerService: MccColorPickerService,
-    private sanitizer: DomSanitizer,
-    private svgRegister: MatIconRegistry,
     @Inject(EMPTY_COLOR) public emptyColor: string,
     @Inject(SELECTED_COLOR_ICON) private selectedColorIcon: string,
     @Inject(SELECTED_COLOR_SVG_ICON) public selectedColorSvgIcon: string,
@@ -124,11 +119,7 @@ export class MccColorPickerCollectionComponent implements OnInit, AfterContentCh
     if (!this.selectedColorSvgIcon) {
       this._selectedIcon = this.selectedColorIcon;
     } else {
-      this.svgRegister.addSvgIcon(
-        SVG_SELECTED_ICON_NAME,
-        this.sanitizer.bypassSecurityTrustResourceUrl(this.selectedColorSvgIcon)
-      );
-      this._selectedSvgIcon = SVG_SELECTED_ICON_NAME;
+      this._selectedSvgIcon = this.selectedColorSvgIcon;
     }
   }
 
