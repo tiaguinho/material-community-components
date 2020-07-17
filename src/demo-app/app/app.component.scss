@@ -33,6 +33,11 @@
   font-size: 1.5rem;
 }
 
+.active {
+  background: rgba(76, 175, 80, .15);
+  color: #4caf50;
+}
+
 :host {
   display: flex;
   min-height: 100%; // used percent instead of vh due to safari bug.
