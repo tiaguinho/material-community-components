@@ -9,6 +9,9 @@ export const USED_COLORS = new InjectionToken<string[]>('used-colors');
 /** Customize selected color icon */
 export const SELECTED_COLOR_ICON = new InjectionToken<string>('selected-color-icon');
 
+/** Customize selected color svg icon */
+export const SELECTED_COLOR_SVG_ICON = new InjectionToken<string>('selected-color-svg-icon');
+
 /** Disable selected color icon */
 export const DISABLE_SELECTED_COLOR_ICON = new InjectionToken<boolean>('disable-selected-color-icon');
 
@@ -22,6 +25,7 @@ export interface ColorPickerConfig {
   empty_color?: string;
   used_colors?: string[];
   selected_icon?: string;
+  selected_svg_icon?: string;
   disable_selected_icon?: boolean;
   enable_alpha_selector?: boolean;
 }
