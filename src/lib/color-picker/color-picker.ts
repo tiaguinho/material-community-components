@@ -18,9 +18,6 @@ export const DISABLE_SELECTED_COLOR_ICON = new InjectionToken<boolean>('disable-
 /** Enable alpha selector **/
 export const ENABLE_ALPHA_SELECTOR = new InjectionToken<boolean>('enable-alpha-selector');
 
-/** Hold the name of svg selected icon */
-export const SVG_SELECTED_ICON_NAME = 'mcc-svg-color-picker';
-
 /**
  *
  */
