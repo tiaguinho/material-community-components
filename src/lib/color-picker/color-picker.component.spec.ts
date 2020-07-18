@@ -14,7 +14,14 @@ import { MccColorPickerCollectionComponent } from './color-picker-collection.com
 import { MccColorPickerSelectorComponent } from './color-picker-selector.component';
 import { MccColorPickerOptionDirective } from './color-picker.directives';
 import { MccColorPickerService } from './color-picker.service';
-import { EMPTY_COLOR, USED_COLORS, SELECTED_COLOR_ICON, DISABLE_SELECTED_COLOR_ICON, ENABLE_ALPHA_SELECTOR } from './color-picker';
+import {
+  EMPTY_COLOR,
+  USED_COLORS,
+  SELECTED_COLOR_ICON,
+  DISABLE_SELECTED_COLOR_ICON,
+  ENABLE_ALPHA_SELECTOR,
+  SELECTED_COLOR_SVG_ICON
+} from './color-picker';
 
 describe('MccColorPickerComponent', () => {
   let comp: MccColorPickerComponent;
@@ -61,6 +68,7 @@ describe('MccColorPickerComponent', () => {
         { provide: ENABLE_ALPHA_SELECTOR, useValue: false },
         { provide: DISABLE_SELECTED_COLOR_ICON, useValue: false },
         { provide: SELECTED_COLOR_ICON, useValue: 'done' },
+        { provide: SELECTED_COLOR_SVG_ICON, useValue: null },
         { provide: EMPTY_COLOR, useValue: 'none' },
         { provide: USED_COLORS, useValue: [] },
         { provide: ComponentFixtureAutoDetect, useValue: true },
