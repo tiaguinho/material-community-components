@@ -176,6 +176,11 @@ export class MccColorPickerSelectorComponent
   rgbForm: FormGroup;
 
   /**
+   * Last remembered offsets in block
+   */
+  latestBlockOffsets: {x: number, y: number} = {x: 240, y: 0};
+
+  /**
    * Return red color from RGB
    */
   get redColor(): number {
@@ -316,23 +321,33 @@ export class MccColorPickerSelectorComponent
   }
 
   ngAfterViewInit() {
-    this.render.listen(this._block.nativeElement, 'mousedown', e => {
+    this.render.listen(this._block.nativeElement, 'mousedown', (e: MouseEvent) => {
       this._isPressed = true;
-      this.changeColor(e);
+      this.changeColor({x: e.offsetX, y: e.offsetY});
     });
     this.render.listen(this._block.nativeElement, 'mouseup', () => (this._isPressed = false));
     this.render.listen(this._block.nativeElement, 'mouseout', () => (this._isPressed = false));
-    this.render.listen(this._block.nativeElement, 'mousemove', e => this.changeColor(e));
+    this.render.listen(this._block.nativeElement, 'mouseover', (e: MouseEvent) => {
+      if (e.buttons === 1) {
+        this._isPressed = true;
+      }
+    });
+    this.render.listen(this._block.nativeElement, 'mousemove', (e: MouseEvent) => this.changeColor({x: e.offsetX, y: e.offsetY}));
     this._blockContext = this._bc.nativeElement.getContext('2d');
     this._blockContext.rect(0, 0, this._bc.nativeElement.width, this._bc.nativeElement.height);
 
-    this.render.listen(this._strip.nativeElement, 'mousedown', e => {
+    this.render.listen(this._strip.nativeElement, 'mousedown', (e: MouseEvent) => {
       this._isPressed = true;
       this.changeBaseColor(e);
     });
     this.render.listen(this._strip.nativeElement, 'mouseup', () => (this._isPressed = false));
     this.render.listen(this._strip.nativeElement, 'mouseout', () => (this._isPressed = false));
-    this.render.listen(this._strip.nativeElement, 'mousemove', e => this.changeBaseColor(e));
+    this.render.listen(this._strip.nativeElement, 'mouseover', (e: MouseEvent) => {
+      if (e.buttons === 1) {
+        this._isPressed = true;
+      }
+    });
+    this.render.listen(this._strip.nativeElement, 'mousemove', (e: MouseEvent) => this.changeBaseColor(e));
     this._stripContext = this._strip.nativeElement.getContext('2d');
     this._stripContext.rect(
       0,
@@ -514,11 +529,13 @@ export class MccColorPickerSelectorComponent
    */
   private changeBaseColor(e): void {
     if (this._isPressed) {
-      this.render.setStyle(this._sc.nativeElement, 'background-position-y', `${e.offsetY}px`);
-      const data = this._stripContext.getImageData(e.offsetX, e.offsetY, 1, 1).data;
-      this._updateRGBA(data);
-      this._fillGradient();
-      this.updateValues(data);
+      if (e.offsetX <= 20 && e.offsetY <= 160) {
+        this.render.setStyle(this._sc.nativeElement, 'background-position-y', `${e.offsetY}px`);
+        const data = this._stripContext.getImageData(e.offsetX, e.offsetY, 1, 1).data;
+        this._updateRGBA(data);
+        this._fillGradient();
+        this.changeColor();
+      }
     }
   }
 
@@ -542,15 +559,18 @@ export class MccColorPickerSelectorComponent
 
   /**
    * Get selected color from the canvas
-   * @param e MouseEvent
    */
-  private changeColor(e): void {
+  private changeColor(offsets?: {x: number, y: number}): void {
     if (this._isPressed) {
-      this.render.setStyle(this._bp.nativeElement, 'top', `${e.offsetY - 5}px`);
-      this.render.setStyle(this._bp.nativeElement, 'left', `${e.offsetX - 5}px`);
+      const os = offsets || this.latestBlockOffsets;
+      if (os.x <= 239 && os.y <= 169) {
+        this.render.setStyle(this._bp.nativeElement, 'top', `${os.y - 5}px`);
+        this.render.setStyle(this._bp.nativeElement, 'left', `${os.x - 6}px`);
 
-      const data = this._blockContext.getImageData(e.offsetX, e.offsetY, 1, 1).data;
-      this.updateValues(data);
+        const data = this._blockContext.getImageData(os.x, os.y, 1, 1).data;
+        this.updateValues(data);
+        this.latestBlockOffsets = os;
+      }
     }
   }
 
