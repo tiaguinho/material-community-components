@@ -255,7 +255,7 @@ export class MccColorPickerSelectorComponent
         (rgbGroup[key] = new FormControl(rgbValue[index], {
           validators: [
             Validators.min(0),
-            Validators.max(256),
+            Validators.max(255),
             Validators.required,
             Validators.maxLength(3),
           ],
