@@ -10,9 +10,13 @@
                 [mccColorPickerOption]="color" (click)="setColor(color)">
 
           <ng-container *ngIf="!disableSelectedIcon">
-            <mat-icon *ngIf="selectedColor !== color"></mat-icon>
-            <mat-icon *ngIf="selectedColor === color && !selectedSvgIcon" class="mat-font-icon">{{ selectedIcon }}</mat-icon>
-            <mat-icon *ngIf="selectedColor === color && selectedSvgIcon"  class="mat-svg-icon" [svgIcon]="selectedSvgIcon"></mat-icon>
+            <mat-icon *ngIf="selectedColor !== color; else selectionIcon"></mat-icon>
+            <ng-template #selectionIcon>
+              <mat-icon *ngIf="selectedSvgIcon; else selectionFontIcon" class="mat-svg-icon" [svgIcon]="selectedSvgIcon"></mat-icon>
+              <ng-template #selectionFontIcon>
+                <mat-icon *ngIf="!selectedSvgIcon" class="mat-font-icon">{{ selectedIcon }}</mat-icon>
+              </ng-template>
+            </ng-template>
           </ng-container>
 
         </button>

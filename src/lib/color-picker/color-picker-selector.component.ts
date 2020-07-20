@@ -328,9 +328,7 @@ export class MccColorPickerSelectorComponent
     this.render.listen(this._block.nativeElement, 'mouseup', () => (this._isPressed = false));
     this.render.listen(this._block.nativeElement, 'mouseout', () => (this._isPressed = false));
     this.render.listen(this._block.nativeElement, 'mouseover', (e: MouseEvent) => {
-      if (e.buttons === 1) {
-        this._isPressed = true;
-      }
+      this._isPressed = (e.buttons === 1);
     });
     this.render.listen(this._block.nativeElement, 'mousemove', (e: MouseEvent) => this.changeColor({x: e.offsetX, y: e.offsetY}));
     this._blockContext = this._bc.nativeElement.getContext('2d');
@@ -343,9 +341,7 @@ export class MccColorPickerSelectorComponent
     this.render.listen(this._strip.nativeElement, 'mouseup', () => (this._isPressed = false));
     this.render.listen(this._strip.nativeElement, 'mouseout', () => (this._isPressed = false));
     this.render.listen(this._strip.nativeElement, 'mouseover', (e: MouseEvent) => {
-      if (e.buttons === 1) {
-        this._isPressed = true;
-      }
+      this._isPressed = (e.buttons === 1);
     });
     this.render.listen(this._strip.nativeElement, 'mousemove', (e: MouseEvent) => this.changeBaseColor(e));
     this._stripContext = this._strip.nativeElement.getContext('2d');
