@@ -10,8 +10,6 @@ canvas {
 
 .mcc-picker-selector {
   position: absolute;
-  width: 240px;
-  height: 170px;
   top: 0;
   left: 0;
   z-index: 10;
@@ -31,7 +29,6 @@ canvas {
 .mcc-colors-position {
   position: absolute;
   width: 30px;
-  height: 170px;
   right: 0px;
   top: 0px;
   z-index: 1;
@@ -46,7 +43,6 @@ canvas {
 .mcc-alpha-position {
   position: absolute;
   width: 30px;
-  height: 170px;
   top: 0px;
   right: 5px;
   z-index: 1;
