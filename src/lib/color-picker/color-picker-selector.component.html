@@ -3,13 +3,13 @@
     <canvas #blockCanvas [height]="selectorHeight" [width]="selectorWidth" id="picker"></canvas>
     <div #blockPointer class="mcc-picker-position" style="top: 0px;left: 220px;"></div>
 
-    <div #stripContainer class="mcc-colors-position" [style.height.px]="stripHeight" [ngClass]="{'alpha-enabled': showAlphaSelector}"
+    <div #stripContainer class="mcc-colors-position" [style.height.px]="selectorHeight" [ngClass]="{'alpha-enabled': showAlphaSelector}"
          style="background-position-y: 0px;">
         <canvas #strip [height]="stripHeight" [width]="stripWidth" id="colors"></canvas>
     </div>
 
 
-    <div *ngIf="showAlphaSelector" #alphaContainer class="mcc-alpha-position" [style.height.px]="stripHeight" style="background-position-y: 0px;">
+    <div *ngIf="showAlphaSelector" #alphaContainer class="mcc-alpha-position" [style.height.px]="selectorHeight" style="background-position-y: 0px;">
         <canvas #alpha [height]="stripHeight" [width]="stripWidth" id="alpha"></canvas>
     </div>
 

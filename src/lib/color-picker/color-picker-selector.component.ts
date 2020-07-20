@@ -56,7 +56,7 @@ export class MccColorPickerSelectorComponent
     this._bc = el;
   }
   private _bc: ElementRef;
-  private _blockContext: any;
+  private _blockContext: CanvasRenderingContext2D;
 
   /**
    * ElementRef of the color base
@@ -79,7 +79,7 @@ export class MccColorPickerSelectorComponent
    */
   @ViewChild('alpha') _alpha: ElementRef;
   // hold _alpha context
-  private _alphaContext: any;
+  private _alphaContext: CanvasRenderingContext2D;
 
   /**
    * Container of the alpha
@@ -207,7 +207,7 @@ export class MccColorPickerSelectorComponent
   /**
    * Last remembered offsets in block
    */
-  latestBlockOffsets: Offsets = {x: 240, y: 0};
+  latestBlockOffsets: Offsets;
 
   /**
    * Return red color from RGB
@@ -264,6 +264,7 @@ export class MccColorPickerSelectorComponent
   ) {}
 
   ngOnInit() {
+    this.latestBlockOffsets = { x: this._width - 1, y: 0 };
     // set selectedColor initial value
     this._tmpSelectedColor.next(this._selectedColor);
     this._tmpSelectedColorSub = this._tmpSelectedColor.subscribe(color => {
@@ -407,8 +408,8 @@ export class MccColorPickerSelectorComponent
       this._alphaContext = this._alpha.nativeElement.getContext('2d');
 
       // start empty selector
-      const rgb = this._getRGB();
-      this._drawAlphaSelector({R: rgb[0], G: rgb[1], B: rgb[2] });
+      const rgbColor = this._getRGB();
+      this._drawAlphaSelector({R: rgbColor[0], G: rgbColor[1], B: rgbColor[2] });
 
       // subscribe to watch changes
       this.rgbForm.valueChanges.subscribe(rgb => {
@@ -426,14 +427,16 @@ export class MccColorPickerSelectorComponent
    */
   private _drawAlphaSelector(rgb: {R: number, G: number, B: number}) {
     const background = new Image();
-    background.src = 'data:image/jpeg;base64,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';
+    background.src = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA0AAAANCAIAAAD9iXMrAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAAITcAACE3ATNYn3oAAACJSURBVChTjZDLDgQREEX9/6fRdvgAJMbSArvpud2ofibmLCqVOHUpbH3gnBNCLAP0xpjD++6gmXiEtfbdazHE2ZNS/psHtNZzj3O+eXg14b1H/VwJIaAyjJ7BdIyxJw9KKayn73u1ZuIRcw+R+Iinl3O+34uKV/fzweZhZ6CUahXAq7XiLiKl9AP878ZgrHOa/QAAAABJRU5ErkJggg==';
     background.onload = () => {
       // clear canvas
       this._alphaContext.clearRect(0, 0, this._alpha.nativeElement.width, this._alpha.nativeElement.height);
 
       // draw transparent background image
-      this._alphaContext.drawImage(background, 0, 0);
+     const pattern = this._alphaContext.createPattern(background, 'repeat');
 
+      this._alphaContext.fillStyle = pattern;
+      this._alphaContext.fillRect(0, 0, this._alpha.nativeElement.width, this._alpha.nativeElement.height);
       // if rgb is set, create linear gradient
       if (rgb) {
         const alphaGrd2 = this._alphaContext.createLinearGradient(0, 0, 0, this._bc.nativeElement.height);
