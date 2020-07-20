@@ -106,6 +106,30 @@ export class MccColorPickerSelectorComponent
   private _height: number = 170;
 
   /**
+   * Change width of the selector
+   */
+  @Input('width')
+  set width(value: number) {
+    this._width = value;
+  }
+  get selectorWidth(): number {
+    return this._width;
+  }
+  private _width: number = 240;
+
+  /**
+   * Change width of the alpha and hue strips
+   */
+  @Input('stripWidth')
+  set stripWidth(value: number) {
+    this._stripWidth = value;
+  }
+  get stripWidth(): number {
+    return this._stripWidth;
+  }
+  private _stripWidth: number = 20;
+
+  /**
    * Receive selected color from the component
    */
   @Input()
@@ -269,7 +293,7 @@ export class MccColorPickerSelectorComponent
             Validators.required,
             Validators.maxLength(3),
           ],
-          updateOn: 'blur',
+          updateOn: 'change',
         }))
     );
 
@@ -306,7 +330,7 @@ export class MccColorPickerSelectorComponent
 
       const rgb = this._getRGB();
       const o = Math.round((rgb[0] * 299 + rgb[1] * 587 + rgb[2] * 114) / 1000);
-      this.textClass = o > 125 ? 'black' : 'white';
+      this.textClass = o > 125 ? 'black' : 'white'; // TODO: better algo
     }
   }
 
@@ -341,14 +365,14 @@ export class MccColorPickerSelectorComponent
 
     this.render.listen(this._strip.nativeElement, 'mousedown', (e: MouseEvent) => {
       this._isPressed = true;
-      this.changeBaseColor(e);
+      this.changeHue(e);
     });
     this.render.listen(this._strip.nativeElement, 'mouseup', () => (this._isPressed = false));
     this.render.listen(this._strip.nativeElement, 'mouseout', () => (this._isPressed = false));
     this.render.listen(this._strip.nativeElement, 'mouseover', (e: MouseEvent) => {
       this._isPressed = (e.buttons === 1);
     });
-    this.render.listen(this._strip.nativeElement, 'mousemove', (e: MouseEvent) => this.changeBaseColor(e));
+    this.render.listen(this._strip.nativeElement, 'mousemove', (e: MouseEvent) => this.changeHue(e));
     this._stripContext = this._strip.nativeElement.getContext('2d');
     this._stripContext.rect(
       0,
@@ -372,19 +396,23 @@ export class MccColorPickerSelectorComponent
     if (this.showAlphaSelector) {
       this.render.listen(this._alpha.nativeElement, 'mousedown', e => {
         this._isPressed = true;
-        this.changeOpacity(e);
+        this.changeAlpha(e);
       });
       this.render.listen(this._alpha.nativeElement, 'mouseup', () => (this._isPressed = false));
       this.render.listen(this._alpha.nativeElement, 'mouseout', () => (this._isPressed = false));
-      this.render.listen(this._alpha.nativeElement, 'mousemove', e => this.changeOpacity(e));
+      this.render.listen(this._alpha.nativeElement, 'mouseover', (e: MouseEvent) => {
+        this._isPressed = (e.buttons === 1);
+      });
+      this.render.listen(this._alpha.nativeElement, 'mousemove', (e: MouseEvent) => this.changeAlpha(e));
       this._alphaContext = this._alpha.nativeElement.getContext('2d');
 
       // start empty selector
-      this._drawOpacitySelector(null);
+      const rgb = this._getRGB();
+      this._drawAlphaSelector({R: rgb[0], G: rgb[1], B: rgb[2] });
 
       // subscribe to watch changes
       this.rgbForm.valueChanges.subscribe(rgb => {
-        this._drawOpacitySelector(rgb);
+        this._drawAlphaSelector(rgb);
       });
     }
 
@@ -396,7 +424,7 @@ export class MccColorPickerSelectorComponent
    * @param rgb object
    * @private
    */
-  private _drawOpacitySelector(rgb) {
+  private _drawAlphaSelector(rgb: {R: number, G: number, B: number}) {
     const background = new Image();
     background.src = 'data:image/jpeg;base64,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';
     background.onload = () => {
@@ -528,9 +556,9 @@ export class MccColorPickerSelectorComponent
    * Get selected base color from the canvas
    * @param e MouseEvent
    */
-  private changeBaseColor(e): void {
+  private changeHue(e): void {
     if (this._isPressed) {
-      if (e.offsetX <= 20 && e.offsetY <= 160) {
+      if (e.offsetX < this.stripWidth && e.offsetY < this.stripHeight) {
         this.render.setStyle(this._sc.nativeElement, 'background-position-y', `${e.offsetY}px`);
         const data = this._stripContext.getImageData(e.offsetX, e.offsetY, 1, 1).data;
         this._updateRGBA(data);
@@ -544,17 +572,15 @@ export class MccColorPickerSelectorComponent
    * Get selected alpha from the canvas
    * @param e MouseEvent
    */
-  private changeOpacity(e): void {
+  private changeAlpha(e: MouseEvent): void {
     if (this._isPressed) {
       this.render.setStyle(this._ap.nativeElement, 'background-position-y', `${e.offsetY}px`);
-      let alpha = '0';
-      if (e.offsetY > 0) {
-        alpha = ((160 - e.offsetY) / 160).toFixed(2);
+      if (e.offsetY < this.stripHeight) {
+        const alpha = ((this.stripHeight - e.offsetY) / this.stripHeight).toFixed(2);
+        this.rgbForm.controls['A'].setValue(parseFloat(alpha));
+        this._updateRGB();
       }
 
-      this.rgbForm.controls['A'].setValue(parseFloat(alpha));
-
-      this._updateRGB();
     }
   }
 
@@ -564,7 +590,7 @@ export class MccColorPickerSelectorComponent
   private changeColor(offsets?: Offsets): void {
     if (this._isPressed) {
       const os = offsets || this.latestBlockOffsets;
-      if (os.x <= 239 && os.y <= 169) {
+      if (os.x < this._width && os.y < this._height) {
         this.render.setStyle(this._bp.nativeElement, 'top', `${os.y - 5}px`);
         this.render.setStyle(this._bp.nativeElement, 'left', `${os.x - 6}px`);
 

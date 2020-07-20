@@ -1,18 +1,18 @@
 <div class="mcc-color-picker-selector" [ngStyle]="{ 'height.px': selectorHeight }">
-    <div #block class="mcc-picker-selector"></div>
-    <canvas #blockCanvas [height]="selectorHeight" width="240" id="picker"></canvas>
+    <div #block class="mcc-picker-selector" [style.height.px]="selectorHeight" [style.width.px]="selectorWidth"></div>
+    <canvas #blockCanvas [height]="selectorHeight" [width]="selectorWidth" id="picker"></canvas>
     <div #blockPointer class="mcc-picker-position" style="top: 0px;left: 220px;"></div>
 
-    <div #stripContainer class="mcc-colors-position" [ngClass]="{'alpha-enabled': showAlphaSelector}"
+    <div #stripContainer class="mcc-colors-position" [style.height.px]="stripHeight" [ngClass]="{'alpha-enabled': showAlphaSelector}"
          style="background-position-y: 0px;">
-        <canvas #strip [height]="stripHeight" width="20" id="colors"></canvas>
+        <canvas #strip [height]="stripHeight" [width]="stripWidth" id="colors"></canvas>
     </div>
 
-    <ng-container *ngIf="showAlphaSelector">
-      <div #alphaContainer class="mcc-alpha-position" style="background-position-y: 0px;">
-        <canvas #alpha [height]="stripHeight" width="20" id="alpha"></canvas>
-      </div>
-    </ng-container>
+
+    <div *ngIf="showAlphaSelector" #alphaContainer class="mcc-alpha-position" [style.height.px]="stripHeight" style="background-position-y: 0px;">
+        <canvas #alpha [height]="stripHeight" [width]="stripWidth" id="alpha"></canvas>
+    </div>
+
 </div>
 
 <div class="mcc-color-picker-selector-preview" [style.background]="tmpSelectedColor$ | async">
