@@ -24,6 +24,11 @@ interface ColorOption {
   value: number;
 }
 
+interface Offsets {
+  x: number;
+  y: number;
+}
+
 @Component({
   selector: 'mcc-color-picker-selector',
   templateUrl: './color-picker-selector.component.html',
@@ -178,7 +183,7 @@ export class MccColorPickerSelectorComponent
   /**
    * Last remembered offsets in block
    */
-  latestBlockOffsets: {x: number, y: number} = {x: 240, y: 0};
+  latestBlockOffsets: Offsets = {x: 240, y: 0};
 
   /**
    * Return red color from RGB
@@ -556,7 +561,7 @@ export class MccColorPickerSelectorComponent
   /**
    * Get selected color from the canvas
    */
-  private changeColor(offsets?: {x: number, y: number}): void {
+  private changeColor(offsets?: Offsets): void {
     if (this._isPressed) {
       const os = offsets || this.latestBlockOffsets;
       if (os.x <= 239 && os.y <= 169) {
