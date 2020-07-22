@@ -53,8 +53,29 @@
   </mat-card-content>
 </mat-card>
 
+
+<!-- CHANGE USED COLOR POSITION -->
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>
+      Change used color position
+    </mat-card-title>
+  </mat-card-header>
+
+  <mat-card-content>
+    <mcc-color-picker [usedColorsPosition]="'bottom'">
+
+      <mcc-color-picker-collection [label]="'First Collection'" [colors]="colors">
+      </mcc-color-picker-collection>
+
+    </mcc-color-picker>
+  </mat-card-content>
+</mat-card>
+
+
 <!-- WITH ALPHA ENABLED -->
 <app-color-picker-alpha></app-color-picker-alpha>
+
 
 <!-- REVERSE USED COLOR -->
 <mat-card>
