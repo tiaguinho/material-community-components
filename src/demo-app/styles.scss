@@ -38,6 +38,14 @@ pre {
   font-family: 'Roboto Mono', monospace;
 }
 
+code.highlight {
+  background: cornsilk;
+  border: 2px solid #ccc;
+  border-radius: .8rem;
+  padding: .1rem .3rem;
+  font-style: italic;
+}
+
 .page-title {
   font-weight: 600;
   margin-bottom: 0px;
