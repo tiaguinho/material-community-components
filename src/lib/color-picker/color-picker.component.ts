@@ -16,7 +16,7 @@ import {
 } from '@angular/core';
 import { BehaviorSubject, Observable, Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { EMPTY_COLOR, ENABLE_ALPHA_SELECTOR, coerceHexaColor } from './color-picker';
+import { EMPTY_COLOR, ENABLE_ALPHA_SELECTOR, MccColorPickerUsedColorPosition, coerceHexaColor } from './color-picker';
 import { MccColorPickerCollectionComponent } from './color-picker-collection.component';
 import { MccColorPickerService } from './color-picker.service';
 
@@ -78,6 +78,19 @@ export class MccColorPickerComponent implements AfterContentInit, OnInit, OnDest
     this._reverseUsedColor = coerceBooleanProperty(reverse);
   }
   private _reverseUsedColor: boolean = false;
+
+
+  /**
+   * Set position of used colors collection
+   */
+  @Input()
+  get usedColorsPosition(): MccColorPickerUsedColorPosition {
+    return this._usedColorsPosition;
+  }
+  set usedColorsPosition(position: MccColorPickerUsedColorPosition) {
+    this._usedColorsPosition = position;
+  }
+  private _usedColorsPosition: MccColorPickerUsedColorPosition = 'top';
 
   /**
    * Hide the hexadecimal color forms.
