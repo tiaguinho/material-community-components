@@ -42,6 +42,8 @@ export interface MccColorPickerItem {
 
 export type MccColorPickerOption = string | MccColorPickerItem;
 
+export type MccColorPickerUsedColorPosition = 'top' | 'bottom';
+
 /**
  * Convert RGB to HEX color
  * @param color string
