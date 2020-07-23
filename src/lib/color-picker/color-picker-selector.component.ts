@@ -265,7 +265,7 @@ export class MccColorPickerSelectorComponent
 
     // hex form
     this.hexForm = this.formBuilder.group({
-      hexCode: [this.selectedColor, [Validators.minLength(7), Validators.maxLength(7)]],
+      hexCode: [coerceHexaColor(this.selectedColor), [Validators.minLength(7), Validators.maxLength(7)]],
     });
 
     // rgb dynamic form
@@ -286,7 +286,12 @@ export class MccColorPickerSelectorComponent
 
     // add input for alpha
     if (this.showAlphaSelector) {
-      rgbGroup['A'] = new FormControl(rgbValue[3], {
+      let alpha = null;
+      if (this.selectedColor.includes('rgba')) {
+        // find all numbers, remove start groups and join the last 1 or 2
+        alpha = parseFloat(this.selectedColor.match(/\d+/g).slice(3).join('.'));
+      }
+      rgbGroup['A'] = new FormControl(alpha, {
         validators: [
           Validators.min(0),
           Validators.max(1),
