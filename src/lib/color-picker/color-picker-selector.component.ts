@@ -106,30 +106,6 @@ export class MccColorPickerSelectorComponent
   private _height: number = 170;
 
   /**
-   * Change width of the selector
-   */
-  @Input('width')
-  set width(value: number) {
-    this._width = value;
-  }
-  get selectorWidth(): number {
-    return this._width;
-  }
-  private _width: number = 240;
-
-  /**
-   * Change width of the alpha and hue strips
-   */
-  @Input('stripWidth')
-  set stripWidth(value: number) {
-    this._stripWidth = value;
-  }
-  get stripWidth(): number {
-    return this._stripWidth;
-  }
-  private _stripWidth: number = 20;
-
-  /**
    * Receive selected color from the component
    */
   @Input()
@@ -209,6 +185,16 @@ export class MccColorPickerSelectorComponent
    */
   latestBlockOffsets: Offsets;
 
+  get selectorWidth(): number {
+    return this._selectorWidth;
+  }
+  private _selectorWidth: number = 240;
+
+  get stripWidth(): number {
+    return this._stripWidth;
+  }
+  private _stripWidth: number = 20;
+
   /**
    * Return red color from RGB
    */
@@ -264,7 +250,7 @@ export class MccColorPickerSelectorComponent
   ) {}
 
   ngOnInit() {
-    this.latestBlockOffsets = { x: this._width - 1, y: 0 };
+    this.latestBlockOffsets = { x: this._selectorWidth - 1, y: 0 };
     // set selectedColor initial value
     this._tmpSelectedColor.next(this._selectedColor);
     this._tmpSelectedColorSub = this._tmpSelectedColor.subscribe(color => {
@@ -561,7 +547,7 @@ export class MccColorPickerSelectorComponent
    */
   private changeHue(e): void {
     if (this._isPressed) {
-      if (e.offsetX < this.stripWidth && e.offsetY < this.stripHeight) {
+      if (e.offsetX < this._stripWidth && e.offsetY < this.stripHeight) {
         this.render.setStyle(this._sc.nativeElement, 'background-position-y', `${e.offsetY}px`);
         const data = this._stripContext.getImageData(e.offsetX, e.offsetY, 1, 1).data;
         this._updateRGBA(data);
@@ -593,7 +579,7 @@ export class MccColorPickerSelectorComponent
   private changeColor(offsets?: Offsets): void {
     if (this._isPressed) {
       const os = offsets || this.latestBlockOffsets;
-      if (os.x < this._width && os.y < this._height) {
+      if (os.x < this._selectorWidth && os.y < this._height) {
         this.render.setStyle(this._bp.nativeElement, 'top', `${os.y - 5}px`);
         this.render.setStyle(this._bp.nativeElement, 'left', `${os.x - 6}px`);
 
