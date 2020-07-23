@@ -322,7 +322,7 @@ export class MccColorPickerSelectorComponent
 
       const rgb = this._getRGB();
       const o = Math.round((rgb[0] * 299 + rgb[1] * 587 + rgb[2] * 114) / 1000);
-      this.textClass = o > 125 ? 'black' : 'white'; // TODO: better algo
+      this.textClass = o > 125 ? 'black' : 'white';
     }
   }
 
