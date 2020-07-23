@@ -419,12 +419,10 @@ export class MccColorPickerSelectorComponent
       this._alphaContext.clearRect(0, 0, this._alpha.nativeElement.width, this._alpha.nativeElement.height);
 
       // draw transparent background image
-     const pattern = this._alphaContext.createPattern(background, 'repeat');
-
-      this._alphaContext.fillStyle = pattern;
+      this._alphaContext.fillStyle = this._alphaContext.createPattern(background, 'repeat');
       this._alphaContext.fillRect(0, 0, this._alpha.nativeElement.width, this._alpha.nativeElement.height);
-      // if rgb is set, create linear gradient
-      if (rgb) {
+      // if rgb is set and have at least 3 values set, create linear gradient
+      if (Object.keys(rgb).filter(k => Number.isInteger(rgb[k])).length >= 3) {
         const alphaGrd2 = this._alphaContext.createLinearGradient(0, 0, 0, this._bc.nativeElement.height);
         alphaGrd2.addColorStop(0, `rgba(${rgb['R']}, ${rgb['G']}, ${rgb['B']})`);
         alphaGrd2.addColorStop(1, `rgba(${rgb['R']}, ${rgb['G']}, ${rgb['B']}, 0)`);
@@ -492,7 +490,7 @@ export class MccColorPickerSelectorComponent
       return [data[0], data[1], data[2]];
     }
 
-    if (!this._selectedColor) {
+    if (!this._selectedColor || this._selectedColor === this.emptyColor) {
       return [null, null, null];
     }
 
