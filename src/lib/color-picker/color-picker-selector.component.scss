@@ -60,21 +60,21 @@ canvas {
   font-weight: bold;
 
   &.black {
-    color: #100214;
+    color: #100214 !important;
     label.mat-form-field-label {
-      color: #100214;
+      color: #100214 !important;
     }
     .mat-form-field-underline {
-      background-color: #100214;
+      background-color: #100214 !important;
     }
   }
   &.white {
-    color: #ffffff;
+    color: #ffffff !important;
     label.mat-form-field-label {
-      color: #ffffff;
+      color: #ffffff !important;
     }
     .mat-form-field-underline {
-      background-color: #ffffff;
+      background-color: #ffffff !important;
     }
   }
 }
