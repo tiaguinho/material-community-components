@@ -191,5 +191,8 @@
     "@schematics/angular:directive": {
       "prefix": "mcc"
     }
+  },
+  "cli": {
+    "analytics": false
   }
 }
