@@ -22,4 +22,5 @@ install:
 
 script:
   - yarn test -- --no-watch --no-progress --code-coverage --browsers=ChromeHeadlessCI
+  - cat ./coverages/lcov.info | coveralls
 
