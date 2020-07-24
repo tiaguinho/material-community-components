@@ -84,11 +84,11 @@ export class MccColorPickerSelectorComponent
    * Container of the alpha
    */
   @ViewChild('alphaContainer')
-  set alphaCursor(el: ElementRef) {
-    this._ap = el;
+  set alphaContainer(el: ElementRef) {
+    this._ac = el;
   }
 
-  private _ap: ElementRef;
+  private _ac: ElementRef;
 
   /**
    * Change height base of the selector
@@ -514,11 +514,15 @@ export class MccColorPickerSelectorComponent
    */
   private changeAlpha(e: MouseEvent) {
     if (this._isPressed) {
-      this.render.setStyle(this._ap.nativeElement, 'background-position-y', `${e.offsetY}px`);
+      this.setAlphaSelector(e.offsetY);
       if (e.offsetY < this.stripHeight) {
         const alpha = ((this.stripHeight - e.offsetY) / this.stripHeight).toFixed(2);
-        this.rgbaForm.controls['A'].setValue(parseFloat(alpha));
-        this._updateRGBAForm(this._selectedColor);
+
+        const color = this._selectedColor.setAlpha(alpha);
+        this._updateRGBAForm(color);
+        this._updateHexForm(color);
+        this._updateRGBA(color);
+        this._tmpSelectedColor.next(color);
       }
 
     }
@@ -533,7 +537,7 @@ export class MccColorPickerSelectorComponent
       if (os.x < this._selectorWidth && os.y < this._height) {
         this.setXYSelector(os);
         const data: Uint8ClampedArray = this._blockContext.getImageData(os.x, os.y, 1, 1).data;
-        const color = tinycolor({r: data[0], g: data[1], b: data[2]});
+        const color = tinycolor({r: data[0], g: data[1], b: data[2], a: this._selectedColor.getAlpha()});
         this._updateRGBAForm(color);
         this._updateHexForm(color);
         this._tmpSelectedColor.next(color);
@@ -551,6 +555,10 @@ export class MccColorPickerSelectorComponent
 
     const offsets = this.getXYOffsets(color);
     this.setXYSelector(offsets);
+
+
+    const alphaOffset = this.getAlphaOffset(color);
+    this.setAlphaSelector(alphaOffset);
   }
 
 
@@ -576,6 +584,16 @@ export class MccColorPickerSelectorComponent
   }
 
 
+  /**
+   * Set alpha selector positions in view
+   */
+  private setAlphaSelector(offset: number) {
+    if (this._ac) {
+      this.render.setStyle(this._ac.nativeElement, 'background-position-y', `${offset}px`);
+    }
+  }
+
+
   private getXYOffsets(color: tinycolor.Instance): Offsets {
     const hsl = color.toHsl();
 
@@ -585,7 +603,11 @@ export class MccColorPickerSelectorComponent
   }
 
   private getHueOffsets(color: tinycolor.Instance): number {
-    return Math.floor(this.stripHeight / 360 * color.toHsl().h);
+    return this.stripHeight / 360 * color.toHsl().h;
+  }
+
+  private getAlphaOffset(color: tinycolor.Instance): number {
+    return this.stripHeight - this.stripHeight * color.getAlpha();
   }
 
 }
