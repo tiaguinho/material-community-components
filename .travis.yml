@@ -1,0 +1,29 @@
+dist: trusty
+sudo: false
+
+language: node_js
+node_js:
+  - '10'
+
+env:
+  global:
+    - COVERALLS_PARALLEL=true
+
+addons:
+  apt:
+    sources:
+      - google-chrome
+    packages:
+      - google-chrome-stable
+
+cache:
+  yarn: true
+  directories:
+    - ./node_modules
+
+install:
+  - yarn
+
+script:
+  - yarn test -- --no-watch --no-progress --code-coverage --browsers=ChromeHeadlessCI
+
