@@ -16,13 +16,10 @@ import {
 } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { BehaviorSubject, Observable, Subscription } from 'rxjs';
+import { ENABLE_ALPHA_SELECTOR } from './color-picker';
+import { tinycolor } from '@thebespokepixel/es-tinycolor';
 import { map } from 'rxjs/operators';
-import { EMPTY_COLOR, ENABLE_ALPHA_SELECTOR, coerceHexaColor, convertRgbToHex, isValidColor } from './color-picker';
 
-interface ColorOption {
-  type: string;
-  value: number;
-}
 
 interface Offsets {
   x: number;
@@ -41,7 +38,7 @@ export class MccColorPickerSelectorComponent
   /**
    * ElemenRef of the main color
    */
-   @ViewChild('block') _block: ElementRef;
+  @ViewChild('block') _block: ElementRef;
 
   /**
    * ElemenRef of the pointer main color
@@ -55,6 +52,7 @@ export class MccColorPickerSelectorComponent
   set blockCursor(el: ElementRef) {
     this._bc = el;
   }
+
   private _bc: ElementRef;
   private _blockContext: CanvasRenderingContext2D;
 
@@ -72,6 +70,7 @@ export class MccColorPickerSelectorComponent
   set stripCursor(el: ElementRef) {
     this._sc = el;
   }
+
   private _sc: ElementRef;
 
   /**
@@ -88,6 +87,7 @@ export class MccColorPickerSelectorComponent
   set alphaCursor(el: ElementRef) {
     this._ap = el;
   }
+
   private _ap: ElementRef;
 
   /**
@@ -97,25 +97,26 @@ export class MccColorPickerSelectorComponent
   set height(value: number) {
     this._height = value;
   }
+
   get selectorHeight(): number {
     return this._height;
   }
+
   get stripHeight(): number {
     return this._height - 10;
   }
+
   private _height: number = 170;
 
   /**
    * Receive selected color from the component
    */
   @Input()
-  get selectedColor(): string {
-    return this._selectedColor;
-  }
   set selectedColor(value: string) {
-    this._selectedColor = value || this.emptyColor;
+    this._selectedColor = tinycolor(value);
   }
-  private _selectedColor: string = '';
+
+  private _selectedColor: tinycolor.Instance;
 
   /**
    * Hide the hexadecimal color forms.
@@ -124,25 +125,28 @@ export class MccColorPickerSelectorComponent
   get hideHexForms(): boolean {
     return this._hideHexForms;
   }
+
   set hideHexForms(value: boolean) {
     this._hideHexForms = value;
   }
+
   private _hideHexForms: boolean = false;
 
   /**
    * Emit update when a color is selected
    */
-  @Output() changeSelectedColor = new EventEmitter();
+  @Output()
+  private readonly changeSelectedColor = new EventEmitter<string>();
 
   /**
    * RGBA current color
    */
-  private _rgbaColor: string = 'rgba(255,0,0,1)';
+  private _rgbaColor: string = 'rgba(0,0,0,1)';
 
   /**
    * Subject of the current selected color by the user
    */
-  private _tmpSelectedColor: BehaviorSubject<string> = new BehaviorSubject<string>('');
+  private _tmpSelectedColor: BehaviorSubject<tinycolor.Instance> = new BehaviorSubject<tinycolor.Instance>(this._selectedColor);
 
   /**
    * Subscription of the tmpSelectedColor Observable
@@ -177,8 +181,7 @@ export class MccColorPickerSelectorComponent
   /**
    * Form and keys of the fields in RGB
    */
-  rgbKeys = ['R', 'G', 'B'];
-  rgbForm: FormGroup;
+  rgbaForm: FormGroup;
 
   /**
    * Last remembered offsets in block
@@ -188,119 +191,85 @@ export class MccColorPickerSelectorComponent
   get selectorWidth(): number {
     return this._selectorWidth;
   }
+
   private _selectorWidth: number = 240;
 
   get stripWidth(): number {
     return this._stripWidth;
   }
+
   private _stripWidth: number = 20;
-
-  /**
-   * Return red color from RGB
-   */
-  get redColor(): number {
-    return this.rgbForm.get('R').value;
-  }
-
-  /**
-   * Return green color from RGB
-   */
-  get greenColor(): number {
-    return this.rgbForm.get('G').value;
-  }
-
-  /**
-   * Return blue color from RGB
-   */
-  get blueColor(): number {
-    return this.rgbForm.get('B').value;
-  }
 
   /**
    * Return alpha value from RGBA
    */
   get alphaValue(): number {
-    const value = this.rgbForm.get('A').value;
+    const value = this.rgbaForm.get('A').value;
     if (value === null) {
       return 1;
     }
     return value;
   }
 
-  /**
-   * Return selected color
-   */
-  get formColor(): string {
-    if (this.showAlphaSelector) {
-      return `rgba(${this.redColor}, ${this.greenColor}, ${this.blueColor}, ${this.alphaValue})`;
-    }
-
-    return `rgb(${this.redColor}, ${this.greenColor}, ${this.blueColor})`;
-  }
-
   get tmpSelectedColor$(): Observable<string> {
-    return this._tmpSelectedColor.asObservable().pipe(map(color => convertRgbToHex(color)));
+    return this._tmpSelectedColor.asObservable().pipe(map(color => color.toString('rgb')));
   }
 
   constructor(
     private formBuilder: FormBuilder,
     private render: Renderer2,
-    @Inject(EMPTY_COLOR) private emptyColor: string,
     @Inject(ENABLE_ALPHA_SELECTOR) public showAlphaSelector: boolean
-  ) {}
+  ) {
+  }
 
   ngOnInit() {
-    this.latestBlockOffsets = { x: this._selectorWidth - 1, y: 0 };
+    this.latestBlockOffsets = {x: this._selectorWidth - 1, y: Math.floor(this._height / 2)};
     // set selectedColor initial value
     this._tmpSelectedColor.next(this._selectedColor);
+
     this._tmpSelectedColorSub = this._tmpSelectedColor.subscribe(color => {
-      if (this.rgbForm && this.rgbForm.valid) {
-        const hexCode = coerceHexaColor(color);
-        if (this.hexForm.get('hexCode').value !== hexCode) {
-          this.hexForm.setValue({ hexCode });
-        }
-        this.changeSelectedColor.emit(color || this.emptyColor);
-      }
+      this.textClass = color.isDark() ? 'white' : 'black';
+      this.changeSelectedColor.emit(color.toString('rgb')); // or to hex?
     });
 
     // hex form
     this.hexForm = this.formBuilder.group({
-      hexCode: [coerceHexaColor(this.selectedColor), [Validators.minLength(7), Validators.maxLength(7)]],
+      hexCode: new FormControl(this._selectedColor.toHex().toUpperCase(), {
+        validators: [
+          Validators.pattern(/^#[0-9A-Fa-f]{6}$/ig)
+        ],
+        updateOn: 'change'
+      })
     });
 
     // rgb dynamic form
-    const rgbGroup: any = {};
-    const rgbValue: number[] = this._getRGB();
-    this.rgbKeys.forEach(
+    const rgbKeys = ['R', 'G', 'B'];
+    const rgbaGroup: { [key: string]: FormControl } = {};
+    const rgb = this._selectedColor.toRgb();
+    const rgbValues = [rgb.r, rgb.g, rgb.b, rgb.a];
+    rgbKeys.forEach(
       (key, index) =>
-        (rgbGroup[key] = new FormControl(rgbValue[index], {
+        (rgbaGroup[key] = new FormControl(rgbValues[index], {
           validators: [
             Validators.min(0),
             Validators.max(255),
-            Validators.required,
-            Validators.maxLength(3),
+            Validators.required
           ],
-          updateOn: 'change',
+          updateOn: 'change'
         }))
     );
 
     // add input for alpha
-    if (this.showAlphaSelector) {
-      let alpha = null;
-      if (this.selectedColor.includes('rgba')) {
-        // find all numbers, remove start groups and join the last 1 or 2
-        alpha = parseFloat(this.selectedColor.match(/\d+/g).slice(3).join('.'));
-      }
-      rgbGroup['A'] = new FormControl(alpha, {
-        validators: [
-          Validators.min(0),
-          Validators.max(1),
-          Validators.required
-        ]
-      });
-    }
+    rgbaGroup['A'] = new FormControl(this._selectedColor.getAlpha(), {
+      validators: [
+        Validators.min(0),
+        Validators.max(1),
+        Validators.required
+      ]
+    });
 
-    this.rgbForm = this.formBuilder.group(rgbGroup);
+
+    this.rgbaForm = this.formBuilder.group(rgbaGroup);
 
     // watch changes on forms
     this._onChanges();
@@ -312,17 +281,18 @@ export class MccColorPickerSelectorComponent
    * @param changes SimpleChanges
    */
   ngOnChanges(changes: SimpleChanges) {
-    if ('selectedColor' in changes && changes['selectedColor'].currentValue !== this.emptyColor) {
+    if ('selectedColor' in changes) {
       if (!this._isPressed) {
-        this._updateRGB();
+        const color = this._selectedColor;
+        this._updateHexForm(color);
+        this._updateRGBAForm(color);
+        this._updateRGBA(color);
+        this.setSelectorPositions(color);
         if (this._blockContext) {
           this._fillGradient();
         }
+        this._tmpSelectedColor.next(color);
       }
-
-      const rgb = this._getRGB();
-      const o = Math.round((rgb[0] * 299 + rgb[1] * 587 + rgb[2] * 114) / 1000);
-      this.textClass = o > 125 ? 'black' : 'white';
     }
   }
 
@@ -399,12 +369,12 @@ export class MccColorPickerSelectorComponent
       this._alphaContext = this._alpha.nativeElement.getContext('2d');
 
       // start empty selector
-      const rgbColor = this._getRGB();
-      this._drawAlphaSelector({R: rgbColor[0], G: rgbColor[1], B: rgbColor[2] });
+      this._drawAlphaSelector(this._selectedColor);
 
       // subscribe to watch changes
-      this.rgbForm.valueChanges.subscribe(rgb => {
-        this._drawAlphaSelector(rgb);
+      this.rgbaForm.valueChanges.subscribe(rgba => {
+        const color = tinycolor({r: rgba.R, g: rgba.G, b: rgba.b, a: rgba.A});
+        this._drawAlphaSelector(color);
       });
     }
 
@@ -413,10 +383,9 @@ export class MccColorPickerSelectorComponent
 
   /**
    * Draw alpha selector
-   * @param rgb object
    * @private
    */
-  private _drawAlphaSelector(rgb: {R: number, G: number, B: number}) {
+  private _drawAlphaSelector(color: tinycolor.Instance) {
     const background = new Image();
     background.src = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA0AAAANCAIAAAD9iXMrAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAAITcAACE3ATNYn3oAAACJSURBVChTjZDLDgQREEX9/6fRdvgAJMbSArvpud2ofibmLCqVOHUpbH3gnBNCLAP0xpjD++6gmXiEtfbdazHE2ZNS/psHtNZzj3O+eXg14b1H/VwJIaAyjJ7BdIyxJw9KKayn73u1ZuIRcw+R+Iinl3O+34uKV/fzweZhZ6CUahXAq7XiLiKl9AP878ZgrHOa/QAAAABJRU5ErkJggg==';
     background.onload = () => {
@@ -427,14 +396,13 @@ export class MccColorPickerSelectorComponent
       this._alphaContext.fillStyle = this._alphaContext.createPattern(background, 'repeat');
       this._alphaContext.fillRect(0, 0, this._alpha.nativeElement.width, this._alpha.nativeElement.height);
       // if rgb is set and have at least 3 values set, create linear gradient
-      if (Object.keys(rgb).filter(k => Number.isInteger(rgb[k])).length >= 3) {
-        const alphaGrd2 = this._alphaContext.createLinearGradient(0, 0, 0, this._bc.nativeElement.height);
-        alphaGrd2.addColorStop(0, `rgba(${rgb['R']}, ${rgb['G']}, ${rgb['B']})`);
-        alphaGrd2.addColorStop(1, `rgba(${rgb['R']}, ${rgb['G']}, ${rgb['B']}, 0)`);
 
-        this._alphaContext.fillStyle = alphaGrd2;
-        this._alphaContext.fillRect(0, 0, this._alpha.nativeElement.width, this._alpha.nativeElement.height);
-      }
+      const alphaGrd2 = this._alphaContext.createLinearGradient(0, 0, 0, this._bc.nativeElement.height);
+      alphaGrd2.addColorStop(0, `rgba(${color.toRgb().r}, ${color.toRgb().g}, ${color.toRgb().b})`);
+      alphaGrd2.addColorStop(1, `rgba(${color.toRgb().r}, ${color.toRgb().g}, ${color.toRgb().b}, 0)`);
+
+      this._alphaContext.fillStyle = alphaGrd2;
+      this._alphaContext.fillRect(0, 0, this._alpha.nativeElement.width, this._alpha.nativeElement.height);
     };
   }
 
@@ -445,22 +413,25 @@ export class MccColorPickerSelectorComponent
     this._blockContext.fillStyle = this._rgbaColor;
     this._blockContext.fillRect(0, 0, this._bc.nativeElement.width, this._bc.nativeElement.height);
 
-    const grdWhite = this._stripContext.createLinearGradient(0, 0, this._bc.nativeElement.width, 0);
-    grdWhite.addColorStop(0, 'rgba(255,255,255,1)');
-    grdWhite.addColorStop(1, 'rgba(255,255,255,0)');
-    this._blockContext.fillStyle = grdWhite;
+    const grdLeft = this._stripContext.createLinearGradient(
+      0,
+      0,
+      this._bc.nativeElement.width,
+      0
+    );
+    grdLeft.addColorStop(0, 'hsl(0, 0%, 50%)');
+    grdLeft.addColorStop(1, 'hsla(0, 0%, 50%, 0)');
+    this._blockContext.fillStyle = grdLeft;
     this._blockContext.fillRect(0, 0, this._bc.nativeElement.width, this._bc.nativeElement.height);
 
-    const grdBlack = this._stripContext.createLinearGradient(
-      0,
-      0,
-      0,
-      this._bc.nativeElement.height
-    );
-    grdBlack.addColorStop(0, 'rgba(0,0,0,0)');
-    grdBlack.addColorStop(1, 'rgba(0,0,0,1)');
-    this._blockContext.fillStyle = grdBlack;
+    const grdTop = this._stripContext.createLinearGradient(0, 0, 0, this._bc.nativeElement.height);
+    grdTop.addColorStop(0, 'hsl(0, 0%, 100%)');
+    grdTop.addColorStop(0.5, 'hsla(0, 0%, 100%, 0)');
+    grdTop.addColorStop(0.5, 'hsla(0, 0%, 0%, 0)');
+    grdTop.addColorStop(1, 'hsl(0, 0%, 0%)');
+    this._blockContext.fillStyle = grdTop;
     this._blockContext.fillRect(0, 0, this._bc.nativeElement.width, this._bc.nativeElement.height);
+
   }
 
   /**
@@ -468,92 +439,70 @@ export class MccColorPickerSelectorComponent
    */
   private _onChanges() {
     // validate digited code and update when digitation is finished
-    this._hexValuesSub = this.hexForm.get('hexCode').valueChanges
+    this._hexValuesSub = this.hexForm.valueChanges
       .subscribe(value => {
-        if (!this._isPressed && isValidColor(value)) {
-          this._tmpSelectedColor.next(value || this.emptyColor);
+        if (this.hexForm.valid) {
+          const color = tinycolor(value.hexCode);
+          this._updateRGBAForm(color);
+          this._updateRGBA(color);
+          this._fillGradient();
+          this.setSelectorPositions(color);
+          this._tmpSelectedColor.next(color);
         }
       });
 
-    this._rgbValuesSub = this.rgbForm.valueChanges.subscribe(rgba => {
-      const hex = convertRgbToHex(this.formColor);
-      if (hex !== convertRgbToHex(this._selectedColor) && isValidColor(hex)) {
-        this.hexForm.get('hexCode').setValue(hex);
+    this._rgbValuesSub = this.rgbaForm.valueChanges.subscribe(rgba => {
+      if (this.rgbaForm.valid) {
+        const color = tinycolor({r: rgba.R, g: rgba.G, b: rgba.B, a: rgba.A});
+        this._updateHexForm(color);
+        this._updateRGBA(color);
+        this._fillGradient();
+        this.setSelectorPositions(color);
+        this._tmpSelectedColor.next(color);
       }
-
-      this._tmpSelectedColor.next(this.formColor);
     });
   }
 
   /**
-   * Convert HEX/canvas value to rgb
-   * @param data any
-   * @returns number[]
-   */
-  private _getRGB(data?: any): number[] {
-    if (data) {
-      return [data[0], data[1], data[2]];
-    }
-
-    if (!this._selectedColor || this._selectedColor === this.emptyColor) {
-      return [null, null, null];
-    }
-
-    const hex = convertRgbToHex(this._selectedColor).replace('#', '');
-    const r = parseInt(hex.slice(0, 2), 16);
-    const g = parseInt(hex.slice(2, 4), 16);
-    const b = parseInt(hex.slice(4, 6), 16);
-
-    return [r, g, b];
-  }
-
-  /**
    * Update RGBA color
-   * @param data any
    */
-  private _updateRGBA(data?: any): void {
-    if (!this._selectedColor && !data) {
-      this._rgbaColor = 'rgba(255,0,0,1)';
-    }
-
-    const rgb = this._getRGB(data);
-    this._rgbaColor = `rgba(${rgb[0]}, ${rgb[1]}, ${rgb[2]}, 1)`;
+  private _updateRGBA(color: tinycolor.Instance) {
+    this._rgbaColor = color.toString('rgb');
   }
 
   /**
-   * Update RGB form
-   * @param data any
+   * Update RGBA form
    */
-  private _updateRGB(data?: any): void {
-    if (!this.rgbForm) {
+  private _updateRGBAForm(color: tinycolor.Instance) {
+    if (!this.rgbaForm) {
+      return;
+    }
+    const values = {R: color.toRgb().r, G: color.toRgb().g, B: color.toRgb().b, A: color.toRgb().a};
+    this.rgbaForm.setValue(values, {emitEvent: false});
+  }
+
+  /**
+   * Update hex form
+   */
+  private _updateHexForm(color: tinycolor.Instance) {
+    if (!this.hexForm) {
       return;
     }
 
-    if (!data) {
-      data = this._getRGB();
-    }
-
-    // define new form value
-    const values = { R: data[0], G: data[1], B: data[2]};
-
-    // if alpha is enabled
-    if (this.showAlphaSelector) {
-      values['A'] = this.alphaValue;
-    }
-
-    this.rgbForm.setValue(values);
+    const hex = color.toHex().toUpperCase();
+    this.hexForm.get('hexCode').setValue('#' + hex, {emitEvent: false});
   }
 
   /**
    * Get selected base color from the canvas
-   * @param e MouseEvent
    */
-  private changeHue(e): void {
+  private changeHue(e: MouseEvent) {
     if (this._isPressed) {
       if (e.offsetX < this._stripWidth && e.offsetY < this.stripHeight) {
-        this.render.setStyle(this._sc.nativeElement, 'background-position-y', `${e.offsetY}px`);
+        this.setHueSelector(e.offsetY);
         const data = this._stripContext.getImageData(e.offsetX, e.offsetY, 1, 1).data;
-        this._updateRGBA(data);
+        const color = tinycolor({r: data[0], g: data[1], b: data[2]});
+        this._updateRGBA(color);
         this._fillGradient();
         this.changeColor();
       }
@@ -562,15 +511,14 @@ export class MccColorPickerSelectorComponent
 
   /**
    * Get selected alpha from the canvas
-   * @param e MouseEvent
    */
-  private changeAlpha(e: MouseEvent): void {
+  private changeAlpha(e: MouseEvent) {
     if (this._isPressed) {
       this.render.setStyle(this._ap.nativeElement, 'background-position-y', `${e.offsetY}px`);
       if (e.offsetY < this.stripHeight) {
         const alpha = ((this.stripHeight - e.offsetY) / this.stripHeight).toFixed(2);
-        this.rgbForm.controls['A'].setValue(parseFloat(alpha));
-        this._updateRGB();
+        this.rgbaForm.controls['A'].setValue(parseFloat(alpha));
+        this._updateRGBAForm(this._selectedColor);
       }
 
     }
@@ -579,27 +527,65 @@ export class MccColorPickerSelectorComponent
   /**
    * Get selected color from the canvas
    */
-  private changeColor(offsets?: Offsets): void {
+  private changeColor(offsets?: Offsets) {
     if (this._isPressed) {
       const os = offsets || this.latestBlockOffsets;
       if (os.x < this._selectorWidth && os.y < this._height) {
-        this.render.setStyle(this._bp.nativeElement, 'top', `${os.y - 5}px`);
-        this.render.setStyle(this._bp.nativeElement, 'left', `${os.x - 6}px`);
-
-        const data = this._blockContext.getImageData(os.x, os.y, 1, 1).data;
-        this.updateValues(data);
-        this.latestBlockOffsets = os;
+        this.setXYSelector(os);
+        const data: Uint8ClampedArray = this._blockContext.getImageData(os.x, os.y, 1, 1).data;
+        const color = tinycolor({r: data[0], g: data[1], b: data[2]});
+        this._updateRGBAForm(color);
+        this._updateHexForm(color);
+        this._tmpSelectedColor.next(color);
       }
     }
   }
 
+
   /**
-   * Emit update from the selected color
-   * @param data any
+   * Set XY selector positions in view
    */
-  private updateValues(data: any): void {
-    if (data) {
-      this._updateRGB(data);
+  private setSelectorPositions(color: tinycolor.Instance) {
+    const offset = this.getHueOffsets(color);
+    this.setHueSelector(offset);
+
+    const offsets = this.getXYOffsets(color);
+    this.setXYSelector(offsets);
+  }
+
+
+  /**
+   * Set XY selector positions in view
+   */
+  private setXYSelector(offsets: Offsets) {
+    if (this._bp) {
+      this.render.setStyle(this._bp.nativeElement, 'top', `${offsets.y - 5}px`);
+      this.render.setStyle(this._bp.nativeElement, 'left', `${offsets.x - 6}px`);
+      this.latestBlockOffsets = offsets;
     }
   }
+
+
+  /**
+   * Set hue selector positions in view
+   */
+  private setHueSelector(offset: number) {
+    if (this._sc) {
+      this.render.setStyle(this._sc.nativeElement, 'background-position-y', `${offset}px`);
+    }
+  }
+
+
+  private getXYOffsets(color: tinycolor.Instance): Offsets {
+    const hsl = color.toHsl();
+
+    const x = this._selectorWidth * hsl.s;
+    const y = this._height - this._height * hsl.l;
+    return {x, y};
+  }
+
+  private getHueOffsets(color: tinycolor.Instance): number {
+    return Math.floor(this.stripHeight / 360 * color.toHsl().h);
+  }
+
 }

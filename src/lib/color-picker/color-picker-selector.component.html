@@ -15,30 +15,28 @@
 
 </div>
 
-<div class="mcc-color-picker-selector-preview" [style.background]="tmpSelectedColor$ | async">
+<div class="mcc-color-picker-selector-preview" [style.backgroundColor]="tmpSelectedColor$ | async">
     <ng-container *ngIf="!hideHexForms">
         <form [formGroup]="hexForm">
             <mat-form-field class="hex-input" floatLabel="always" [ngClass]="textClass">
-                <input matInput placeholder="HEX" maxlength="7" formControlName="hexCode" />
+                <input matInput placeholder="HEX" formControlName="hexCode" />
             </mat-form-field>
         </form>
 
-        <form [formGroup]="rgbForm">
+        <form [formGroup]="rgbaForm">
             <mat-form-field class="rgb-input" floatLabel="always" [ngClass]="textClass">
-                <input matInput type="number" placeholder="RGBA" maxlength="3" formControlName="R" />
+                <input matInput type="number" placeholder="RGBA" formControlName="R" />
             </mat-form-field>
             <mat-form-field class="rgb-input" floatLabel="always" [ngClass]="textClass">
-                <input matInput type="number" maxlength="3" formControlName="G" />
+                <input matInput type="number" formControlName="G" />
             </mat-form-field>
             <mat-form-field class="rgb-input" floatLabel="always" [ngClass]="textClass">
-                <input matInput type="number" maxlength="3" formControlName="B" />
+                <input matInput type="number" formControlName="B" />
             </mat-form-field>
 
-            <ng-container *ngIf="showAlphaSelector">
-                <mat-form-field class="rgb-input" floatLabel="always" [ngClass]="textClass">
-                  <input matInput type="number" maxlength="3" formControlName="A" />
-                </mat-form-field>
-            </ng-container>
+            <mat-form-field *ngIf="showAlphaSelector" class="rgb-input" floatLabel="always" [ngClass]="textClass">
+                <input matInput type="number" formControlName="A" />
+            </mat-form-field>
         </form>
     </ng-container>
 </div>

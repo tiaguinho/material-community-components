@@ -37,6 +37,7 @@
     "@types/jasmine": "^3.5.10",
     "@types/jasminewd2": "^2.0.8",
     "@types/node": "^13.9.5",
+    "@types/tinycolor2": "^1.4.2",
     "angular-cli-ghpages": "^0.6.2",
     "codelyzer": "^5.2.2",
     "conventional-changelog": "^3.1.18",
@@ -89,7 +90,8 @@
   },
   "dependencies": {
     "scss-bundle": "^2.5.1",
-    "tslib": "^2.0.0"
+    "tslib": "^2.0.0",
+    "@thebespokepixel/es-tinycolor": "^2.1.1"
   },
   "husky": {
     "hooks": {
