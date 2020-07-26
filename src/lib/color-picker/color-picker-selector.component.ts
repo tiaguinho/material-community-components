@@ -14,17 +14,19 @@ import {
   SimpleChanges,
   ViewChild,
 } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { BehaviorSubject, Observable, Subscription } from 'rxjs';
-import { ENABLE_ALPHA_SELECTOR } from './color-picker';
-import { tinycolor } from '@thebespokepixel/es-tinycolor';
-import { map } from 'rxjs/operators';
+import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {BehaviorSubject, Observable, Subscription} from 'rxjs';
+import {EMPTY_COLOR, ENABLE_ALPHA_SELECTOR} from './color-picker';
+import {tinycolor} from '@thebespokepixel/es-tinycolor';
+import {map} from 'rxjs/operators';
 
 
 interface Offsets {
   x: number;
   y: number;
 }
+
+const INITIAL_COLOR: tinycolor.Instance = tinycolor({r: 255, g: 0, b: 0, a: 1});
 
 @Component({
   selector: 'mcc-color-picker-selector',
@@ -113,10 +115,19 @@ export class MccColorPickerSelectorComponent
    */
   @Input()
   set selectedColor(value: string) {
-    this._selectedColor = tinycolor(value);
+    if (value === this.emptyColor) {
+      this.noColor = true;
+      this._selectedColor = INITIAL_COLOR;
+    } else {
+      const color = tinycolor(value);
+      if (color.isValid()) {
+        this._selectedColor = color;
+        this.noColor = false;
+      }
+    }
   }
 
-  private _selectedColor: tinycolor.Instance;
+  private _selectedColor: tinycolor.Instance = INITIAL_COLOR;
 
   /**
    * Hide the hexadecimal color forms.
@@ -141,7 +152,7 @@ export class MccColorPickerSelectorComponent
   /**
    * RGBA current color
    */
-  private _rgbaColor: string = 'rgba(0,0,0,1)';
+  private _rgbaColor: string = INITIAL_COLOR.toString('rgb');
 
   /**
    * Subject of the current selected color by the user
@@ -188,6 +199,11 @@ export class MccColorPickerSelectorComponent
    */
   latestBlockOffsets: Offsets;
 
+  /**
+   * True if empty color is selected
+   */
+  noColor: boolean;
+
   get selectorWidth(): number {
     return this._selectorWidth;
   }
@@ -218,6 +234,7 @@ export class MccColorPickerSelectorComponent
   constructor(
     private formBuilder: FormBuilder,
     private render: Renderer2,
+    @Inject(EMPTY_COLOR) private emptyColor: string,
     @Inject(ENABLE_ALPHA_SELECTOR) public showAlphaSelector: boolean
   ) {
   }
@@ -229,7 +246,12 @@ export class MccColorPickerSelectorComponent
 
     this._tmpSelectedColorSub = this._tmpSelectedColor.subscribe(color => {
       this.textClass = color.isDark() ? 'white' : 'black';
-      this.changeSelectedColor.emit(color.toString('rgb')); // or to hex?
+      // right now using hex for non alpha and rgba for alpha colors
+      if (this.showAlphaSelector) {
+        this.changeSelectedColor.emit(color.toString('rgb'));
+      } else {
+        this.changeSelectedColor.emit('#' + color.toString('hex'));
+      }
     });
 
     // hex form
@@ -272,7 +294,7 @@ export class MccColorPickerSelectorComponent
     this.rgbaForm = this.formBuilder.group(rgbaGroup);
 
     // watch changes on forms
-    this._onChanges();
+    this._onFormChanges();
   }
 
   /**
@@ -435,10 +457,9 @@ export class MccColorPickerSelectorComponent
   }
 
   /**
-   * Watch change on forms
+   * Watch changes on forms
    */
-  private _onChanges() {
-    // validate digited code and update when digitation is finished
+  private _onFormChanges() {
     this._hexValuesSub = this.hexForm.valueChanges
       .subscribe(value => {
         if (this.hexForm.valid) {
@@ -523,6 +544,7 @@ export class MccColorPickerSelectorComponent
         this._updateHexForm(color);
         this._updateRGBA(color);
         this._tmpSelectedColor.next(color);
+        this.noColor = false;
       }
 
     }
@@ -540,7 +562,9 @@ export class MccColorPickerSelectorComponent
         const color = tinycolor({r: data[0], g: data[1], b: data[2], a: this._selectedColor.getAlpha()});
         this._updateRGBAForm(color);
         this._updateHexForm(color);
+        this._updateRGBA(color);
         this._tmpSelectedColor.next(color);
+        this.noColor = false;
       }
     }
   }
