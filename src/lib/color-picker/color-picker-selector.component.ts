@@ -234,7 +234,7 @@ export class MccColorPickerSelectorComponent
 
     // hex form
     this.hexForm = this.formBuilder.group({
-      hexCode: new FormControl(this._selectedColor.toHex().toUpperCase(), {
+      hexCode: new FormControl('#' + this._selectedColor.toHex().toUpperCase(), {
         validators: [
           Validators.pattern(/^#[0-9A-Fa-f]{6}$/ig)
         ],
