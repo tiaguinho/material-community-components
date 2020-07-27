@@ -113,6 +113,7 @@ export class MccColorPickerCollectionComponent implements OnInit, AfterContentCh
     // get current selected color
     this.colorPickerService.getSelectedColor().subscribe(color => {
       this._selectedColor = color;
+      this.changeDetectorRef.detectChanges();
     });
 
     // remove selected color icon when svg icon is defined
