@@ -26,5 +26,5 @@ install:
 
 script:
   - yarn test -- --no-watch --no-progress --code-coverage --browsers=ChromeHeadlessCI
-  - cat ./coverage/lcov.info | coveralls
+  - cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js
 
