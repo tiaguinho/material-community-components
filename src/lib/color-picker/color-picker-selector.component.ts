@@ -14,11 +14,11 @@ import {
   SimpleChanges,
   ViewChild,
 } from '@angular/core';
-import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
-import {BehaviorSubject, Observable, Subscription} from 'rxjs';
-import {EMPTY_COLOR, ENABLE_ALPHA_SELECTOR} from './color-picker';
-import {tinycolor} from '@thebespokepixel/es-tinycolor';
-import {map} from 'rxjs/operators';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { BehaviorSubject, Observable, Subscription } from 'rxjs';
+import { EMPTY_COLOR, ENABLE_ALPHA_SELECTOR } from './color-picker';
+import { tinycolor } from '@thebespokepixel/es-tinycolor';
+import { map } from 'rxjs/operators';
 
 
 interface Offsets {
@@ -150,11 +150,6 @@ export class MccColorPickerSelectorComponent
   private readonly changeSelectedColor = new EventEmitter<string>();
 
   /**
-   * RGBA current color
-   */
-  private _rgbaColor: string = INITIAL_COLOR.toString('rgb');
-
-  /**
    * Subject of the current selected color by the user
    */
   private _tmpSelectedColor: BehaviorSubject<tinycolor.Instance> = new BehaviorSubject<tinycolor.Instance>(this._selectedColor);
@@ -245,18 +240,18 @@ export class MccColorPickerSelectorComponent
     this._tmpSelectedColor.next(this._selectedColor);
 
     this._tmpSelectedColorSub = this._tmpSelectedColor.subscribe(color => {
-      this.textClass = color.isDark() ? 'white' : 'black';
+      this.textClass = color.isDark() && color.getAlpha() > 0.3 ? 'white' : 'black';
       // right now using hex for non alpha and rgba for alpha colors
       if (this.showAlphaSelector) {
         this.changeSelectedColor.emit(color.toString('rgb'));
       } else {
-        this.changeSelectedColor.emit('#' + color.toString('hex'));
+        this.changeSelectedColor.emit(color.toString('hex'));
       }
     });
 
     // hex form
     this.hexForm = this.formBuilder.group({
-      hexCode: new FormControl('#' + this._selectedColor.toHex().toUpperCase(), {
+      hexCode: new FormControl(this._selectedColor.toString('hex').toUpperCase(), {
         validators: [
           Validators.pattern(/^#[0-9A-Fa-f]{6}$/ig)
         ],
@@ -308,10 +303,12 @@ export class MccColorPickerSelectorComponent
         const color = this._selectedColor;
         this._updateHexForm(color);
         this._updateRGBAForm(color);
-        this._updateRGBA(color);
         this.setSelectorPositions(color);
         if (this._blockContext) {
-          this._fillGradient();
+          this._fillGradient(color);
+        }
+        if (this._alphaContext &&  this.showAlphaSelector) {
+          this._drawAlphaSelector(color);
         }
         this._tmpSelectedColor.next(color);
       }
@@ -392,15 +389,9 @@ export class MccColorPickerSelectorComponent
 
       // start empty selector
       this._drawAlphaSelector(this._selectedColor);
-
-      // subscribe to watch changes
-      this.rgbaForm.valueChanges.subscribe(rgba => {
-        const color = tinycolor({r: rgba.R, g: rgba.G, b: rgba.b, a: rgba.A});
-        this._drawAlphaSelector(color);
-      });
     }
 
-    this._fillGradient();
+    this._fillGradient(this._selectedColor);
   }
 
   /**
@@ -420,7 +411,7 @@ export class MccColorPickerSelectorComponent
       // if rgb is set and have at least 3 values set, create linear gradient
 
       const alphaGrd2 = this._alphaContext.createLinearGradient(0, 0, 0, this._bc.nativeElement.height);
-      alphaGrd2.addColorStop(0, `rgba(${color.toRgb().r}, ${color.toRgb().g}, ${color.toRgb().b})`);
+      alphaGrd2.addColorStop(0, `rgba(${color.toRgb().r}, ${color.toRgb().g}, ${color.toRgb().b}, 1)`);
       alphaGrd2.addColorStop(1, `rgba(${color.toRgb().r}, ${color.toRgb().g}, ${color.toRgb().b}, 0)`);
 
       this._alphaContext.fillStyle = alphaGrd2;
@@ -431,8 +422,8 @@ export class MccColorPickerSelectorComponent
   /**
    * Generate colors based on the RGBA color
    */
-  private _fillGradient(): void {
-    this._blockContext.fillStyle = this._rgbaColor;
+  private _fillGradient(hueColor: tinycolor.Instance): void {
+    this._blockContext.fillStyle = `hsl(${hueColor.toHsl().h}, 100%, 50%)`;
     this._blockContext.fillRect(0, 0, this._bc.nativeElement.width, this._bc.nativeElement.height);
 
     const grdLeft = this._stripContext.createLinearGradient(
@@ -465,8 +456,10 @@ export class MccColorPickerSelectorComponent
         if (this.hexForm.valid) {
           const color = tinycolor(value.hexCode);
           this._updateRGBAForm(color);
-          this._updateRGBA(color);
-          this._fillGradient();
+          this._fillGradient(color);
+          if (this.showAlphaSelector) {
+            this._drawAlphaSelector(color);
+          }
           this.setSelectorPositions(color);
           this._tmpSelectedColor.next(color);
         }
@@ -476,19 +469,14 @@ export class MccColorPickerSelectorComponent
       if (this.rgbaForm.valid) {
         const color = tinycolor({r: rgba.R, g: rgba.G, b: rgba.B, a: rgba.A});
         this._updateHexForm(color);
-        this._updateRGBA(color);
-        this._fillGradient();
+        this._fillGradient(color);
+        if (this.showAlphaSelector) {
+          this._drawAlphaSelector(color);
+        }
         this.setSelectorPositions(color);
         this._tmpSelectedColor.next(color);
       }
     });
-  }
-
-  /**
-   * Update RGBA color
-   */
-  private _updateRGBA(color: tinycolor.Instance) {
-    this._rgbaColor = color.toString('rgb');
   }
 
   /**
@@ -510,8 +498,8 @@ export class MccColorPickerSelectorComponent
       return;
     }
 
-    const hex = color.toHex().toUpperCase();
-    this.hexForm.get('hexCode').setValue('#' + hex, {emitEvent: false});
+    const hex = color.toString('hex').toUpperCase();
+    this.hexForm.get('hexCode').setValue(hex, {emitEvent: false});
   }
 
   /**
@@ -523,8 +511,7 @@ export class MccColorPickerSelectorComponent
         this.setHueSelector(e.offsetY);
         const data = this._stripContext.getImageData(e.offsetX, e.offsetY, 1, 1).data;
         const color = tinycolor({r: data[0], g: data[1], b: data[2]});
-        this._updateRGBA(color);
-        this._fillGradient();
+        this._fillGradient(color);
         this.changeColor();
       }
     }
@@ -542,7 +529,6 @@ export class MccColorPickerSelectorComponent
         const color = this._selectedColor.setAlpha(alpha);
         this._updateRGBAForm(color);
         this._updateHexForm(color);
-        this._updateRGBA(color);
         this._tmpSelectedColor.next(color);
         this.noColor = false;
       }
@@ -562,7 +548,9 @@ export class MccColorPickerSelectorComponent
         const color = tinycolor({r: data[0], g: data[1], b: data[2], a: this._selectedColor.getAlpha()});
         this._updateRGBAForm(color);
         this._updateHexForm(color);
-        this._updateRGBA(color);
+        if (this.showAlphaSelector) {
+          this._drawAlphaSelector(color);
+        }
         this._tmpSelectedColor.next(color);
         this.noColor = false;
       }
