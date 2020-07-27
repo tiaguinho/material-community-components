@@ -21,7 +21,7 @@ import { tinycolor } from '@thebespokepixel/es-tinycolor';
 import { map } from 'rxjs/operators';
 
 
-interface Offsets {
+interface Coordinates {
   x: number;
   y: number;
 }
@@ -38,7 +38,7 @@ const INITIAL_COLOR: tinycolor.Instance = tinycolor({r: 255, g: 0, b: 0, a: 1});
 export class MccColorPickerSelectorComponent
   implements AfterViewInit, OnInit, OnChanges, OnDestroy {
   /**
-   * ElemenRef of the main color
+   * ElemenRef of the main color block
    */
   @ViewChild('block') _block: ElementRef;
 
@@ -51,25 +51,21 @@ export class MccColorPickerSelectorComponent
    * Canvas of the block
    */
   @ViewChild('blockCanvas')
-  set blockCursor(el: ElementRef) {
-    this._bc = el;
-  }
-
   private _bc: ElementRef;
   private _blockContext: CanvasRenderingContext2D;
 
   /**
    * ElementRef of the color base
    */
-  @ViewChild('strip') _strip: ElementRef;
+  @ViewChild('hueSelector') _hueSelector: ElementRef;
   // hold _strip context
-  private _stripContext: any;
+  private _hueSelectorContext: any;
 
   /**
    * Container of the strip
    */
-  @ViewChild('stripContainer')
-  set stripCursor(el: ElementRef) {
+  @ViewChild('hueContainer')
+  set hueContainer(el: ElementRef) {
     this._sc = el;
   }
 
@@ -86,10 +82,6 @@ export class MccColorPickerSelectorComponent
    * Container of the alpha
    */
   @ViewChild('alphaContainer')
-  set alphaContainer(el: ElementRef) {
-    this._ac = el;
-  }
-
   private _ac: ElementRef;
 
   /**
@@ -170,17 +162,17 @@ export class MccColorPickerSelectorComponent
   private _rgbValuesSub: Subscription;
 
   /**
-   * Handle color of the text
+   * Handle color of the form inputs text
    */
   textClass: string = 'black';
 
   /**
-   * Validate if the mouse button is pressed
+   * Keeps track if the mouse button is pressed
    */
   _isPressed: boolean = false;
 
   /**
-   * Form of the color in hexa
+   * Form of the color in hex
    */
   hexForm: FormGroup;
 
@@ -190,9 +182,9 @@ export class MccColorPickerSelectorComponent
   rgbaForm: FormGroup;
 
   /**
-   * Last remembered offsets in block
+   * Last remembered coordinates in block selector
    */
-  latestBlockOffsets: Offsets;
+  latestBlockCoordinates: Coordinates;
 
   /**
    * True if empty color is selected
@@ -211,17 +203,6 @@ export class MccColorPickerSelectorComponent
 
   private _stripWidth: number = 20;
 
-  /**
-   * Return alpha value from RGBA
-   */
-  get alphaValue(): number {
-    const value = this.rgbaForm.get('A').value;
-    if (value === null) {
-      return 1;
-    }
-    return value;
-  }
-
   get tmpSelectedColor$(): Observable<string> {
     return this._tmpSelectedColor.asObservable().pipe(map(color => color.toString('rgb')));
   }
@@ -235,7 +216,9 @@ export class MccColorPickerSelectorComponent
   }
 
   ngOnInit() {
-    this.latestBlockOffsets = {x: this._selectorWidth - 1, y: Math.floor(this._height / 2)};
+    // set initial position for selection block
+    this.latestBlockCoordinates = {x: this._selectorWidth - 1, y: Math.floor(this._height / 2)};
+
     // set selectedColor initial value
     this._tmpSelectedColor.next(this._selectedColor);
 
@@ -259,7 +242,7 @@ export class MccColorPickerSelectorComponent
       })
     });
 
-    // rgb dynamic form
+    // rgb form
     const rgbKeys = ['R', 'G', 'B'];
     const rgbaGroup: { [key: string]: FormControl } = {};
     const rgb = this._selectedColor.toRgb();
@@ -276,7 +259,7 @@ export class MccColorPickerSelectorComponent
         }))
     );
 
-    // add input for alpha
+    // add alpha input to rgb form
     rgbaGroup['A'] = new FormControl(this._selectedColor.getAlpha(), {
       validators: [
         Validators.min(0),
@@ -285,17 +268,14 @@ export class MccColorPickerSelectorComponent
       ]
     });
 
-
     this.rgbaForm = this.formBuilder.group(rgbaGroup);
 
-    // watch changes on forms
-    this._onFormChanges();
+    this._watchFormChanges();
   }
 
   /**
-   * Update RGB, RGBA and Gradient when selectedColor change and
-   * the mouse button is pressed
-   * @param changes SimpleChanges
+   * Update forms and selectors selectedColor change and
+   * the mouse button is not pressed
    */
   ngOnChanges(changes: SimpleChanges) {
     if ('selectedColor' in changes) {
@@ -305,9 +285,9 @@ export class MccColorPickerSelectorComponent
         this._updateRGBAForm(color);
         this.setSelectorPositions(color);
         if (this._blockContext) {
-          this._fillGradient(color);
+          this._drawBlockSelector(color);
         }
-        if (this._alphaContext &&  this.showAlphaSelector) {
+        if (this._alphaContext && this.showAlphaSelector) {
           this._drawAlphaSelector(color);
         }
         this._tmpSelectedColor.next(color);
@@ -315,10 +295,8 @@ export class MccColorPickerSelectorComponent
     }
   }
 
-  /**
-   * Destroy all subscriptions
-   */
   ngOnDestroy() {
+    // unsubscribe
     if (this._tmpSelectedColorSub && !this._tmpSelectedColorSub.closed) {
       this._tmpSelectedColorSub.unsubscribe();
     }
@@ -331,50 +309,34 @@ export class MccColorPickerSelectorComponent
   }
 
   ngAfterViewInit() {
+    // draw initial selectors and listen to mouse events
     this.render.listen(this._block.nativeElement, 'mousedown', (e: MouseEvent) => {
       this._isPressed = true;
-      this.changeColor({x: e.offsetX, y: e.offsetY});
+      this.onChangeColor({x: e.offsetX, y: e.offsetY});
     });
     this.render.listen(this._block.nativeElement, 'mouseup', () => (this._isPressed = false));
     this.render.listen(this._block.nativeElement, 'mouseout', () => (this._isPressed = false));
     this.render.listen(this._block.nativeElement, 'mouseover', (e: MouseEvent) => {
       this._isPressed = (e.buttons === 1);
     });
-    this.render.listen(this._block.nativeElement, 'mousemove', (e: MouseEvent) => this.changeColor({x: e.offsetX, y: e.offsetY}));
+    this.render.listen(this._block.nativeElement, 'mousemove', (e: MouseEvent) => this.onChangeColor({x: e.offsetX, y: e.offsetY}));
     this._blockContext = this._bc.nativeElement.getContext('2d');
     this._blockContext.rect(0, 0, this._bc.nativeElement.width, this._bc.nativeElement.height);
 
-    this.render.listen(this._strip.nativeElement, 'mousedown', (e: MouseEvent) => {
+    this.render.listen(this._hueSelector.nativeElement, 'mousedown', (e: MouseEvent) => {
       this._isPressed = true;
       this.changeHue(e);
     });
-    this.render.listen(this._strip.nativeElement, 'mouseup', () => (this._isPressed = false));
-    this.render.listen(this._strip.nativeElement, 'mouseout', () => (this._isPressed = false));
-    this.render.listen(this._strip.nativeElement, 'mouseover', (e: MouseEvent) => {
+    this.render.listen(this._hueSelector.nativeElement, 'mouseup', () => (this._isPressed = false));
+    this.render.listen(this._hueSelector.nativeElement, 'mouseout', () => (this._isPressed = false));
+    this.render.listen(this._hueSelector.nativeElement, 'mouseover', (e: MouseEvent) => {
       this._isPressed = (e.buttons === 1);
     });
-    this.render.listen(this._strip.nativeElement, 'mousemove', (e: MouseEvent) => this.changeHue(e));
-    this._stripContext = this._strip.nativeElement.getContext('2d');
-    this._stripContext.rect(
-      0,
-      0,
-      this._strip.nativeElement.width,
-      this._strip.nativeElement.height
-    );
+    this.render.listen(this._hueSelector.nativeElement, 'mousemove', (e: MouseEvent) => this.changeHue(e));
 
-    const grd1 = this._stripContext.createLinearGradient(0, 0, 0, this._bc.nativeElement.height);
-    grd1.addColorStop(0, 'rgba(255, 0, 0, 1)');
-    grd1.addColorStop(0.17, 'rgba(255, 255, 0, 1)');
-    grd1.addColorStop(0.34, 'rgba(0, 255, 0, 1)');
-    grd1.addColorStop(0.51, 'rgba(0, 255, 255, 1)');
-    grd1.addColorStop(0.68, 'rgba(0, 0, 255, 1)');
-    grd1.addColorStop(0.85, 'rgba(255, 0, 255, 1)');
-    grd1.addColorStop(1, 'rgba(255, 0, 0, 1)');
-    this._stripContext.fillStyle = grd1;
-    this._stripContext.fill();
-
-    // if alpha selector is enabled
     if (this.showAlphaSelector) {
+      this._drawAlphaSelector(this._selectedColor);
+
       this.render.listen(this._alpha.nativeElement, 'mousedown', e => {
         this._isPressed = true;
         this.changeAlpha(e);
@@ -386,17 +348,30 @@ export class MccColorPickerSelectorComponent
       });
       this.render.listen(this._alpha.nativeElement, 'mousemove', (e: MouseEvent) => this.changeAlpha(e));
       this._alphaContext = this._alpha.nativeElement.getContext('2d');
-
-      // start empty selector
-      this._drawAlphaSelector(this._selectedColor);
     }
 
-    this._fillGradient(this._selectedColor);
+    this._drawHueSelector();
+    this._drawBlockSelector(this._selectedColor);
+  }
+
+  private _drawHueSelector() {
+    this._hueSelectorContext = this._hueSelector.nativeElement.getContext('2d');
+    this._hueSelectorContext.rect(0, 0, this._hueSelector.nativeElement.width, this._hueSelector.nativeElement.height);
+
+    const grd1 = this._hueSelectorContext.createLinearGradient(0, 0, 0, this._bc.nativeElement.height);
+    grd1.addColorStop(0, 'rgba(255, 0, 0, 1)');
+    grd1.addColorStop(0.17, 'rgba(255, 255, 0, 1)');
+    grd1.addColorStop(0.34, 'rgba(0, 255, 0, 1)');
+    grd1.addColorStop(0.51, 'rgba(0, 255, 255, 1)');
+    grd1.addColorStop(0.68, 'rgba(0, 0, 255, 1)');
+    grd1.addColorStop(0.85, 'rgba(255, 0, 255, 1)');
+    grd1.addColorStop(1, 'rgba(255, 0, 0, 1)');
+    this._hueSelectorContext.fillStyle = grd1;
+    this._hueSelectorContext.fill();
   }
 
   /**
-   * Draw alpha selector
-   * @private
+   * Generate alpha selector gradient based on the RGB color
    */
   private _drawAlphaSelector(color: tinycolor.Instance) {
     const background = new Image();
@@ -420,13 +395,13 @@ export class MccColorPickerSelectorComponent
   }
 
   /**
-   * Generate colors based on the RGBA color
+   * Generate color selector block based on the RGB color
    */
-  private _fillGradient(hueColor: tinycolor.Instance): void {
+  private _drawBlockSelector(hueColor: tinycolor.Instance) {
     this._blockContext.fillStyle = `hsl(${hueColor.toHsl().h}, 100%, 50%)`;
     this._blockContext.fillRect(0, 0, this._bc.nativeElement.width, this._bc.nativeElement.height);
 
-    const grdLeft = this._stripContext.createLinearGradient(
+    const grdLeft = this._hueSelectorContext.createLinearGradient(
       0,
       0,
       this._bc.nativeElement.width,
@@ -437,7 +412,7 @@ export class MccColorPickerSelectorComponent
     this._blockContext.fillStyle = grdLeft;
     this._blockContext.fillRect(0, 0, this._bc.nativeElement.width, this._bc.nativeElement.height);
 
-    const grdTop = this._stripContext.createLinearGradient(0, 0, 0, this._bc.nativeElement.height);
+    const grdTop = this._hueSelectorContext.createLinearGradient(0, 0, 0, this._bc.nativeElement.height);
     grdTop.addColorStop(0, 'hsl(0, 0%, 100%)');
     grdTop.addColorStop(0.5, 'hsla(0, 0%, 100%, 0)');
     grdTop.addColorStop(0.5, 'hsla(0, 0%, 0%, 0)');
@@ -450,13 +425,13 @@ export class MccColorPickerSelectorComponent
   /**
    * Watch changes on forms
    */
-  private _onFormChanges() {
+  private _watchFormChanges() {
     this._hexValuesSub = this.hexForm.valueChanges
       .subscribe(value => {
         if (this.hexForm.valid) {
           const color = tinycolor(value.hexCode);
           this._updateRGBAForm(color);
-          this._fillGradient(color);
+          this._drawBlockSelector(color);
           if (this.showAlphaSelector) {
             this._drawAlphaSelector(color);
           }
@@ -469,7 +444,7 @@ export class MccColorPickerSelectorComponent
       if (this.rgbaForm.valid) {
         const color = tinycolor({r: rgba.R, g: rgba.G, b: rgba.B, a: rgba.A});
         this._updateHexForm(color);
-        this._fillGradient(color);
+        this._drawBlockSelector(color);
         if (this.showAlphaSelector) {
           this._drawAlphaSelector(color);
         }
@@ -503,22 +478,22 @@ export class MccColorPickerSelectorComponent
   }
 
   /**
-   * Get selected base color from the canvas
+   * Handle changes of the hue slider
    */
   private changeHue(e: MouseEvent) {
     if (this._isPressed) {
       if (e.offsetX < this._stripWidth && e.offsetY < this.stripHeight) {
         this.setHueSelector(e.offsetY);
-        const data = this._stripContext.getImageData(e.offsetX, e.offsetY, 1, 1).data;
+        const data = this._hueSelectorContext.getImageData(e.offsetX, e.offsetY, 1, 1).data;
         const color = tinycolor({r: data[0], g: data[1], b: data[2]});
-        this._fillGradient(color);
-        this.changeColor();
+        this._drawBlockSelector(color);
+        this.onChangeColor();
       }
     }
   }
 
   /**
-   * Get selected alpha from the canvas
+   * Handle changes of the alpha slider
    */
   private changeAlpha(e: MouseEvent) {
     if (this._isPressed) {
@@ -537,11 +512,11 @@ export class MccColorPickerSelectorComponent
   }
 
   /**
-   * Get selected color from the canvas
+   * Handle changes of the selected color in the XY block
    */
-  private changeColor(offsets?: Offsets) {
+  private onChangeColor(offsets?: Coordinates) {
     if (this._isPressed) {
-      const os = offsets || this.latestBlockOffsets;
+      const os = offsets || this.latestBlockCoordinates;
       if (os.x < this._selectorWidth && os.y < this._height) {
         this.setXYSelector(os);
         const data: Uint8ClampedArray = this._blockContext.getImageData(os.x, os.y, 1, 1).data;
@@ -559,7 +534,7 @@ export class MccColorPickerSelectorComponent
 
 
   /**
-   * Set XY selector positions in view
+   * Set all selectors positions based on a color
    */
   private setSelectorPositions(color: tinycolor.Instance) {
     const offset = this.getHueOffsets(color);
@@ -575,13 +550,13 @@ export class MccColorPickerSelectorComponent
 
 
   /**
-   * Set XY selector positions in view
+   * Set block selector positions in view
    */
-  private setXYSelector(offsets: Offsets) {
+  private setXYSelector(offsets: Coordinates) {
     if (this._bp) {
       this.render.setStyle(this._bp.nativeElement, 'top', `${offsets.y - 5}px`);
       this.render.setStyle(this._bp.nativeElement, 'left', `${offsets.x - 6}px`);
-      this.latestBlockOffsets = offsets;
+      this.latestBlockCoordinates = offsets;
     }
   }
 
@@ -605,8 +580,10 @@ export class MccColorPickerSelectorComponent
     }
   }
 
-
-  private getXYOffsets(color: tinycolor.Instance): Offsets {
+  /**
+   * Get the X and Y coordinates for the block selector relative to it's size
+   */
+  private getXYOffsets(color: tinycolor.Instance): Coordinates {
     const hsl = color.toHsl();
 
     const x = this._selectorWidth * hsl.s;
@@ -614,12 +591,17 @@ export class MccColorPickerSelectorComponent
     return {x, y};
   }
 
+  /**
+   * Get the Y coordinate for the hue selector relative to it's height
+   */
   private getHueOffsets(color: tinycolor.Instance): number {
     return this.stripHeight / 360 * color.toHsl().h;
   }
 
+  /**
+   * Get the Y coordinate for the alpha selector relative to it's height
+   */
   private getAlphaOffset(color: tinycolor.Instance): number {
     return this.stripHeight - this.stripHeight * color.getAlpha();
   }
-
 }

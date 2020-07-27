@@ -3,10 +3,10 @@
   <canvas #blockCanvas [height]="selectorHeight" [width]="selectorWidth" id="picker"></canvas>
   <div #blockPointer class="mcc-picker-position" style="top: 0px;left: 220px;"></div>
 
-  <div #stripContainer class="mcc-colors-position" [style.height.px]="selectorHeight"
+  <div #hueContainer class="mcc-colors-position" [style.height.px]="selectorHeight"
        [ngClass]="{'alpha-enabled': showAlphaSelector}"
        style="background-position-y: 0px;">
-    <canvas #strip [height]="stripHeight" [width]="stripWidth" id="colors"></canvas>
+    <canvas #hueSelector [height]="stripHeight" [width]="stripWidth" id="colors"></canvas>
   </div>
 
 
