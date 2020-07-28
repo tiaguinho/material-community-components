@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { By } from '@angular/platform-browser';
-import { ReactiveFormsModule, FormGroup, FormBuilder } from '@angular/forms';
+import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { PortalModule } from '@angular/cdk/portal';
 import { OverlayModule } from '@angular/cdk/overlay';
 import { MatButtonModule } from '@angular/material/button';
@@ -13,18 +13,14 @@ import { MccColorPickerComponent } from './color-picker.component';
 import { MccColorPickerSelectorComponent } from './color-picker-selector.component';
 import { MccColorPickerCollectionComponent } from './color-picker-collection.component';
 import { MccColorPickerService } from './color-picker.service';
-import {
-  MccConnectedColorPickerDirective,
-  MccColorPickerOriginDirective,
-  MccColorPickerOptionDirective
-} from './color-picker.directives';
+import { MccColorPickerOptionDirective, MccColorPickerOriginDirective, MccConnectedColorPickerDirective } from './color-picker.directives';
 import {
   DISABLE_SELECTED_COLOR_ICON,
-  ENABLE_ALPHA_SELECTOR,
   EMPTY_COLOR,
+  ENABLE_ALPHA_SELECTOR,
   SELECTED_COLOR_ICON,
-  USED_COLORS,
-  SELECTED_COLOR_SVG_ICON
+  SELECTED_COLOR_SVG_ICON,
+  USED_COLORS
 } from './color-picker';
 
 //

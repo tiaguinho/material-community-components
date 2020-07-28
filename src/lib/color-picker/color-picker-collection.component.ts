@@ -1,20 +1,21 @@
 import {
   AfterContentChecked,
-  OnInit,
-  Component,
   ChangeDetectionStrategy,
   ChangeDetectorRef,
+  Component,
   EventEmitter,
-  Input,
   Inject,
+  Input,
+  OnInit,
   Output,
 } from '@angular/core';
 import {
   DISABLE_SELECTED_COLOR_ICON,
   EMPTY_COLOR,
+  MccColorPickerOption,
+  parseColorString,
   SELECTED_COLOR_ICON,
-  SELECTED_COLOR_SVG_ICON,
-  MccColorPickerOption
+  SELECTED_COLOR_SVG_ICON
 } from './color-picker';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { MccColorPickerService } from './color-picker.service';
@@ -162,5 +163,12 @@ export class MccColorPickerCollectionComponent implements OnInit, AfterContentCh
 
     this.colorPickerService.changeSelectedColor(color);
     this.changeColor.emit(color);
+  }
+
+  getIconColorClassForColor(colorString: string): string {
+    const color = parseColorString(colorString);
+    if (color) {
+     return color.isDark() && color.getAlpha() > 0.3 ? 'white' : 'black';
+    }
   }
 }

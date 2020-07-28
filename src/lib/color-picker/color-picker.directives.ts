@@ -4,16 +4,16 @@ import {
   Directive,
   ElementRef,
   forwardRef,
-  Input,
   Inject,
+  Input,
   OnDestroy,
   Output,
   Renderer2,
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { MccColorPickerComponent } from './color-picker.component';
-import { EMPTY_COLOR, coerceHexaColor, isValidColor, MccColorPickerOption } from './color-picker';
-import { Subscription, BehaviorSubject } from 'rxjs';
+import { EMPTY_COLOR, MccColorPickerOption, parseColorString, toHex } from './color-picker';
+import { BehaviorSubject, Subscription } from 'rxjs';
 
 /**
  * This directive change the background of the button
@@ -53,12 +53,12 @@ export class MccColorPickerOptionDirective implements AfterViewInit {
         this.render.setAttribute(this.elementRef.nativeElement, 'aria-label', this.color.text);
       }
 
-      if (isValidColor(color)) {
+      if (parseColorString(color)) {
         // apply the color
         this.render.setStyle(
           this.elementRef.nativeElement,
           'background',
-          coerceHexaColor(color) || this.emptyColor
+          color
         );
       }
     }
@@ -101,8 +101,9 @@ export class MccColorPickerOriginDirective implements ControlValueAccessor {
     // listen changes onkeyup and update color picker
     renderer.listen(elementRef.nativeElement, 'keyup', (event: KeyboardEvent) => {
       const value: string = event.currentTarget['value'];
-      if (event.isTrusted && isValidColor(value)) {
-        this.writeValueFromKeyup(coerceHexaColor(value) || this.emptyColor);
+      const color = parseColorString(value);
+      if (event.isTrusted && color) {
+        this.writeValueFromKeyup(toHex(color) || this.emptyColor);
       }
     });
   }
@@ -212,7 +213,7 @@ export class MccConnectedColorPickerDirective implements AfterViewInit, OnDestro
     // subscribe to origin change to update color picker
     this._originSub = this.origin.change.subscribe(value => {
       if (
-        isValidColor(value) ||
+        parseColorString(value) ||
         (value === this.emptyColor && this.colorPicker.selectedColor !== this.emptyColor)
       ) {
         this.colorPicker.updateTmpSelectedColor(value);

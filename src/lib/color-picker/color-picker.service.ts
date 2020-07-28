@@ -1,6 +1,6 @@
-import { Injectable, Inject } from '@angular/core';
-import { coerceHexaColor, isValidColor, EMPTY_COLOR, USED_COLORS } from './color-picker';
-import { Observable, BehaviorSubject } from 'rxjs';
+import { Inject, Injectable } from '@angular/core';
+import { EMPTY_COLOR, parseColorString, toRgba, USED_COLORS } from './color-picker';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable()
 export class MccColorPickerService {
@@ -23,18 +23,16 @@ export class MccColorPickerService {
 
   /**
    * Add new color to used colors
-   * @param color string
+   * @param colorString string
    */
-  addColor(color: string): void {
-    if (!color || !isValidColor(color)) {
+  addColor(colorString: string): void {
+    if (!colorString) {
       return;
     }
-
-    color = coerceHexaColor(color) || this.emptyColor;
-
+    const color = toRgba(parseColorString(colorString));
     const colors = this._colors.getValue();
-    if (!colors.find(_color => _color === color)) {
-      colors.push(color);
+    if (!colors.includes(color) && !colors.includes(colorString)) { // checking rgba value and real string to prevent duplicates
+      colors.push(colorString);
       this._colors.next(colors);
     }
   }

@@ -4,8 +4,8 @@
   "license": "MIT",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
-    "build": "ng build --prod",
+    "start": "ng serve demo",
+    "build": "ng build --prod demo",
     "build:lib:scss": "scss-bundle -c scss-bundle.config.json",
     "docs": "ng deploy --base-href=https://tiaguinho.github.io/material-community-components/",
     "test": "ng test",
