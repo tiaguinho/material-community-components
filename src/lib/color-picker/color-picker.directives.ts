@@ -222,8 +222,9 @@ export class MccConnectedColorPickerDirective implements AfterViewInit, OnDestro
       this.changeDetectorRef.detectChanges();
     });
 
-    // subscribe to color picker changes and set on origin element
-    this._colorPickerSub = this.colorPicker.change.subscribe(value =>
+    // subscribe to color picker confirmation and set on origin element
+    // TODO: changed to on confirm. maybe support on-change mode again?
+    this._colorPickerSub = this.colorPicker.selected.subscribe(value =>
       this.origin.writeValueFromColorPicker(value)
     );
   }
