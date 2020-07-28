@@ -9,7 +9,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatTabsModule } from '@angular/material/tabs';
 import { RouterModule } from '@angular/router';
-import { MccSpeedDialModule } from '../../../lib';
+import { MccSpeedDialModule } from '../../../lib/speed-dial';
 import { SpeedDialApiComponent } from './components/speed-dial-api.component';
 import { SpeedDialExamplesComponent } from './components/speed-dial-examples.component';
 import { SpeedDialComponent } from './speed-dial.component';

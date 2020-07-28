@@ -9,7 +9,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatTabsModule } from '@angular/material/tabs';
 import { RouterModule } from '@angular/router';
-import { MccColorPickerModule } from '../../../lib';
+import { MccColorPickerModule } from '../../../lib/color-picker';
 import { ColorPickerComponent } from './color-picker.component';
 import { routes } from './color-picker.router';
 import { ColorPickerAlphaComponent } from './components/color-picker-alpha.component';

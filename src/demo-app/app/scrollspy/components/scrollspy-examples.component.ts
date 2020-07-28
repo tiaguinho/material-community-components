@@ -1,5 +1,5 @@
 import { Component, ChangeDetectorRef, OnInit, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
-import { MccScrollspyService, MccScrollspyItemDirective } from '../../../../lib';
+import { MccScrollspyService, MccScrollspyItemDirective } from '../../../../lib/scrollspy';
 import { Subscription } from 'rxjs';
 
 @Component({
