@@ -16,7 +16,7 @@ import {
 } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { BehaviorSubject, Observable, Subscription } from 'rxjs';
-import { EMPTY_COLOR, ENABLE_ALPHA_SELECTOR } from './color-picker';
+import { EMPTY_COLOR, ENABLE_ALPHA_SELECTOR, parseColorString, toHex, toRgba } from './color-picker';
 import { tinycolor } from '@thebespokepixel/es-tinycolor';
 import { map } from 'rxjs/operators';
 
@@ -109,7 +109,8 @@ export class MccColorPickerSelectorComponent
   set selectedColor(value: string) {
     if (value === this.emptyColor) {
       this.noColor = true;
-      this._selectedColor = INITIAL_COLOR;
+      // use "EMPTY_COLOR" as real color if it can be parsed as such
+      this._selectedColor = parseColorString(this.emptyColor) || INITIAL_COLOR;
     } else {
       const color = tinycolor(value);
       if (color.isValid()) {
@@ -204,7 +205,7 @@ export class MccColorPickerSelectorComponent
   private _stripWidth: number = 20;
 
   get tmpSelectedColor$(): Observable<string> {
-    return this._tmpSelectedColor.asObservable().pipe(map(color => color.toString('rgb')));
+    return this._tmpSelectedColor.asObservable().pipe(map(toRgba));
   }
 
   constructor(
@@ -225,16 +226,18 @@ export class MccColorPickerSelectorComponent
     this._tmpSelectedColorSub = this._tmpSelectedColor.subscribe(color => {
       this.textClass = color.isDark() && color.getAlpha() > 0.3 ? 'white' : 'black';
       // right now using hex for non alpha and rgba for alpha colors
-      if (this.showAlphaSelector) {
-        this.changeSelectedColor.emit(color.toString('rgb'));
+      if (this.noColor) {
+        this.changeSelectedColor.emit(this.emptyColor);
+      } else if (this.showAlphaSelector) {
+        this.changeSelectedColor.emit(toRgba(color));
       } else {
-        this.changeSelectedColor.emit(color.toString('hex'));
+        this.changeSelectedColor.emit(toHex(color));
       }
     });
 
     // hex form
     this.hexForm = this.formBuilder.group({
-      hexCode: new FormControl(this._selectedColor.toString('hex').toUpperCase(), {
+      hexCode: new FormControl(toHex(this._selectedColor), {
         validators: [
           Validators.pattern(/^#[0-9A-Fa-f]{6}$/ig)
         ],
@@ -325,33 +328,36 @@ export class MccColorPickerSelectorComponent
 
     this.render.listen(this._hueSelector.nativeElement, 'mousedown', (e: MouseEvent) => {
       this._isPressed = true;
-      this.changeHue(e);
+      this.onChangeHue(e);
     });
     this.render.listen(this._hueSelector.nativeElement, 'mouseup', () => (this._isPressed = false));
     this.render.listen(this._hueSelector.nativeElement, 'mouseout', () => (this._isPressed = false));
     this.render.listen(this._hueSelector.nativeElement, 'mouseover', (e: MouseEvent) => {
       this._isPressed = (e.buttons === 1);
     });
-    this.render.listen(this._hueSelector.nativeElement, 'mousemove', (e: MouseEvent) => this.changeHue(e));
+    this.render.listen(this._hueSelector.nativeElement, 'mousemove', (e: MouseEvent) => this.onChangeHue(e));
 
     if (this.showAlphaSelector) {
       this._drawAlphaSelector(this._selectedColor);
 
       this.render.listen(this._alpha.nativeElement, 'mousedown', e => {
         this._isPressed = true;
-        this.changeAlpha(e);
+        this.onChangeAlpha(e);
       });
       this.render.listen(this._alpha.nativeElement, 'mouseup', () => (this._isPressed = false));
       this.render.listen(this._alpha.nativeElement, 'mouseout', () => (this._isPressed = false));
       this.render.listen(this._alpha.nativeElement, 'mouseover', (e: MouseEvent) => {
         this._isPressed = (e.buttons === 1);
       });
-      this.render.listen(this._alpha.nativeElement, 'mousemove', (e: MouseEvent) => this.changeAlpha(e));
+      this.render.listen(this._alpha.nativeElement, 'mousemove', (e: MouseEvent) => this.onChangeAlpha(e));
       this._alphaContext = this._alpha.nativeElement.getContext('2d');
     }
 
     this._drawHueSelector();
     this._drawBlockSelector(this._selectedColor);
+
+
+    this.setSelectorPositions(this._selectedColor);
   }
 
   private _drawHueSelector() {
@@ -473,14 +479,14 @@ export class MccColorPickerSelectorComponent
       return;
     }
 
-    const hex = color.toString('hex').toUpperCase();
+    const hex = toHex(color);
     this.hexForm.get('hexCode').setValue(hex, {emitEvent: false});
   }
 
   /**
    * Handle changes of the hue slider
    */
-  private changeHue(e: MouseEvent) {
+  private onChangeHue(e: MouseEvent) {
     if (this._isPressed) {
       if (e.offsetX < this._stripWidth && e.offsetY < this.stripHeight) {
         this.setHueSelector(e.offsetY);
@@ -495,7 +501,7 @@ export class MccColorPickerSelectorComponent
   /**
    * Handle changes of the alpha slider
    */
-  private changeAlpha(e: MouseEvent) {
+  private onChangeAlpha(e: MouseEvent) {
     if (this._isPressed) {
       this.setAlphaSelector(e.offsetY);
       if (e.offsetY < this.stripHeight) {
@@ -507,7 +513,6 @@ export class MccColorPickerSelectorComponent
         this._tmpSelectedColor.next(color);
         this.noColor = false;
       }
-
     }
   }
 
@@ -517,9 +522,10 @@ export class MccColorPickerSelectorComponent
   private onChangeColor(offsets?: Coordinates) {
     if (this._isPressed) {
       const os = offsets || this.latestBlockCoordinates;
-      if (os.x < this._selectorWidth && os.y < this._height) {
+      if (os.x <= this._selectorWidth && os.y <= this._height) {
         this.setXYSelector(os);
-        const data: Uint8ClampedArray = this._blockContext.getImageData(os.x, os.y, 1, 1).data;
+        // fixing getting values at border
+        const data: Uint8ClampedArray = this._blockContext.getImageData(os.x ? os.x - 1 : os.x, os.y ? os.y - 1 : os.y, 1, 1).data;
         const color = tinycolor({r: data[0], g: data[1], b: data[2], a: this._selectedColor.getAlpha()});
         this._updateRGBAForm(color);
         this._updateHexForm(color);

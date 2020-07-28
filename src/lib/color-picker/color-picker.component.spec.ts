@@ -1,5 +1,5 @@
-import {ChangeDetectionStrategy, Component} from '@angular/core';
-import { ComponentFixture, ComponentFixtureAutoDetect, TestBed, fakeAsync } from '@angular/core/testing';
+import { ChangeDetectionStrategy } from '@angular/core';
+import { ComponentFixture, ComponentFixtureAutoDetect, fakeAsync, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { OverlayModule } from '@angular/cdk/overlay';
 import { PortalModule } from '@angular/cdk/portal';
@@ -15,12 +15,12 @@ import { MccColorPickerSelectorComponent } from './color-picker-selector.compone
 import { MccColorPickerOptionDirective } from './color-picker.directives';
 import { MccColorPickerService } from './color-picker.service';
 import {
-  EMPTY_COLOR,
-  USED_COLORS,
-  SELECTED_COLOR_ICON,
   DISABLE_SELECTED_COLOR_ICON,
+  EMPTY_COLOR,
   ENABLE_ALPHA_SELECTOR,
-  SELECTED_COLOR_SVG_ICON
+  SELECTED_COLOR_ICON,
+  SELECTED_COLOR_SVG_ICON,
+  USED_COLORS
 } from './color-picker';
 
 describe('MccColorPickerComponent', () => {

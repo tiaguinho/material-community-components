@@ -1,4 +1,4 @@
-import { NgModule, ModuleWithProviders } from '@angular/core';
+import { ModuleWithProviders, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 import { OverlayModule } from '@angular/cdk/overlay';
@@ -9,13 +9,13 @@ import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 
 import {
+  ColorPickerConfig,
+  DISABLE_SELECTED_COLOR_ICON,
   EMPTY_COLOR,
-  USED_COLORS,
+  ENABLE_ALPHA_SELECTOR,
   SELECTED_COLOR_ICON,
   SELECTED_COLOR_SVG_ICON,
-  DISABLE_SELECTED_COLOR_ICON,
-  ENABLE_ALPHA_SELECTOR,
-  ColorPickerConfig
+  USED_COLORS
 } from './color-picker';
 
 import { MccColorPickerService } from './color-picker.service';
@@ -23,11 +23,7 @@ import { MccColorPickerService } from './color-picker.service';
 import { MccColorPickerComponent } from './color-picker.component';
 import { MccColorPickerSelectorComponent } from './color-picker-selector.component';
 import { MccColorPickerCollectionComponent } from './color-picker-collection.component';
-import {
-  MccConnectedColorPickerDirective,
-  MccColorPickerOriginDirective,
-  MccColorPickerOptionDirective,
-} from './color-picker.directives';
+import { MccColorPickerOptionDirective, MccColorPickerOriginDirective, MccConnectedColorPickerDirective, } from './color-picker.directives';
 
 @NgModule({
   imports: [

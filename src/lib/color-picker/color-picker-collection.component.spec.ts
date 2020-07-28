@@ -7,11 +7,11 @@ import { MccColorPickerOptionDirective } from './color-picker.directives';
 import { MccColorPickerService } from './color-picker.service';
 import {
   DISABLE_SELECTED_COLOR_ICON,
-  ENABLE_ALPHA_SELECTOR,
   EMPTY_COLOR,
+  ENABLE_ALPHA_SELECTOR,
   SELECTED_COLOR_ICON,
-  USED_COLORS,
-  SELECTED_COLOR_SVG_ICON
+  SELECTED_COLOR_SVG_ICON,
+  USED_COLORS
 } from './color-picker';
 
 describe('MccColorPickerCollectionComponent', () => {

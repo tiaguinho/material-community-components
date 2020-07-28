@@ -16,7 +16,7 @@ import {
 } from '@angular/core';
 import { BehaviorSubject, Observable, Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { EMPTY_COLOR, ENABLE_ALPHA_SELECTOR, MccColorPickerUsedColorPosition, coerceHexaColor } from './color-picker';
+import { EMPTY_COLOR, ENABLE_ALPHA_SELECTOR, MccColorPickerUsedColorPosition, parseColorString, toHex, toRgba } from './color-picker';
 import { MccColorPickerCollectionComponent } from './color-picker-collection.component';
 import { MccColorPickerService } from './color-picker.service';
 
@@ -41,9 +41,11 @@ export class MccColorPickerComponent implements AfterContentInit, OnInit, OnDest
   get disabled(): boolean {
     return this._disabled;
   }
+
   set disabled(disabled: boolean) {
     this._disabled = coerceBooleanProperty(disabled);
   }
+
   private _disabled: boolean = false;
 
   /**
@@ -53,9 +55,11 @@ export class MccColorPickerComponent implements AfterContentInit, OnInit, OnDest
   get usedColorLabel(): string {
     return this._usedColorLabel;
   }
+
   set usedColorLabel(value: string) {
     this._usedColorLabel = value;
   }
+
   private _usedColorLabel: string = 'Used Colors';
 
   /**
@@ -77,6 +81,7 @@ export class MccColorPickerComponent implements AfterContentInit, OnInit, OnDest
   set reverseUsedColors(reverse: boolean) {
     this._reverseUsedColor = coerceBooleanProperty(reverse);
   }
+
   private _reverseUsedColor: boolean = false;
 
 
@@ -87,9 +92,11 @@ export class MccColorPickerComponent implements AfterContentInit, OnInit, OnDest
   get usedColorsPosition(): MccColorPickerUsedColorPosition {
     return this._usedColorsPosition;
   }
+
   set usedColorsPosition(position: MccColorPickerUsedColorPosition) {
     this._usedColorsPosition = position;
   }
+
   private _usedColorsPosition: MccColorPickerUsedColorPosition = 'top';
 
   /**
@@ -99,9 +106,11 @@ export class MccColorPickerComponent implements AfterContentInit, OnInit, OnDest
   get hideHexForms(): boolean {
     return this._hideHexForms;
   }
+
   set hideHexForms(value: boolean) {
     this._hideHexForms = value;
   }
+
   private _hideHexForms: boolean = false;
 
   /**
@@ -111,9 +120,11 @@ export class MccColorPickerComponent implements AfterContentInit, OnInit, OnDest
   get hideEmpty(): boolean {
     return this._hideEmpty;
   }
+
   set hideEmpty(value: boolean) {
     this._hideEmpty = coerceBooleanProperty(value);
   }
+
   private _hideEmpty: boolean = false;
 
   /**
@@ -123,9 +134,11 @@ export class MccColorPickerComponent implements AfterContentInit, OnInit, OnDest
   get hideTransparent(): boolean {
     return this._hideTransparent;
   }
+
   set hideTransparent(value: boolean) {
     this._hideTransparent = coerceBooleanProperty(value);
   }
+
   private _hideTransparent: boolean = false;
 
   /**
@@ -135,9 +148,11 @@ export class MccColorPickerComponent implements AfterContentInit, OnInit, OnDest
   get hideUsedColors(): boolean {
     return this._hideUsedColors;
   }
+
   set hideUsedColors(value: boolean) {
     this._hideUsedColors = coerceBooleanProperty(value);
   }
+
   private _hideUsedColors: boolean = false;
 
   /**
@@ -147,13 +162,26 @@ export class MccColorPickerComponent implements AfterContentInit, OnInit, OnDest
   get selectedColor(): string {
     return this._selectedColor;
   }
+
   set selectedColor(value: string) {
     if (this._selectedColor !== value) {
       this.changeDetectorRef.markForCheck();
     }
 
-    this._selectedColor = coerceHexaColor(value) || this.emptyColor;
+    const color = parseColorString(value);
+
+    if (color) {
+      if (this.showAlphaSelector) {
+        this._selectedColor = toRgba(color);
+      } else {
+        this._selectedColor = toHex(color);
+      }
+    } else {
+      this._selectedColor = this.emptyColor;
+    }
+
   }
+
   private _selectedColor: string;
 
   /**
@@ -163,9 +191,11 @@ export class MccColorPickerComponent implements AfterContentInit, OnInit, OnDest
   get isOpen(): boolean {
     return this._isOpen;
   }
+
   set isOpen(value: boolean) {
     this._isOpen = coerceBooleanProperty(value);
   }
+
   private _isOpen: boolean = false;
 
   /**
@@ -175,9 +205,11 @@ export class MccColorPickerComponent implements AfterContentInit, OnInit, OnDest
   get overlay(): boolean {
     return this._overlay;
   }
+
   set overlay(value: boolean) {
     this._overlay = coerceBooleanProperty(value);
   }
+
   private _overlay: boolean = true;
 
   /**
@@ -187,9 +219,11 @@ export class MccColorPickerComponent implements AfterContentInit, OnInit, OnDest
   get hideButtons(): boolean {
     return this._hideButtons;
   }
+
   set hideButtons(value: boolean) {
     this._hideButtons = coerceBooleanProperty(value);
   }
+
   private _hideButtons: boolean = false;
 
   /**
@@ -199,9 +233,11 @@ export class MccColorPickerComponent implements AfterContentInit, OnInit, OnDest
   get colorPickerSelectorHeight(): number {
     return this._colorPickerSelectorHeight;
   }
+
   set colorPickerSelectorHeight(height: number) {
     this._colorPickerSelectorHeight = height;
   }
+
   private _colorPickerSelectorHeight: number = 170;
 
   /**
@@ -211,9 +247,11 @@ export class MccColorPickerComponent implements AfterContentInit, OnInit, OnDest
   get hideColorPickerSelector(): boolean {
     return this._hideColorPickerSelector;
   }
+
   set hideColorPickerSelector(value: boolean) {
     this._hideColorPickerSelector = coerceBooleanProperty(value);
   }
+
   private _hideColorPickerSelector: boolean = false;
 
   /**
@@ -257,6 +295,7 @@ export class MccColorPickerComponent implements AfterContentInit, OnInit, OnDest
   get tmpSelectedColor$(): Observable<string> {
     return this._tmpSelectedColor.asObservable();
   }
+
   private _tmpSelectedColor: BehaviorSubject<string>;
 
   /**
@@ -279,7 +318,8 @@ export class MccColorPickerComponent implements AfterContentInit, OnInit, OnDest
     private colorPickerService: MccColorPickerService,
     @Inject(EMPTY_COLOR) public emptyColor: string,
     @Inject(ENABLE_ALPHA_SELECTOR) public showAlphaSelector: boolean
-  ) {}
+  ) {
+  }
 
   ngOnInit() {
     if (!this._selectedColor) {
@@ -325,16 +365,9 @@ export class MccColorPickerComponent implements AfterContentInit, OnInit, OnDest
    */
   private _updateSelectedColor() {
     if (this._isOpen || !this.overlay) {
-      const tmpSelectedColor = this._tmpSelectedColor.getValue();
-      let color: string;
-      if (this.showAlphaSelector) {
-        color = tmpSelectedColor;
-      } else {
-        color = coerceHexaColor(tmpSelectedColor);
-      }
-
-      if (this._selectedColor !== tmpSelectedColor) {
-        this._selectedColor = tmpSelectedColor;
+      const color = this._tmpSelectedColor.getValue();
+      if (this._selectedColor !== color) {
+        this._selectedColor = color;
         this.selected.next(color);
       } else {
         this.selected.emit(color);
@@ -375,9 +408,11 @@ export class MccColorPickerComponent implements AfterContentInit, OnInit, OnDest
   updateTmpSelectedColor(color: string) {
     if (color || color === this.emptyColor) {
       this._tmpSelectedColor.next(color);
-      this.change.next(color);
-      if (this._hideButtons) {
-        this._updateSelectedColor();
+      if (this._selectedColor !== color) {
+        this.change.next(color);
+        if (this._hideButtons) {
+          this._updateSelectedColor();
+        }
       }
     }
   }

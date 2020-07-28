@@ -180,7 +180,7 @@
       }
     }
   },
-  "defaultProject": "demo",
+  "defaultProject": "material-community-components",
   "schematics": {
     "@schematics/angular:component": {
       "changeDetection": "OnPush",

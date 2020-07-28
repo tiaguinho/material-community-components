@@ -32,7 +32,27 @@ button {
   margin: 3px;
 
   mat-icon {
-    color: #ffffff;
+    &.black {
+      color: #100214 !important;
+      fill: #100214 !important;
+    }
+    &.white {
+      color: #ffffff !important;
+      fill: #ffffff !important;
+    }
+  }
+
+  &.black {
+    color: #100214 !important;
+   mat-icon {
+      color: #100214 !important;
+    }
+  }
+  &.white {
+    color: #ffffff !important;
+    mat-icon {
+      color: #ffffff !important;
+    }
   }
 
   .mat-font-icon {
