@@ -1,13 +1,16 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ENABLE_ALPHA_SELECTOR } from '../../../../lib/color-picker';
+import { EMPTY_COLOR, ENABLE_ALPHA_SELECTOR } from '../../../../lib/color-picker';
 
 @Component({
   selector: 'app-color-picker-alpha',
   templateUrl: './color-picker-alpha.component.html',
   preserveWhitespaces: false,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [{ provide: ENABLE_ALPHA_SELECTOR, useValue: true}]
+  providers: [
+    { provide: ENABLE_ALPHA_SELECTOR, useValue: true},
+    { provide: EMPTY_COLOR, useValue: ''}
+  ]
 })
 export class ColorPickerAlphaComponent implements OnInit {
   selectedColor: string;
