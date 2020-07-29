@@ -11,7 +11,7 @@
       "path": "./src/demo-app/tsconfig.app.json"
     },
     {
-      "path": "./src/lib/tsconfig.app.json"
+      "path": "./src/lib/tsconfig.lib.json"
     },
     {
       "path": "./src/lib/tsconfig.spec.json"

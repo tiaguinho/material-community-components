@@ -113,17 +113,13 @@
     },
     "material-community-components": {
       "root": "",
-      "sourceRoot": "src",
+      "sourceRoot": "src/lib",
       "projectType": "library",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-angular:browser",
+          "builder": "@angular-devkit/build-ng-packagr:build",
           "options": {
-            "aot": true,
-            "outputPath": "dist/",
-            "index": "src/lib/index.html",
-            "main": "src/lib/main.ts",
-            "tsConfig": "src/lib/tsconfig.app.json"
+            "tsConfig": "src/lib/tsconfig.lib.json"
           },
           "configurations": {}
         },
