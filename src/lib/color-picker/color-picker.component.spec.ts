@@ -111,7 +111,7 @@ describe('MccColorPickerComponent', () => {
   });
 
   it('should add used colors', (done: DoneFn) => {
-    comp.usedColorStart = colors
+    comp.usedColorStart = colors;
     fixture.detectChanges();
 
     service.getColors().subscribe(resp => {
@@ -138,8 +138,8 @@ describe('MccColorPickerComponent', () => {
     const collection = fixture.debugElement.query(By.css('mcc-color-picker-collection'));
     const buttons = collection.queryAll(By.css('button'));
 
-    expect(toHex(buttons[1].styles['background'])).toBe(colors[1]);
-    expect(toHex(buttons[2].styles['background'])).toBe(colors[0]);
+    expect(toHex(buttons[1].styles['backgroundColor'])).toBe(colors[1]);
+    expect(toHex(buttons[2].styles['backgroundColor'])).toBe(colors[0]);
   });
 
   it('should hide form hex', () => {
@@ -171,7 +171,7 @@ describe('MccColorPickerComponent', () => {
     const collection = fixture.debugElement.query(By.css('mcc-color-picker-collection'));
     const buttons = collection.queryAll(By.css('button'));
 
-    expect(toHex(buttons[0].styles['background'])).toBe(colors[0]);
+    expect(toHex(buttons[0].styles['backgroundColor'])).toBe(colors[0]);
   });
 
   it('should hide buttons', () => {
