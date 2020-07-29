@@ -146,7 +146,6 @@ export class MccColorPickerCollectionComponent implements OnInit, AfterContentCh
   /**
    * Return the difference between the limit and the collection size.
    * Always return 0 when hideEmpty is true
-   * @returns number
    */
   private _getCollectionDiffSize(): number {
     if (this._colors.length > this.size || this._hideEmpty) {
@@ -165,7 +164,6 @@ export class MccColorPickerCollectionComponent implements OnInit, AfterContentCh
 
   /**
    * Emit selected color value
-   * @param option MccColorPickerOption
    */
   setColor(option: MccColorPickerOption) {
     const color = typeof option === 'string' ? option : option.value;
@@ -174,6 +172,9 @@ export class MccColorPickerCollectionComponent implements OnInit, AfterContentCh
     this.changeColor.emit(color);
   }
 
+  /**
+   * returns class for "black" or "white" icon-color on a collection-item
+   */
   getIconColorClassForColor(color: string | MccColorPickerItem): string {
     const colorString = typeof color === 'string' ? color : color.value;
 
@@ -183,6 +184,9 @@ export class MccColorPickerCollectionComponent implements OnInit, AfterContentCh
     }
   }
 
+  /**
+   * check if a color is the current selected color
+   */
   isColorSelected(color: string | MccColorPickerItem): boolean {
     if (!color) {
       return false;

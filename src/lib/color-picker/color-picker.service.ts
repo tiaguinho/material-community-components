@@ -23,13 +23,14 @@ export class MccColorPickerService {
 
   /**
    * Add new color to used colors
-   * @param colorString string
    */
-  addColor(colorString: string): void {
-    if (!colorString) {
+  addColor(colorString: string) {
+    const color = toRgba(parseColorString(colorString));
+
+    if (!colorString || !color) {
       return;
     }
-    const color = toRgba(parseColorString(colorString));
+
     const colors = this._colors.getValue();
     if (!colors.includes(color) && !colors.includes(colorString)) { // checking rgba value and real string to prevent duplicates
       colors.push(colorString);

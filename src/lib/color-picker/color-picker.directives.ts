@@ -145,7 +145,6 @@ export class MccColorPickerOriginDirective implements ControlValueAccessor {
   /**
    * This is called by the forms API on initialization so it can update the
    * form model when values propagate from the view (view -> model).
-   * @param fn any
    */
   registerOnChange(fn: any): void {
     this.propagateChanges = fn;
@@ -153,13 +152,11 @@ export class MccColorPickerOriginDirective implements ControlValueAccessor {
 
   /**
    * This is called by the forms API on initialization so it can update the form model on blur
-   * @param fn any
    */
   registerOnTouched(fn: any): void {}
 
   /**
    * called by the forms API when the control status changes to or from "DISABLED"
-   * @param isDisabled boolean
    */
   setDisabledState(isDisabled: boolean): void {
     this.renderer.setProperty(this.elementRef.nativeElement, 'disabled', isDisabled);

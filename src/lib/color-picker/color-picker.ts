@@ -46,7 +46,10 @@ export type MccColorPickerOption = string | MccColorPickerItem;
 
 export type MccColorPickerUsedColorPosition = 'top' | 'bottom';
 
-export function parseColorString(colorString: string): tinycolor.Instance {
+/**
+ * parses a string-representation of a color with tinycolor - returns "null" when not a valid string
+ */
+export function parseColorString(colorString: string): tinycolor.Instance | null {
   const color = tinycolor(colorString);
   if (color.isValid()) {
     return color;
@@ -55,6 +58,9 @@ export function parseColorString(colorString: string): tinycolor.Instance {
   }
 }
 
+/**
+ * converts a tinycolor instance to format "#FFFFFF'
+ */
 export function toHex(color: tinycolor.Instance): string {
   if (!color) {
     return null;
@@ -62,6 +68,9 @@ export function toHex(color: tinycolor.Instance): string {
   return color.toString('hex6').toUpperCase();
 }
 
+/**
+ * converts a tinycolor instance to format "rgb(255,255,255)' when color has alpha value and "rgba(255,255,255,0.5)" when alpha < 1
+ */
 export function toRgba(color: tinycolor.Instance): string {
   if (!color) {
     return null;
