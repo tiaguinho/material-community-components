@@ -46,8 +46,8 @@
     <!-- show used colors on bottom -->
     <ng-container *ngIf="!hideUsedColors && usedColorsPosition == 'bottom'">
       <mcc-color-picker-collection [label]="usedColorLabel" [size]="usedSizeColors"
-                                   [transparent]="!hideTransparent" [hideEmpty]="hideEmpty" [colors]="usedColors$
-                                        | async" (changeColor)="updateTmpSelectedColor($event)">
+                                   [transparent]="!hideTransparent" [hideEmpty]="hideEmpty"
+                                   [colors]="usedColors$ | async" (changeColor)="updateTmpSelectedColor($event)">
       </mcc-color-picker-collection>
     </ng-container>
 
