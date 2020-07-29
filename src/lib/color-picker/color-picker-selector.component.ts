@@ -19,6 +19,7 @@ import { BehaviorSubject, Observable, Subscription } from 'rxjs';
 import { EMPTY_COLOR, ENABLE_ALPHA_SELECTOR, parseColorString, toHex, toRgba } from './color-picker';
 import { tinycolor } from '@thebespokepixel/es-tinycolor';
 import { map } from 'rxjs/operators';
+import { MccColorPickerService } from './color-picker.service';
 
 
 interface Coordinates {
@@ -211,6 +212,7 @@ export class MccColorPickerSelectorComponent
   constructor(
     private formBuilder: FormBuilder,
     private render: Renderer2,
+    private colorPickerService: MccColorPickerService,
     @Inject(EMPTY_COLOR) private emptyColor: string,
     @Inject(ENABLE_ALPHA_SELECTOR) public showAlphaSelector: boolean
   ) {
@@ -228,10 +230,15 @@ export class MccColorPickerSelectorComponent
       // right now using hex for non alpha and rgba for alpha colors
       if (this.noColor) {
         this.changeSelectedColor.emit(this.emptyColor);
+        this.colorPickerService.changeSelectedColor(this.emptyColor);
       } else if (this.showAlphaSelector) {
-        this.changeSelectedColor.emit(toRgba(color));
+        const clr = toRgba(color);
+        this.changeSelectedColor.emit(clr);
+        this.colorPickerService.changeSelectedColor(clr);
       } else {
-        this.changeSelectedColor.emit(toHex(color));
+        const clr = toHex(color);
+        this.changeSelectedColor.emit(clr);
+        this.colorPickerService.changeSelectedColor(clr);
       }
     });
 
