@@ -12,7 +12,7 @@ import {
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { MccColorPickerComponent } from './color-picker.component';
-import { EMPTY_COLOR, MccColorPickerOption, parseColorString, toHex } from './color-picker';
+import { EMPTY_COLOR, ENABLE_ALPHA_SELECTOR, MccColorPickerOption, parseColorString, toHex, toRgba } from './color-picker';
 import { BehaviorSubject, Subscription } from 'rxjs';
 
 /**
@@ -57,7 +57,7 @@ export class MccColorPickerOptionDirective implements AfterViewInit {
         // apply the color
         this.render.setStyle(
           this.elementRef.nativeElement,
-          'background',
+          'backgroundColor',
           color
         );
       }
@@ -96,14 +96,20 @@ export class MccColorPickerOriginDirective implements ControlValueAccessor {
   constructor(
     private elementRef: ElementRef,
     private renderer: Renderer2,
-    @Inject(EMPTY_COLOR) private emptyColor: string
+    @Inject(EMPTY_COLOR) private emptyColor: string,
+    @Inject(ENABLE_ALPHA_SELECTOR) public showAlphaSelector: boolean
   ) {
     // listen changes onkeyup and update color picker
     renderer.listen(elementRef.nativeElement, 'keyup', (event: KeyboardEvent) => {
       const value: string = event.currentTarget['value'];
-      const color = parseColorString(value);
-      if (event.isTrusted && color) {
-        this.writeValueFromKeyup(toHex(color) || this.emptyColor);
+
+      if (event.isTrusted && !value) {
+        this.writeValueFromKeyup(this.emptyColor);
+      } else {
+        const color = parseColorString(value);
+        if (event.isTrusted && color) {
+          this.writeValueFromKeyup(this.showAlphaSelector ? toRgba(color) : toHex(color));
+        }
       }
     });
   }
