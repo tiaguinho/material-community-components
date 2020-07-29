@@ -1,5 +1,7 @@
 import { InjectionToken } from '@angular/core';
 import { tinycolor } from '@thebespokepixel/es-tinycolor';
+import type { Instance } from 'tinycolor2';
+
 
 
 /** Contant used as empty color */
@@ -49,8 +51,8 @@ export type MccColorPickerUsedColorPosition = 'top' | 'bottom';
 /**
  * parses a string-representation of a color with tinycolor - returns "null" when not a valid string
  */
-export function parseColorString(colorString: string): tinycolor.Instance | null {
-  const color = tinycolor(colorString);
+export function parseColorString(colorString: string): Instance | null {
+  const color: Instance = tinycolor(colorString);
   if (color.isValid()) {
     return color;
   } else {
@@ -61,17 +63,17 @@ export function parseColorString(colorString: string): tinycolor.Instance | null
 /**
  * converts a tinycolor instance to format "#FFFFFF'
  */
-export function toHex(color: tinycolor.Instance): string {
+export function toHex(color: Instance): string {
   if (!color) {
     return null;
   }
-  return color.toHex6String.toUpperCase();
+  return color.toString('hex6').toUpperCase();
 }
 
 /**
  * converts a tinycolor instance to format "rgb(255,255,255)' when color has alpha value and "rgba(255,255,255,0.5)" when alpha < 1
  */
-export function toRgba(color: tinycolor.Instance): string {
+export function toRgba(color: Instance): string {
   if (!color) {
     return null;
   }
