@@ -51,3 +51,26 @@
     </mcc-color-picker>
   </mat-card-content>
 </mat-card>
+
+<!-- CONNECT COLOR PICKER WITH AN INPUT -->
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>Connect color picker with an input (with Alpha enabled)</mat-card-title>
+  </mat-card-header>
+
+  <mat-card-content>
+    <mcc-color-picker mccConnectedColorPicker [mccConnectedColorPickerOrigin]="trigger2">
+    </mcc-color-picker>
+
+    <form novalidate [formGroup]="form">
+      <mat-form-field>
+        <input matInput mccColorPickerOrigin #trigger2="mccColorPickerOrigin" formControlName="color" />
+      </mat-form-field>
+
+      <button type="submit" mat-raised-button color="primary">Submit
+        <small>(look the console)</small>
+      </button>
+    </form>
+  </mat-card-content>
+</mat-card>
+
