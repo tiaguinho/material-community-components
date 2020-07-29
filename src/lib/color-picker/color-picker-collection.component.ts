@@ -11,7 +11,7 @@ import {
 } from '@angular/core';
 import {
   DISABLE_SELECTED_COLOR_ICON,
-  EMPTY_COLOR,
+  EMPTY_COLOR, MccColorPickerItem,
   MccColorPickerOption,
   parseColorString,
   SELECTED_COLOR_ICON,
@@ -36,6 +36,7 @@ export class MccColorPickerCollectionComponent implements OnInit, AfterContentCh
   set hideEmpty(value: boolean) {
     this._hideEmpty = coerceBooleanProperty(value);
   }
+
   private _hideEmpty: boolean = false;
 
   /**
@@ -45,9 +46,11 @@ export class MccColorPickerCollectionComponent implements OnInit, AfterContentCh
   get label(): string {
     return this._label;
   }
+
   set label(value: string) {
     this._label = value;
   }
+
   private _label: string;
 
   /**
@@ -57,9 +60,11 @@ export class MccColorPickerCollectionComponent implements OnInit, AfterContentCh
   get colors(): MccColorPickerOption[] {
     return this._colors;
   }
+
   set colors(values: MccColorPickerOption[]) {
     this._colors = values;
   }
+
   private _colors: MccColorPickerOption[];
 
   /**
@@ -83,6 +88,7 @@ export class MccColorPickerCollectionComponent implements OnInit, AfterContentCh
   get selectedColor(): string {
     return this._selectedColor;
   }
+
   private _selectedColor: string;
 
   /**
@@ -91,6 +97,7 @@ export class MccColorPickerCollectionComponent implements OnInit, AfterContentCh
   get selectedIcon(): string {
     return this._selectedIcon;
   }
+
   private _selectedIcon: string;
 
   /**
@@ -99,6 +106,7 @@ export class MccColorPickerCollectionComponent implements OnInit, AfterContentCh
   get selectedSvgIcon(): string {
     return this._selectedSvgIcon;
   }
+
   private _selectedSvgIcon: string;
 
   constructor(
@@ -108,7 +116,8 @@ export class MccColorPickerCollectionComponent implements OnInit, AfterContentCh
     @Inject(SELECTED_COLOR_ICON) private selectedColorIcon: string,
     @Inject(SELECTED_COLOR_SVG_ICON) public selectedColorSvgIcon: string,
     @Inject(DISABLE_SELECTED_COLOR_ICON) public disableSelectedIcon: boolean
-  ) {}
+  ) {
+  }
 
   ngOnInit() {
     // get current selected color
@@ -165,10 +174,23 @@ export class MccColorPickerCollectionComponent implements OnInit, AfterContentCh
     this.changeColor.emit(color);
   }
 
-  getIconColorClassForColor(colorString: string): string {
-    const color = parseColorString(colorString);
-    if (color) {
-     return color.isDark() && color.getAlpha() > 0.3 ? 'white' : 'black';
+  getIconColorClassForColor(color: string | MccColorPickerItem): string {
+    const colorString = typeof color === 'string' ? color : color.value;
+
+    const clr = parseColorString(colorString);
+    if (clr) {
+      return clr.isDark() && clr.getAlpha() > 0.3 ? 'white' : 'black';
+    }
+  }
+
+  isColorSelected(color: string | MccColorPickerItem): boolean {
+    if (!color) {
+      return false;
+    }
+    if (typeof color === 'string') {
+      return this._selectedColor === color;
+    } else {
+      return this._selectedColor === color.value;
     }
   }
 }
