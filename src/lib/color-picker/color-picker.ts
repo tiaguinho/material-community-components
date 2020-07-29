@@ -65,7 +65,7 @@ export function toHex(color: tinycolor.Instance): string {
   if (!color) {
     return null;
   }
-  return color.toString('hex6').toUpperCase();
+  return color.toHex6String.toUpperCase();
 }
 
 /**
@@ -75,5 +75,5 @@ export function toRgba(color: tinycolor.Instance): string {
   if (!color) {
     return null;
   }
-  return color.toString('rgb');
+  return color.toRgbString();
 }
