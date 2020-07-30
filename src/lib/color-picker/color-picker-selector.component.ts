@@ -18,8 +18,8 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { BehaviorSubject, Observable, Subscription } from 'rxjs';
 import { EMPTY_COLOR, ENABLE_ALPHA_SELECTOR, parseColorString, toHex, toRgba } from './color-picker';
 import { tinycolor } from '@thebespokepixel/es-tinycolor';
-import type { Instance } from 'tinycolor2';
-import { map } from 'rxjs/operators';
+import { Instance } from 'tinycolor2';
+import { distinctUntilChanged, map } from 'rxjs/operators';
 import { MccColorPickerService } from './color-picker.service';
 
 
@@ -221,8 +221,8 @@ export class MccColorPickerSelectorComponent
 
   private _stripWidth: number = 20;
 
-  get tmpSelectedColor$(): Observable<string> {
-    return this._tmpSelectedColor.asObservable().pipe(map(toRgba));
+  get tmpSelectedColorAsRgba$(): Observable<string> {
+    return this._tmpSelectedColor.asObservable().pipe(map(toRgba), distinctUntilChanged());
   }
 
   constructor(

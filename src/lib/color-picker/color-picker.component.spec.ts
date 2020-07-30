@@ -12,7 +12,6 @@ import { MatIconModule } from '@angular/material/icon';
 import { MccColorPickerComponent } from './color-picker.component';
 import { MccColorPickerCollectionComponent } from './color-picker-collection.component';
 import { MccColorPickerSelectorComponent } from './color-picker-selector.component';
-import { MccColorPickerOptionDirective } from './color-picker.directives';
 import { MccColorPickerService } from './color-picker.service';
 import {
   DISABLE_SELECTED_COLOR_ICON,
@@ -22,6 +21,7 @@ import {
   SELECTED_COLOR_SVG_ICON,
   USED_COLORS
 } from './color-picker';
+import { MccColorPickerOptionDirective } from './color-picker-option.directive';
 
 describe('MccColorPickerComponent', () => {
   let comp: MccColorPickerComponent;

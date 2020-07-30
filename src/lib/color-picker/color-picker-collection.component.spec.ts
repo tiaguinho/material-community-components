@@ -3,7 +3,6 @@ import { MatIconModule } from '@angular/material/icon';
 import { ComponentFixture, ComponentFixtureAutoDetect, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { MccColorPickerCollectionComponent } from './color-picker-collection.component';
-import { MccColorPickerOptionDirective } from './color-picker.directives';
 import { MccColorPickerService } from './color-picker.service';
 import {
   DISABLE_SELECTED_COLOR_ICON,
@@ -13,6 +12,7 @@ import {
   SELECTED_COLOR_SVG_ICON,
   USED_COLORS
 } from './color-picker';
+import { MccColorPickerOptionDirective } from './color-picker-option.directive';
 
 describe('MccColorPickerCollectionComponent', () => {
   let comp: MccColorPickerCollectionComponent;

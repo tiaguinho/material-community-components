@@ -23,7 +23,8 @@ import { MccColorPickerService } from './color-picker.service';
 import { MccColorPickerComponent } from './color-picker.component';
 import { MccColorPickerSelectorComponent } from './color-picker-selector.component';
 import { MccColorPickerCollectionComponent } from './color-picker-collection.component';
-import { MccColorPickerOptionDirective, MccColorPickerOriginDirective, MccConnectedColorPickerDirective, } from './color-picker.directives';
+import { MccColorPickerOriginDirective, MccConnectedColorPickerDirective, } from './color-picker-origin.directive';
+import { MccColorPickerOptionDirective } from './color-picker-option.directive';
 
 @NgModule({
   imports: [

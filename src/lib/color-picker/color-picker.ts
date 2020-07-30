@@ -1,6 +1,6 @@
 import { InjectionToken } from '@angular/core';
 import { tinycolor } from '@thebespokepixel/es-tinycolor';
-import type { Instance } from 'tinycolor2';
+import { Instance } from 'tinycolor2';
 
 
 

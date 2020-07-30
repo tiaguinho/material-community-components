@@ -15,5 +15,8 @@
     "paths": {
       "material-community-components": ["src/lib/*"]
     }
+  },
+  "angularCompilerOptions": {
+    "fullTemplateTypeCheck": true
   }
 }

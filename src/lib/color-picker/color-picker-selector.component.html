@@ -17,7 +17,7 @@
 
 </div>
 
-<div class="mcc-color-picker-selector-preview" [style.backgroundColor]="tmpSelectedColor$ | async">
+<div class="mcc-color-picker-selector-preview" [style.backgroundColor]="tmpSelectedColorAsRgba$ | async">
   <ng-container *ngIf="!hideHexForms && !noColor">
     <form [formGroup]="hexForm">
       <mat-form-field class="hex-input" floatLabel="always" [ngClass]="textClass">
