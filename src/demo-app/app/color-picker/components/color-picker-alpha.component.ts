@@ -83,4 +83,8 @@ export class ColorPickerAlphaComponent implements OnInit {
       color: ['#000000', Validators.required],
     });
   }
+
+  onSubmit({ value, valid }): void {
+    console.log(value, valid);
+  }
 }

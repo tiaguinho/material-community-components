@@ -62,7 +62,7 @@
     <mcc-color-picker mccConnectedColorPicker [mccConnectedColorPickerOrigin]="trigger2">
     </mcc-color-picker>
 
-    <form novalidate [formGroup]="form">
+    <form novalidate [formGroup]="form" (ngSubmit)="onSubmit(form)">
       <mat-form-field>
         <input matInput mccColorPickerOrigin #trigger2="mccColorPickerOrigin" formControlName="color" />
       </mat-form-field>
