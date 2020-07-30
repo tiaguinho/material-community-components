@@ -262,9 +262,9 @@ export class MccColorPickerSelectorComponent
     this.hexForm = this.formBuilder.group({
       hexCode: new FormControl(toHex(this._selectedColor), {
         validators: [
-          Validators.pattern(/^#[0-9A-Fa-f]{6}$/ig)
+          Validators.pattern(/^#[0-9A-F]{6}$/ig)
         ],
-        updateOn: 'change'
+        updateOn: 'blur'
       })
     });
 
@@ -634,7 +634,9 @@ export class MccColorPickerSelectorComponent
     }
 
     const hex = toHex(color);
-    this.hexForm.get('hexCode').setValue(hex, {emitEvent: false});
+    const control = this.hexForm.get('hexCode');
+    control.setValue(hex, {emitEvent: false, onlySelf: true});
+    control.updateValueAndValidity({emitEvent: false, onlySelf: true});
   }
 
   /**
