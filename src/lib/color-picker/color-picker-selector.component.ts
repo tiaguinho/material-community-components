@@ -660,7 +660,7 @@ export class MccColorPickerSelectorComponent
       this.setAlphaSelector(y);
       const alpha = Number(((this.stripHeight - y) / this.stripHeight).toFixed(2));
 
-      const color = this._selectedColor.setAlpha(alpha);
+      const color = this._selectedColor.clone().setAlpha(alpha);
       this._updateRGBAForm(color);
       this._updateHexForm(color);
       this._tmpSelectedColor.next(color);
