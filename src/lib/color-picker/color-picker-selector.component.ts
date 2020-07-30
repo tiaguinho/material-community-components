@@ -28,7 +28,7 @@ interface Coordinates {
   y: number;
 }
 
-const INITIAL_COLOR: Instance = tinycolor({r: 255, g: 0, b: 0, a: 1});
+const INITIAL_COLOR: Instance = tinycolor('white');
 
 @Component({
   selector: 'mcc-color-picker-selector',
@@ -621,26 +621,6 @@ export class MccColorPickerSelectorComponent
     this._blockContext.fillStyle = `hsl(${hueColor.toHsl().h}, 100%, 50%)`;
     this._blockContext.fillRect(0, 0, this._bc.nativeElement.width, this._bc.nativeElement.height);
 
-    // TODO: hsl selector #145
-    // const grdLeft = this._hueSelectorContext.createLinearGradient(
-    //   0,
-    //   0,
-    //   this._bc.nativeElement.width,
-    //   0
-    // );
-    // grdLeft.addColorStop(0, 'hsl(0, 0%, 50%)');
-    // grdLeft.addColorStop(1, 'hsla(0, 0%, 50%, 0)');
-    // this._blockContext.fillStyle = grdLeft;
-    // this._blockContext.fillRect(0, 0, this._bc.nativeElement.width, this._bc.nativeElement.height);
-    //
-    // const grdTop = this._hueSelectorContext.createLinearGradient(0, 0, 0, this._bc.nativeElement.height);
-    // grdTop.addColorStop(0, 'hsl(0, 0%, 100%)');
-    // grdTop.addColorStop(0.5, 'hsla(0, 0%, 100%, 0)');
-    // grdTop.addColorStop(0.5, 'hsla(0, 0%, 0%, 0)');
-    // grdTop.addColorStop(1, 'hsl(0, 0%, 0%)');
-    // this._blockContext.fillStyle = grdTop;
-    // this._blockContext.fillRect(0, 0, this._bc.nativeElement.width, this._bc.nativeElement.height);
-
     // HSV selector
     const grdWhite = this._hueSelectorContext.createLinearGradient(0, 0, this._bc.nativeElement.width, 0);
     grdWhite.addColorStop(0, 'rgba(255,255,255,1)');
@@ -818,7 +798,6 @@ export class MccColorPickerSelectorComponent
 
     const x = this._selectorWidth * hsv.s;
     const y = this._height - this._height * hsv.v;
-    // const y = this._height - this._height * hsl.l;  // TODO: hsl selector #145
     return {x, y};
   }
 
