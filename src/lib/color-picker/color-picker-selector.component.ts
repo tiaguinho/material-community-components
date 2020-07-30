@@ -187,12 +187,27 @@ export class MccColorPickerSelectorComponent
   /**
    * Last remembered coordinates in block selector
    */
-  latestBlockCoordinates: Coordinates;
+  private _latestBlockCoordinates: Coordinates;
 
   /**
    * True if empty color is selected
    */
   noColor: boolean;
+
+  /**
+   * keeping track of the rectangular position on page of the current selection target
+   */
+  private _selectionTargetPosition: any;
+
+  /**
+   * keeping mousedown listeners for destruction
+   */
+  private _mouseDownListeners: Array<() => void> = [];
+
+  /**
+   * keeping track of temporary mouse listeners for destruction
+   */
+  private _temporaryMouseListeners: Array<() => void> = [];
 
   get selectorWidth(): number {
     return this._selectorWidth;
@@ -212,7 +227,7 @@ export class MccColorPickerSelectorComponent
 
   constructor(
     private formBuilder: FormBuilder,
-    private render: Renderer2,
+    private renderer: Renderer2,
     private colorPickerService: MccColorPickerService,
     @Inject(EMPTY_COLOR) private emptyColor: string,
     @Inject(ENABLE_ALPHA_SELECTOR) public showAlphaSelector: boolean
@@ -221,7 +236,7 @@ export class MccColorPickerSelectorComponent
 
   ngOnInit() {
     // set initial position for selection block
-    this.latestBlockCoordinates = {x: this._selectorWidth - 1, y: Math.floor(this._height / 2)};
+    this._latestBlockCoordinates = {x: this._selectorWidth - 1, y: Math.floor(this._height / 2)};
 
     // set selectedColor initial value
     this._tmpSelectedColor.next(this._selectedColor);
@@ -307,6 +322,10 @@ export class MccColorPickerSelectorComponent
   }
 
   ngOnDestroy() {
+    // destroy listeners
+    this._mouseDownListeners.forEach(listener => listener());
+    this._temporaryMouseListeners.forEach(listener => listener());
+
     // unsubscribe
     if (this._tmpSelectedColorSub && !this._tmpSelectedColorSub.closed) {
       this._tmpSelectedColorSub.unsubscribe();
@@ -321,43 +340,36 @@ export class MccColorPickerSelectorComponent
 
   ngAfterViewInit() {
     // draw initial selectors and listen to mouse events
-    this.render.listen(this._block.nativeElement, 'mousedown', (e: MouseEvent) => {
+    this._mouseDownListeners.push(this.renderer.listen(this._block.nativeElement, 'mousedown', (e: MouseEvent) => {
       this._isPressed = true;
-      this.onChangeColor({x: e.offsetX, y: e.offsetY});
-    });
-    this.render.listen(this._block.nativeElement, 'mouseup', () => (this._isPressed = false));
-    this.render.listen(this._block.nativeElement, 'mouseout', () => (this._isPressed = false));
-    this.render.listen(this._block.nativeElement, 'mouseover', (e: MouseEvent) => {
-      this._isPressed = (e.buttons === 1);
-    });
-    this.render.listen(this._block.nativeElement, 'mousemove', (e: MouseEvent) => this.onChangeColor({x: e.offsetX, y: e.offsetY}));
+      this._selectionTargetPosition = this._block.nativeElement.getBoundingClientRect();
+      this._listenToMouseForBlock();
+      this.changeColor({x: e.offsetX, y: e.offsetY});
+    }));
+
     this._blockContext = this._bc.nativeElement.getContext('2d');
     this._blockContext.rect(0, 0, this._bc.nativeElement.width, this._bc.nativeElement.height);
 
-    this.render.listen(this._hueSelector.nativeElement, 'mousedown', (e: MouseEvent) => {
-      this._isPressed = true;
-      this.onChangeHue(e);
-    });
-    this.render.listen(this._hueSelector.nativeElement, 'mouseup', () => (this._isPressed = false));
-    this.render.listen(this._hueSelector.nativeElement, 'mouseout', () => (this._isPressed = false));
-    this.render.listen(this._hueSelector.nativeElement, 'mouseover', (e: MouseEvent) => {
-      this._isPressed = (e.buttons === 1);
-    });
-    this.render.listen(this._hueSelector.nativeElement, 'mousemove', (e: MouseEvent) => this.onChangeHue(e));
+    this._mouseDownListeners.push(
+      this.renderer.listen(this._hueSelector.nativeElement, 'mousedown', (e: MouseEvent) => {
+        this._isPressed = true;
+        this._selectionTargetPosition = this._hueSelector.nativeElement.getBoundingClientRect();
+        this._listenToMouseForHue();
+        this.changeHue(e.offsetY);
+      })
+    );
 
     if (this.showAlphaSelector) {
       this._drawAlphaSelector(this._selectedColor);
 
-      this.render.listen(this._alpha.nativeElement, 'mousedown', e => {
-        this._isPressed = true;
-        this.onChangeAlpha(e);
-      });
-      this.render.listen(this._alpha.nativeElement, 'mouseup', () => (this._isPressed = false));
-      this.render.listen(this._alpha.nativeElement, 'mouseout', () => (this._isPressed = false));
-      this.render.listen(this._alpha.nativeElement, 'mouseover', (e: MouseEvent) => {
-        this._isPressed = (e.buttons === 1);
-      });
-      this.render.listen(this._alpha.nativeElement, 'mousemove', (e: MouseEvent) => this.onChangeAlpha(e));
+      this._mouseDownListeners.push(
+        this.renderer.listen(this._alpha.nativeElement, 'mousedown', (e: MouseEvent) => {
+          this._isPressed = true;
+          this._selectionTargetPosition = this._alpha.nativeElement.getBoundingClientRect();
+          this._listenToMouseForAlpha();
+          this.changeAlpha(e.offsetY);
+        })
+      );
       this._alphaContext = this._alpha.nativeElement.getContext('2d');
     }
 
@@ -366,6 +378,127 @@ export class MccColorPickerSelectorComponent
 
 
     this.setSelectorPositions(this._selectedColor);
+  }
+
+  private _listenToMouseForBlock() {
+    this._preventTextSelection();
+
+    this._temporaryMouseListeners.push(
+      this.renderer.listen(this._block.nativeElement, 'mousemove', (e: MouseEvent) => {
+        if (e.buttons === 1) {
+          this.changeColor({x: e.offsetX, y: e.offsetY});
+        }
+      }));
+
+    this._temporaryMouseListeners.push(
+      this.renderer.listen(document, 'mouseup', (e: MouseEvent) => {
+        this._isPressed = false;
+        this._temporaryMouseListeners.forEach(listener => listener());
+      })
+    );
+
+    this._temporaryMouseListeners.push(
+      this.renderer.listen(document, 'mousemove', (e: MouseEvent) => {
+        if (this._isPressed && e.target !== this._block.nativeElement) {
+          let x: number;
+          if (e.clientX < this._selectionTargetPosition.left) {
+            x = 0;
+          } else if (e.clientX > this._selectionTargetPosition.right) {
+            x = this._selectionTargetPosition.width;
+          } else {
+            x = e.clientX - this._selectionTargetPosition.left;
+          }
+          let y: number;
+          if (e.clientY < this._selectionTargetPosition.top) {
+            y = 0;
+          } else if (e.clientY > this._selectionTargetPosition.bottom) {
+            y = this._selectionTargetPosition.height;
+          } else {
+            y = e.clientY - this._selectionTargetPosition.top;
+          }
+          this.changeColor({x: x, y: y});
+        }
+      })
+    );
+  }
+
+
+  private _listenToMouseForHue() {
+    this._preventTextSelection();
+
+    this._temporaryMouseListeners.push(
+      this.renderer.listen(this._hueSelector.nativeElement, 'mousemove', (e: MouseEvent) => {
+        if (e.buttons === 1) {
+          this.changeHue(e.offsetY);
+        }
+      })
+    );
+
+    this._temporaryMouseListeners.push(
+      this.renderer.listen(document, 'mouseup', (e: MouseEvent) => {
+        this._isPressed = false;
+        this._temporaryMouseListeners.forEach(listener => listener());
+      })
+    );
+
+    this._temporaryMouseListeners.push(
+      this.renderer.listen(document, 'mousemove', (e: MouseEvent) => {
+        if (this._isPressed && e.target !== this._hueSelector.nativeElement) {
+          let y: number;
+          if (e.clientY < this._selectionTargetPosition.top) {
+            y = 0;
+          } else if (e.clientY > this._selectionTargetPosition.bottom) {
+            y = this._selectionTargetPosition.height;
+          } else {
+            y = e.clientY - this._selectionTargetPosition.top;
+          }
+          this.changeHue(y);
+        }
+      })
+    );
+  }
+
+
+  private _listenToMouseForAlpha() {
+    this._preventTextSelection();
+
+    this._temporaryMouseListeners.push(
+      this.renderer.listen(this._alpha.nativeElement, 'mousemove', (e: MouseEvent) => {
+        if (e.buttons === 1) {
+          this.changeAlpha(e.offsetY);
+        }
+      })
+    );
+
+    this._temporaryMouseListeners.push(
+      this.renderer.listen(document, 'mouseup', (e: MouseEvent) => {
+        this._isPressed = false;
+        this._temporaryMouseListeners.forEach(listener => listener());
+      })
+    );
+
+    this._temporaryMouseListeners.push(
+      this.renderer.listen(document, 'mousemove', (e: MouseEvent) => {
+        if (this._isPressed && e.target !== this._alpha.nativeElement) {
+          let y: number;
+          if (e.clientY < this._selectionTargetPosition.top) {
+            y = 0;
+          } else if (e.clientY > this._selectionTargetPosition.bottom) {
+            y = this._selectionTargetPosition.height;
+          } else {
+            y = e.clientY - this._selectionTargetPosition.top;
+          }
+          this.changeAlpha(y);
+        }
+      })
+    );
+  }
+
+  private _preventTextSelection() {
+    this._temporaryMouseListeners.push(
+      this.renderer.listen(document, 'selectstart', (e: Event) => {
+        e.preventDefault();
+      }));
   }
 
   private _drawHueSelector() {
@@ -507,55 +640,50 @@ export class MccColorPickerSelectorComponent
   /**
    * Handle changes of the hue slider
    */
-  private onChangeHue(e: MouseEvent) {
-    if (this._isPressed) {
-      if (e.offsetX < this._stripWidth && e.offsetY < this.stripHeight) {
-        this.setHueSelector(e.offsetY);
-        const data = this._hueSelectorContext.getImageData(e.offsetX, e.offsetY, 1, 1).data;
-        const color: Instance = tinycolor({r: data[0], g: data[1], b: data[2]});
-        this._drawBlockSelector(color);
-        this.onChangeColor();
-      }
+  private changeHue(y: number) {
+    if (y <= this.stripHeight) {
+      this.setHueSelector(y);
+      const data = this._hueSelectorContext.getImageData(this.stripWidth / 2, y, 1, 1).data;
+      const color: Instance = tinycolor({r: data[0], g: data[1], b: data[2]});
+      this._drawBlockSelector(color);
+      this.changeColor();
     }
   }
 
   /**
    * Handle changes of the alpha slider
    */
-  private onChangeAlpha(e: MouseEvent) {
-    if (this._isPressed) {
-      this.setAlphaSelector(e.offsetY);
-      if (e.offsetY < this.stripHeight) {
-        const alpha = Number(((this.stripHeight - e.offsetY) / this.stripHeight).toFixed(2));
+  private changeAlpha(y: number) {
+    if (y <= this.stripHeight) {
+      this.setAlphaSelector(y);
+      const alpha = Number(((this.stripHeight - y) / this.stripHeight).toFixed(2));
 
-        const color = this._selectedColor.setAlpha(alpha);
-        this._updateRGBAForm(color);
-        this._updateHexForm(color);
-        this._tmpSelectedColor.next(color);
-        this.noColor = false;
-      }
+      const color = this._selectedColor.setAlpha(alpha);
+      this._updateRGBAForm(color);
+      this._updateHexForm(color);
+      this._tmpSelectedColor.next(color);
+      this.noColor = false;
     }
   }
 
   /**
    * Handle changes of the selected color in the XY block
    */
-  private onChangeColor(offsets?: Coordinates) {
-    if (this._isPressed) {
-      const os = offsets || this.latestBlockCoordinates;
-      if (os.x <= this._selectorWidth && os.y <= this._height) {
-        this.setXYSelector(os);
-        // fixing getting values at border
-        const data: Uint8ClampedArray = this._blockContext.getImageData(os.x ? os.x - 1 : os.x, os.y ? os.y - 1 : os.y, 1, 1).data;
-        const color: Instance = tinycolor({r: data[0], g: data[1], b: data[2], a: this._selectedColor.getAlpha()});
-        this._updateRGBAForm(color);
-        this._updateHexForm(color);
-        if (this.showAlphaSelector) {
-          this._drawAlphaSelector(color);
-        }
-        this._tmpSelectedColor.next(color);
-        this.noColor = false;
+  private changeColor(offsets?: Coordinates) {
+    const os = offsets || this._latestBlockCoordinates;
+    if (os.x <= this._selectorWidth && os.y <= this._height) {
+
+      this.setXYSelector(os);
+      // fixing getting values at border
+      const data: Uint8ClampedArray = this._blockContext.getImageData(os.x ? os.x - 1 : os.x, os.y ? os.y - 1 : os.y, 1, 1).data;
+      const color: Instance = tinycolor({r: data[0], g: data[1], b: data[2], a: this._selectedColor.getAlpha()});
+      this._updateRGBAForm(color);
+      this._updateHexForm(color);
+      if (this.showAlphaSelector) {
+        this._drawAlphaSelector(color);
       }
+      this._tmpSelectedColor.next(color);
+      this.noColor = false;
     }
   }
 
@@ -581,9 +709,9 @@ export class MccColorPickerSelectorComponent
    */
   private setXYSelector(offsets: Coordinates) {
     if (this._bp) {
-      this.render.setStyle(this._bp.nativeElement, 'top', `${offsets.y - 5}px`);
-      this.render.setStyle(this._bp.nativeElement, 'left', `${offsets.x - 6}px`);
-      this.latestBlockCoordinates = offsets;
+      this.renderer.setStyle(this._bp.nativeElement, 'top', `${offsets.y - 5}px`);
+      this.renderer.setStyle(this._bp.nativeElement, 'left', `${offsets.x - 6}px`);
+      this._latestBlockCoordinates = offsets;
     }
   }
 
@@ -593,7 +721,7 @@ export class MccColorPickerSelectorComponent
    */
   private setHueSelector(offset: number) {
     if (this._sc) {
-      this.render.setStyle(this._sc.nativeElement, 'background-position-y', `${offset}px`);
+      this.renderer.setStyle(this._sc.nativeElement, 'background-position-y', `${offset}px`);
     }
   }
 
@@ -603,7 +731,7 @@ export class MccColorPickerSelectorComponent
    */
   private setAlphaSelector(offset: number) {
     if (this._ac) {
-      this.render.setStyle(this._ac.nativeElement, 'background-position-y', `${offset}px`);
+      this.renderer.setStyle(this._ac.nativeElement, 'background-position-y', `${offset}px`);
     }
   }
 
