@@ -340,6 +340,19 @@ export class MccColorPickerSelectorComponent
 
   ngAfterViewInit() {
     // draw initial selectors and listen to mouse events
+
+    this._mouseDownListeners.push(this.renderer.listen(this._block.nativeElement, 'touchstart', (e: TouchEvent) => {
+      if (e.cancelable) {
+        e.preventDefault();
+        this._isPressed = true;
+        this._selectionTargetPosition = this._block.nativeElement.getBoundingClientRect();
+        this._listenToMouseForBlock();
+        const x = e.targetTouches[0].clientX - this._selectionTargetPosition.x;
+        const y = e.targetTouches[0].clientY - this._selectionTargetPosition.y;
+        this.changeColor({x: x, y: y});
+      }
+    }));
+
     this._mouseDownListeners.push(this.renderer.listen(this._block.nativeElement, 'mousedown', (e: MouseEvent) => {
       this._isPressed = true;
       this._selectionTargetPosition = this._block.nativeElement.getBoundingClientRect();
@@ -349,6 +362,18 @@ export class MccColorPickerSelectorComponent
 
     this._blockContext = this._bc.nativeElement.getContext('2d');
     this._blockContext.rect(0, 0, this._bc.nativeElement.width, this._bc.nativeElement.height);
+
+
+    this._mouseDownListeners.push(this.renderer.listen(this._hueSelector.nativeElement, 'touchstart', (e: TouchEvent) => {
+      if (e.cancelable) {
+        e.preventDefault();
+        this._isPressed = true;
+        this._selectionTargetPosition = this._hueSelector.nativeElement.getBoundingClientRect();
+        this._listenToMouseForHue();
+        const y = e.targetTouches[0].clientY - this._selectionTargetPosition.y;
+        this.changeHue(y);
+      }
+    }));
 
     this._mouseDownListeners.push(
       this.renderer.listen(this._hueSelector.nativeElement, 'mousedown', (e: MouseEvent) => {
@@ -361,6 +386,17 @@ export class MccColorPickerSelectorComponent
 
     if (this.showAlphaSelector) {
       this._drawAlphaSelector(this._selectedColor);
+
+      this._mouseDownListeners.push(this.renderer.listen(this._alpha.nativeElement, 'touchstart', (e: TouchEvent) => {
+        if (e.cancelable) {
+          e.preventDefault();
+          this._isPressed = true;
+          this._selectionTargetPosition = this._alpha.nativeElement.getBoundingClientRect();
+          this._listenToMouseForAlpha();
+          const y = e.targetTouches[0].clientY - this._selectionTargetPosition.y;
+          this.changeAlpha(y);
+        }
+      }));
 
       this._mouseDownListeners.push(
         this.renderer.listen(this._alpha.nativeElement, 'mousedown', (e: MouseEvent) => {
@@ -384,39 +420,28 @@ export class MccColorPickerSelectorComponent
     this._preventTextSelection();
 
     this._temporaryMouseListeners.push(
+      this.renderer.listen(this._block.nativeElement, 'touchmove', (e: TouchEvent) => {
+        if (e.cancelable) {
+          e.preventDefault();
+          const coords = this._getCoordinatesForPosition(e.targetTouches[0].clientX, e.targetTouches[0].clientY);
+          this.changeColor(coords);
+        }
+      }));
+
+    this._temporaryMouseListeners.push(
       this.renderer.listen(this._block.nativeElement, 'mousemove', (e: MouseEvent) => {
         if (e.buttons === 1) {
           this.changeColor({x: e.offsetX, y: e.offsetY});
         }
       }));
 
-    this._temporaryMouseListeners.push(
-      this.renderer.listen(document, 'mouseup', (e: MouseEvent) => {
-        this._isPressed = false;
-        this._temporaryMouseListeners.forEach(listener => listener());
-      })
-    );
+    this._registerMouseUpListeners();
 
     this._temporaryMouseListeners.push(
       this.renderer.listen(document, 'mousemove', (e: MouseEvent) => {
         if (this._isPressed && e.target !== this._block.nativeElement) {
-          let x: number;
-          if (e.clientX < this._selectionTargetPosition.left) {
-            x = 0;
-          } else if (e.clientX > this._selectionTargetPosition.right) {
-            x = this._selectionTargetPosition.width;
-          } else {
-            x = e.clientX - this._selectionTargetPosition.left;
-          }
-          let y: number;
-          if (e.clientY < this._selectionTargetPosition.top) {
-            y = 0;
-          } else if (e.clientY > this._selectionTargetPosition.bottom) {
-            y = this._selectionTargetPosition.height;
-          } else {
-            y = e.clientY - this._selectionTargetPosition.top;
-          }
-          this.changeColor({x: x, y: y});
+          const coords = this._getCoordinatesForPosition(e.clientX, e.clientY);
+          this.changeColor(coords);
         }
       })
     );
@@ -427,6 +452,16 @@ export class MccColorPickerSelectorComponent
     this._preventTextSelection();
 
     this._temporaryMouseListeners.push(
+      this.renderer.listen(this._hueSelector.nativeElement, 'touchmove', (e: TouchEvent) => {
+        if (e.cancelable) {
+          e.preventDefault();
+          const y = this._getYForPosition(e.targetTouches[0].clientY);
+          this.changeHue(y);
+        }
+      })
+    );
+
+    this._temporaryMouseListeners.push(
       this.renderer.listen(this._hueSelector.nativeElement, 'mousemove', (e: MouseEvent) => {
         if (e.buttons === 1) {
           this.changeHue(e.offsetY);
@@ -434,24 +469,12 @@ export class MccColorPickerSelectorComponent
       })
     );
 
-    this._temporaryMouseListeners.push(
-      this.renderer.listen(document, 'mouseup', (e: MouseEvent) => {
-        this._isPressed = false;
-        this._temporaryMouseListeners.forEach(listener => listener());
-      })
-    );
+    this._registerMouseUpListeners();
 
     this._temporaryMouseListeners.push(
       this.renderer.listen(document, 'mousemove', (e: MouseEvent) => {
         if (this._isPressed && e.target !== this._hueSelector.nativeElement) {
-          let y: number;
-          if (e.clientY < this._selectionTargetPosition.top) {
-            y = 0;
-          } else if (e.clientY > this._selectionTargetPosition.bottom) {
-            y = this._selectionTargetPosition.height;
-          } else {
-            y = e.clientY - this._selectionTargetPosition.top;
-          }
+          const y = this._getYForPosition(e.clientY);
           this.changeHue(y);
         }
       })
@@ -463,31 +486,28 @@ export class MccColorPickerSelectorComponent
     this._preventTextSelection();
 
     this._temporaryMouseListeners.push(
+      this.renderer.listen(this._alpha.nativeElement, 'touchmove', (e: TouchEvent) => {
+        if (e.cancelable) {
+          e.preventDefault();
+          const y = this._getYForPosition(e.targetTouches[0].clientY);
+          this.changeAlpha(y);
+        }
+      })
+    );
+
+    this._temporaryMouseListeners.push(
       this.renderer.listen(this._alpha.nativeElement, 'mousemove', (e: MouseEvent) => {
         if (e.buttons === 1) {
           this.changeAlpha(e.offsetY);
         }
       })
     );
-
-    this._temporaryMouseListeners.push(
-      this.renderer.listen(document, 'mouseup', (e: MouseEvent) => {
-        this._isPressed = false;
-        this._temporaryMouseListeners.forEach(listener => listener());
-      })
-    );
+    this._registerMouseUpListeners();
 
     this._temporaryMouseListeners.push(
       this.renderer.listen(document, 'mousemove', (e: MouseEvent) => {
         if (this._isPressed && e.target !== this._alpha.nativeElement) {
-          let y: number;
-          if (e.clientY < this._selectionTargetPosition.top) {
-            y = 0;
-          } else if (e.clientY > this._selectionTargetPosition.bottom) {
-            y = this._selectionTargetPosition.height;
-          } else {
-            y = e.clientY - this._selectionTargetPosition.top;
-          }
+          const y = this._getYForPosition(e.clientY);
           this.changeAlpha(y);
         }
       })
@@ -499,6 +519,59 @@ export class MccColorPickerSelectorComponent
       this.renderer.listen(document, 'selectstart', (e: Event) => {
         e.preventDefault();
       }));
+  }
+
+  private _registerMouseUpListeners() {
+    this._temporaryMouseListeners.push(
+      this.renderer.listen(document, 'touchend', (e: TouchEvent) => {
+        if (e.cancelable) {
+          e.preventDefault();
+          this._isPressed = false;
+          this._temporaryMouseListeners.forEach(listener => listener());
+        }
+      })
+    );
+
+    this._temporaryMouseListeners.push(
+      this.renderer.listen(document, 'mouseup', (e: MouseEvent) => {
+        this._isPressed = false;
+        this._temporaryMouseListeners.forEach(listener => listener());
+      })
+    );
+
+  }
+
+  private _getCoordinatesForPosition(clientX: number, clientY: number): Coordinates {
+    let x: number;
+    if (clientX < this._selectionTargetPosition.left) {
+      x = 0;
+    } else if (clientX > this._selectionTargetPosition.right) {
+      x = this._selectionTargetPosition.width;
+    } else {
+      x = clientX - this._selectionTargetPosition.left;
+    }
+    let y: number;
+    if (clientY < this._selectionTargetPosition.top) {
+      y = 0;
+    } else if (clientY > this._selectionTargetPosition.bottom) {
+      y = this._selectionTargetPosition.height;
+    } else {
+      y = clientY - this._selectionTargetPosition.top;
+    }
+
+    return {x, y};
+  }
+
+  private _getYForPosition(clientY: number): number {
+    let y: number;
+    if (clientY < this._selectionTargetPosition.top) {
+      y = 0;
+    } else if (clientY > this._selectionTargetPosition.bottom) {
+      y = this._selectionTargetPosition.height;
+    } else {
+      y = clientY - this._selectionTargetPosition.top;
+    }
+    return y;
   }
 
   private _drawHueSelector() {
