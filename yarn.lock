@@ -1203,6 +1203,11 @@
   dependencies:
     defer-to-connect "^1.0.1"
 
+"@thebespokepixel/es-tinycolor@^2.1.1":
+  version "2.1.1"
+  resolved "https://registry.yarnpkg.com/@thebespokepixel/es-tinycolor/-/es-tinycolor-2.1.1.tgz#3899fdce8dd248859c40bf6abf0873fc3200d429"
+  integrity sha512-UUTZLJpKGdGt88z3Kx96dB/iFAnk/mceeGzIquGKHcCcO3MeFsK3v9d+KersMHpE+w5ZYy19NQJhOCk+eXbJ8w==
+
 "@types/chokidar@^1.7.5":
   version "1.7.5"
   resolved "https://registry.yarnpkg.com/@types/chokidar/-/chokidar-1.7.5.tgz#1fa78c8803e035bed6d98e6949e514b133b0c9b6"
@@ -1324,6 +1329,11 @@
   version "0.1.2"
   resolved "https://registry.yarnpkg.com/@types/source-list-map/-/source-list-map-0.1.2.tgz#0078836063ffaf17412349bba364087e0ac02ec9"
   integrity sha512-K5K+yml8LTo9bWJI/rECfIPrGgxdpeNbj+d53lwN4QjW1MCwlkhUms+gtdzigTeUyBr09+u8BwOIY3MXvHdcsA==
+
+"@types/tinycolor2@^1.4.2":
+  version "1.4.2"
+  resolved "https://registry.yarnpkg.com/@types/tinycolor2/-/tinycolor2-1.4.2.tgz#721ca5c5d1a2988b4a886e35c2ffc5735b6afbdf"
+  integrity sha512-PeHg/AtdW6aaIO2a+98Xj7rWY4KC1E6yOy7AFknJQ7VXUGNrMlyxDFxJo7HqLtjQms/ZhhQX52mLVW/EX3JGOw==
 
 "@types/webpack-sources@^0.1.5":
   version "0.1.8"
