@@ -34,8 +34,12 @@ export class ColorPickerExamplesComponent implements OnInit {
   ];
 
   colors: string[] = [
-    '#FF6633',
-    '#FFB399',
+    '#000zzz',
+    'zzzzzz',
+    '#ff6633',
+    'ff6638',
+    'fFb399',
+    'rgb(140,140,140)',
     '#FF33FF',
     '#FFFF99',
     '#00B3E6',

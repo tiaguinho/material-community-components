@@ -272,22 +272,22 @@ export class MccColorPickerComponent implements AfterContentInit, OnInit, OnDest
   /**
    * Event emitted when user change the selected color (without confirm)
    */
-  @Output() change = new EventEmitter();
+  @Output()  readonly change = new EventEmitter<string>();
 
   /**
    * Event emitted when selected color is confirm
    */
-  @Output() selected = new EventEmitter();
+  @Output() readonly selected = new EventEmitter<string>();
 
   /**
    * Event emitted when is clicked outside of the component
    */
-  @Output() clickOut = new EventEmitter();
+  @Output()  readonly clickOut = new EventEmitter<void>();
 
   /**
    * Event emitted when is clicked outside of the component
    */
-  @Output() canceled = new EventEmitter();
+  @Output()  readonly canceled = new EventEmitter<void>();
 
   /**
    * Return a Observable with the color the user is picking
