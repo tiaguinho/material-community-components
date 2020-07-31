@@ -1,18 +1,7 @@
-import {
-  AfterViewInit,
-  ChangeDetectorRef,
-  Directive,
-  ElementRef, EventEmitter,
-  forwardRef,
-  Inject,
-  Input,
-  OnDestroy,
-  Output,
-  Renderer2,
-} from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Directive, ElementRef, forwardRef, Inject, Input, OnDestroy, Renderer2, } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { MccColorPickerComponent } from './color-picker.component';
-import { EMPTY_COLOR, ENABLE_ALPHA_SELECTOR, MccColorPickerOption, parseColorString, toHex, toRgba } from './color-picker';
+import { COLOR_STRING_FORMAT, ColorFormat, EMPTY_COLOR, ENABLE_ALPHA_SELECTOR, formatColor, parseColorString } from './color-picker';
 import { BehaviorSubject, Subscription } from 'rxjs';
 
 /**
@@ -33,7 +22,7 @@ export class MccColorPickerOriginDirective implements ControlValueAccessor {
   /**
    * Emit changes from the origin
    */
-  @Output() change: EventEmitter<string> = new EventEmitter<string>();
+  change: BehaviorSubject<string> = new BehaviorSubject<string>('');
 
   /**
    * Propagate changes to angular
@@ -47,7 +36,8 @@ export class MccColorPickerOriginDirective implements ControlValueAccessor {
     private elementRef: ElementRef,
     private renderer: Renderer2,
     @Inject(EMPTY_COLOR) private emptyColor: string,
-    @Inject(ENABLE_ALPHA_SELECTOR) public showAlphaSelector: boolean
+    @Inject(ENABLE_ALPHA_SELECTOR) public showAlphaSelector: boolean,
+    @Inject(COLOR_STRING_FORMAT) public colorStringFormat: ColorFormat
   ) {
     // listen changes onkeyup and update color picker
     renderer.listen(elementRef.nativeElement, 'keyup', (event: KeyboardEvent) => {
@@ -58,7 +48,7 @@ export class MccColorPickerOriginDirective implements ControlValueAccessor {
       } else {
         const color = parseColorString(value);
         if (event.isTrusted && color) {
-          this.writeValueFromKeyup(this.showAlphaSelector ? toRgba(color) : toHex(color));
+          this.writeValueFromKeyup(formatColor(color, this.colorStringFormat));
         }
       }
     });
@@ -103,7 +93,8 @@ export class MccColorPickerOriginDirective implements ControlValueAccessor {
   /**
    * This is called by the forms API on initialization so it can update the form model on blur
    */
-  registerOnTouched(fn: any): void {}
+  registerOnTouched(fn: any): void {
+  }
 
   /**
    * called by the forms API when the control status changes to or from "DISABLED"
@@ -141,8 +132,10 @@ export class MccConnectedColorPickerDirective implements AfterViewInit, OnDestro
   constructor(
     private colorPicker: MccColorPickerComponent,
     public changeDetectorRef: ChangeDetectorRef,
-    @Inject(EMPTY_COLOR) private emptyColor: string
-  ) {}
+    @Inject(EMPTY_COLOR) private emptyColor: string,
+    @Inject(COLOR_STRING_FORMAT) public colorStringFormat: ColorFormat
+  ) {
+  }
 
   ngAfterViewInit() {
     if (!this._colorPickerSub) {
@@ -165,14 +158,18 @@ export class MccConnectedColorPickerDirective implements AfterViewInit, OnDestro
   private _attachColorPicker(): void {
     // subscribe to origin change to update color picker
     this._originSub = this.origin.change.subscribe(value => {
-      if (
-        parseColorString(value) ||
-        (value === this.emptyColor && this.colorPicker.selectedColor !== this.emptyColor)
-      ) {
+      const color = parseColorString(value);
+
+      if (value === this.emptyColor && this.colorPicker.selectedColor !== this.emptyColor) {
         this.colorPicker.updateTmpSelectedColor(value);
+      } else if (color) {
+
+        const clr = formatColor(color, this.colorStringFormat);
+        this.colorPicker.updateTmpSelectedColor(clr);
+        this.colorPicker.selectedColor = clr;
+        this.changeDetectorRef.detectChanges();
       }
-      this.colorPicker.selectedColor = value;
-      this.changeDetectorRef.detectChanges();
+
     });
 
     // subscribe to color picker confirmation and set on origin element

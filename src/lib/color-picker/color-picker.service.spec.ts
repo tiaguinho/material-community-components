@@ -1,6 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 import { MccColorPickerService } from './color-picker.service';
 import {
+  COLOR_STRING_FORMAT,
   DISABLE_SELECTED_COLOR_ICON,
   EMPTY_COLOR,
   ENABLE_ALPHA_SELECTOR,
@@ -22,12 +23,14 @@ describe('MccColorPickerService', () => {
         { provide: SELECTED_COLOR_SVG_ICON, useValue: 'done' },
         { provide: EMPTY_COLOR, useValue: 'none'},
         { provide: USED_COLORS, useValue: []},
+        { provide: COLOR_STRING_FORMAT, useValue: 'hex'}
       ]
     });
 
     const emptyColorToken = TestBed.inject(EMPTY_COLOR);
     const usedColorsToken = TestBed.inject(USED_COLORS);
-    service = new MccColorPickerService(emptyColorToken, usedColorsToken);
+    const colorStringFormat = TestBed.inject(COLOR_STRING_FORMAT);
+    service = new MccColorPickerService(emptyColorToken, usedColorsToken, colorStringFormat);
   });
 
   it('should add color', (done: DoneFn) => {

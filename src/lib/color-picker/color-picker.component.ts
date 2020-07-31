@@ -16,7 +16,15 @@ import {
 } from '@angular/core';
 import { BehaviorSubject, Observable, Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { EMPTY_COLOR, ENABLE_ALPHA_SELECTOR, MccColorPickerUsedColorPosition, parseColorString, toHex, toRgba } from './color-picker';
+import {
+  COLOR_STRING_FORMAT,
+  ColorFormat,
+  EMPTY_COLOR,
+  ENABLE_ALPHA_SELECTOR,
+  formatColor,
+  MccColorPickerUsedColorPosition,
+  parseColorString
+} from './color-picker';
 import { MccColorPickerCollectionComponent } from './color-picker-collection.component';
 import { MccColorPickerService } from './color-picker.service';
 
@@ -171,11 +179,7 @@ export class MccColorPickerComponent implements AfterContentInit, OnInit, OnDest
     const color = parseColorString(value);
 
     if (color) {
-      if (this.showAlphaSelector) {
-        this._selectedColor = toRgba(color);
-      } else {
-        this._selectedColor = toHex(color);
-      }
+      this._selectedColor = formatColor(color, this.colorStringFormat);
     } else {
       this._selectedColor = this.emptyColor;
     }
@@ -272,7 +276,7 @@ export class MccColorPickerComponent implements AfterContentInit, OnInit, OnDest
   /**
    * Event emitted when user change the selected color (without confirm)
    */
-  @Output()  readonly change = new EventEmitter<string>();
+  @Output() readonly change = new EventEmitter<string>();
 
   /**
    * Event emitted when selected color is confirm
@@ -282,12 +286,12 @@ export class MccColorPickerComponent implements AfterContentInit, OnInit, OnDest
   /**
    * Event emitted when is clicked outside of the component
    */
-  @Output()  readonly clickOut = new EventEmitter<void>();
+  @Output() readonly clickOut = new EventEmitter<void>();
 
   /**
    * Event emitted when is clicked outside of the component
    */
-  @Output()  readonly canceled = new EventEmitter<void>();
+  @Output() readonly canceled = new EventEmitter<void>();
 
   /**
    * Return a Observable with the color the user is picking
@@ -317,7 +321,8 @@ export class MccColorPickerComponent implements AfterContentInit, OnInit, OnDest
     private changeDetectorRef: ChangeDetectorRef,
     private colorPickerService: MccColorPickerService,
     @Inject(EMPTY_COLOR) public emptyColor: string,
-    @Inject(ENABLE_ALPHA_SELECTOR) public showAlphaSelector: boolean
+    @Inject(ENABLE_ALPHA_SELECTOR) public showAlphaSelector: boolean,
+    @Inject(COLOR_STRING_FORMAT) public colorStringFormat: ColorFormat
   ) {
   }
 
@@ -368,7 +373,7 @@ export class MccColorPickerComponent implements AfterContentInit, OnInit, OnDest
       const color = this._tmpSelectedColor.getValue();
       if (this._selectedColor !== color) {
         this._selectedColor = color;
-        this.selected.next(color);
+        this.selected.emit(color);
       } else {
         this.selected.emit(color);
       }
@@ -398,7 +403,7 @@ export class MccColorPickerComponent implements AfterContentInit, OnInit, OnDest
     } else {
       this.cancelSelection();
     }
-    this.clickOut.emit(null);
+    this.clickOut.emit();
   }
 
   /**
@@ -409,7 +414,7 @@ export class MccColorPickerComponent implements AfterContentInit, OnInit, OnDest
     if (color || color === this.emptyColor) {
       this._tmpSelectedColor.next(color);
       if (this._selectedColor !== color) {
-        this.change.next(color);
+        this.change.emit(color);
         if (this._hideButtons) {
           this._updateSelectedColor();
         }
@@ -422,7 +427,7 @@ export class MccColorPickerComponent implements AfterContentInit, OnInit, OnDest
    */
   cancelSelection() {
     this._tmpSelectedColor.next(this._selectedColor);
-    this.canceled.emit(null);
+    this.canceled.emit();
     this.toggle();
   }
 

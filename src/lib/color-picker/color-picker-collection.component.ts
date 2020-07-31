@@ -10,8 +10,12 @@ import {
   Output,
 } from '@angular/core';
 import {
+  COLOR_STRING_FORMAT,
+  ColorFormat,
   DISABLE_SELECTED_COLOR_ICON,
-  EMPTY_COLOR, MccColorPickerItem,
+  EMPTY_COLOR,
+  formatColor,
+  MccColorPickerItem,
   MccColorPickerOption,
   parseColorString,
   SELECTED_COLOR_ICON,
@@ -62,7 +66,24 @@ export class MccColorPickerCollectionComponent implements OnInit, AfterContentCh
   }
 
   set colors(values: MccColorPickerOption[]) {
-    this._colors = values;
+    // TODO: strange bug wher color are not mapped
+    // map color string from user to string based on configured format
+    const colors: MccColorPickerOption[] = [];
+    values.forEach(value => {
+      if (typeof value === 'string') {
+        const clr = parseColorString(value);
+        if (clr) {
+          colors.push(formatColor(clr, this.colorStringFormat));
+        }
+      } else {
+        const clr = parseColorString(value.value);
+        if (clr) {
+          colors.push({value: formatColor(clr, this.colorStringFormat), text: value.text});
+        }
+      }
+    });
+
+    this._colors = colors;
   }
 
   private _colors: MccColorPickerOption[];
@@ -115,7 +136,8 @@ export class MccColorPickerCollectionComponent implements OnInit, AfterContentCh
     @Inject(EMPTY_COLOR) public emptyColor: string,
     @Inject(SELECTED_COLOR_ICON) private selectedColorIcon: string,
     @Inject(SELECTED_COLOR_SVG_ICON) public selectedColorSvgIcon: string,
-    @Inject(DISABLE_SELECTED_COLOR_ICON) public disableSelectedIcon: boolean
+    @Inject(DISABLE_SELECTED_COLOR_ICON) public disableSelectedIcon: boolean,
+    @Inject(COLOR_STRING_FORMAT) public colorStringFormat: ColorFormat
   ) {
   }
 
