@@ -16,7 +16,16 @@ import {
 } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { BehaviorSubject, Observable, Subscription } from 'rxjs';
-import { EMPTY_COLOR, ENABLE_ALPHA_SELECTOR, parseColorString, toHex, toRgba } from './color-picker';
+import {
+  COLOR_STRING_FORMAT,
+  ColorFormat,
+  EMPTY_COLOR,
+  ENABLE_ALPHA_SELECTOR,
+  formatColor,
+  parseColorString,
+  toHex,
+  toRgb
+} from './color-picker';
 import { tinycolor } from '@thebespokepixel/es-tinycolor';
 import { Instance } from 'tinycolor2';
 import { distinctUntilChanged, map } from 'rxjs/operators';
@@ -222,7 +231,7 @@ export class MccColorPickerSelectorComponent
   private _stripWidth: number = 20;
 
   get tmpSelectedColorAsRgba$(): Observable<string> {
-    return this._tmpSelectedColor.asObservable().pipe(map(toRgba), distinctUntilChanged());
+    return this._tmpSelectedColor.asObservable().pipe(map(toRgb), distinctUntilChanged());
   }
 
   constructor(
@@ -230,7 +239,8 @@ export class MccColorPickerSelectorComponent
     private renderer: Renderer2,
     private colorPickerService: MccColorPickerService,
     @Inject(EMPTY_COLOR) private emptyColor: string,
-    @Inject(ENABLE_ALPHA_SELECTOR) public showAlphaSelector: boolean
+    @Inject(ENABLE_ALPHA_SELECTOR) public showAlphaSelector: boolean,
+    @Inject(COLOR_STRING_FORMAT) public colorStringFormat: ColorFormat
   ) {
   }
 
@@ -247,12 +257,8 @@ export class MccColorPickerSelectorComponent
       if (this.noColor) {
         this.changeSelectedColor.emit(this.emptyColor);
         this.colorPickerService.changeSelectedColor(this.emptyColor);
-      } else if (this.showAlphaSelector) {
-        const clr = toRgba(color);
-        this.changeSelectedColor.emit(clr);
-        this.colorPickerService.changeSelectedColor(clr);
       } else {
-        const clr = toHex(color);
+        const clr = formatColor(color, this.colorStringFormat);
         this.changeSelectedColor.emit(clr);
         this.colorPickerService.changeSelectedColor(clr);
       }

@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { EMPTY_COLOR, ENABLE_ALPHA_SELECTOR } from '../../../../lib/color-picker';
+import { COLOR_STRING_FORMAT } from '../../../../lib/color-picker/color-picker';
 
 @Component({
   selector: 'app-color-picker-alpha',
@@ -9,7 +10,8 @@ import { EMPTY_COLOR, ENABLE_ALPHA_SELECTOR } from '../../../../lib/color-picker
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [
     { provide: ENABLE_ALPHA_SELECTOR, useValue: true},
-    { provide: EMPTY_COLOR, useValue: ''}
+    { provide: EMPTY_COLOR, useValue: ''},
+    { provide: COLOR_STRING_FORMAT, useValue: 'hsl'}
   ]
 })
 export class ColorPickerAlphaComponent implements OnInit {

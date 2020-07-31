@@ -14,6 +14,7 @@ import { MccColorPickerCollectionComponent } from './color-picker-collection.com
 import { MccColorPickerSelectorComponent } from './color-picker-selector.component';
 import { MccColorPickerService } from './color-picker.service';
 import {
+  COLOR_STRING_FORMAT,
   DISABLE_SELECTED_COLOR_ICON,
   EMPTY_COLOR,
   ENABLE_ALPHA_SELECTOR,
@@ -71,6 +72,7 @@ describe('MccColorPickerComponent', () => {
         { provide: SELECTED_COLOR_SVG_ICON, useValue: null },
         { provide: EMPTY_COLOR, useValue: 'none' },
         { provide: USED_COLORS, useValue: [] },
+        { provide: COLOR_STRING_FORMAT, useValue: 'hex' },
         { provide: ComponentFixtureAutoDetect, useValue: true },
       ]
     });

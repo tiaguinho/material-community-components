@@ -9,6 +9,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 
 import {
+  COLOR_STRING_FORMAT,
   ColorPickerConfig,
   DISABLE_SELECTED_COLOR_ICON,
   EMPTY_COLOR,
@@ -58,7 +59,8 @@ import { MccColorPickerOptionDirective } from './color-picker-option.directive';
     { provide: SELECTED_COLOR_ICON, useValue: 'done' },
     { provide: SELECTED_COLOR_SVG_ICON, useValue: null },
     { provide: EMPTY_COLOR, useValue: 'none' },
-    { provide: USED_COLORS, useValue: [] }
+    { provide: USED_COLORS, useValue: [] },
+    { provide: COLOR_STRING_FORMAT, useValue: 'hex' },
   ],
 })
 export class MccColorPickerModule {
@@ -74,7 +76,8 @@ export class MccColorPickerModule {
         { provide: SELECTED_COLOR_ICON, useValue: config.selected_icon || 'done' },
         { provide: SELECTED_COLOR_SVG_ICON, useValue: config.selected_svg_icon || null },
         { provide: EMPTY_COLOR, useValue: ('empty_color' in config ? config.empty_color : 'none') },
-        { provide: USED_COLORS, useValue: config.used_colors || [] }
+        { provide: USED_COLORS, useValue: config.used_colors || [] },
+        { provide: COLOR_STRING_FORMAT, useValue: config.color_string_format || 'hex' },
       ],
     };
   }

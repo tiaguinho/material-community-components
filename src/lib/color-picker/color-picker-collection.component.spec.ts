@@ -5,6 +5,7 @@ import { By } from '@angular/platform-browser';
 import { MccColorPickerCollectionComponent } from './color-picker-collection.component';
 import { MccColorPickerService } from './color-picker.service';
 import {
+  COLOR_STRING_FORMAT,
   DISABLE_SELECTED_COLOR_ICON,
   EMPTY_COLOR,
   ENABLE_ALPHA_SELECTOR,
@@ -32,7 +33,8 @@ describe('MccColorPickerCollectionComponent', () => {
         { provide: SELECTED_COLOR_ICON, useValue: 'done' },
         { provide: SELECTED_COLOR_SVG_ICON, useValue: null },
         { provide: EMPTY_COLOR, useValue: 'none' },
-        { provide: USED_COLORS, useValue: [] }
+        { provide: USED_COLORS, useValue: [] },
+        { provide: COLOR_STRING_FORMAT, useValue: 'hex'}
       ]
     });
 

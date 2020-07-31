@@ -45,17 +45,14 @@
   <mat-card-content>
     <mcc-color-picker [usedColorLabel]="'My Colors'" (selected)="selectedColor = $event">
 
-      <mcc-color-picker-collection [label]="'First Collection'" [colors]="colors">
-      </mcc-color-picker-collection>
-
     </mcc-color-picker>
   </mat-card-content>
 </mat-card>
 
-<!-- CONNECT COLOR PICKER WITH AN INPUT -->
+<!-- CONNECT COLOR PICKER WITH AN INPUT With RGB OUTPUT-->
 <mat-card>
   <mat-card-header>
-    <mat-card-title>Connect color picker with an input (with Alpha enabled)</mat-card-title>
+    <mat-card-title>Connect color picker with an input with RGB output (with Alpha enabled)</mat-card-title>
   </mat-card-header>
 
   <mat-card-content>

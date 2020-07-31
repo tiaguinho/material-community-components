@@ -3,7 +3,6 @@ import { tinycolor } from '@thebespokepixel/es-tinycolor';
 import { Instance } from 'tinycolor2';
 
 
-
 /** Contant used as empty color */
 export const EMPTY_COLOR = new InjectionToken<string>('empty-color');
 
@@ -22,6 +21,9 @@ export const DISABLE_SELECTED_COLOR_ICON = new InjectionToken<boolean>('disable-
 /** Enable alpha selector **/
 export const ENABLE_ALPHA_SELECTOR = new InjectionToken<boolean>('enable-alpha-selector');
 
+/** Format used for color strings **/
+export const COLOR_STRING_FORMAT = new InjectionToken<ColorFormat>('color-string-format');
+
 /**
  *
  */
@@ -32,6 +34,7 @@ export interface ColorPickerConfig {
   selected_svg_icon?: string;
   disable_selected_icon?: boolean;
   enable_alpha_selector?: boolean;
+  color_string_format?: string;
 }
 
 /**
@@ -48,6 +51,8 @@ export type MccColorPickerOption = string | MccColorPickerItem;
 
 export type MccColorPickerUsedColorPosition = 'top' | 'bottom';
 
+export type ColorFormat = 'hex' | 'rgb' | 'hsl' | 'hsv';
+
 /**
  * parses a string-representation of a color with tinycolor - returns "null" when not a valid string
  */
@@ -61,21 +66,65 @@ export function parseColorString(colorString: string): Instance | null {
 }
 
 /**
- * converts a tinycolor instance to format "#FFFFFF'
+ * converts a tinycolor instance to format "#FFFFFF' or "#FFFFFFFF" with alpha < 1
  */
 export function toHex(color: Instance): string {
   if (!color) {
     return null;
   }
-  return color.toString('hex6').toUpperCase();
+
+  if (color.getAlpha() < 1) {
+    return color.toHex8String().toUpperCase();
+  } else {
+    return color.toHexString().toUpperCase();
+  }
 }
 
 /**
- * converts a tinycolor instance to format "rgb(255,255,255)' when color has alpha value and "rgba(255,255,255,0.5)" when alpha < 1
+ * converts a tinycolor instance to format "rgb(255, 255, 255)" when color has no alpha value and "rgba(255, 255, 255, 0.5)" when alpha < 1
  */
-export function toRgba(color: Instance): string {
+export function toRgb(color: Instance): string {
   if (!color) {
     return null;
   }
   return color.toRgbString();
+}
+
+
+/**
+ * converts a tinycolor instance to format "hsl(360, 100%, 100%)" when color has no alpha value and "hsla(360, 100%, 100%, 0.5)" when alpha < 1
+ */
+export function toHsl(color: Instance): string {
+  if (!color) {
+    return null;
+  }
+  return color.toHslString();
+}
+
+
+/**
+ * converts a tinycolor instance to format "hsv(360, 100%, 100%)" when color has alpha value and "hsva(360, 100%, 100%, 0.5)" when alpha < 1
+ */
+export function toHsv(color: Instance): string {
+  if (!color) {
+    return null;
+  }
+  return color.toHsvString();
+}
+
+
+/**
+ * converts a tinycolor instance to certain format
+ */
+export function formatColor(color: Instance, format: ColorFormat): string {
+  switch (format) {
+    case 'hex':
+      return toHex(color);
+    case 'rgb':
+      return toRgb(color);
+    case 'hsl':
+      return toHsl(color);
+    case 'hsv':
+      return toHsv(color);
+  }
 }

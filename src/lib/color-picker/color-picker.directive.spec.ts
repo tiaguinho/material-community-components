@@ -15,6 +15,7 @@ import { MccColorPickerCollectionComponent } from './color-picker-collection.com
 import { MccColorPickerService } from './color-picker.service';
 import { MccColorPickerOriginDirective, MccConnectedColorPickerDirective } from './color-picker-origin.directive';
 import {
+  COLOR_STRING_FORMAT,
   DISABLE_SELECTED_COLOR_ICON,
   EMPTY_COLOR,
   ENABLE_ALPHA_SELECTOR,
@@ -83,7 +84,8 @@ describe('MccConnectedColorPickerdirective', () => {
         { provide: SELECTED_COLOR_ICON, useValue: 'done' },
         { provide: SELECTED_COLOR_SVG_ICON, useValue: null },
         { provide: EMPTY_COLOR, useValue: 'none'},
-        { provide: USED_COLORS, useValue: [] }
+        { provide: USED_COLORS, useValue: [] },
+        { provide: COLOR_STRING_FORMAT, useValue: 'hex' },
       ]
     });
 
