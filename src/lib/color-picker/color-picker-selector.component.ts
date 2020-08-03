@@ -240,7 +240,7 @@ export class MccColorPickerSelectorComponent
     private colorPickerService: MccColorPickerService,
     @Inject(EMPTY_COLOR) private emptyColor: string,
     @Inject(ENABLE_ALPHA_SELECTOR) public showAlphaSelector: boolean,
-    @Inject(COLOR_STRING_FORMAT) public colorStringFormat: ColorFormat
+    @Inject(COLOR_STRING_FORMAT) private colorStringFormat: ColorFormat
   ) {
   }
 

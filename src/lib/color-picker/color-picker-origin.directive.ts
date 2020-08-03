@@ -37,7 +37,7 @@ export class MccColorPickerOriginDirective implements ControlValueAccessor {
     private renderer: Renderer2,
     @Inject(EMPTY_COLOR) private emptyColor: string,
     @Inject(ENABLE_ALPHA_SELECTOR) public showAlphaSelector: boolean,
-    @Inject(COLOR_STRING_FORMAT) public colorStringFormat: ColorFormat
+    @Inject(COLOR_STRING_FORMAT) private colorStringFormat: ColorFormat
   ) {
     // listen changes onkeyup and update color picker
     renderer.listen(elementRef.nativeElement, 'keyup', (event: KeyboardEvent) => {
@@ -133,7 +133,7 @@ export class MccConnectedColorPickerDirective implements AfterViewInit, OnDestro
     private colorPicker: MccColorPickerComponent,
     public changeDetectorRef: ChangeDetectorRef,
     @Inject(EMPTY_COLOR) private emptyColor: string,
-    @Inject(COLOR_STRING_FORMAT) public colorStringFormat: ColorFormat
+    @Inject(COLOR_STRING_FORMAT) private colorStringFormat: ColorFormat
   ) {
   }
 

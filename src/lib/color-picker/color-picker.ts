@@ -21,7 +21,7 @@ export const DISABLE_SELECTED_COLOR_ICON = new InjectionToken<boolean>('disable-
 /** Enable alpha selector **/
 export const ENABLE_ALPHA_SELECTOR = new InjectionToken<boolean>('enable-alpha-selector');
 
-/** Format used for color strings **/
+/** Format used for color strings (can only be set on module-level, not on component-level) **/
 export const COLOR_STRING_FORMAT = new InjectionToken<ColorFormat>('color-string-format');
 
 /**
