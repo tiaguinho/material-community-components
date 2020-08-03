@@ -17,7 +17,7 @@ export class MccColorPickerService {
   constructor(
     @Inject(EMPTY_COLOR) private emptyColor: string,
     @Inject(USED_COLORS) private usedColors: string[],
-    @Inject(COLOR_STRING_FORMAT) public colorStringFormat: ColorFormat
+    @Inject(COLOR_STRING_FORMAT) private colorStringFormat: ColorFormat
   ) {
 
     // map color string from user to string based on configured format

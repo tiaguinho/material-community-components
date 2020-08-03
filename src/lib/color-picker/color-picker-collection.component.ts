@@ -137,7 +137,7 @@ export class MccColorPickerCollectionComponent implements OnInit, AfterContentCh
     @Inject(SELECTED_COLOR_ICON) private selectedColorIcon: string,
     @Inject(SELECTED_COLOR_SVG_ICON) public selectedColorSvgIcon: string,
     @Inject(DISABLE_SELECTED_COLOR_ICON) public disableSelectedIcon: boolean,
-    @Inject(COLOR_STRING_FORMAT) public colorStringFormat: ColorFormat
+    @Inject(COLOR_STRING_FORMAT) private colorStringFormat: ColorFormat
   ) {
   }
 

@@ -27,7 +27,7 @@
 
     <form [formGroup]="rgbaForm">
       <mat-form-field class="rgb-input" floatLabel="always" [ngClass]="textClass">
-        <input matInput type="number" placeholder="RGBA" formControlName="R"/>
+        <input matInput type="number" [placeholder]="showAlphaSelector ? 'RGBA' : 'RGB'" formControlName="R"/>
       </mat-form-field>
       <mat-form-field class="rgb-input" floatLabel="always" [ngClass]="textClass">
         <input matInput type="number" formControlName="G"/>
