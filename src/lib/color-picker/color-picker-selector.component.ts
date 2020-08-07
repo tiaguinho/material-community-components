@@ -776,8 +776,7 @@ export class MccColorPickerSelectorComponent
    */
   private setXYSelector(offsets: Coordinates) {
     if (this._bp) {
-      this.renderer.setStyle(this._bp.nativeElement, 'top', `${offsets.y - 5}px`);
-      this.renderer.setStyle(this._bp.nativeElement, 'left', `${offsets.x - 6}px`);
+      this.renderer.setStyle(this._bp.nativeElement, 'transform', `translate(${offsets.x - 6}px, ${offsets.y - 6}px)`);
       this._latestBlockCoordinates = offsets;
     }
   }
