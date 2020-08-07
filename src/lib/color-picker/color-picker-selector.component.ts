@@ -29,7 +29,7 @@ import {
 import { tinycolor } from '@thebespokepixel/es-tinycolor';
 import { Instance } from 'tinycolor2';
 import { distinctUntilChanged, map } from 'rxjs/operators';
-import { MccColorPickerService } from './color-picker.service';
+import { MccColorPickerCollectionService } from './color-picker-collection.service';
 
 
 interface Coordinates {
@@ -237,7 +237,7 @@ export class MccColorPickerSelectorComponent
   constructor(
     private formBuilder: FormBuilder,
     private renderer: Renderer2,
-    private colorPickerService: MccColorPickerService,
+    private colorPickerCollectionService: MccColorPickerCollectionService,
     @Inject(EMPTY_COLOR) private emptyColor: string,
     @Inject(ENABLE_ALPHA_SELECTOR) public showAlphaSelector: boolean,
     @Inject(COLOR_STRING_FORMAT) private colorStringFormat: ColorFormat
@@ -256,11 +256,11 @@ export class MccColorPickerSelectorComponent
       // right now using hex for non alpha and rgba for alpha colors
       if (this.noColor) {
         this.changeSelectedColor.emit(this.emptyColor);
-        this.colorPickerService.changeSelectedColor(this.emptyColor);
+        this.colorPickerCollectionService.changeSelectedColor(this.emptyColor);
       } else {
         const clr = formatColor(color, this.colorStringFormat);
         this.changeSelectedColor.emit(clr);
-        this.colorPickerService.changeSelectedColor(clr);
+        this.colorPickerCollectionService.changeSelectedColor(clr);
       }
     });
 

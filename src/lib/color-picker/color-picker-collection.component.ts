@@ -22,7 +22,7 @@ import {
   SELECTED_COLOR_SVG_ICON
 } from './color-picker';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
-import { MccColorPickerService } from './color-picker.service';
+import { MccColorPickerCollectionService } from './color-picker-collection.service';
 
 @Component({
   selector: 'mcc-color-picker-collection',
@@ -104,8 +104,9 @@ export class MccColorPickerCollectionComponent implements OnInit, AfterContentCh
   @Output() changeColor: EventEmitter<string> = new EventEmitter<string>();
 
   /**
-   * Return selected color
+   * Current selected color
    */
+  @Input()
   get selectedColor(): string {
     return this._selectedColor;
   }
@@ -132,7 +133,7 @@ export class MccColorPickerCollectionComponent implements OnInit, AfterContentCh
 
   constructor(
     private changeDetectorRef: ChangeDetectorRef,
-    private colorPickerService: MccColorPickerService,
+    private colorPickerCollectionService: MccColorPickerCollectionService,
     @Inject(EMPTY_COLOR) public emptyColor: string,
     @Inject(SELECTED_COLOR_ICON) private selectedColorIcon: string,
     @Inject(SELECTED_COLOR_SVG_ICON) public selectedColorSvgIcon: string,
@@ -143,7 +144,7 @@ export class MccColorPickerCollectionComponent implements OnInit, AfterContentCh
 
   ngOnInit() {
     // get current selected color
-    this.colorPickerService.getSelectedColor().subscribe(color => {
+    this.colorPickerCollectionService.getSelectedColor().subscribe(color => {
       this._selectedColor = color;
       this.changeDetectorRef.detectChanges();
     });
@@ -190,7 +191,7 @@ export class MccColorPickerCollectionComponent implements OnInit, AfterContentCh
   setColor(option: MccColorPickerOption) {
     const color = typeof option === 'string' ? option : option.value;
 
-    this.colorPickerService.changeSelectedColor(color);
+    this.colorPickerCollectionService.changeSelectedColor(color);
     this.changeColor.emit(color);
   }
 
