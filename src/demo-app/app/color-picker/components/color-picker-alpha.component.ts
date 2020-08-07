@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { EMPTY_COLOR, ENABLE_ALPHA_SELECTOR } from '../../../../lib/color-picker/public_api';
+import { COLOR_STRING_FORMAT, EMPTY_COLOR, ENABLE_ALPHA_SELECTOR } from '../../../../lib/color-picker/public_api';
 
 @Component({
   selector: 'app-color-picker-alpha',
@@ -8,8 +8,9 @@ import { EMPTY_COLOR, ENABLE_ALPHA_SELECTOR } from '../../../../lib/color-picker
   preserveWhitespaces: false,
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [
-    { provide: ENABLE_ALPHA_SELECTOR, useValue: true},
-    { provide: EMPTY_COLOR, useValue: ''}
+    { provide: ENABLE_ALPHA_SELECTOR, useValue: true },
+    { provide: EMPTY_COLOR, useValue: '' },
+    { provide: COLOR_STRING_FORMAT, useValue: 'rgb' }
   ]
 })
 export class ColorPickerAlphaComponent implements OnInit {
@@ -71,16 +72,14 @@ export class ColorPickerAlphaComponent implements OnInit {
     '#4DB380',
     '#FF4D4D',
     '#99E6E6',
-    '#6666FF',
+    '#6666FF'
   ];
 
-  constructor(
-    private formBuilder: FormBuilder
-  ) {}
+  constructor(private formBuilder: FormBuilder) {}
 
   ngOnInit() {
     this.form = this.formBuilder.group({
-      color: ['#000000', Validators.required],
+      color: ['#000000', Validators.required]
     });
   }
 

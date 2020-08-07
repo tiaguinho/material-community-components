@@ -7,7 +7,7 @@ import {
   Inject,
   Input,
   OnInit,
-  Output,
+  Output
 } from '@angular/core';
 import {
   COLOR_STRING_FORMAT,
@@ -28,7 +28,7 @@ import { formatColor, parseColorString } from './color-picker.utils';
   templateUrl: './color-picker-collection.component.html',
   styleUrls: ['./color-picker-collection.component.scss'],
   preserveWhitespaces: false,
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MccColorPickerCollectionComponent implements OnInit, AfterContentChecked {
   /**
@@ -75,9 +75,9 @@ export class MccColorPickerCollectionComponent implements OnInit, AfterContentCh
           colors.push(formatColor(clr, this.colorStringFormat));
         }
       } else {
-        const clr = parseColorString(value.value);
+        const clr = value ? parseColorString(value.value) : null;
         if (clr) {
-          colors.push({value: formatColor(clr, this.colorStringFormat), text: value.text});
+          colors.push({ value: formatColor(clr, this.colorStringFormat), text: value.text });
         }
       }
     });
@@ -138,8 +138,7 @@ export class MccColorPickerCollectionComponent implements OnInit, AfterContentCh
     @Inject(SELECTED_COLOR_SVG_ICON) public selectedColorSvgIcon: string,
     @Inject(DISABLE_SELECTED_COLOR_ICON) public disableSelectedIcon: boolean,
     @Inject(COLOR_STRING_FORMAT) private colorStringFormat: ColorFormat
-  ) {
-  }
+  ) {}
 
   ngOnInit() {
     // get current selected color
@@ -158,9 +157,7 @@ export class MccColorPickerCollectionComponent implements OnInit, AfterContentCh
 
   ngAfterContentChecked() {
     if (this._colors && this._colors.length !== this.size) {
-      this._colors = this._colors
-        .slice(0, this.size)
-        .concat(new Array(this._getCollectionDiffSize()));
+      this._colors = this._colors.slice(0, this.size).concat(new Array(this._getCollectionDiffSize()));
       this.changeDetectorRef.markForCheck();
     }
   }

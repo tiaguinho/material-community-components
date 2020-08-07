@@ -12,10 +12,10 @@ import {
   OnDestroy,
   OnInit,
   Output,
-  QueryList,
+  QueryList
 } from '@angular/core';
 import { BehaviorSubject, Observable, Subscription } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { filter, map } from 'rxjs/operators';
 import {
   COLOR_STRING_FORMAT,
   ColorFormat,
@@ -92,7 +92,6 @@ export class MccColorPickerComponent implements AfterContentInit, OnInit, OnDest
   }
 
   private _reverseUsedColor: boolean = false;
-
 
   /**
    * Set position of used colors collection
@@ -184,7 +183,6 @@ export class MccColorPickerComponent implements AfterContentInit, OnInit, OnDest
     } else {
       this._selectedColor = this.emptyColor;
     }
-
   }
 
   private _selectedColor: string;
@@ -307,9 +305,17 @@ export class MccColorPickerComponent implements AfterContentInit, OnInit, OnDest
    * Observable with all the colors used by the user
    */
   get usedColors$(): Observable<string[]> {
-    return this.colorPickerService
-      .getColors()
-      .pipe(map(colors => (!this._reverseUsedColor ? colors : [...colors].reverse())));
+    return this.colorPickerService.getUsedColors().pipe(
+      map(colors =>
+        colors.map(color => {
+          const clr = parseColorString(color);
+          if (this.showAlphaSelector || clr.getAlpha() === 1) {
+            return formatColor(clr, this.colorStringFormat);
+          }
+        })
+      ),
+      map(colors => (!this._reverseUsedColor ? colors : [...colors].reverse()))
+    );
   }
 
   /**
@@ -325,8 +331,7 @@ export class MccColorPickerComponent implements AfterContentInit, OnInit, OnDest
     @Inject(EMPTY_COLOR) public emptyColor: string,
     @Inject(ENABLE_ALPHA_SELECTOR) public showAlphaSelector: boolean,
     @Inject(COLOR_STRING_FORMAT) public colorStringFormat: ColorFormat
-  ) {
-  }
+  ) {}
 
   ngOnInit() {
     if (!this._selectedColor) {

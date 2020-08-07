@@ -30,8 +30,7 @@ import { MccColorPickerOptionDirective } from './color-picker-option.directive';
   selector: 'test-component',
   template: `
     <form novalidate [formGroup]="form">
-      <mcc-color-picker #colorPicker mccConnectedColorPicker [mccConnectedColorPickerOrigin]="trigger">
-      </mcc-color-picker>
+      <mcc-color-picker #colorPicker mccConnectedColorPicker [mccConnectedColorPickerOrigin]="trigger"> </mcc-color-picker>
 
       <input mccColorPickerOrigin #trigger="mccColorPickerOrigin" formControlName="color" />
     </form>
@@ -39,7 +38,7 @@ import { MccColorPickerOptionDirective } from './color-picker-option.directive';
 })
 class TestComponent implements OnInit {
   form: FormGroup;
-  @ViewChild('colorPicker', {static: true}) colorPicker: MccColorPickerComponent;
+  @ViewChild('colorPicker', { static: true }) colorPicker: MccColorPickerComponent;
 
   constructor(private fb: FormBuilder) {}
 
@@ -48,7 +47,6 @@ class TestComponent implements OnInit {
       color: []
     });
   }
-
 }
 
 describe('MccConnectedColorPickerdirective', () => {
@@ -83,9 +81,9 @@ describe('MccConnectedColorPickerdirective', () => {
         { provide: DISABLE_SELECTED_COLOR_ICON, useValue: false },
         { provide: SELECTED_COLOR_ICON, useValue: 'done' },
         { provide: SELECTED_COLOR_SVG_ICON, useValue: null },
-        { provide: EMPTY_COLOR, useValue: 'none'},
+        { provide: EMPTY_COLOR, useValue: 'none' },
         { provide: USED_COLORS, useValue: [] },
-        { provide: COLOR_STRING_FORMAT, useValue: 'hex' },
+        { provide: COLOR_STRING_FORMAT, useValue: 'hex' }
       ]
     });
 
@@ -130,5 +128,4 @@ describe('MccConnectedColorPickerdirective', () => {
     comp.colorPicker.confirmSelectedColor();
     expect(comp.form.controls['color'].value).toBe('#FFFFFF');
   });
-
 });
