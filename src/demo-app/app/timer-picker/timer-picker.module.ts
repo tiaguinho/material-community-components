@@ -8,11 +8,11 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatTabsModule } from '@angular/material/tabs';
 import { RouterModule } from '@angular/router';
-import { MccTimerPickerModule } from '../../../lib/timer-picker';
 import { TimerPickerApiComponent } from './components/timer-picker-api.component';
 import { TimerPickerExamplesComponent } from './components/timer-picker-examples.component';
 import { TimerPickerComponent } from './timer-picker.component';
 import { routes } from './timer-picker.router';
+import { MccTimerPickerModule } from '../../../lib/timer-picker/public_api';
 
 
 
