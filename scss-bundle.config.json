@@ -1,4 +1,6 @@
 {
-  "entry": "./src/lib/_theming.scss",
-  "dest": "./src/lib/dist/_theming.scss"
+  "bundlerOptions": {
+    "entryFile": "./src/lib/_theming.scss",
+    "outFile": "./src/lib/dist/_theming.scss"
+  }
 }
