@@ -27,6 +27,7 @@ import {
 } from './color-picker';
 import { MccColorPickerCollectionComponent } from './color-picker-collection.component';
 import { MccColorPickerService } from './color-picker.service';
+import { MccColorPickerCollectionService } from './color-picker-collection.service';
 
 @Component({
   selector: 'mcc-color-picker',
@@ -34,6 +35,7 @@ import { MccColorPickerService } from './color-picker.service';
   styleUrls: ['./color-picker.component.scss'],
   preserveWhitespaces: false,
   changeDetection: ChangeDetectionStrategy.OnPush,
+  providers: [MccColorPickerCollectionService]
 })
 export class MccColorPickerComponent implements AfterContentInit, OnInit, OnDestroy {
   /**
@@ -320,6 +322,7 @@ export class MccColorPickerComponent implements AfterContentInit, OnInit, OnDest
     private elementRef: ElementRef,
     private changeDetectorRef: ChangeDetectorRef,
     private colorPickerService: MccColorPickerService,
+    private colorPickerCollectionService: MccColorPickerCollectionService,
     @Inject(EMPTY_COLOR) public emptyColor: string,
     @Inject(ENABLE_ALPHA_SELECTOR) public showAlphaSelector: boolean,
     @Inject(COLOR_STRING_FORMAT) public colorStringFormat: ColorFormat
@@ -349,7 +352,7 @@ export class MccColorPickerComponent implements AfterContentInit, OnInit, OnDest
     }
 
     // change selected color on service
-    this.selected.subscribe(color => this.colorPickerService.changeSelectedColor(color));
+    this.selected.subscribe(color => this.colorPickerCollectionService.changeSelectedColor(color));
   }
 
   /**
@@ -390,7 +393,7 @@ export class MccColorPickerComponent implements AfterContentInit, OnInit, OnDest
         this.colorPickerService.addColor(this._selectedColor);
       }
 
-      this.colorPickerService.changeSelectedColor(this._selectedColor);
+      this.colorPickerCollectionService.changeSelectedColor(this._selectedColor);
     }
   }
 
