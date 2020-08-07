@@ -429,6 +429,7 @@ export class MccColorPickerComponent implements AfterContentInit, OnInit, OnDest
    */
   cancelSelection() {
     this._tmpSelectedColor.next(this._selectedColor);
+    this.colorPickerCollectionService.changeSelectedColor(this.selectedColor);
     this.canceled.emit();
     this.toggle();
   }

@@ -1,6 +1,6 @@
 import { Inject, Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { COLOR_STRING_FORMAT, ColorFormat} from './color-picker.types';
+import { COLOR_STRING_FORMAT, ColorFormat, EMPTY_COLOR } from './color-picker.types';
 import { formatColor, parseColorString } from './color-picker.utils';
 
 
@@ -13,13 +13,19 @@ export class MccColorPickerCollectionService {
   private _selectedColor: BehaviorSubject<string> = new BehaviorSubject<string>('');
 
 
-  constructor(@Inject(COLOR_STRING_FORMAT) private colorStringFormat: ColorFormat) {
-  }
+  constructor(
+    @Inject(EMPTY_COLOR) private emptyColor: string,
+    @Inject(COLOR_STRING_FORMAT) private colorStringFormat: ColorFormat
+  ) {}
 
   /**
    * Change internal selected color
    */
   changeSelectedColor(colorString: string) {
+    if (colorString === this.emptyColor) {
+      this._selectedColor.next(colorString);
+    }
+
     const color = parseColorString(colorString);
 
     if (!colorString || !color) {
