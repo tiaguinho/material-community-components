@@ -1,6 +1,7 @@
 import { Inject, Injectable } from '@angular/core';
-import { COLOR_STRING_FORMAT, ColorFormat, EMPTY_COLOR, formatColor, parseColorString, USED_COLORS } from './color-picker';
+import { COLOR_STRING_FORMAT, ColorFormat, EMPTY_COLOR, USED_COLORS } from './color-picker.types';
 import { BehaviorSubject, Observable } from 'rxjs';
+import { formatColor, parseColorString } from './color-picker.utils';
 
 @Injectable()
 export class MccColorPickerService {

@@ -1,8 +1,9 @@
 import { AfterViewInit, ChangeDetectorRef, Directive, ElementRef, forwardRef, Inject, Input, OnDestroy, Renderer2, } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { MccColorPickerComponent } from './color-picker.component';
-import { COLOR_STRING_FORMAT, ColorFormat, EMPTY_COLOR, ENABLE_ALPHA_SELECTOR, formatColor, parseColorString } from './color-picker';
+import { COLOR_STRING_FORMAT, ColorFormat, EMPTY_COLOR, ENABLE_ALPHA_SELECTOR} from './color-picker.types';
 import { BehaviorSubject, Subscription } from 'rxjs';
+import { formatColor, parseColorString } from './color-picker.utils';
 
 /**
  * Directive applied to an element to make it usable as an origin for an ColorPicker.

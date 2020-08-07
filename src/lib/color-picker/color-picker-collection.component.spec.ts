@@ -12,7 +12,7 @@ import {
   SELECTED_COLOR_ICON,
   SELECTED_COLOR_SVG_ICON,
   USED_COLORS
-} from './color-picker';
+} from './color-picker.types';
 import { MccColorPickerOptionDirective } from './color-picker-option.directive';
 import { MccColorPickerCollectionService } from './color-picker-collection.service';
 
