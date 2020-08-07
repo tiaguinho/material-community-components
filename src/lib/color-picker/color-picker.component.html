@@ -1,9 +1,14 @@
 <!-- color picker overlay -->
 <ng-container *ngIf="overlay">
-  <button type="button" class="btn-picker" cdkOverlayOrigin #trigger="cdkOverlayOrigin"
-          [ngClass]="{ 'empty': selectedColor === emptyColor, 'disabled': disabled }"
-          [style.backgroundColor]="selectedColor" (click)="toggle()">
-    <div class="transparent" *ngIf="selectedColor === emptyColor"></div>
+  <button
+    type="button"
+    class="btn-picker"
+    cdkOverlayOrigin
+    #trigger="cdkOverlayOrigin"
+    [ngClass]="{ empty: selectedColor === emptyColor, disabled: disabled }"
+    [style.backgroundColor]="selectedColor"
+    (click)="toggle()"
+  >
   </button>
 
   <ng-template cdkConnectedOverlay cdkConnectedOverlayHasBackdrop
