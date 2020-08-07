@@ -36,12 +36,12 @@ describe('MccColorPickerComponent', () => {
   // convert rgb to hex
   const toHex = color => {
     const parts = color.match(/^rgb\((\d+),\s*(\d+),\s*(\d+)\)$/);
-    delete(parts[0]);
+    delete parts[0];
     for (let i = 1; i <= 3; ++i) {
-        parts[i] = parseInt(parts[i]).toString(16);
-        if (parts[i].length === 1) {
-          parts[i] = '0' + parts[i];
-        }
+      parts[i] = parseInt(parts[i]).toString(16);
+      if (parts[i].length === 1) {
+        parts[i] = '0' + parts[i];
+      }
     }
     return '#' + parts.join('').toUpperCase();
   };
@@ -73,7 +73,7 @@ describe('MccColorPickerComponent', () => {
         { provide: EMPTY_COLOR, useValue: 'none' },
         { provide: USED_COLORS, useValue: [] },
         { provide: COLOR_STRING_FORMAT, useValue: 'hex' },
-        { provide: ComponentFixtureAutoDetect, useValue: true },
+        { provide: ComponentFixtureAutoDetect, useValue: true }
       ]
     });
 
@@ -92,7 +92,9 @@ describe('MccColorPickerComponent', () => {
     comp.isOpen = true;
   });
 
-  afterEach(() => { fixture.destroy(); });
+  afterEach(() => {
+    fixture.destroy();
+  });
 
   it('should open color-picker', () => {
     const button = fixture.debugElement.query(By.css('.btn-picker'));
@@ -116,7 +118,7 @@ describe('MccColorPickerComponent', () => {
     comp.usedColorStart = colors;
     fixture.detectChanges();
 
-    service.getColors().subscribe(resp => {
+    service.getUsedColors().subscribe(resp => {
       expect(resp.length).toBe(colors.length);
       done();
     });
@@ -126,7 +128,7 @@ describe('MccColorPickerComponent', () => {
     comp.usedColorStart = [];
     fixture.detectChanges();
 
-    service.getColors().subscribe(resp => {
+    service.getUsedColors().subscribe(resp => {
       expect(resp.length).toBe(0);
       done();
     });
@@ -297,5 +299,4 @@ describe('MccColorPickerComponent', () => {
 
     expect(collections.length).toBe(0);
   });
-
 });

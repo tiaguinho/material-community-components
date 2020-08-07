@@ -6,7 +6,7 @@ import { MccColorPickerItem, MccColorPickerService } from '../../../../lib/color
   selector: 'app-color-picker-examples',
   templateUrl: './color-picker-examples.component.html',
   preserveWhitespaces: false,
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ColorPickerExamplesComponent implements OnInit {
   selectedColor: string;
@@ -30,7 +30,7 @@ export class ColorPickerExamplesComponent implements OnInit {
     '#99E6E6',
     '#6666FF',
     '#000zzz',
-    'zzzzzz',
+    'zzzzzz'
   ];
 
   colors: string[] = [
@@ -87,28 +87,25 @@ export class ColorPickerExamplesComponent implements OnInit {
     '#4DB380',
     '#FF4D4D',
     '#99E6E6',
-    '#6666FF',
+    '#6666FF'
   ];
 
   items: MccColorPickerItem[] = [
     { text: 'Black', value: '#000000' },
     { text: 'White', value: '#FFFFFF' },
-    { text: 'Gray', value: '#CCCCCC' },
+    { text: 'Gray', value: '#CCCCCC' }
   ];
 
-  constructor(
-    private formBuilder: FormBuilder,
-    private mccColorPickerService: MccColorPickerService
-  ) {}
+  constructor(private formBuilder: FormBuilder, private mccColorPickerService: MccColorPickerService) {}
 
   ngOnInit() {
     this.form = this.formBuilder.group({
-      color: ['#000000', Validators.required],
+      color: ['#000000', Validators.required]
     });
   }
 
   reset(): void {
-    this.mccColorPickerService.resetUseColors();
+    this.mccColorPickerService.resetUsedColors();
   }
 
   onSubmit({ value, valid }): void {

@@ -1,7 +1,7 @@
 import { Inject, Injectable } from '@angular/core';
-import { COLOR_STRING_FORMAT, ColorFormat, EMPTY_COLOR, USED_COLORS } from './color-picker.types';
+import { EMPTY_COLOR, USED_COLORS } from './color-picker.types';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { formatColor, parseColorString } from './color-picker.utils';
+import { parseColorString } from './color-picker.utils';
 
 @Injectable()
 export class MccColorPickerService {
@@ -10,18 +10,13 @@ export class MccColorPickerService {
    */
   private _usedColors: BehaviorSubject<string[]> = new BehaviorSubject<string[]>([]);
 
-  constructor(
-    @Inject(EMPTY_COLOR) private emptyColor: string,
-    @Inject(USED_COLORS) private usedColors: string[],
-    @Inject(COLOR_STRING_FORMAT) private colorStringFormat: ColorFormat
-  ) {
-
+  constructor(@Inject(EMPTY_COLOR) private emptyColor: string, @Inject(USED_COLORS) private usedColors: string[]) {
     // map color string from user to string based on configured format
     const colors: string[] = [];
     usedColors.forEach(value => {
       const clr = parseColorString(value);
       if (clr) {
-        colors.push(formatColor(clr, this.colorStringFormat));
+        colors.push(value);
       }
     });
     this._usedColors.next(colors);
@@ -37,11 +32,9 @@ export class MccColorPickerService {
       return;
     }
 
-    const clrString = formatColor(color, this.colorStringFormat);
-
     const usedColors = this._usedColors.getValue();
-    if (!usedColors.includes(clrString)) {
-      usedColors.push(clrString);
+    if (!usedColors.includes(colorString)) {
+      usedColors.push(colorString);
       this._usedColors.next(usedColors);
     }
   }
@@ -49,14 +42,14 @@ export class MccColorPickerService {
   /**
    * Return Observable of colors
    */
-  getColors(): Observable<string[]> {
+  getUsedColors(): Observable<string[]> {
     return this._usedColors.asObservable();
   }
 
   /**
    * Reset the array of used colors
    */
-  resetUseColors(): void {
+  resetUsedColors(): void {
     this._usedColors.next([]);
   }
 }
