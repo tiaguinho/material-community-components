@@ -360,6 +360,7 @@ export class MccColorPickerSelectorComponent
     }));
 
     this._mouseDownListeners.push(this.renderer.listen(this._block.nativeElement, 'mousedown', (e: MouseEvent) => {
+      e.preventDefault();
       this._isPressed = true;
       this._selectionTargetPosition = this._block.nativeElement.getBoundingClientRect();
       this._listenToMouseForBlock();
@@ -383,6 +384,7 @@ export class MccColorPickerSelectorComponent
 
     this._mouseDownListeners.push(
       this.renderer.listen(this._hueSelector.nativeElement, 'mousedown', (e: MouseEvent) => {
+        e.preventDefault();
         this._isPressed = true;
         this._selectionTargetPosition = this._hueSelector.nativeElement.getBoundingClientRect();
         this._listenToMouseForHue();
@@ -406,6 +408,7 @@ export class MccColorPickerSelectorComponent
 
       this._mouseDownListeners.push(
         this.renderer.listen(this._alpha.nativeElement, 'mousedown', (e: MouseEvent) => {
+          e.preventDefault();
           this._isPressed = true;
           this._selectionTargetPosition = this._alpha.nativeElement.getBoundingClientRect();
           this._listenToMouseForAlpha();
@@ -540,6 +543,7 @@ export class MccColorPickerSelectorComponent
 
     this._temporaryMouseListeners.push(
       this.renderer.listen(document, 'mouseup', (e: MouseEvent) => {
+        e.preventDefault();
         this._isPressed = false;
         this._temporaryMouseListeners.forEach(listener => listener());
       })
