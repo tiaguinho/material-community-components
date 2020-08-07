@@ -1,5 +1,6 @@
 import { AfterViewInit, Directive, ElementRef, Inject, Input, Renderer2 } from '@angular/core';
-import { EMPTY_COLOR, MccColorPickerOption, parseColorString } from './color-picker';
+import { EMPTY_COLOR, MccColorPickerOption} from './color-picker.types';
+import { parseColorString } from './color-picker.utils';
 
 /**
  * This directive change the background of the button

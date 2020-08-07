@@ -14,15 +14,14 @@ import {
   ColorFormat,
   DISABLE_SELECTED_COLOR_ICON,
   EMPTY_COLOR,
-  formatColor,
   MccColorPickerItem,
   MccColorPickerOption,
-  parseColorString,
   SELECTED_COLOR_ICON,
   SELECTED_COLOR_SVG_ICON
-} from './color-picker';
+} from './color-picker.types';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { MccColorPickerCollectionService } from './color-picker-collection.service';
+import { formatColor, parseColorString } from './color-picker.utils';
 
 @Component({
   selector: 'mcc-color-picker-collection',

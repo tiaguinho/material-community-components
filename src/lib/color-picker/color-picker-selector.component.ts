@@ -21,15 +21,12 @@ import {
   COLOR_STRING_FORMAT,
   ColorFormat,
   EMPTY_COLOR,
-  ENABLE_ALPHA_SELECTOR,
-  formatColor,
-  parseColorString,
-  toHex,
-  toRgb
-} from './color-picker';
+  ENABLE_ALPHA_SELECTOR
+} from './color-picker.types';
 import { TinyColor } from '@thebespokepixel/es-tinycolor';
 import { distinctUntilChanged, map } from 'rxjs/operators';
 import { MccColorPickerCollectionService } from './color-picker-collection.service';
+import { formatColor, parseColorString, toHex, toRgb } from './color-picker.utils';
 
 
 interface Coordinates {

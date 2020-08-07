@@ -1,6 +1,7 @@
 import { Inject, Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { COLOR_STRING_FORMAT, ColorFormat, formatColor, parseColorString } from './color-picker';
+import { COLOR_STRING_FORMAT, ColorFormat} from './color-picker.types';
+import { formatColor, parseColorString } from './color-picker.utils';
 
 
 @Injectable()

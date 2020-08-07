@@ -21,13 +21,12 @@ import {
   ColorFormat,
   EMPTY_COLOR,
   ENABLE_ALPHA_SELECTOR,
-  formatColor,
-  MccColorPickerUsedColorPosition,
-  parseColorString
-} from './color-picker';
+  MccColorPickerUsedColorPosition
+} from './color-picker.types';
 import { MccColorPickerCollectionComponent } from './color-picker-collection.component';
 import { MccColorPickerService } from './color-picker.service';
 import { MccColorPickerCollectionService } from './color-picker-collection.service';
+import { formatColor, parseColorString } from './color-picker.utils';
 
 @Component({
   selector: 'mcc-color-picker',

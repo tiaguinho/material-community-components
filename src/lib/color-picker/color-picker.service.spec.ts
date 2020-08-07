@@ -8,7 +8,7 @@ import {
   SELECTED_COLOR_ICON,
   SELECTED_COLOR_SVG_ICON,
   USED_COLORS
-} from './color-picker';
+} from './color-picker.types';
 
 describe('MccColorPickerService', () => {
   const color = '#FFFFFF';
