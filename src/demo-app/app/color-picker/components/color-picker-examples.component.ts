@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MccColorPickerItem, MccColorPickerService } from '../../../../lib/color-picker';
+import { MccColorPickerItem, MccColorPickerService } from '../../../../lib/color-picker/public_api';
 
 @Component({
   selector: 'app-color-picker-examples',

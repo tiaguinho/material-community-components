@@ -1,6 +1,6 @@
 import { Component, ChangeDetectorRef, OnInit, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
-import { MccScrollspyService, MccScrollspyItemDirective } from '../../../../lib/scrollspy';
 import { Subscription } from 'rxjs';
+import { MccScrollspyItemDirective, MccScrollspyService } from '../../../../lib/scrollspy/public_api';
 
 @Component({
   selector: 'app-scrollspy-examples',
