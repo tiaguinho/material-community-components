@@ -11,12 +11,9 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { RouterModule } from '@angular/router';
 import { ColorPickerComponent } from './color-picker.component';
 import { routes } from './color-picker.router';
-import { ColorPickerAlphaComponent } from './components/color-picker-alpha.component';
 import { ColorPickerApiComponent } from './components/color-picker-api.component';
 import { ColorPickerExamplesComponent } from './components/color-picker-examples.component';
 import { MccColorPickerModule } from '../../../lib/color-picker/public_api';
-
-
 
 @NgModule({
   imports: [
@@ -32,8 +29,8 @@ import { MccColorPickerModule } from '../../../lib/color-picker/public_api';
     MatTabsModule,
     MccColorPickerModule.forRoot({
       used_colors: ['#000000', '#123456', '#777666']
-    }),
+    })
   ],
-  declarations: [ColorPickerAlphaComponent, ColorPickerComponent, ColorPickerApiComponent, ColorPickerExamplesComponent],
+  declarations: [ColorPickerComponent, ColorPickerApiComponent, ColorPickerExamplesComponent]
 })
-export class ColorPickerModule { }
+export class ColorPickerModule {}

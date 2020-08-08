@@ -1,26 +1,41 @@
 <div class="mcc-color-picker-collection" role="listbox" aria-label="Select a color">
   <h3>{{ label }}</h3>
 
-  <button mat-mini-fab *ngIf="transparent" class="mcc-color-picker-remove-color mat-elevation-z0" role="option"
-          aria-label="transparent"
-          (click)="setTransparent()">
+  <button
+    mat-mini-fab
+    *ngIf="transparent"
+    class="mcc-color-picker-remove-color mat-elevation-z0"
+    role="option"
+    aria-label="transparent"
+    (click)="setTransparent()"
+  >
     <div class="mcc-color-picker-transparent"></div>
   </button>
 
-  <button *ngFor="let color of colors" mat-mini-fab class="mat-elevation-z0" role="option"
-          [disabled]="!color || color === emptyColor"
-          [mccColorPickerOption]="color" (click)="setColor(color)">
-
+  <button
+    *ngFor="let color of colors"
+    mat-mini-fab
+    class="mat-elevation-z0"
+    role="option"
+    [disabled]="!color || color === emptyColor"
+    [mccColorPickerOption]="color"
+    (click)="setColor(color)"
+  >
     <ng-container *ngIf="!disableSelectedIcon">
       <mat-icon *ngIf="!isColorSelected(color); else selectionIcon"></mat-icon>
       <ng-template #selectionIcon>
-        <mat-icon *ngIf="selectedSvgIcon; else selectionFontIcon" class="mat-svg-icon" [svgIcon]="selectedSvgIcon"
-                  [ngClass]="getIconColorClassForColor(color)"></mat-icon>
+        <mat-icon
+          *ngIf="selectedSvgIcon; else selectionFontIcon"
+          class="mat-svg-icon"
+          [svgIcon]="selectedSvgIcon"
+          [ngClass]="getIconColorClassForColor(color)"
+        ></mat-icon>
         <ng-template #selectionFontIcon>
-          <mat-icon *ngIf="!selectedSvgIcon" class="mat-font-icon" [ngClass]="getIconColorClassForColor(color)">{{ selectedIcon }}</mat-icon>
+          <mat-icon *ngIf="!selectedSvgIcon" class="mat-font-icon" [ngClass]="getIconColorClassForColor(color)">{{
+            selectedIcon
+          }}</mat-icon>
         </ng-template>
       </ng-template>
     </ng-container>
-
   </button>
 </div>

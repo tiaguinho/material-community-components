@@ -10,8 +10,6 @@ import {
   Output
 } from '@angular/core';
 import {
-  COLOR_STRING_FORMAT,
-  ColorFormat,
   DISABLE_SELECTED_COLOR_ICON,
   EMPTY_COLOR,
   MccColorPickerItem,
@@ -72,12 +70,12 @@ export class MccColorPickerCollectionComponent implements OnInit, AfterContentCh
       if (typeof value === 'string') {
         const clr = parseColorString(value);
         if (clr) {
-          colors.push(formatColor(clr, this.colorStringFormat));
+          colors.push(formatColor(clr, this.colorPickerCollectionService.format));
         }
       } else {
         const clr = value ? parseColorString(value.value) : null;
         if (clr) {
-          colors.push({ value: formatColor(clr, this.colorStringFormat), text: value.text });
+          colors.push({ value: formatColor(clr, this.colorPickerCollectionService.format), text: value.text });
         }
       }
     });
@@ -136,8 +134,7 @@ export class MccColorPickerCollectionComponent implements OnInit, AfterContentCh
     @Inject(EMPTY_COLOR) public emptyColor: string,
     @Inject(SELECTED_COLOR_ICON) private selectedColorIcon: string,
     @Inject(SELECTED_COLOR_SVG_ICON) public selectedColorSvgIcon: string,
-    @Inject(DISABLE_SELECTED_COLOR_ICON) public disableSelectedIcon: boolean,
-    @Inject(COLOR_STRING_FORMAT) private colorStringFormat: ColorFormat
+    @Inject(DISABLE_SELECTED_COLOR_ICON) public disableSelectedIcon: boolean
   ) {}
 
   ngOnInit() {

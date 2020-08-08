@@ -15,10 +15,10 @@ import {
   QueryList
 } from '@angular/core';
 import { BehaviorSubject, Observable, Subscription } from 'rxjs';
-import { filter, map } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 import {
   COLOR_STRING_FORMAT,
-  ColorFormat,
+  ColorStringFormat,
   EMPTY_COLOR,
   ENABLE_ALPHA_SELECTOR,
   MccColorPickerUsedColorPosition
@@ -116,7 +116,7 @@ export class MccColorPickerComponent implements AfterContentInit, OnInit, OnDest
   }
 
   set hideHexForms(value: boolean) {
-    this._hideHexForms = value;
+    this._hideHexForms = coerceBooleanProperty(value);
   }
 
   private _hideHexForms: boolean = false;
@@ -179,7 +179,7 @@ export class MccColorPickerComponent implements AfterContentInit, OnInit, OnDest
     const color = parseColorString(value);
 
     if (color) {
-      this._selectedColor = formatColor(color, this.colorStringFormat);
+      this._selectedColor = formatColor(color, this.format);
     } else {
       this._selectedColor = this.emptyColor;
     }
@@ -273,6 +273,22 @@ export class MccColorPickerComponent implements AfterContentInit, OnInit, OnDest
   @Input() btnConfirmLabel: string = 'Confirm';
 
   /**
+   * Show alpha selector
+   */
+  @Input('alpha') set alpha(value: boolean) {
+    this._alpha = coerceBooleanProperty(value);
+  }
+  get alpha(): boolean {
+    return this._alpha;
+  }
+  private _alpha: boolean = false;
+
+  /**
+   * Choose color string format
+   */
+  @Input() format: ColorStringFormat;
+
+  /**
    * Event emitted when user change the selected color (without confirm)
    */
   @Output() readonly change = new EventEmitter<string>();
@@ -309,8 +325,8 @@ export class MccColorPickerComponent implements AfterContentInit, OnInit, OnDest
       map(colors =>
         colors.map(color => {
           const clr = parseColorString(color);
-          if (this.showAlphaSelector || clr.getAlpha() === 1) {
-            return formatColor(clr, this.colorStringFormat);
+          if (this._alpha || clr.getAlpha() === 1) {
+            return formatColor(clr, this.format);
           }
         })
       ),
@@ -329,11 +345,17 @@ export class MccColorPickerComponent implements AfterContentInit, OnInit, OnDest
     private colorPickerService: MccColorPickerService,
     private colorPickerCollectionService: MccColorPickerCollectionService,
     @Inject(EMPTY_COLOR) public emptyColor: string,
-    @Inject(ENABLE_ALPHA_SELECTOR) public showAlphaSelector: boolean,
-    @Inject(COLOR_STRING_FORMAT) public colorStringFormat: ColorFormat
-  ) {}
+    @Inject(ENABLE_ALPHA_SELECTOR) showAlphaSelector: boolean,
+    @Inject(COLOR_STRING_FORMAT) colorStringFormat: ColorStringFormat
+  ) {
+    this._alpha = showAlphaSelector;
+    this.format = colorStringFormat;
+  }
 
   ngOnInit() {
+    this.colorPickerCollectionService.alpha = this._alpha;
+    this.colorPickerCollectionService.format = this.format;
+
     if (!this._selectedColor) {
       this._selectedColor = this.emptyColor;
     }
@@ -393,7 +415,7 @@ export class MccColorPickerComponent implements AfterContentInit, OnInit, OnDest
   toggle() {
     if (!this._disabled) {
       this._isOpen = !this._isOpen;
-      if (!this._isOpen && this._selectedColor !== this.emptyColor) {
+      if (this._selectedColor !== this.emptyColor) {
         this.colorPickerService.addColor(this._selectedColor);
       }
 
@@ -411,6 +433,7 @@ export class MccColorPickerComponent implements AfterContentInit, OnInit, OnDest
       this.cancelSelection();
     }
     this.clickOut.emit();
+    this.changeDetectorRef.detectChanges();
   }
 
   /**
@@ -418,10 +441,12 @@ export class MccColorPickerComponent implements AfterContentInit, OnInit, OnDest
    * @param color string
    */
   updateTmpSelectedColor(color: string) {
-    if (color || color === this.emptyColor) {
-      this._tmpSelectedColor.next(color);
-      if (this._selectedColor !== color) {
-        this.change.emit(color);
+    const clr = parseColorString(color);
+    if (color) {
+      const clrString = color === this.emptyColor ? color : formatColor(clr, this.format);
+      this._tmpSelectedColor.next(clrString);
+      if (this._selectedColor !== clrString) {
+        this.change.emit(clrString);
         if (this._hideButtons) {
           this._updateSelectedColor();
         }
