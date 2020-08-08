@@ -7,7 +7,7 @@ import {
   Inject,
   Input,
   OnInit,
-  Output
+  Output,
 } from '@angular/core';
 import {
   DISABLE_SELECTED_COLOR_ICON,
@@ -15,7 +15,7 @@ import {
   MccColorPickerItem,
   MccColorPickerOption,
   SELECTED_COLOR_ICON,
-  SELECTED_COLOR_SVG_ICON
+  SELECTED_COLOR_SVG_ICON,
 } from './color-picker.types';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { MccColorPickerCollectionService } from './color-picker-collection.service';
@@ -63,7 +63,6 @@ export class MccColorPickerCollectionComponent implements OnInit, AfterContentCh
   }
 
   set colors(values: MccColorPickerOption[]) {
-    // TODO: strange bug wher color are not mapped
     // map color string from user to string based on configured format
     const colors: MccColorPickerOption[] = [];
     values.forEach(value => {

@@ -22,9 +22,7 @@ describe('MccColorPickerCollectionComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [
-        MatIconModule
-      ],
+      imports: [MatIconModule],
       declarations: [MccColorPickerCollectionComponent, MccColorPickerOptionDirective],
       providers: [
         MccColorPickerService,
@@ -36,7 +34,7 @@ describe('MccColorPickerCollectionComponent', () => {
         { provide: SELECTED_COLOR_SVG_ICON, useValue: null },
         { provide: EMPTY_COLOR, useValue: 'none' },
         { provide: USED_COLORS, useValue: [] },
-        { provide: COLOR_STRING_FORMAT, useValue: 'hex'},
+        { provide: COLOR_STRING_FORMAT, useValue: 'hex' }
       ]
     });
 
@@ -52,13 +50,14 @@ describe('MccColorPickerCollectionComponent', () => {
     comp.ngAfterContentChecked();
   });
 
-  afterEach(() => { fixture.destroy(); });
+  afterEach(() => {
+    fixture.destroy();
+  });
 
   it('should have default label', () => {
     const label = fixture.nativeElement.querySelector('h3');
     expect(label.textContent).toEqual('');
   });
-
 
   it('should change default label', () => {
     const text = 'My Collection';
@@ -128,6 +127,8 @@ describe('MccColorPickerCollectionComponent', () => {
   });
 
   it('should select white color', (done: DoneFn) => {
+    const service = TestBed.inject(MccColorPickerCollectionService);
+    service.format = 'hex';
     comp.colors = ['#FFFFFF', '#000000'];
 
     fixture.detectChanges();
@@ -141,8 +142,46 @@ describe('MccColorPickerCollectionComponent', () => {
     option.triggerEventHandler('click', null);
   });
 
+  it('should select white color in rgb', (done: DoneFn) => {
+    const service = TestBed.inject(MccColorPickerCollectionService);
+    service.format = 'rgb';
+    comp.colors = ['#FFFFFF', '#000000'];
+
+    fixture.detectChanges();
+
+    comp.changeColor.subscribe(color => {
+      expect(color).toEqual('rgb(255, 255, 255)');
+      done();
+    });
+
+    const option = fixture.debugElement.query(By.directive(MccColorPickerOptionDirective));
+    option.triggerEventHandler('click', null);
+  });
+
+
+  it('should select white color in hsl', (done: DoneFn) => {
+    const service = TestBed.inject(MccColorPickerCollectionService);
+    service.format = 'hsl';
+    comp.colors = ['#FFFFFF', '#000000'];
+
+    fixture.detectChanges();
+
+    comp.changeColor.subscribe(color => {
+      expect(color).toEqual('hsl(0, 0%, 100%)');
+      done();
+    });
+
+    const option = fixture.debugElement.query(By.directive(MccColorPickerOptionDirective));
+    option.triggerEventHandler('click', null);
+  });
+
   it('should select black color', (done: DoneFn) => {
-    comp.colors = [{ text: 'black', value: '#000000' }, { text: 'white', value: '#FFFFFF'}];
+    const service = TestBed.inject(MccColorPickerCollectionService);
+    service.format = 'hex';
+    comp.colors = [
+      { text: 'black', value: '#000000' },
+      { text: 'white', value: '#FFFFFF' }
+    ];
 
     fixture.detectChanges();
 
@@ -154,5 +193,4 @@ describe('MccColorPickerCollectionComponent', () => {
     const option = fixture.debugElement.query(By.directive(MccColorPickerOptionDirective));
     option.triggerEventHandler('click', null);
   });
-
 });
