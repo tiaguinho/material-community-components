@@ -7,33 +7,35 @@
   </mat-card-header>
 
   <mat-card-content>
-    <mcc-color-picker [overlay]="false" [usedColorLabel]="'My Colors'" (selected)="selectedColor = $event">
+    <mcc-color-picker overlay="false" (selected)="selectedColor = $event"> </mcc-color-picker>
+  </mat-card-content>
+</mat-card>
 
-      <mcc-color-picker-collection [colors]="colors"></mcc-color-picker-collection>
+<!-- WITHOUT OVERLAY -->
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>
+      <span [style.color]="selectedColor">Component without overlay - alpha enabled</span>
+    </mat-card-title>
+  </mat-card-header>
 
-    </mcc-color-picker>
+  <mat-card-content>
+    <mcc-color-picker overlay="false" (selected)="selectedColor = $event" alpha> </mcc-color-picker>
   </mat-card-content>
 </mat-card>
 
 <!-- DISABLE -->
 <mat-card>
   <mat-card-header>
-    <mat-card-title>Change buttons label</mat-card-title>
+    <mat-card-title>Disable</mat-card-title>
   </mat-card-header>
 
   <mat-card-content>
-    <mcc-color-picker [disabled]="disabled">
+    <mcc-color-picker [disabled]="disabled"> </mcc-color-picker>
 
-      <mcc-color-picker-collection [label]="'First Collection'" hideEmpty="true" [colors]="colors">
-      </mcc-color-picker-collection>
-
-    </mcc-color-picker>
-
-    <button mat-raised-button (click)="disabled = !disabled" color="primary" style="margin-left: 1rem;">Disable
-      /Enable</button>
+    <button mat-flat-button (click)="disabled = !disabled" color="primary" style="margin-left: 1rem;">Disable /Enable</button>
   </mat-card-content>
 </mat-card>
-
 
 <!-- CHANGE USED COLOR LABEL -->
 <mat-card>
@@ -44,53 +46,22 @@
   </mat-card-header>
 
   <mat-card-content>
-    <mcc-color-picker [usedColorLabel]="'My Colors'">
-
-      <mcc-color-picker-collection [label]="'First Collection'" [colors]="colors">
-      </mcc-color-picker-collection>
-
-    </mcc-color-picker>
+    <mcc-color-picker [usedColorLabel]="'My custom color label'"> </mcc-color-picker>
   </mat-card-content>
 </mat-card>
 
-
-<!-- CHANGE USED COLOR POSITION -->
+<!-- ADDITIONAL COLLECTIONS -->
 <mat-card>
   <mat-card-header>
     <mat-card-title>
-      Change used color position
+      Additional collections
     </mat-card-title>
   </mat-card-header>
 
   <mat-card-content>
-    <mcc-color-picker [usedColorsPosition]="'bottom'">
-
-      <mcc-color-picker-collection [label]="'First Collection'" [colors]="colors">
-      </mcc-color-picker-collection>
-
-    </mcc-color-picker>
-  </mat-card-content>
-</mat-card>
-
-
-<!-- WITH ALPHA ENABLED -->
-<app-color-picker-alpha></app-color-picker-alpha>
-
-
-<!-- REVERSE USED COLOR -->
-<mat-card>
-  <mat-card-header>
-    <mat-card-title>
-      Show used color in reverse
-    </mat-card-title>
-  </mat-card-header>
-
-  <mat-card-content>
-    <mcc-color-picker [usedColorLabel]="'My Colors'" reverseUsedColors>
-
-      <mcc-color-picker-collection [label]="'First Collection'" [colors]="colors">
-      </mcc-color-picker-collection>
-
+    <mcc-color-picker>
+      <mcc-color-picker-collection [label]="'First Collection'" [colors]="colors"> </mcc-color-picker-collection>
+      <mcc-color-picker-collection [label]="'Second Collection'" [colors]="colors"> </mcc-color-picker-collection>
     </mcc-color-picker>
   </mat-card-content>
 </mat-card>
@@ -98,72 +69,123 @@
 <!-- COLORS AS OBJECTS -->
 <mat-card>
   <mat-card-header>
-    <mat-card-title>Colors as objects</mat-card-title>
+    <mat-card-title>Additional collection with colors object as input</mat-card-title>
   </mat-card-header>
 
   <mat-card-content>
     <mcc-color-picker>
-
-      <mcc-color-picker-collection [label]="'First Object Collection'" [colors]="items">
-      </mcc-color-picker-collection>
-
+      <mcc-color-picker-collection [label]="'First Object Collection'" [colors]="colorObject"> </mcc-color-picker-collection>
     </mcc-color-picker>
   </mat-card-content>
 </mat-card>
 
-<!-- HEIGHT & USED COLORS SIZE -->
+<!-- SHOW USED COLORS AFTER CUSTOM COLLECTIONS -->
 <mat-card>
   <mat-card-header>
-    <mat-card-title>Change selector height & usedColors size</mat-card-title>
+    <mat-card-title>
+      Show used colors after custom collections
+    </mat-card-title>
   </mat-card-header>
 
   <mat-card-content>
-    <mcc-color-picker colorPickerSelectorHeight="100" usedSizeColors="15" class="mcc-cp-small">
+    <mcc-color-picker [usedColorsPosition]="'bottom'">
+      <mcc-color-picker-collection [label]="'Custom collection first'" [colors]="colors"> </mcc-color-picker-collection>
     </mcc-color-picker>
   </mat-card-content>
 </mat-card>
 
-<!-- RESET USED COLORS -->
+<!-- REVERSE USED COLOR -->
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>
+      Show used color reversed
+    </mat-card-title>
+  </mat-card-header>
+
+  <mat-card-content>
+    <mcc-color-picker [usedColorLabel]="'My Colors'" reverseUsedColors> </mcc-color-picker>
+  </mat-card-content>
+</mat-card>
+
+<!--  USED COLORS LENGTH -->
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>Max usedColors length</mat-card-title>
+  </mat-card-header>
+
+  <mat-card-content>
+    <mcc-color-picker usedSizeColors="6"> </mcc-color-picker>
+  </mat-card-content>
+</mat-card>
+
+<!-- DEFINE USED COLORS INIT VALUE -->
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>Define used colors init value</mat-card-title>
+  </mat-card-header>
+
+  <mat-card-content>
+    <mcc-color-picker [usedColorStart]="usedStart"> </mcc-color-picker>
+  </mat-card-content>
+</mat-card>
+
+<!-- HIDE EMPTY COLOR SLOTS -->
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>Hide empty color slots</mat-card-title>
+  </mat-card-header>
+
+  <mat-card-content>
+    <mcc-color-picker hideEmptyUsedColors> </mcc-color-picker>
+  </mat-card-content>
+</mat-card>
+
+<!-- HIDE EMPTY COLOR OPTION from USED COLORS -->
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>Hide "EMPTY_COLOR" option from used colors</mat-card-title>
+  </mat-card-header>
+
+  <mat-card-content>
+    <mcc-color-picker hideTransparentUsedColors> </mcc-color-picker>
+  </mat-card-content>
+</mat-card>
+
+<!-- RESET USED COLORS GLOBALLY -->
 <mat-card>
   <mat-card-header>
     <mat-card-title>Reset used colors</mat-card-title>
   </mat-card-header>
 
   <mat-card-content>
-
-    <button mat-button (click)="reset()">RESET</button>
-
     <mcc-color-picker>
-
-      <mcc-color-picker-collection [label]="'First Object Collection'">
-      </mcc-color-picker-collection>
-
+      <mcc-color-picker-collection [label]="'First Object Collection'"> </mcc-color-picker-collection>
     </mcc-color-picker>
+    <button mat-flat-button color="primary" (click)="reset()">RESET</button>
   </mat-card-content>
 </mat-card>
 
-<!-- CONNECT COLOR PICKER WITH AN INPUT -->
+<!-- HEIGHT -->
 <mat-card>
   <mat-card-header>
-    <mat-card-title>Connect color picker with an input</mat-card-title>
+    <mat-card-title>Custom selector height</mat-card-title>
   </mat-card-header>
 
   <mat-card-content>
-    <mcc-color-picker mccConnectedColorPicker [mccConnectedColorPickerOrigin]="trigger">
-    </mcc-color-picker>
-
-    <form novalidate [formGroup]="form" (ngSubmit)="onSubmit(form)">
-      <mat-form-field>
-        <input matInput mccColorPickerOrigin #trigger="mccColorPickerOrigin" formControlName="color" />
-      </mat-form-field>
-
-      <button type="submit" mat-raised-button color="primary">Submit
-        <small>(look the console)</small>
-      </button>
-    </form>
+    <mcc-color-picker colorPickerSelectorHeight="100"> </mcc-color-picker>
   </mat-card-content>
 </mat-card>
 
+<!-- HIDE COLOR PICKER SELECTOR -->
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>Hide color picker selector</mat-card-title>
+  </mat-card-header>
+
+  <mat-card-content>
+    <mcc-color-picker hideColorPickerSelector> </mcc-color-picker>
+  </mat-card-content>
+</mat-card>
 
 <!-- CHANGE COLOR WHEN CONFIRM -->
 <mat-card>
@@ -174,15 +196,9 @@
   </mat-card-header>
 
   <mat-card-content>
-    <mcc-color-picker [usedColorLabel]="'My Colors'" (selected)="selectedColor = $event">
-
-      <mcc-color-picker-collection [label]="'First Collection'" [colors]="colors">
-      </mcc-color-picker-collection>
-
-    </mcc-color-picker>
+    <mcc-color-picker (selected)="selectedColor = $event"> </mcc-color-picker>
   </mat-card-content>
 </mat-card>
-
 
 <!-- CHANGE COLOR ON CHANGE -->
 <mat-card>
@@ -193,106 +209,127 @@
   </mat-card-header>
 
   <mat-card-content>
-    <mcc-color-picker [usedColorLabel]="'My Colors'" [usedSizeColors]="'50'" (change)="changeColor = $event" (selected)="changeColor = $event">
-
-      <mcc-color-picker-collection [label]="'First Collection'" [colors]="colors">
-      </mcc-color-picker-collection>
-
-    </mcc-color-picker>
+    <mcc-color-picker (change)="changeColor = $event" (selected)="changeColor = $event"> </mcc-color-picker>
   </mat-card-content>
 </mat-card>
 
-
-<!-- DEFINE USED COLORS INIT VALUE -->
+<!-- HIDE COLORS FORM -->
 <mat-card>
   <mat-card-header>
-    <mat-card-title>Define used colors init value</mat-card-title>
+    <mat-card-title>Hide colors form</mat-card-title>
   </mat-card-header>
 
   <mat-card-content>
-    <mcc-color-picker [usedColorLabel]="'My Colors'" [usedColorStart]="usedStart">
-
-      <mcc-color-picker-collection [label]="'First Collection'" [colors]="colors">
-      </mcc-color-picker-collection>
-
-    </mcc-color-picker>
+    <mcc-color-picker hideHexForms> </mcc-color-picker>
   </mat-card-content>
 </mat-card>
 
-
-<!-- HIDE EMPTY SLOT OF COLORS -->
+<!-- CHANGE BUTTON LABELs -->
 <mat-card>
   <mat-card-header>
-    <mat-card-title>Hide empty slot of colors</mat-card-title>
+    <mat-card-title>Change button labels</mat-card-title>
   </mat-card-header>
 
   <mat-card-content>
-    <mcc-color-picker hideEmptyUsedColors>
-
-      <mcc-color-picker-collection [label]="'First Collection'" hideEmpty="true" [colors]="colors">
-      </mcc-color-picker-collection>
-
-    </mcc-color-picker>
+    <mcc-color-picker btnCancelLabel="ESCAPE" btnConfirmLabel="OK"> </mcc-color-picker>
   </mat-card-content>
 </mat-card>
 
-<!-- HIDE HEXADECIMAL COLORS FORM -->
-<mat-card>
-  <mat-card-header>
-    <mat-card-title>Hide hex colors form</mat-card-title>
-  </mat-card-header>
-
-  <mat-card-content>
-    <mcc-color-picker [hideHexForms]="true">
-    </mcc-color-picker>
-  </mat-card-content>
-</mat-card>
-
-<!-- HIDE TRANSPARENT OPTION OF USED COLORS -->
-<mat-card>
-  <mat-card-header>
-    <mat-card-title>Hide transparaent option of used colors</mat-card-title>
-  </mat-card-header>
-
-  <mat-card-content>
-    <mcc-color-picker hideTransparentUsedColors>
-
-      <mcc-color-picker-collection [label]="'First Collection'" hideEmpty="true" [colors]="colors">
-      </mcc-color-picker-collection>
-
-    </mcc-color-picker>
-  </mat-card-content>
-</mat-card>
-
-<!-- CHANGE BUTTONS LABEL -->
-<mat-card>
-  <mat-card-header>
-    <mat-card-title>Change buttons label</mat-card-title>
-  </mat-card-header>
-
-  <mat-card-content>
-    <mcc-color-picker [btnCancelLabel]="'ESC'" [btnConfirmLabel]="'OK'">
-
-      <mcc-color-picker-collection [label]="'First Collection'" hideEmpty="true" [colors]="colors">
-      </mcc-color-picker-collection>
-
-    </mcc-color-picker>
-  </mat-card-content>
-</mat-card>
-
-
-<!-- HIDE BUTTON -->
+<!-- HIDE BUTTONS -->
 <mat-card>
   <mat-card-header>
     <mat-card-title>Hide buttons</mat-card-title>
   </mat-card-header>
 
   <mat-card-content>
-    <mcc-color-picker hideButtons>
+    <mcc-color-picker hideButtons> </mcc-color-picker>
+  </mat-card-content>
+</mat-card>
 
-      <mcc-color-picker-collection [label]="'First Collection'" hideEmpty="true" [colors]="colors">
-      </mcc-color-picker-collection>
+<!-- CONNECT COLOR PICKER WITH AN INPUT - HEX -->
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>Connect color picker with an input - HEX</mat-card-title>
+  </mat-card-header>
 
-    </mcc-color-picker>
+  <mat-card-content>
+    <mcc-color-picker mccConnectedColorPicker [mccConnectedColorPickerOrigin]="trigger"> </mcc-color-picker>
+
+    <form novalidate [formGroup]="hexForm" (ngSubmit)="onSubmit(hexForm)">
+      <mat-form-field>
+        <input matInput mccColorPickerOrigin #trigger="mccColorPickerOrigin" formControlName="color" />
+      </mat-form-field>
+
+      <button type="submit" mat-flat-button color="primary">
+        Submit
+        <small>(look the console)</small>
+      </button>
+    </form>
+  </mat-card-content>
+</mat-card>
+
+<!-- CONNECT COLOR PICKER WITH AN INPUT - RGB -->
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>Connect color picker with an input - RGB</mat-card-title>
+  </mat-card-header>
+
+  <mat-card-content>
+    <mcc-color-picker mccConnectedColorPicker [mccConnectedColorPickerOrigin]="trigger2" format="rgb"> </mcc-color-picker>
+
+    <form novalidate [formGroup]="rgbForm" (ngSubmit)="onSubmit(rgbForm)">
+      <mat-form-field>
+        <input matInput mccColorPickerOrigin #trigger2="mccColorPickerOrigin" formControlName="color" />
+      </mat-form-field>
+
+      <button type="submit" mat-flat-button color="primary">
+        Submit
+        <small>(look the console)</small>
+      </button>
+    </form>
+  </mat-card-content>
+</mat-card>
+
+<!-- CONNECT COLOR PICKER WITH AN INPUT - HSL -->
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>Connect color picker with an input - HSL</mat-card-title>
+  </mat-card-header>
+
+  <mat-card-content>
+    <mcc-color-picker mccConnectedColorPicker [mccConnectedColorPickerOrigin]="trigger3" format="hsl"> </mcc-color-picker>
+
+    <form novalidate [formGroup]="hslForm" (ngSubmit)="onSubmit(hslForm)">
+      <mat-form-field>
+        <input matInput mccColorPickerOrigin #trigger3="mccColorPickerOrigin" formControlName="color" />
+      </mat-form-field>
+
+      <button type="submit" mat-flat-button color="primary">
+        Submit
+        <small>(look the console)</small>
+      </button>
+    </form>
+  </mat-card-content>
+</mat-card>
+
+<!-- CONNECT COLOR PICKER WITH AN INPUT - RGBA -->
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>Connect color picker with an input - RGB with alpha</mat-card-title>
+  </mat-card-header>
+
+  <mat-card-content>
+    <mcc-color-picker mccConnectedColorPicker [mccConnectedColorPickerOrigin]="trigger4" format="rgb" alpha> </mcc-color-picker>
+
+    <form novalidate [formGroup]="rgbaForm" (ngSubmit)="onSubmit(rgbaForm)">
+      <mat-form-field>
+        <input matInput mccColorPickerOrigin #trigger4="mccColorPickerOrigin" formControlName="color" />
+      </mat-form-field>
+
+      <button type="submit" mat-flat-button color="primary">
+        Submit
+        <small>(look the console)</small>
+      </button>
+    </form>
   </mat-card-content>
 </mat-card>

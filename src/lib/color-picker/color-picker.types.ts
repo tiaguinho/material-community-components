@@ -21,7 +21,7 @@ export const DISABLE_SELECTED_COLOR_ICON = new InjectionToken<boolean>('disable-
 export const ENABLE_ALPHA_SELECTOR = new InjectionToken<boolean>('enable-alpha-selector');
 
 /** Format used for color strings **/
-export const COLOR_STRING_FORMAT = new InjectionToken<ColorFormat>('color-string-format');
+export const COLOR_STRING_FORMAT = new InjectionToken<ColorStringFormat>('color-string-format');
 
 /**
  *
@@ -50,7 +50,7 @@ export type MccColorPickerOption = string | MccColorPickerItem;
 
 export type MccColorPickerUsedColorPosition = 'top' | 'bottom';
 
-export type ColorFormat = 'hex' | 'rgb' | 'hsl' | 'hsv';
+export type ColorStringFormat = 'hex' | 'rgb' | 'hsl';
 
 export type Color = Instance;
 

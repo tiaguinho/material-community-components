@@ -12,22 +12,15 @@ import {
   Output,
   Renderer2,
   SimpleChanges,
-  ViewChild,
+  ViewChild
 } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { BehaviorSubject, Observable, Subscription } from 'rxjs';
-import {
-  Color,
-  COLOR_STRING_FORMAT,
-  ColorFormat,
-  EMPTY_COLOR,
-  ENABLE_ALPHA_SELECTOR
-} from './color-picker.types';
+import { Color, EMPTY_COLOR } from './color-picker.types';
 import { TinyColor } from '@thebespokepixel/es-tinycolor';
 import { distinctUntilChanged, map } from 'rxjs/operators';
 import { MccColorPickerCollectionService } from './color-picker-collection.service';
 import { formatColor, parseColorString, toHex, toRgb } from './color-picker.utils';
-
 
 interface Coordinates {
   x: number;
@@ -41,10 +34,9 @@ const INITIAL_COLOR: Color = new TinyColor('white');
   templateUrl: './color-picker-selector.component.html',
   styleUrls: ['./color-picker-selector.component.scss'],
   preserveWhitespaces: false,
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class MccColorPickerSelectorComponent
-  implements AfterViewInit, OnInit, OnChanges, OnDestroy {
+export class MccColorPickerSelectorComponent implements AfterViewInit, OnInit, OnChanges, OnDestroy {
   /**
    * ElemenRef of the main color block
    */
@@ -234,16 +226,13 @@ export class MccColorPickerSelectorComponent
   constructor(
     private formBuilder: FormBuilder,
     private renderer: Renderer2,
-    private colorPickerCollectionService: MccColorPickerCollectionService,
-    @Inject(EMPTY_COLOR) private emptyColor: string,
-    @Inject(ENABLE_ALPHA_SELECTOR) public showAlphaSelector: boolean,
-    @Inject(COLOR_STRING_FORMAT) private colorStringFormat: ColorFormat
-  ) {
-  }
+    public colorPickerCollectionService: MccColorPickerCollectionService,
+    @Inject(EMPTY_COLOR) private emptyColor: string
+  ) {}
 
   ngOnInit() {
     // set initial position for selection block
-    this._latestBlockCoordinates = {x: this._selectorWidth - 1, y: Math.floor(this._height / 2)};
+    this._latestBlockCoordinates = { x: this._selectorWidth - 1, y: Math.floor(this._height / 2) };
 
     // set selectedColor initial value
     this._tmpSelectedColor.next(this._selectedColor);
@@ -255,7 +244,7 @@ export class MccColorPickerSelectorComponent
         this.changeSelectedColor.emit(this.emptyColor);
         this.colorPickerCollectionService.changeSelectedColor(this.emptyColor);
       } else {
-        const clr = formatColor(color, this.colorStringFormat);
+        const clr = formatColor(color, this.colorPickerCollectionService.format);
         this.changeSelectedColor.emit(clr);
         this.colorPickerCollectionService.changeSelectedColor(clr);
       }
@@ -264,9 +253,7 @@ export class MccColorPickerSelectorComponent
     // hex form
     this.hexForm = this.formBuilder.group({
       hexCode: new FormControl(toHex(this._selectedColor), {
-        validators: [
-          Validators.pattern(/^#[0-9A-F]{6}$/ig)
-        ],
+        validators: [Validators.pattern(/^#[0-9A-F]{6}$/gi)],
         updateOn: 'blur'
       })
     });
@@ -279,22 +266,14 @@ export class MccColorPickerSelectorComponent
     rgbKeys.forEach(
       (key, index) =>
         (rgbaGroup[key] = new FormControl(rgbValues[index], {
-          validators: [
-            Validators.min(0),
-            Validators.max(255),
-            Validators.required
-          ],
+          validators: [Validators.min(0), Validators.max(255), Validators.required],
           updateOn: 'change'
         }))
     );
 
     // add alpha input to rgb form
     rgbaGroup['A'] = new FormControl(this._selectedColor.getAlpha(), {
-      validators: [
-        Validators.min(0),
-        Validators.max(1),
-        Validators.required
-      ]
+      validators: [Validators.min(0), Validators.max(1), Validators.required]
     });
 
     this.rgbaForm = this.formBuilder.group(rgbaGroup);
@@ -316,7 +295,7 @@ export class MccColorPickerSelectorComponent
         if (this._blockContext) {
           this._drawBlockSelector(color);
         }
-        if (this._alphaContext && this.showAlphaSelector) {
+        if (this._alphaContext && this.colorPickerCollectionService.alpha) {
           this._drawAlphaSelector(color);
         }
         this._tmpSelectedColor.next(color);
@@ -344,40 +323,45 @@ export class MccColorPickerSelectorComponent
   ngAfterViewInit() {
     // draw initial selectors and listen to mouse events
 
-    this._mouseDownListeners.push(this.renderer.listen(this._block.nativeElement, 'touchstart', (e: TouchEvent) => {
-      if (e.cancelable) {
+    this._mouseDownListeners.push(
+      this.renderer.listen(this._block.nativeElement, 'touchstart', (e: TouchEvent) => {
+        if (e.cancelable) {
+          e.preventDefault();
+          this._isPressed = true;
+          this._selectionTargetPosition = this._block.nativeElement.getBoundingClientRect();
+          this._listenToMouseForBlock();
+          const x = e.targetTouches[0].clientX - this._selectionTargetPosition.x;
+          const y = e.targetTouches[0].clientY - this._selectionTargetPosition.y;
+          this.changeColor({ x: x, y: y });
+        }
+      })
+    );
+
+    this._mouseDownListeners.push(
+      this.renderer.listen(this._block.nativeElement, 'mousedown', (e: MouseEvent) => {
         e.preventDefault();
         this._isPressed = true;
         this._selectionTargetPosition = this._block.nativeElement.getBoundingClientRect();
         this._listenToMouseForBlock();
-        const x = e.targetTouches[0].clientX - this._selectionTargetPosition.x;
-        const y = e.targetTouches[0].clientY - this._selectionTargetPosition.y;
-        this.changeColor({x: x, y: y});
-      }
-    }));
-
-    this._mouseDownListeners.push(this.renderer.listen(this._block.nativeElement, 'mousedown', (e: MouseEvent) => {
-      e.preventDefault();
-      this._isPressed = true;
-      this._selectionTargetPosition = this._block.nativeElement.getBoundingClientRect();
-      this._listenToMouseForBlock();
-      this.changeColor({x: e.offsetX, y: e.offsetY});
-    }));
+        this.changeColor({ x: e.offsetX, y: e.offsetY });
+      })
+    );
 
     this._blockContext = this._bc.nativeElement.getContext('2d');
     this._blockContext.rect(0, 0, this._bc.nativeElement.width, this._bc.nativeElement.height);
 
-
-    this._mouseDownListeners.push(this.renderer.listen(this._hueSelector.nativeElement, 'touchstart', (e: TouchEvent) => {
-      if (e.cancelable) {
-        e.preventDefault();
-        this._isPressed = true;
-        this._selectionTargetPosition = this._hueSelector.nativeElement.getBoundingClientRect();
-        this._listenToMouseForHue();
-        const y = e.targetTouches[0].clientY - this._selectionTargetPosition.y;
-        this.changeHue(y);
-      }
-    }));
+    this._mouseDownListeners.push(
+      this.renderer.listen(this._hueSelector.nativeElement, 'touchstart', (e: TouchEvent) => {
+        if (e.cancelable) {
+          e.preventDefault();
+          this._isPressed = true;
+          this._selectionTargetPosition = this._hueSelector.nativeElement.getBoundingClientRect();
+          this._listenToMouseForHue();
+          const y = e.targetTouches[0].clientY - this._selectionTargetPosition.y;
+          this.changeHue(y);
+        }
+      })
+    );
 
     this._mouseDownListeners.push(
       this.renderer.listen(this._hueSelector.nativeElement, 'mousedown', (e: MouseEvent) => {
@@ -389,19 +373,21 @@ export class MccColorPickerSelectorComponent
       })
     );
 
-    if (this.showAlphaSelector) {
+    if (this.colorPickerCollectionService.alpha) {
       this._drawAlphaSelector(this._selectedColor);
 
-      this._mouseDownListeners.push(this.renderer.listen(this._alpha.nativeElement, 'touchstart', (e: TouchEvent) => {
-        if (e.cancelable) {
-          e.preventDefault();
-          this._isPressed = true;
-          this._selectionTargetPosition = this._alpha.nativeElement.getBoundingClientRect();
-          this._listenToMouseForAlpha();
-          const y = e.targetTouches[0].clientY - this._selectionTargetPosition.y;
-          this.changeAlpha(y);
-        }
-      }));
+      this._mouseDownListeners.push(
+        this.renderer.listen(this._alpha.nativeElement, 'touchstart', (e: TouchEvent) => {
+          if (e.cancelable) {
+            e.preventDefault();
+            this._isPressed = true;
+            this._selectionTargetPosition = this._alpha.nativeElement.getBoundingClientRect();
+            this._listenToMouseForAlpha();
+            const y = e.targetTouches[0].clientY - this._selectionTargetPosition.y;
+            this.changeAlpha(y);
+          }
+        })
+      );
 
       this._mouseDownListeners.push(
         this.renderer.listen(this._alpha.nativeElement, 'mousedown', (e: MouseEvent) => {
@@ -418,7 +404,6 @@ export class MccColorPickerSelectorComponent
     this._drawHueSelector();
     this._drawBlockSelector(this._selectedColor);
 
-
     this.setSelectorPositions(this._selectedColor);
   }
 
@@ -432,14 +417,16 @@ export class MccColorPickerSelectorComponent
           const coords = this._getCoordinatesForPosition(e.targetTouches[0].clientX, e.targetTouches[0].clientY);
           this.changeColor(coords);
         }
-      }));
+      })
+    );
 
     this._temporaryMouseListeners.push(
       this.renderer.listen(this._block.nativeElement, 'mousemove', (e: MouseEvent) => {
         if (e.buttons === 1) {
-          this.changeColor({x: e.offsetX, y: e.offsetY});
+          this.changeColor({ x: e.offsetX, y: e.offsetY });
         }
-      }));
+      })
+    );
 
     this._registerMouseUpListeners();
 
@@ -452,7 +439,6 @@ export class MccColorPickerSelectorComponent
       })
     );
   }
-
 
   private _listenToMouseForHue() {
     this._preventTextSelection();
@@ -486,7 +472,6 @@ export class MccColorPickerSelectorComponent
       })
     );
   }
-
 
   private _listenToMouseForAlpha() {
     this._preventTextSelection();
@@ -524,7 +509,8 @@ export class MccColorPickerSelectorComponent
     this._temporaryMouseListeners.push(
       this.renderer.listen(document, 'selectstart', (e: Event) => {
         e.preventDefault();
-      }));
+      })
+    );
   }
 
   private _registerMouseUpListeners() {
@@ -545,7 +531,6 @@ export class MccColorPickerSelectorComponent
         this._temporaryMouseListeners.forEach(listener => listener());
       })
     );
-
   }
 
   private _getCoordinatesForPosition(clientX: number, clientY: number): Coordinates {
@@ -566,7 +551,7 @@ export class MccColorPickerSelectorComponent
       y = clientY - this._selectionTargetPosition.top;
     }
 
-    return {x, y};
+    return { x, y };
   }
 
   private _getYForPosition(clientY: number): number {
@@ -604,7 +589,8 @@ export class MccColorPickerSelectorComponent
    */
   private _drawAlphaSelector(color: Color) {
     const background = new Image();
-    background.src = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA0AAAANCAIAAAD9iXMrAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAAITcAACE3ATNYn3oAAACJSURBVChTjZDLDgQREEX9/6fRdvgAJMbSArvpud2ofibmLCqVOHUpbH3gnBNCLAP0xpjD++6gmXiEtfbdazHE2ZNS/psHtNZzj3O+eXg14b1H/VwJIaAyjJ7BdIyxJw9KKayn73u1ZuIRcw+R+Iinl3O+34uKV/fzweZhZ6CUahXAq7XiLiKl9AP878ZgrHOa/QAAAABJRU5ErkJggg==';
+    background.src =
+      'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA0AAAANCAIAAAD9iXMrAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAAITcAACE3ATNYn3oAAACJSURBVChTjZDLDgQREEX9/6fRdvgAJMbSArvpud2ofibmLCqVOHUpbH3gnBNCLAP0xpjD++6gmXiEtfbdazHE2ZNS/psHtNZzj3O+eXg14b1H/VwJIaAyjJ7BdIyxJw9KKayn73u1ZuIRcw+R+Iinl3O+34uKV/fzweZhZ6CUahXAq7XiLiKl9AP878ZgrHOa/QAAAABJRU5ErkJggg==';
     background.onload = () => {
       // clear canvas
       this._alphaContext.clearRect(0, 0, this._alpha.nativeElement.width, this._alpha.nativeElement.height);
@@ -648,26 +634,25 @@ export class MccColorPickerSelectorComponent
    * Watch changes on forms
    */
   private _watchFormChanges() {
-    this._hexValuesSub = this.hexForm.valueChanges
-      .subscribe(value => {
-        if (this.hexForm.valid) {
-          const color: Color = new TinyColor(value.hexCode);
-          this._updateRGBAForm(color);
-          this._drawBlockSelector(color);
-          if (this.showAlphaSelector) {
-            this._drawAlphaSelector(color);
-          }
-          this.setSelectorPositions(color);
-          this._tmpSelectedColor.next(color);
+    this._hexValuesSub = this.hexForm.valueChanges.subscribe(value => {
+      if (this.hexForm.valid) {
+        const color: Color = new TinyColor(value.hexCode);
+        this._updateRGBAForm(color);
+        this._drawBlockSelector(color);
+        if (this.colorPickerCollectionService.alpha) {
+          this._drawAlphaSelector(color);
         }
-      });
+        this.setSelectorPositions(color);
+        this._tmpSelectedColor.next(color);
+      }
+    });
 
     this._rgbValuesSub = this.rgbaForm.valueChanges.subscribe(rgba => {
       if (this.rgbaForm.valid) {
-        const color: Color = new TinyColor({r: rgba.R, g: rgba.G, b: rgba.B, a: rgba.A});
+        const color: Color = new TinyColor({ r: rgba.R, g: rgba.G, b: rgba.B, a: rgba.A });
         this._updateHexForm(color);
         this._drawBlockSelector(color);
-        if (this.showAlphaSelector) {
+        if (this.colorPickerCollectionService.alpha) {
           this._drawAlphaSelector(color);
         }
         this.setSelectorPositions(color);
@@ -683,8 +668,8 @@ export class MccColorPickerSelectorComponent
     if (!this.rgbaForm) {
       return;
     }
-    const values = {R: color.toRgb().r, G: color.toRgb().g, B: color.toRgb().b, A: color.toRgb().a};
-    this.rgbaForm.setValue(values, {emitEvent: false});
+    const values = { R: color.toRgb().r, G: color.toRgb().g, B: color.toRgb().b, A: color.toRgb().a };
+    this.rgbaForm.setValue(values, { emitEvent: false });
   }
 
   /**
@@ -697,8 +682,8 @@ export class MccColorPickerSelectorComponent
 
     const hex = toHex(color);
     const control = this.hexForm.get('hexCode');
-    control.setValue(hex, {emitEvent: false, onlySelf: true});
-    control.updateValueAndValidity({emitEvent: false, onlySelf: true});
+    control.setValue(hex, { emitEvent: false, onlySelf: true });
+    control.updateValueAndValidity({ emitEvent: false, onlySelf: true });
   }
 
   /**
@@ -708,7 +693,7 @@ export class MccColorPickerSelectorComponent
     if (y <= this.stripHeight) {
       this.setHueSelector(y);
       const data = this._hueSelectorContext.getImageData(this.stripWidth / 2, y, 1, 1).data;
-      const color: Color = new TinyColor({r: data[0], g: data[1], b: data[2]});
+      const color: Color = new TinyColor({ r: data[0], g: data[1], b: data[2] });
       this._drawBlockSelector(color);
       this.changeColor();
     }
@@ -736,21 +721,19 @@ export class MccColorPickerSelectorComponent
   private changeColor(offsets?: Coordinates) {
     const os = offsets || this._latestBlockCoordinates;
     if (os.x <= this._selectorWidth && os.y <= this._height) {
-
       this.setXYSelector(os);
       // fixing getting values at border
       const data: Uint8ClampedArray = this._blockContext.getImageData(os.x ? os.x - 1 : os.x, os.y ? os.y - 1 : os.y, 1, 1).data;
-      const color: Color = new TinyColor({r: data[0], g: data[1], b: data[2], a: this._selectedColor.getAlpha()});
+      const color: Color = new TinyColor({ r: data[0], g: data[1], b: data[2], a: this._selectedColor.getAlpha() });
       this._updateRGBAForm(color);
       this._updateHexForm(color);
-      if (this.showAlphaSelector) {
+      if (this.colorPickerCollectionService.alpha) {
         this._drawAlphaSelector(color);
       }
       this._tmpSelectedColor.next(color);
       this.noColor = false;
     }
   }
-
 
   /**
    * Set all selectors positions based on a color
@@ -762,11 +745,9 @@ export class MccColorPickerSelectorComponent
     const offsets = this.getXYOffsets(color);
     this.setXYSelector(offsets);
 
-
     const alphaOffset = this.getAlphaOffset(color);
     this.setAlphaSelector(alphaOffset);
   }
-
 
   /**
    * Set block selector positions in view
@@ -778,7 +759,6 @@ export class MccColorPickerSelectorComponent
     }
   }
 
-
   /**
    * Set hue selector positions in view
    */
@@ -787,7 +767,6 @@ export class MccColorPickerSelectorComponent
       this.renderer.setStyle(this._sc.nativeElement, 'background-position-y', `${offset}px`);
     }
   }
-
 
   /**
    * Set alpha selector positions in view
@@ -806,14 +785,14 @@ export class MccColorPickerSelectorComponent
 
     const x = this._selectorWidth * hsv.s;
     const y = this._height - this._height * hsv.v;
-    return {x, y};
+    return { x, y };
   }
 
   /**
    * Get the Y coordinate for the hue selector relative to it's height
    */
   private getHueOffsets(color: Color): number {
-    return this.stripHeight / 360 * color.toHsl().h;
+    return (this.stripHeight / 360) * color.toHsl().h;
   }
 
   /**

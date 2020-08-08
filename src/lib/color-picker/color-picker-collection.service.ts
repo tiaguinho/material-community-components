@@ -1,22 +1,20 @@
 import { Inject, Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { COLOR_STRING_FORMAT, ColorFormat, EMPTY_COLOR } from './color-picker.types';
+import { ColorStringFormat, EMPTY_COLOR } from './color-picker.types';
 import { formatColor, parseColorString } from './color-picker.utils';
-
 
 @Injectable()
 export class MccColorPickerCollectionService {
-
   /**
    * Hold current selected color
    */
   private _selectedColor: BehaviorSubject<string> = new BehaviorSubject<string>('');
 
+  alpha: boolean;
 
-  constructor(
-    @Inject(EMPTY_COLOR) private emptyColor: string,
-    @Inject(COLOR_STRING_FORMAT) private colorStringFormat: ColorFormat
-  ) {}
+  format: ColorStringFormat;
+
+  constructor(@Inject(EMPTY_COLOR) private emptyColor: string) {}
 
   /**
    * Change internal selected color
@@ -32,7 +30,7 @@ export class MccColorPickerCollectionService {
       return;
     }
 
-    const clrString = formatColor(color, this.colorStringFormat);
+    const clrString = formatColor(color, this.format);
     this._selectedColor.next(clrString);
   }
 

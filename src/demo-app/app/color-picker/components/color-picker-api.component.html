@@ -19,10 +19,22 @@
       <td class="api-description">Disable color-picker pop up</td>
     </tr>
     <tr>
+      <td>
+        <code>alpha: boolean, default: false</code>
+      </td>
+      <td class="api-description">Enable alpha selector</td>
+    </tr>
+    <tr>
+      <td>
+        <code>format: ColorStringFormat</code>
+      </td>
+      <td class="api-description">Select color string format, default: 'hex'</td>
+    </tr>
+    <tr>
     <td>
         <code>usedColorLabel: string</code>
       </td>
-      <td class="api-description">Change the label of the used colors collection</td>
+      <td class="api-description">Change the label of the used colors collection, default: 'USED COLORS'</td>
     </tr>
     <tr>
       <td>
@@ -34,55 +46,55 @@
       <td>
         <code>reverseUsedColors: boolean</code>
       </td>
-      <td class="api-description">Reverse order of used colors list</td>
+      <td class="api-description">Reverse order of used colors list, default: false</td>
     </tr>
     <tr>
       <td>
         <code>usedColorsPosition: MccUsedColorsPosition</code>
       </td>
-      <td class="api-description">Set position for used colors collection to be show</td>
+      <td class="api-description">Set position for used colors collection to be show, default: 'top'</td>
     </tr>
     <tr>
       <td>
         <code>hideHexForms: boolean</code>
       </td>
-      <td class="api-description">Hide the hexadecimal color input form</td>
+      <td class="api-description">Hide the hexadecimal color input form, default: false</td>
     </tr>
     <tr>
       <td>
         <code>hideEmpty: boolean</code>
       </td>
-      <td class="api-description">Hide all empty slots of the default collection</td>
+      <td class="api-description">Hide all empty slots of the default collection, default: false</td>
     </tr>
     <tr>
       <td>
         <code>hideTransparentUsedColors: boolean</code>
       </td>
-      <td class="api-description">Hide transparent option of UsedColors</td>
+      <td class="api-description">Hide transparent option of UsedColors, default: false</td>
     </tr>
     <tr>
       <td>
         <code>hideUsedColors: boolean</code>
       </td>
-      <td class="api-description">Hide UsedColors default collection</td>
+      <td class="api-description">Hide UsedColors default collection, default: false</td>
     </tr>
     <tr>
       <td>
         <code>hideButtons: boolean</code>
       </td>
-      <td class="api-description">Hide the buttons (confirm/cancel)</td>
+      <td class="api-description">Hide the buttons (confirm/cancel), default: false</td>
     </tr>
     <tr>
       <td>
         <code>hideColorPickerSelector: boolean</code>
       </td>
-      <td class="api-description">Hide the color picker selector</td>
+      <td class="api-description">Hide the color picker selector, default: false</td>
     </tr>
     <tr>
       <td>
         <code>colorPickerSelectorHeight: number</code>
       </td>
-      <td class="api-description">Define new height of selector area</td>
+      <td class="api-description">Define new height of selector area, default: 170</td>
     </tr>
     <tr>
       <td>
@@ -100,27 +112,25 @@
       <td>
         <code>overlay: boolean</code>
       </td>
-      <td class="api-description">Define if panel will be show inside overlay</td>
+      <td class="api-description">Define if panel will be show inside overlay, default: true</td>
     </tr>
     <tr>
       <td>
         <code>usedSizeColors: number</code>
       </td>
-      <td class="api-description">Set the size of used colors collection</td>
+      <td class="api-description">Set the size of used colors collection, default: 30</td>
     </tr>
     <tr>
       <td>
         <code>btnCancelLabel: string</code>
       </td>
-      <td class="api-description">Will replace the default text(
-        <code>Cancel</code>) in cancel button</td>
+      <td class="api-description">Will replace the default text on cancel button, default: 'CANCEL'</td>
     </tr>
     <tr>
       <td>
         <code>btnConfirmLabel: string</code>
       </td>
-      <td class="api-description">Will replace the default text(
-        <code>Confirm</code>) in confirm button</td>
+      <td class="api-description">Will replace the default text on confirm button, default: 'CONFIRM'</td>
     </tr>
   </tbody>
 </table>
@@ -138,25 +148,25 @@
       <td>
         <code>change: EventEmitter</code>
       </td>
-      <td class="api-description">Event emitted when the color changed</td>
+      <td class="api-description">Event emitted when the color changed, emits color string</td>
     </tr>
     <tr>
       <td>
         <code>selected: EventEmitter</code>
       </td>
-      <td class="api-description">Event emitted when the color is selected</td>
+      <td class="api-description">Event emitted when the color is selected, emits color string</td>
     </tr>
     <tr>
       <td>
         <code>clickOut: EventEmitter</code>
       </td>
-      <td class="api-description">Event emitted when is user clicks outside of the component</td>
+      <td class="api-description">Event emitted when is user clicks outside of the component, emits nothing</td>
     </tr>
     <tr>
       <td>
         <code>canceled: EventEmitter</code>
       </td>
-      <td class="api-description">Event emitted when is user clicks on cancel button</td>
+      <td class="api-description">Event emitted when is user clicks on cancel button, emits nothing</td>
     </tr>
   </tbody>
 </table>
@@ -191,19 +201,19 @@
       <td>
         <code>colors: MccColorPickerOption[]</code>
       </td>
-      <td class="api-description">Array of the colors that will be displayed inside the collection</td>
+      <td class="api-description">Array of the strings or MccColorPickerItem to be displayed inside the collection</td>
     </tr>
     <tr>
       <td>
         <code>size: number</code>
       </td>
-      <td class="api-description">Limit of colors to be displayed</td>
+      <td class="api-description">Limit of colors to be displayed, default: 30</td>
     </tr>
     <tr>
       <td>
         <code>transparent: boolean</code>
       </td>
-      <td class="api-description">Show transparent options (default is false)</td>
+      <td class="api-description">Show transparent options, default: false)</td>
     </tr>
   </tbody>
 </table>
@@ -221,7 +231,7 @@
       <td>
         <code>changeColor</code>
       </td>
-      <td class="api-description">Event that id emitted when a change ocurred</td>
+      <td class="api-description">Event that id emitted when a color is clicked</td>
     </tr>
   </tbody>
 </table>
@@ -247,19 +257,19 @@
       <td>
         <code>addColor(color: string): void</code>
       </td>
-      <td class="api-description">Add new color to the used color collection</td>
+      <td class="api-description">Add new color to the used colors collection</td>
     </tr>
     <tr>
       <td>
-        <code>getColors(): Observable{{ '<' }}string[]{{ '>' }}</code>
+        <code>getUsedColors(): Observable{{ '<' }}string[]{{ '>' }}</code>
       </td>
-      <td class="api-description">Return observable of used color collection</td>
+      <td class="api-description">Return observable of used colors collection</td>
     </tr>
     <tr>
       <td>
         <code>resetUsedColors(): void</code>
       </td>
-      <td class="api-description">Clear the used color collection</td>
+      <td class="api-description">Clear the used colors collection</td>
     </tr>
   </tbody>
 </table>
@@ -271,10 +281,10 @@
 
 <p>Using
   <code class="highlight">MccColorPickerOrigin</code> and
-  <code class="highlight">MccConnectedColorPicker</code>, you also can connect the color picker with any input, textarea or select element.</p>
+  <code class="highlight">MccConnectedColorPicker</code>, you can connect the color picker with any input, textarea or select element.</p>
 
 <h3>MccColorPickerOrigin</h3>
-<p>This directive goes in the element (input, textarea or select) that will be connected to the color picker.</p>
+<p>This directive goes on the element (input, textarea or select) that will be connected to the color picker.</p>
 
 <h4>Outputs</h4>
 <table class="table-api-documentation">
@@ -295,7 +305,7 @@
 </table>
 
 <h3>MccConnectedColorPicker</h3>
-<p>This directive is used in the color picker that you want&#39;s to connect.</p>
+<p>This directive is used on the color picker that should be connected to the input</p>
 
 <h4>Inputs</h4>
 <table class="table-api-documentation">
@@ -310,7 +320,7 @@
       <td>
         <code>mccConnectedColorPickerOrigin: MccColorPickerOrigin</code>
       </td>
-      <td class="table-api-documentation">Element that color picker has to connect</td>
+      <td class="table-api-documentation">Element that color picker connects to</td>
     </tr>
   </tbody>
 </table>
@@ -319,15 +329,23 @@
 
 <h2>Interfaces &amp; Types</h2>
 
-<h3>MccColorPickerOption</h3>
+<h3>ColorStringFormat</h3>
 <p>Is a type created to handle colors. This type accept
-  <code class="highlight">string</code> or
-  <code class="highlight">MccColorPickerItem</code>.</p>
+  <code class="highlight">hex</code>,
+  <code class="highlight">rgb</code> and
+  <code class="highlight">hsl</code>.</p>
 
 <h3>MccUsedColorsPosition</h3>
 <p>Is a type created to handle used colors position. This type accept the values
   <code class="highlight">top</code> and
   <code class="highlight">bottom</code>.</p>
+
+<h3>MccColorPickerOption</h3>
+<p>Is a type created to handle color collections. This type accept
+  <code class="highlight">string</code> or
+  <code class="highlight">MccColorPickerItem</code>.</p>
+
+
 
 <h3>MccColorPickerItem</h3>
 <p>This interface is used when you have the name of the color. This can help screen readers.</p>

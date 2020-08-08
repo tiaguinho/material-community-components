@@ -1,4 +1,4 @@
-import { Color, ColorFormat } from './color-picker.types';
+import { Color, ColorStringFormat } from './color-picker.types';
 import { TinyColor } from '@thebespokepixel/es-tinycolor';
 
 /**
@@ -49,19 +49,9 @@ export function toHsl(color: Color): string {
 }
 
 /**
- * converts a TinyColor instance to format "hsv(360, 100%, 100%)" when color has alpha value and "hsva(360, 100%, 100%, 0.5)" when alpha < 1
- */
-export function toHsv(color: Color): string {
-  if (!color) {
-    return null;
-  }
-  return color.toHsvString();
-}
-
-/**
  * converts a TinyColor instance to certain format
  */
-export function formatColor(color: Color, format: ColorFormat): string {
+export function formatColor(color: Color, format: ColorStringFormat): string {
   switch (format) {
     case 'hex':
       return toHex(color);
@@ -69,7 +59,5 @@ export function formatColor(color: Color, format: ColorFormat): string {
       return toRgb(color);
     case 'hsl':
       return toHsl(color);
-    case 'hsv':
-      return toHsv(color);
   }
 }

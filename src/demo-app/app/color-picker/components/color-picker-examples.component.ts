@@ -13,7 +13,10 @@ export class ColorPickerExamplesComponent implements OnInit {
 
   changeColor: string;
 
-  form: FormGroup;
+  hexForm: FormGroup;
+  rgbForm: FormGroup;
+  hslForm: FormGroup;
+  rgbaForm: FormGroup;
 
   disabled = false;
 
@@ -90,7 +93,7 @@ export class ColorPickerExamplesComponent implements OnInit {
     '#6666FF'
   ];
 
-  items: MccColorPickerItem[] = [
+  colorObject: MccColorPickerItem[] = [
     { text: 'Black', value: '#000000' },
     { text: 'White', value: '#FFFFFF' },
     { text: 'Gray', value: '#CCCCCC' }
@@ -99,8 +102,20 @@ export class ColorPickerExamplesComponent implements OnInit {
   constructor(private formBuilder: FormBuilder, private mccColorPickerService: MccColorPickerService) {}
 
   ngOnInit() {
-    this.form = this.formBuilder.group({
-      color: ['#000000', Validators.required]
+    this.hexForm = this.formBuilder.group({
+      color: ['#00FFEE', Validators.required]
+    });
+
+    this.rgbForm = this.formBuilder.group({
+      color: ['rgb(234, 120, 56)', Validators.required]
+    });
+
+    this.hslForm = this.formBuilder.group({
+      color: ['hsl(325, 100%, 50%)', Validators.required]
+    });
+
+    this.rgbaForm = this.formBuilder.group({
+      color: ['rgba(234, 120, 56, 0.45)', Validators.required]
     });
   }
 

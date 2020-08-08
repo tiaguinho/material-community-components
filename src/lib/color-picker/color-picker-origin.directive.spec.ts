@@ -13,7 +13,7 @@ import { MccColorPickerComponent } from './color-picker.component';
 import { MccColorPickerSelectorComponent } from './color-picker-selector.component';
 import { MccColorPickerCollectionComponent } from './color-picker-collection.component';
 import { MccColorPickerService } from './color-picker.service';
-import { MccColorPickerOriginDirective, MccConnectedColorPickerDirective } from './color-picker-origin.directive';
+import { MccColorPickerOriginDirective } from './color-picker-origin.directive';
 import {
   COLOR_STRING_FORMAT,
   DISABLE_SELECTED_COLOR_ICON,
@@ -24,6 +24,7 @@ import {
   USED_COLORS
 } from './color-picker.types';
 import { MccColorPickerOptionDirective } from './color-picker-option.directive';
+import { MccConnectedColorPickerDirective } from './color-picker-connected.directive';
 
 //
 @Component({
