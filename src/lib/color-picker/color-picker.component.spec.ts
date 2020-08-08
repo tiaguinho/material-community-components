@@ -38,7 +38,7 @@ describe('MccColorPickerComponent', () => {
     const parts = color.match(/^rgb\((\d+),\s*(\d+),\s*(\d+)\)$/);
     delete parts[0];
     for (let i = 1; i <= 3; ++i) {
-      parts[i] = parseInt(parts[i]).toString(16);
+      parts[i] = parseInt(parts[i], 10).toString(16);
       if (parts[i].length === 1) {
         parts[i] = '0' + parts[i];
       }
@@ -190,12 +190,12 @@ describe('MccColorPickerComponent', () => {
     fixture.detectChanges();
 
     const selector = fixture.debugElement.query(By.css('mcc-color-picker-selector'));
-    const height = parseInt(selector.query(By.css('.mcc-color-picker-selector')).styles['height']);
+    const height = parseInt(selector.query(By.css('.mcc-color-picker-selector')).styles['height'], 10);
 
     comp.colorPickerSelectorHeight = 200;
     fixture.detectChanges();
 
-    const newHeight = parseInt(selector.query(By.css('.mcc-color-picker-selector')).styles['height']);
+    const newHeight = parseInt(selector.query(By.css('.mcc-color-picker-selector')).styles['height'], 10);
     expect(newHeight).toBeGreaterThan(height);
   });
 
@@ -226,31 +226,36 @@ describe('MccColorPickerComponent', () => {
     comp.confirmSelectedColor();
   }));
 
-  it('should select second color of colors array with hide buttons', fakeAsync(() => {
+  it('should select second color of colors array with hide buttons', (done: DoneFn) => {
     comp.hideTransparent = true;
     comp.hideButtons = true;
     comp.usedColorStart = colors;
     comp.ngAfterContentInit();
     fixture.detectChanges();
 
-    const collection = fixture.debugElement.query(By.css('mcc-color-picker-collection'));
-    const buttons = collection.queryAll(By.css('button'));
-
-    buttons[1].triggerEventHandler('click', null);
-    fixture.detectChanges();
-
     comp.selected.subscribe(selected => {
       expect(selected).toBe(colors[1]);
+      done();
     });
 
-    comp.backdropClick();
-  }));
+    const collection = fixture.debugElement.query(By.css('mcc-color-picker-collection'));
+    const buttons = collection.queryAll(By.css('button'));
 
-  it('should cancel selected color', fakeAsync(() => {
+    buttons[1].triggerEventHandler('click', null);
+    fixture.detectChanges();
+    comp.backdropClick();
+  });
+
+  it('should cancel selected color', done => {
     comp.hideTransparent = true;
     comp.usedColorStart = colors;
     comp.ngAfterContentInit();
     fixture.detectChanges();
+
+    comp.canceled.subscribe(() => {
+      expect(comp.selectedColor).toBe(emptyColor);
+      done();
+    });
 
     const collection = fixture.debugElement.query(By.css('mcc-color-picker-collection'));
     const buttons = collection.queryAll(By.css('button'));
@@ -258,25 +263,22 @@ describe('MccColorPickerComponent', () => {
     buttons[1].triggerEventHandler('click', null);
     fixture.detectChanges();
 
-    comp.selected.subscribe(selected => {
-      expect(selected).toBe(emptyColor);
-    });
-
     comp.cancelSelection();
-  }));
+  });
 
-  it('should cancel selected color by clicking on backdrop', fakeAsync(() => {
+  it('should cancel selected color by clicking on backdrop', (done: DoneFn) => {
     comp.hideTransparent = true;
     comp.usedColorStart = colors;
     comp.ngAfterContentInit();
     fixture.detectChanges();
 
-    comp.selected.subscribe(selected => {
-      expect(selected).toBe(emptyColor);
+    comp.canceled.subscribe(() => {
+      expect(comp.selectedColor).toBe(emptyColor);
+      done();
     });
 
     comp.backdropClick();
-  }));
+  });
 
   it('should keep isOpen state after try toggle', () => {
     comp.disabled = true;
