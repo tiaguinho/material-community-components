@@ -246,7 +246,7 @@ describe('MccColorPickerComponent', () => {
     comp.backdropClick();
   });
 
-  it('should cancel selected color', done => {
+  it('should cancel selected color', (done: DoneFn) => {
     comp.hideTransparent = true;
     comp.usedColorStart = colors;
     comp.ngAfterContentInit();
