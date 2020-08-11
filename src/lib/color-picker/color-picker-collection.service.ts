@@ -10,8 +10,14 @@ export class MccColorPickerCollectionService {
    */
   private _selectedColor: BehaviorSubject<string> = new BehaviorSubject<string>('');
 
+  /**
+   * Show alpha selector
+   */
   alpha: boolean;
 
+  /**
+   * Color string format
+   */
   format: ColorStringFormat;
 
   constructor(@Inject(EMPTY_COLOR) private emptyColor: string) {}
