@@ -616,14 +616,14 @@ export class MccColorPickerSelectorComponent implements AfterViewInit, OnInit, O
     this._blockContext.fillStyle = `hsl(${hueColor.toHsl().h}, 100%, 50%)`;
     this._blockContext.fillRect(0, 0, this._bc.nativeElement.width, this._bc.nativeElement.height);
 
-    // HSV selector
-    const grdWhite = this._hueSelectorContext.createLinearGradient(0, 0, this._bc.nativeElement.width, 0);
+    // HSL selector
+    const grdWhite = this._hueSelectorContext.createLinearGradient(1, 0, this._bc.nativeElement.width - 1, 0);
     grdWhite.addColorStop(0, 'rgba(255,255,255,1)');
     grdWhite.addColorStop(1, 'rgba(255,255,255,0)');
     this._blockContext.fillStyle = grdWhite;
     this._blockContext.fillRect(0, 0, this._bc.nativeElement.width, this._bc.nativeElement.height);
 
-    const grdBlack = this._hueSelectorContext.createLinearGradient(0, 0, 0, this._bc.nativeElement.height);
+    const grdBlack = this._hueSelectorContext.createLinearGradient(0, 1, 0, this._bc.nativeElement.height - 1);
     grdBlack.addColorStop(0, 'rgba(0,0,0,0)');
     grdBlack.addColorStop(1, 'rgba(0,0,0,1)');
     this._blockContext.fillStyle = grdBlack;
@@ -722,7 +722,7 @@ export class MccColorPickerSelectorComponent implements AfterViewInit, OnInit, O
     const os = offsets || this._latestBlockCoordinates;
     if (os.x <= this._selectorWidth && os.y <= this._height) {
       this.setXYSelector(os);
-      // fixing getting values at border
+
       const data: Uint8ClampedArray = this._blockContext.getImageData(os.x ? os.x - 1 : os.x, os.y ? os.y - 1 : os.y, 1, 1).data;
       const color: Color = new TinyColor({ r: data[0], g: data[1], b: data[2], a: this._selectedColor.getAlpha() });
       this._updateRGBAForm(color);
