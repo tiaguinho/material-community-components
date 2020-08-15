@@ -17,7 +17,7 @@ import {
   MccTimerPickerPeriod,
   HOURS,
   HOURS24,
-  MINUTES,
+  MINUTES, MccTimerPickerTimeValue,
 } from './timer-picker';
 
 @Component({
@@ -46,15 +46,15 @@ export class MccTimerPickerComponent {
   /**
    * Current value (hour/minute) to create the clock
    */
-  get clock$(): Observable<string[]> {
+  get clock$(): Observable<MccTimerPickerTimeValue[]> {
     return this._clock.asObservable();
   }
-  private _clock: BehaviorSubject<string[]> = new BehaviorSubject(HOURS);
+  private _clock: BehaviorSubject<MccTimerPickerTimeValue[]> = new BehaviorSubject(HOURS);
 
   /**
    * Return hours in 24h format
    */
-  get hours24(): string[] {
+  get hours24(): MccTimerPicker24Hour[] {
     return HOURS24;
   }
 
@@ -136,7 +136,7 @@ export class MccTimerPickerComponent {
   /**
    * Change btnConfirm label
    */
-  @Input() btnConfirm: string = 'Ok';
+  @Input() btnConfirm: string = 'Confirm';
 
   /**
    * Event emited when confirm button is pressed.
@@ -182,11 +182,10 @@ export class MccTimerPickerComponent {
 
   /**
    * Select option from the clock.
-   * @param value MccTimerPickerHour | MccTimerPickerMinute
    */
-  select(value: MccTimerPickerHour | MccTimerPickerMinute): void {
+  select(value: MccTimerPickerTimeValue) {
     if (this.focus === 'hour') {
-      this._hour = <MccTimerPickerHour>value;
+      this._hour = <MccTimerPickerHour | MccTimerPicker24Hour>value;
       this.focus = 'min';
     } else {
       this._minute = <MccTimerPickerMinute>value;
@@ -200,7 +199,6 @@ export class MccTimerPickerComponent {
 
   /**
    * Returns array containing time, hour and period fragments from time string
-   * @param time string
    */
   parseTimeInput(time: string): [number, number, string] {
     const parsed = time.split(/\s|:/).map((fragment, index) => {
@@ -223,9 +221,8 @@ export class MccTimerPickerComponent {
 
   /**
    * Returns true if option value is not valid
-   * @param value MccTimerPickerHour | MccTimerPickerMinute
    */
-  isOptionDisabled(value: MccTimerPickerHour | MccTimerPickerMinute): boolean {
+  isOptionDisabled(value: MccTimerPickerTimeValue): boolean {
 
     const [minHour, minMinutes, minPeriod] = this.parseTimeInput(this.min);
     const [maxHour, maxMinutes, maxPeriod] = this.parseTimeInput(this.max);
@@ -255,7 +252,7 @@ export class MccTimerPickerComponent {
    * Change period of the clock
    * @param period MccTimerPickerPeriod
    */
-  changePeriod(period: MccTimerPickerPeriod): void {
+  changePeriod(period: MccTimerPickerPeriod) {
     this._period = period;
     // if buttons are hidden, emit new event when value is changed
     if (this._hideButtons) {
@@ -266,7 +263,7 @@ export class MccTimerPickerComponent {
   /**
    * Update selected color, close the panel and notify the user
    */
-  backdropClick(): void {
+  backdropClick() {
     this.confirmSelectedTime();
     this._isOpen = false;
   }
@@ -274,7 +271,7 @@ export class MccTimerPickerComponent {
   /**
    * Change values to last confirm select time
    */
-  cancelSelection(): void {
+  cancelSelection() {
     this._hour = this._selectedHour;
     this._minute = this._selectedMinute;
     this._period = this._selectedPeriod;
@@ -284,7 +281,7 @@ export class MccTimerPickerComponent {
   /**
    * Set new values of time and emit new event with the formated timer
    */
-  confirmSelectedTime(): void {
+  confirmSelectedTime() {
     this._selectedHour = this.hour;
     this._selectedMinute = this.minute;
     this._selectedPeriod = this.period;
@@ -296,7 +293,7 @@ export class MccTimerPickerComponent {
     } else {
       let hour: string = this.hour;
       if (this.period === 'pm') {
-        hour = `${parseInt(hour) + 12}`;
+        hour = `${parseInt(hour, 10) + 12}`;
       }
 
       formated = `${hour}:${this.minute}`;

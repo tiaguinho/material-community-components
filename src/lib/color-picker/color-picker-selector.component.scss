@@ -60,12 +60,12 @@ canvas {
   font-weight: bold;
 
   &.black {
-    color: #100214 !important;
+    color: rgba(0,0,0,0.87) !important;
     label.mat-form-field-label {
-      color: #100214 !important;
+      color: rgba(0,0,0,0.87) !important;
     }
     .mat-form-field-underline {
-      background-color: #100214 !important;
+      background-color: rgba(0,0,0,0.87) !important;
     }
   }
   &.white {

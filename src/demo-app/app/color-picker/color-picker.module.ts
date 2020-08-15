@@ -30,7 +30,7 @@ import { MccColorPickerModule } from '../../../lib/color-picker/public_api';
     MatTabsModule,
     MccColorPickerModule.forRoot({
       used_colors: ['#000000', '#123456', '#777666'],
-      empty_color: null
+      empty_color: ''
     })
   ],
   declarations: [ColorPickerComponent, ColorPickerApiComponent, ColorPickerExamplesComponent]

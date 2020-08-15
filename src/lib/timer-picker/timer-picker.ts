@@ -43,6 +43,9 @@ export type MccTimerPickerMinute =
   | '50'
   | '55';
 
+
+export type MccTimerPickerTimeValue = MccTimerPickerHour | MccTimerPicker24Hour | MccTimerPickerMinute;
+
 /**
  * format 12 return hours with 'am' or 'pm'. Examples:
  * 12:00 am
@@ -65,9 +68,9 @@ export type MccTimerPickerTimeType = 'hour' | 'min';
 /**
  * contants to create timer with HOURS or MINUTES
  */
-export const HOURS: string[] = ['12', '11', '1', '10', '2', '9', '3', '8', '4', '7', '5', '6'];
-export const HOURS24: string[] = ['00', '23', '13', '22', '14', '21', '15', '20', '16', '19', '17', '18'];
-export const MINUTES: string[] = [
+export const HOURS: MccTimerPickerHour [] = ['12', '11', '1', '10', '2', '9', '3', '8', '4', '7', '5', '6'];
+export const HOURS24: MccTimerPicker24Hour[] = ['00', '23', '13', '22', '14', '21', '15', '20', '16', '19', '17', '18'];
+export const MINUTES: MccTimerPickerMinute[] = [
   '00',
   '55',
   '05',
