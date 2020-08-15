@@ -197,6 +197,7 @@ export class MccColorPickerComponent implements AfterContentInit, OnInit, OnDest
 
   set isOpen(value: boolean) {
     this._isOpen = coerceBooleanProperty(value);
+    this.changeDetectorRef.detectChanges();
   }
 
   private _isOpen: boolean = false;
