@@ -1,4 +1,4 @@
-import { Directive, ElementRef, forwardRef, Inject, Renderer2 } from '@angular/core';
+import { Directive, ElementRef, EventEmitter, forwardRef, HostListener, Inject, Input, Renderer2 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { EMPTY_COLOR } from './color-picker.types';
 import { BehaviorSubject } from 'rxjs';
@@ -20,9 +20,14 @@ import { parseColorString } from './color-picker.utils';
 })
 export class MccColorPickerOriginDirective implements ControlValueAccessor {
   /**
+   * Emit focus event
+   */
+  focus: EventEmitter<void> = new EventEmitter<void>();
+
+  /**
    * Emit changes from the origin
    */
-  change: BehaviorSubject<string> = new BehaviorSubject<string>('');
+  change: BehaviorSubject<string> = new BehaviorSubject<string>(this.elementRef.nativeElement.value);
 
   /**
    * Propagate changes to angular
@@ -30,22 +35,29 @@ export class MccColorPickerOriginDirective implements ControlValueAccessor {
   propagateChanges: (_: any) => {};
 
   /**
-   * Reference to the element on which the directive is applied.
+   * Controls if focus of the input opens the color picker dialog
    */
-  constructor(private elementRef: ElementRef, private renderer: Renderer2, @Inject(EMPTY_COLOR) private emptyColor: string) {
-    // listen changes onkeyup and update color picker
-    renderer.listen(elementRef.nativeElement, 'keyup', (event: KeyboardEvent) => {
-      const value: string = event.currentTarget['value'];
+  @Input('mccColorPickerOrigin') openMode: 'openOnFocus' | 'default' = 'default';
 
-      if (event.isTrusted && !value) {
-        this.writeValueFromKeyup(this.emptyColor);
-      } else {
-        const color = parseColorString(value);
-        if (event.isTrusted && color) {
-          this.writeValueFromKeyup(value);
-        }
+  constructor(private elementRef: ElementRef, private renderer: Renderer2, @Inject(EMPTY_COLOR) private emptyColor: string) {}
+
+  @HostListener('focus') onFocus() {
+    if (this.openMode === 'openOnFocus') {
+      this.focus.emit();
+    }
+  }
+
+  @HostListener('keyup') onKeyup() {
+    const value: string = this.elementRef.nativeElement.value;
+
+    if (!value) {
+      this.writeValueFromKeyup(this.emptyColor);
+    } else {
+      const color = parseColorString(value);
+      if (color) {
+        this.writeValueFromKeyup(value);
       }
-    });
+    }
   }
 
   /**

@@ -30,6 +30,11 @@ export class MccConnectedColorPickerDirective implements AfterViewInit, OnDestro
    */
   private _originSub: Subscription;
 
+  /**
+   * Focus subscription
+   */
+  private _focusSub: Subscription;
+
   constructor(
     private colorPicker: MccColorPickerComponent,
     public changeDetectorRef: ChangeDetectorRef,
@@ -49,12 +54,15 @@ export class MccConnectedColorPickerDirective implements AfterViewInit, OnDestro
     if (this._originSub && !this._originSub.closed) {
       this._originSub.unsubscribe();
     }
+    if (this._focusSub && !this._focusSub.closed) {
+      this._focusSub.unsubscribe();
+    }
   }
 
   /**
    * Attach color picker and origin
    */
-  private _attachColorPicker(): void {
+  private _attachColorPicker() {
     // subscribe to origin change to update color picker
     this._originSub = this.origin.change.subscribe(value => {
       const color = parseColorString(value);
@@ -66,6 +74,10 @@ export class MccConnectedColorPickerDirective implements AfterViewInit, OnDestro
         this.colorPicker.selectedColor = value;
         this.changeDetectorRef.detectChanges();
       }
+    });
+
+    this._focusSub = this.origin.focus.subscribe(() => {
+      this.colorPicker.isOpen = true;
     });
 
     // subscribe to color picker confirmation and set on origin element

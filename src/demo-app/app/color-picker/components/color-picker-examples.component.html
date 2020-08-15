@@ -33,7 +33,9 @@
   <mat-card-content>
     <mcc-color-picker [disabled]="disabled"> </mcc-color-picker>
 
-    <button mat-flat-button (click)="disabled = !disabled" color="primary" style="margin-left: 1rem;">Disable /Enable</button>
+    <button mat-flat-button (click)="disabled = !disabled" color="primary" style="margin-left: 12px;" style="margin-left: 1rem;">
+      Disable /Enable
+    </button>
   </mat-card-content>
 </mat-card>
 
@@ -161,7 +163,7 @@
     <mcc-color-picker>
       <mcc-color-picker-collection [label]="'First Object Collection'"> </mcc-color-picker-collection>
     </mcc-color-picker>
-    <button mat-flat-button color="primary" (click)="reset()">RESET</button>
+    <button mat-flat-button color="primary" style="margin-left: 12px;" (click)="reset()">RESET</button>
   </mat-card-content>
 </mat-card>
 
@@ -260,7 +262,7 @@
         <input matInput mccColorPickerOrigin #trigger="mccColorPickerOrigin" formControlName="color" />
       </mat-form-field>
 
-      <button type="submit" mat-flat-button color="primary">
+      <button type="submit" mat-flat-button color="primary" style="margin-left: 12px;">
         Submit
         <small>(look the console)</small>
       </button>
@@ -282,7 +284,7 @@
         <input matInput mccColorPickerOrigin #trigger2="mccColorPickerOrigin" formControlName="color" />
       </mat-form-field>
 
-      <button type="submit" mat-flat-button color="primary">
+      <button type="submit" mat-flat-button color="primary" style="margin-left: 12px;">
         Submit
         <small>(look the console)</small>
       </button>
@@ -304,7 +306,7 @@
         <input matInput mccColorPickerOrigin #trigger3="mccColorPickerOrigin" formControlName="color" />
       </mat-form-field>
 
-      <button type="submit" mat-flat-button color="primary">
+      <button type="submit" mat-flat-button color="primary" style="margin-left: 12px;">
         Submit
         <small>(look the console)</small>
       </button>
@@ -326,10 +328,71 @@
         <input matInput mccColorPickerOrigin #trigger4="mccColorPickerOrigin" formControlName="color" />
       </mat-form-field>
 
-      <button type="submit" mat-flat-button color="primary">
+      <button type="submit" mat-flat-button color="primary" style="margin-left: 12px;">
         Submit
         <small>(look the console)</small>
       </button>
     </form>
+  </mat-card-content>
+</mat-card>
+
+<!-- CONNECT COLOR PICKER WITH AN INPUT - RGBA inside Field (use matPrefix and matSuffix)-->
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>Connect color picker with an input - RGB with alpha inside Field (use matPrefix and matSuffix)</mat-card-title>
+  </mat-card-header>
+
+  <mat-card-content>
+    <mat-form-field appearance="legacy">
+      <input matInput mccColorPickerOrigin #trigger5="mccColorPickerOrigin" [(ngModel)]="color5" />
+      <mcc-color-picker matSuffix mccConnectedColorPicker [mccConnectedColorPickerOrigin]="trigger5" format="rgb" alpha> </mcc-color-picker>
+    </mat-form-field>
+  </mat-card-content>
+</mat-card>
+
+<!-- CONNECT COLOR PICKER WITH AN INPUT - RGBA inside Field (use matPrefix and matSuffix) - mccColorPickerOrigin="openOnFocus" -->
+<mat-card>
+  <mat-card-header>
+    <mat-card-title
+      >Connect color picker with an input - HEX with alpha inside Field (use matPrefix and matSuffix) - mccColorPickerOrigin="openOnFocus"
+    </mat-card-title>
+  </mat-card-header>
+
+  <mat-card-content>
+    <mat-form-field appearance="outline">
+      <mcc-color-picker matSuffix mccConnectedColorPicker [mccConnectedColorPickerOrigin]="trigger6" format="hex" alpha> </mcc-color-picker>
+      <input matInput mccColorPickerOrigin="openOnFocus" #trigger6="mccColorPickerOrigin" [(ngModel)]="color6" />
+    </mat-form-field>
+  </mat-card-content>
+</mat-card>
+
+<!-- CONNECT COLOR PICKER WITH AN INPUT - RGBA inside Field (use matPrefix and matSuffix) - mccColorPickerOrigin="openOnFocus" with hidden color-button-->
+<mat-card>
+  <mat-card-header>
+    <mat-card-title
+      >Connect color picker with an input - HEX with alpha inside Field (use matPrefix and matSuffix) - mccColorPickerOrigin="openOnFocus" with hidden color-button
+    </mat-card-title>
+  </mat-card-header>
+
+  <mat-card-content>
+    <mat-form-field appearance="outline">
+      <mcc-color-picker matSuffix mccConnectedColorPicker [mccConnectedColorPickerOrigin]="trigger7" format="hex" alpha style="opacity: 0;">
+      </mcc-color-picker>
+      <input matInput mccColorPickerOrigin="openOnFocus" #trigger7="mccColorPickerOrigin" [(ngModel)]="color7" />
+    </mat-form-field>
+  </mat-card-content>
+</mat-card>
+
+<!-- CONNECT COLOR PICKER WITH AN INPUT - RGBA inside Field (use class="mcc-color-picker-form-field" on mat-form-field)-->
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>Connect color picker with an input - HSL with alpha inside Field (use matPrefix and matSuffix)</mat-card-title>
+  </mat-card-header>
+
+  <mat-card-content>
+    <mat-form-field appearance="fill">
+      <input matInput mccColorPickerOrigin #trigger8="mccColorPickerOrigin" [(ngModel)]="color8" />
+      <mcc-color-picker matPrefix mccConnectedColorPicker [mccConnectedColorPickerOrigin]="trigger8" format="hsl" alpha> </mcc-color-picker>
+    </mat-form-field>
   </mat-card-content>
 </mat-card>

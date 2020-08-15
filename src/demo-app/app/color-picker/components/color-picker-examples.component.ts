@@ -17,8 +17,15 @@ export class ColorPickerExamplesComponent implements OnInit {
   rgbForm: FormGroup;
   hslForm: FormGroup;
   rgbaForm: FormGroup;
+  rgbaRequiredForm: FormGroup;
+
+  color5: string = null;
+  color6: string = '#F4F';
+  color7: string = 'blue';
+  color8: string = 'rgba(200,40,30,0.9)';
 
   disabled = false;
+
 
   // last line will not be show in used colors because they are invalid values
   usedStart: string[] = [
@@ -117,6 +124,10 @@ export class ColorPickerExamplesComponent implements OnInit {
     this.rgbaForm = this.formBuilder.group({
       color: ['rgba(234, 120, 56, 0.45)', Validators.required]
     });
+
+    this.rgbaRequiredForm = this.formBuilder.group({
+      color: ['rgba(67, 200, 40, 1)', Validators.required]
+    });
   }
 
   reset(): void {
@@ -125,5 +136,9 @@ export class ColorPickerExamplesComponent implements OnInit {
 
   onSubmit({ value, valid }): void {
     console.log(value, valid);
+  }
+
+  logValue() {
+    console.log(this.color5);
   }
 }

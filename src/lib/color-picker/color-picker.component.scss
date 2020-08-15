@@ -5,13 +5,14 @@
   height: 25px;
   cursor: pointer;
   background: none;
+  border-radius: 3px;
   border: 2px solid #dddddd;
 
   &.empty {
     background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB8AAAAfAQMAAAAlYIR6AAAABlBMVEX/////EBC8L+WmAAAAJ0lEQVR42mM4wAAED0DEBxBRASJsQIQciOAHEewNQIIZpJCRjgr5AP7LD2UBZrkqAAAAAElFTkSuQmCC') !important;
   }
   &.disabled {
-    opacity: .5;
+    opacity: 0.5;
   }
 }
 
@@ -20,6 +21,7 @@
   width: 270px;
   min-height: 80px;
   position: relative;
+  border-radius: 4px;
   flex-direction: column;
   padding: 0;
   background: #ffffff;
@@ -56,5 +58,14 @@
     font-size: 12px;
     font-weight: 400;
     flex-grow: 1;
+  }
+}
+
+::ng-deep mat-form-field {
+  mcc-color-picker {
+    .btn-picker {
+      margin-right: 4px;
+      margin-left: 4px;
+    }
   }
 }

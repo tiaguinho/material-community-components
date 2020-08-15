@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -20,6 +20,7 @@ import { MccColorPickerModule } from '../../../lib/color-picker/public_api';
     CommonModule,
     RouterModule.forChild(routes),
     ReactiveFormsModule,
+    FormsModule,
     MatButtonModule,
     MatCardModule,
     MatFormFieldModule,
@@ -28,7 +29,8 @@ import { MccColorPickerModule } from '../../../lib/color-picker/public_api';
     MatInputModule,
     MatTabsModule,
     MccColorPickerModule.forRoot({
-      used_colors: ['#000000', '#123456', '#777666']
+      used_colors: ['#000000', '#123456', '#777666'],
+      empty_color: null
     })
   ],
   declarations: [ColorPickerComponent, ColorPickerApiComponent, ColorPickerExamplesComponent]
