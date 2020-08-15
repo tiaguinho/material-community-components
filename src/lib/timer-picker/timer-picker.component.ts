@@ -1,10 +1,4 @@
-import {
-  Component,
-  ChangeDetectionStrategy,
-  EventEmitter,
-  Input,
-  Output,
-} from '@angular/core';
+import { Component, ChangeDetectionStrategy, EventEmitter, Input, Output } from '@angular/core';
 import { CdkOverlayOrigin } from '@angular/cdk/overlay';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { Observable, BehaviorSubject } from 'rxjs';
@@ -17,7 +11,8 @@ import {
   MccTimerPickerPeriod,
   HOURS,
   HOURS24,
-  MINUTES, MccTimerPickerTimeValue,
+  MINUTES,
+  MccTimerPickerTimeValue
 } from './timer-picker';
 
 @Component({
@@ -25,13 +20,13 @@ import {
   templateUrl: './timer-picker.component.html',
   styleUrls: ['./timer-picker.component.scss'],
   preserveWhitespaces: false,
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MccTimerPickerComponent {
   /**
    * Receive selected _hour after confirm
    */
-  private _selectedHour: MccTimerPickerHour | MccTimerPicker24Hour  = '12';
+  private _selectedHour: MccTimerPickerHour | MccTimerPicker24Hour = '12';
 
   /**
    * Receive selected _minute after confirm
@@ -154,7 +149,7 @@ export class MccTimerPickerComponent {
    */
   connected: boolean = false;
 
-  constructor() { }
+  constructor() {}
 
   /**
    * Return timer option class to create line between the middle of the clock and
@@ -186,7 +181,7 @@ export class MccTimerPickerComponent {
   select(value: MccTimerPickerTimeValue) {
     if (this.focus === 'hour') {
       this._hour = <MccTimerPickerHour | MccTimerPicker24Hour>value;
-      this.focus = 'min';
+      setTimeout(() => (this.focus = 'min'), 250);
     } else {
       this._minute = <MccTimerPickerMinute>value;
     }
@@ -223,7 +218,6 @@ export class MccTimerPickerComponent {
    * Returns true if option value is not valid
    */
   isOptionDisabled(value: MccTimerPickerTimeValue): boolean {
-
     const [minHour, minMinutes, minPeriod] = this.parseTimeInput(this.min);
     const [maxHour, maxMinutes, maxPeriod] = this.parseTimeInput(this.max);
 
