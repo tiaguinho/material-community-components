@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy, EventEmitter, Input, Output } from '@angular/core';
+import { Component, ChangeDetectionStrategy, EventEmitter, Input, Output, ChangeDetectorRef } from '@angular/core';
 import { CdkOverlayOrigin } from '@angular/cdk/overlay';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { Observable, BehaviorSubject } from 'rxjs';
@@ -75,6 +75,7 @@ export class MccTimerPickerComponent {
   }
   set isOpen(value: boolean) {
     this._isOpen = coerceBooleanProperty(value);
+    this.changeDetectorRef.detectChanges();
   }
   private _isOpen: boolean;
 
@@ -149,7 +150,7 @@ export class MccTimerPickerComponent {
    */
   connected: boolean = false;
 
-  constructor() {}
+  constructor(private changeDetectorRef: ChangeDetectorRef) {}
 
   /**
    * Return timer option class to create line between the middle of the clock and
@@ -181,14 +182,13 @@ export class MccTimerPickerComponent {
   select(value: MccTimerPickerTimeValue) {
     if (this.focus === 'hour') {
       this._hour = <MccTimerPickerHour | MccTimerPicker24Hour>value;
-      setTimeout(() => (this.focus = 'min'), 250);
+    this.focus = 'min';
     } else {
       this._minute = <MccTimerPickerMinute>value;
-    }
-
-    // if buttons are hidden, emit new event when value is changed
-    if (this._hideButtons) {
-      this.confirmSelectedTime();
+      // if buttons are hidden, emit new event when value is changed
+      if (this._hideButtons) {
+        this.confirmSelectedTime();
+      }
     }
   }
 
@@ -249,17 +249,17 @@ export class MccTimerPickerComponent {
   changePeriod(period: MccTimerPickerPeriod) {
     this._period = period;
     // if buttons are hidden, emit new event when value is changed
-    if (this._hideButtons) {
-      this.confirmSelectedTime();
-    }
   }
 
   /**
    * Update selected color, close the panel and notify the user
    */
   backdropClick() {
-    this.confirmSelectedTime();
-    this._isOpen = false;
+    if (this._hideButtons) {
+      this.confirmSelectedTime();
+    } else {
+      this.cancelSelection();
+    }
   }
 
   /**
@@ -269,11 +269,11 @@ export class MccTimerPickerComponent {
     this._hour = this._selectedHour;
     this._minute = this._selectedMinute;
     this._period = this._selectedPeriod;
-    this._isOpen = false;
+    this.isOpen = false;
   }
 
   /**
-   * Set new values of time and emit new event with the formated timer
+   * Set new values of time and emit new event with the formatted timer
    */
   confirmSelectedTime() {
     this._selectedHour = this.hour;
@@ -295,9 +295,6 @@ export class MccTimerPickerComponent {
 
     this.selected.emit(formated);
 
-    // only close automatically if button aren't hidden
-    if (!this._hideButtons) {
-      this._isOpen = false;
-    }
+    this.isOpen = false;
   }
 }
