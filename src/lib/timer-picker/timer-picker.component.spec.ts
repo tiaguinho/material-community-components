@@ -94,7 +94,7 @@ describe('MccTimerPickerComponent', () => {
     btnHour.triggerEventHandler('click', null);
   });
 
-  it('should cancel de selection', () => {
+  it('should cancel the selection', () => {
     comp.cancelSelection();
 
     expect(comp.isOpen).toBeFalsy();

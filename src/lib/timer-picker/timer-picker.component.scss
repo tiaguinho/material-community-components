@@ -2,24 +2,26 @@ $primary: #00796b;
 
 $border-radius: 4px;
 
-$transition: 200ms ease;
-
 .mcc-timer-picker-overlay {
   font-family: 'Roboto', sans-serif;
   width: 290px;
-  height: 400px;
   border-radius: $border-radius;
-  background-color: #ffffff // TODO: use theme background color (support dark theme)
+  background-color: #ffffff; // TODO: use theme background color (support dark theme)
 }
 
 .mcc-timer-picker-header {
   display: flex;
-  width: 220px;
-  height: 65px;
-  padding: 10px 0 5px 70px;
+  justify-content: center;
+  width: 100%;
+  padding: 4px 0;
+  box-sizing: border-box;
   border-top-left-radius: $border-radius;
   border-top-right-radius: $border-radius;
   background: $primary;
+  .mcc-timer-picker-header-clock {
+    display: flex;
+   align-items: center;
+  }
 }
 
 .mcc-timer-picker-hours,
@@ -41,7 +43,6 @@ $transition: 200ms ease;
 .mcc-timer-picker-24hours {
   width: 63px;
   height: 63px;
-  font-family: 'Roboto', sans-serif;
   font-size: 50px;
   font-weight: 400;
   color: rgba(255, 255, 255, 0.3);
@@ -58,23 +59,16 @@ $transition: 200ms ease;
   font-size: 43px;
   font-weight: 400;
   color: rgba(255, 255, 255, 0.3);
-  margin: 5px 5px 0 0;
-
-  &::after {
-    content: ':';
-  }
 }
 
 .mcc-timer-picker-am-pm {
   display: flex;
   flex-direction: column;
-  margin: 10px;
 
   button {
     width: 25px;
     height: 25px;
     line-height: 25px;
-    font-family: 'Roboto', sans-serif;
     font-size: 12px;
     font-weight: 400;
     color: rgba(255, 255, 255, 0.3);
@@ -128,62 +122,50 @@ $transition: 200ms ease;
     // 12h or 00m
     &.selected-index-0 {
       transform: rotateZ(0deg);
-      transition: $transition;
     }
     // 11h or 55m
     &.selected-index-1 {
-      transform: rotateZ(327deg);
-      transition: $transition;
+      transform: rotateZ(327deg);;
     }
     // 1h or 05m
     &.selected-index-2 {
       transform: rotateZ(30deg);
-      transition: $transition;
     }
     // 10h or 50m
     &.selected-index-3 {
       transform: rotateZ(300deg);
-      transition: $transition;
     }
     // 2h or 10m
     &.selected-index-4 {
       transform: rotateZ(60deg);
-      transition: $transition;
     }
     // 9h or 45m
     &.selected-index-5 {
       transform: rotateZ(270deg);
-      transition: $transition;
     }
     // 3h or 15m
     &.selected-index-6 {
       transform: rotateZ(90deg);
-      transition: $transition;
     }
     // 8h or 40m
     &.selected-index-7 {
       transform: rotateZ(240deg);
-      transition: $transition;
     }
     // 4h or 20m
     &.selected-index-8 {
       transform: rotateZ(120deg);
-      transition: $transition;
     }
     // 7h or 35m
     &.selected-index-9 {
       transform: rotateZ(210deg);
-      transition: $transition;
     }
     // 5h or 25m
     &.selected-index-10 {
       transform: rotateZ(150deg);
-      transition: $transition;
     }
     // 6h or 30m
     &.selected-index-11 {
       transform: rotateZ(180deg);
-      transition: $transition;
     }
   }
 

@@ -14,21 +14,25 @@
   <div class="mcc-timer-picker-overlay mat-elevation-z4" role="dialog" aria-label="Timer picker">
 
     <div class="mcc-timer-picker-header mat-primary">
-      <button mat-icon-button class="mcc-timer-picker-hours" [ngClass]="{ 'mcc-active': focus === 'hour' }" (click)="focus = 'hour'">
-        {{ hour }}
-      </button>
-      <span class="mcc-timer-picker-separator"></span>
-      <button mat-icon-button class="mcc-timer-picker-minutes" [ngClass]="{ 'mcc-active': focus === 'min' }" (click)="focus = 'min'">
-        {{ minute }}
-      </button>
+      <div class="mcc-timer-picker-header-clock">
+        <button mat-icon-button class="mcc-timer-picker-hours" [ngClass]="{ 'mcc-active': focus === 'hour' }"
+                (click)="focus = 'hour'">
+          {{ hour }}
+        </button>
+        <span class="mcc-timer-picker-separator">:</span>
+        <button mat-icon-button class="mcc-timer-picker-minutes" [ngClass]="{ 'mcc-active': focus === 'min' }"
+                (click)="focus = 'min'">
+          {{ minute }}
+        </button>
 
-      <div class="mcc-timer-picker-am-pm" *ngIf="format === '12'">
-        <button mat-icon-button [ngClass]="{ 'mcc-active': period === 'am' }" (click)="changePeriod('am')">
-          AM
-        </button>
-        <button mat-icon-button [ngClass]="{ 'mcc-active': period === 'pm' }" (click)="changePeriod('pm')">
-          PM
-        </button>
+        <div class="mcc-timer-picker-am-pm" *ngIf="format === '12'">
+          <button mat-icon-button [ngClass]="{ 'mcc-active': period === 'am' }" (click)="changePeriod('am')">
+            AM
+          </button>
+          <button mat-icon-button [ngClass]="{ 'mcc-active': period === 'pm' }" (click)="changePeriod('pm')">
+            PM
+          </button>
+        </div>
       </div>
     </div>
 
