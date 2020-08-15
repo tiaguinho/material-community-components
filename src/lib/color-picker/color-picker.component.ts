@@ -443,14 +443,12 @@ export class MccColorPickerComponent implements AfterContentInit, OnInit, OnDest
    */
   updateTmpSelectedColor(color: string) {
     const clr = parseColorString(color);
-    if (color) {
-      const clrString = color === this.emptyColor ? color : formatColor(clr, this.format);
-      this._tmpSelectedColor.next(clrString);
-      if (this._selectedColor !== clrString) {
-        this.change.emit(clrString);
-        if (this._hideButtons) {
-          this._updateSelectedColor();
-        }
+    const clrString = color === this.emptyColor ? color : formatColor(clr, this.format);
+    this._tmpSelectedColor.next(clrString);
+    if (this._selectedColor !== clrString) {
+      this.change.emit(clrString);
+      if (this._hideButtons) {
+        this._updateSelectedColor();
       }
     }
   }
