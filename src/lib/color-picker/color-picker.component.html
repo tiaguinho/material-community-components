@@ -28,7 +28,7 @@
 
 <!-- color picker component content -->
 <ng-template cdkPortal #overlayPanel="cdkPortal">
-  <div class="mcc-color-picker-overlay mat-elevation-z6" [ngClass]="{ 'alpha-enabled': alpha }" role="dialog" aria-label="Color picker">
+  <div class="mcc-color-picker-overlay mat-elevation-z4" [ngClass]="{ 'alpha-enabled': alpha }" role="dialog" aria-label="Color picker">
     <mcc-color-picker-selector
       *ngIf="!hideColorPickerSelector"
       [selectedColor]="tmpSelectedColor$ | async"
@@ -68,6 +68,8 @@
     </ng-container>
 
     <div *ngIf="!hideButtons" class="mcc-color-picker-actions">
+
+      <div style="flex: 1 auto;"></div>
       <button mat-button role="button" aria-label="Cancel" (click)="cancelSelection()">
         {{ btnCancelLabel }}
       </button>

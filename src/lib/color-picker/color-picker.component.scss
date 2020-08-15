@@ -1,5 +1,3 @@
-@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,700');
-
 .btn-picker {
   width: 25px;
   height: 25px;
@@ -25,7 +23,7 @@
   flex-direction: column;
   padding: 0;
   background: #ffffff;
-  font-family: 'Open Sans', sans-serif;
+  font-family: 'Roboto', sans-serif;
   &.alpha-enabled {
     width: 316px;
   }
@@ -52,12 +50,7 @@
   border-top: 1px #dddddd solid;
 
   button {
-    color: #100214;
     text-transform: uppercase;
-    font-family: 'Open Sans', sans-serif;
-    font-size: 12px;
-    font-weight: 400;
-    flex-grow: 1;
   }
 }
 

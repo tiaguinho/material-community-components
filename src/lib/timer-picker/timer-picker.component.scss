@@ -1,10 +1,13 @@
-@import url('https://fonts.googleapis.com/css?family=Roboto');
-
 $primary: #00796b;
 
+$border-radius: 4px;
+
 .mcc-timer-picker-overlay {
+  font-family: 'Roboto', sans-serif;
   width: 290px;
   height: 400px;
+  border-radius: $border-radius;
+  background-color: #ffffff // TODO: use theme background color (support dark theme)
 }
 
 .mcc-timer-picker-header {
@@ -12,6 +15,8 @@ $primary: #00796b;
   width: 220px;
   height: 65px;
   padding: 10px 0 5px 70px;
+  border-top-left-radius: $border-radius;
+  border-top-right-radius: $border-radius;
   background: $primary;
 }
 
@@ -19,7 +24,6 @@ $primary: #00796b;
 .mcc-timer-picker-minutes {
   width: 63px;
   height: 63px;
-  font-family: 'Roboto', sans-serif;
   font-size: 50px;
   font-weight: 400;
   color: rgba(255, 255, 255, 0.3);
@@ -49,7 +53,6 @@ $primary: #00796b;
 }
 
 .mcc-timer-picker-separator {
-  font-family: 'Roboto', sans-serif;
   font-size: 43px;
   font-weight: 400;
   color: rgba(255, 255, 255, 0.3);
@@ -84,7 +87,6 @@ $primary: #00796b;
   width: inherit;
   height: 260px;
   padding: 15px 0 5px 0;
-  background-color: #ffffff;
 }
 
 .mcc-timer-picker-clock {
@@ -303,14 +305,9 @@ $primary: #00796b;
 .mcc-timer-picker-actions {
   display: flex;
   padding: 4px;
-  background-color: #ffffff;
 
   button {
-    color: #100214;
     text-transform: uppercase;
-    font-family: 'Roboto', sans-serif;
-    font-size: 14px;
-    font-weight: 400;
   }
 }
 

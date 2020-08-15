@@ -11,7 +11,7 @@
 <ng-template *ngIf="!connected" [cdkPortalOutlet]="panelComponent"></ng-template>
 
 <ng-template cdkPortal #panelComponent="cdkPortal">
-  <div class="mcc-timer-picker-overlay mat-elevation-z6" role="dialog" aria-label="Timer picker">
+  <div class="mcc-timer-picker-overlay mat-elevation-z4" role="dialog" aria-label="Timer picker">
 
     <div class="mcc-timer-picker-header mat-primary">
       <button mat-icon-button class="mcc-timer-picker-hours" [ngClass]="{ 'mcc-active': focus === 'hour' }" (click)="focus = 'hour'">
@@ -59,16 +59,14 @@
 
     </div>
 
-    <div *ngIf="!hideButtons" class="mcc-timer-picker-actions" dir="rtl">
-
-      <button mat-button role="button" aria-label="Confirm" (click)="confirmSelectedTime()">
-        {{ btnConfirm }}
-      </button>
-
+    <div *ngIf="!hideButtons" class="mcc-timer-picker-actions">
+      <div style="flex: 1 auto;"></div>
       <button mat-button role="button" aria-label="Cancel" (click)="cancelSelection()">
         {{ btnCancel }}
       </button>
-
+      <button mat-button role="button" aria-label="Confirm" (click)="confirmSelectedTime()">
+        {{ btnConfirm }}
+      </button>
     </div>
 
   </div>
