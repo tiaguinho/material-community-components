@@ -40,12 +40,12 @@ describe('MccTimerPickerComponent', () => {
     const btnConfirm = fixture.nativeElement.querySelector('[aria-label="Confirm"]');
     const btnCancel = fixture.nativeElement.querySelector('[aria-label="Cancel"]');
 
-    expect(btnConfirm.textContent.trim()).toEqual('Ok');
+    expect(btnConfirm.textContent.trim()).toEqual('Confirm');
     expect(btnCancel.textContent.trim()).toEqual('Cancel');
   });
 
   it('should change button labels', () => {
-    const confirmLabel = 'Confirm';
+    const confirmLabel = 'OK';
     const cancelLabel = 'Abort';
 
     comp.btnConfirm = confirmLabel;
