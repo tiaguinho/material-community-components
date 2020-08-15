@@ -76,7 +76,7 @@ export class MccConnectedColorPickerDirective implements AfterViewInit, OnDestro
       }
     });
 
-    this._focusSub = this.origin.focus.subscribe(() => {
+    this._focusSub = this.origin.hasFocus.subscribe(() => {
       this.colorPicker.isOpen = true;
     });
 

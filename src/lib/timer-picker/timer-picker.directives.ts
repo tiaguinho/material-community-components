@@ -7,7 +7,7 @@ import {
   Input,
   Output,
   OnDestroy,
-  Renderer2,
+  Renderer2, EventEmitter, HostListener,
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { MccTimerPickerComponent } from './timer-picker.component';
@@ -33,7 +33,7 @@ export class MccTimerPickerOriginDirective {
   /**
    * Emit changes from the origin
    */
-  @Output() hasFocus: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  @Output() hasFocus: EventEmitter<void> = new EventEmitter<void>();
 
   /**
    * Propagate changes to angular
@@ -44,8 +44,10 @@ export class MccTimerPickerOriginDirective {
    * Reference to the element on which the directive is applied.
    */
   constructor(public elementRef: ElementRef, private renderer: Renderer2) {
-    // listen focus
-    renderer.listen(elementRef.nativeElement, 'focus', () => this.hasFocus.next(true));
+  }
+
+  @HostListener('focus') onFocus() {
+    this.hasFocus.emit();
   }
 
   /**
@@ -147,9 +149,9 @@ export class MccConnectedTimerPickerDirective implements AfterViewInit, OnDestro
    * Attach the timer picker to origin element (input)
    */
   private _attachTimerPicker(): void {
-    this._originFocus = this.origin.hasFocus.subscribe(focused => {
+    this._originFocus = this.origin.hasFocus.subscribe(() => {
       this.timerPicker.focus = 'hour';
-      this.timerPicker.isOpen = focused;
+      this.timerPicker.isOpen = true;
       this.changeDetectorRef.detectChanges();
     });
 
