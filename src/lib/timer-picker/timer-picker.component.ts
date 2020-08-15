@@ -87,6 +87,10 @@ export class MccTimerPickerComponent {
   }
   private _hour: MccTimerPickerHour | MccTimerPicker24Hour = '12';
 
+  get needsSpacer(): boolean {
+    return parseInt(this._hour, 10) < 10;
+  }
+
   /**
    * Return temporary selected minute (const MINUTES)
    */
@@ -182,7 +186,7 @@ export class MccTimerPickerComponent {
   select(value: MccTimerPickerTimeValue) {
     if (this.focus === 'hour') {
       this._hour = <MccTimerPickerHour | MccTimerPicker24Hour>value;
-    this.focus = 'min';
+      this.focus = 'min';
     } else {
       this._minute = <MccTimerPickerMinute>value;
       // if buttons are hidden, emit new event when value is changed

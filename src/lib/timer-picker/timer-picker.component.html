@@ -17,12 +17,12 @@
       <div class="mcc-timer-picker-header-clock">
         <button mat-icon-button class="mcc-timer-picker-hours" [ngClass]="{ 'mcc-active': focus === 'hour' }"
                 (click)="focus = 'hour'">
-          {{ hour }}
+         <span><span *ngIf="needsSpacer">&nbsp;&nbsp;</span>{{ hour }}</span>
         </button>
         <span class="mcc-timer-picker-separator">:</span>
         <button mat-icon-button class="mcc-timer-picker-minutes" [ngClass]="{ 'mcc-active': focus === 'min' }"
                 (click)="focus = 'min'">
-          {{ minute }}
+          <span>{{ minute }}</span>
         </button>
 
         <div class="mcc-timer-picker-am-pm" *ngIf="format === '12'">
