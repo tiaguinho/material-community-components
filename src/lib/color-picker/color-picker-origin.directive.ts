@@ -22,7 +22,7 @@ export class MccColorPickerOriginDirective implements ControlValueAccessor {
   /**
    * Emit focus event
    */
-  focus: EventEmitter<void> = new EventEmitter<void>();
+  hasFocus: EventEmitter<void> = new EventEmitter<void>();
 
   /**
    * Emit changes from the origin
@@ -43,7 +43,7 @@ export class MccColorPickerOriginDirective implements ControlValueAccessor {
 
   @HostListener('focus') onFocus() {
     if (this.openMode === 'openOnFocus') {
-      this.focus.emit();
+      this.hasFocus.emit();
     }
   }
 
