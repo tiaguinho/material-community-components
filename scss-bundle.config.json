@@ -1,6 +1,6 @@
 {
   "bundlerOptions": {
-    "entryFile": "./src/lib/_theming.scss",
-    "outFile": "./src/lib/dist/_theming.scss"
+    "entryFile": "./projects/material-community-components/_theming.scss",
+    "outFile": "./dist/material-community-components/_theming.scss"
   }
 }
