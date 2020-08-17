@@ -5,13 +5,13 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve demo --aot",
-    "build": "ng build --prod demo",
+    "build": "ng build material-community-components --prod",
     "build:lib:scss": "scss-bundle -c scss-bundle.config.json",
     "docs": "ng deploy --base-href=https://tiaguinho.github.io/material-community-components/",
-    "test": "ng test",
+    "test": "ng test material-community-components",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "packagr": "ng-packagr -p src/lib/package.json && yarn build:lib:scss && cp README.md src/lib/dist/",
+    "packagr": "yarn build && yarn build:lib:scss && cp README.md dist/material-community-components",
     "postinstall": "ngcc --properties es2015 browser module main --first-only --create-ivy-entry-points"
   },
   "private": true,
@@ -20,6 +20,7 @@
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~0.1000.6",
+    "@angular-devkit/build-ng-packagr": "~0.1000.6",
     "@angular-devkit/core": "^10.0.6",
     "@angular/animations": "^10.0.9",
     "@angular/cdk": "^10.1.3",

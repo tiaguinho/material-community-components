@@ -10,10 +10,29 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "target": "esnext",
-    "typeRoots": ["node_modules/@types"],
-    "lib": ["esnext", "dom"],
+    "typeRoots": [
+      "node_modules/@types"
+    ],
+    "lib": [
+      "esnext",
+      "dom"
+    ],
     "paths": {
-      "material-community-components": ["src/lib/*"]
+      "material-community-components": [
+        "projects/material-community-components/public-api.ts"
+      ],
+      "material-community-components/color-picker": [
+        "projects/material-community-components/color-picker/public-api.ts"
+      ],
+      "material-community-components/timer-picker": [
+        "projects/material-community-components/timer-picker/public-api.ts"
+      ],
+      "material-community-components/scrollspy": [
+        "projects/material-community-components/scrollspy/public-api.ts"
+      ],
+      "material-community-components/speed-dial": [
+        "projects/material-community-components/speed-dial/public-api.ts"
+      ]
     }
   },
   "angularCompilerOptions": {
