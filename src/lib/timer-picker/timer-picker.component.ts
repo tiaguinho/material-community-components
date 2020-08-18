@@ -87,6 +87,9 @@ export class MccTimerPickerComponent {
   }
   private _hour: MccTimerPickerHour | MccTimerPicker24Hour = '12';
 
+  /**
+   * Checks if hour has only one digit
+   */
   get needsSpacer(): boolean {
     return parseInt(this._hour, 10) < 10;
   }
@@ -248,7 +251,6 @@ export class MccTimerPickerComponent {
 
   /**
    * Change period of the clock
-   * @param period MccTimerPickerPeriod
    */
   changePeriod(period: MccTimerPickerPeriod) {
     this._period = period;

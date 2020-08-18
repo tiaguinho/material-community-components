@@ -2,6 +2,8 @@ $primary: #00796b;
 
 $border-radius: 4px;
 
+$transition: 200ms ease;
+
 .mcc-timer-picker-overlay {
   font-family: 'Roboto', sans-serif;
   width: 290px;
@@ -122,50 +124,62 @@ $border-radius: 4px;
     // 12h or 00m
     &.selected-index-0 {
       transform: rotateZ(0deg);
+      transition: $transition;
     }
     // 11h or 55m
     &.selected-index-1 {
-      transform: rotateZ(327deg);;
+      transform: rotateZ(327deg);
+      transition: $transition;
     }
     // 1h or 05m
     &.selected-index-2 {
       transform: rotateZ(30deg);
+      transition: $transition;
     }
     // 10h or 50m
     &.selected-index-3 {
       transform: rotateZ(300deg);
+      transition: $transition;
     }
     // 2h or 10m
     &.selected-index-4 {
       transform: rotateZ(60deg);
+      transition: $transition;
     }
     // 9h or 45m
     &.selected-index-5 {
       transform: rotateZ(270deg);
+      transition: $transition;
     }
     // 3h or 15m
     &.selected-index-6 {
       transform: rotateZ(90deg);
+      transition: $transition;
     }
     // 8h or 40m
     &.selected-index-7 {
       transform: rotateZ(240deg);
+      transition: $transition;
     }
     // 4h or 20m
     &.selected-index-8 {
       transform: rotateZ(120deg);
+      transition: $transition;
     }
     // 7h or 35m
     &.selected-index-9 {
       transform: rotateZ(210deg);
+      transition: $transition;
     }
     // 5h or 25m
     &.selected-index-10 {
       transform: rotateZ(150deg);
+      transition: $transition;
     }
     // 6h or 30m
     &.selected-index-11 {
       transform: rotateZ(180deg);
+      transition: $transition;
     }
   }
 
