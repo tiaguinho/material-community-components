@@ -6,9 +6,8 @@
     cdkOverlayOrigin
     #triggerButton="cdkOverlayOrigin"
     [ngClass]="{ empty: selectedColor === emptyColor, disabled: disabled }"
-    [style.backgroundColor]="selectedColor"
-    (click)="toggle()"
   >
+    <span class="btn-picker-background" [style.backgroundColor]="selectedColor" (click)="toggle()"></span>
   </button>
 
   <ng-template
@@ -68,7 +67,6 @@
     </ng-container>
 
     <div *ngIf="!hideButtons" class="mcc-color-picker-actions">
-
       <div style="flex: 1 auto;"></div>
       <button mat-button role="button" aria-label="Cancel" (click)="cancelSelection()">
         {{ btnCancelLabel }}

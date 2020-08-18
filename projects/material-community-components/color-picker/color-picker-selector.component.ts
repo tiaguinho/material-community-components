@@ -588,17 +588,8 @@ export class MccColorPickerSelectorComponent implements AfterViewInit, OnInit, O
    * Generate alpha selector gradient based on the RGB color
    */
   private _drawAlphaSelector(color: Color) {
-    const background = new Image();
-    background.src =
-      'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA0AAAANCAIAAAD9iXMrAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAAITcAACE3ATNYn3oAAACJSURBVChTjZDLDgQREEX9/6fRdvgAJMbSArvpud2ofibmLCqVOHUpbH3gnBNCLAP0xpjD++6gmXiEtfbdazHE2ZNS/psHtNZzj3O+eXg14b1H/VwJIaAyjJ7BdIyxJw9KKayn73u1ZuIRcw+R+Iinl3O+34uKV/fzweZhZ6CUahXAq7XiLiKl9AP878ZgrHOa/QAAAABJRU5ErkJggg==';
-    background.onload = () => {
-      // clear canvas
+    if (this._alphaContext) {
       this._alphaContext.clearRect(0, 0, this._alpha.nativeElement.width, this._alpha.nativeElement.height);
-
-      // draw transparent background image
-      this._alphaContext.fillStyle = this._alphaContext.createPattern(background, 'repeat');
-      this._alphaContext.fillRect(0, 0, this._alpha.nativeElement.width, this._alpha.nativeElement.height);
-      // if rgb is set and have at least 3 values set, create linear gradient
 
       const alphaGrd2 = this._alphaContext.createLinearGradient(0, 0, 0, this._bc.nativeElement.height);
       alphaGrd2.addColorStop(0, `rgba(${color.toRgb().r}, ${color.toRgb().g}, ${color.toRgb().b}, 1)`);
@@ -606,7 +597,7 @@ export class MccColorPickerSelectorComponent implements AfterViewInit, OnInit, O
 
       this._alphaContext.fillStyle = alphaGrd2;
       this._alphaContext.fillRect(0, 0, this._alpha.nativeElement.width, this._alpha.nativeElement.height);
-    };
+    }
   }
 
   /**

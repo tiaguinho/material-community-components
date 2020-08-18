@@ -1,13 +1,28 @@
+@import "common";
+
 .btn-picker {
   width: 25px;
   height: 25px;
   cursor: pointer;
-  background: none;
+  position: relative;
+  background-image: $alpha-background;
+  background-repeat: repeat;
+  background-size: 14px;
   border-radius: 3px;
   border: 2px solid #dddddd;
 
+  .btn-picker-background {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+  }
+
   &.empty {
-    background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB8AAAAfAQMAAAAlYIR6AAAABlBMVEX/////EBC8L+WmAAAAJ0lEQVR42mM4wAAED0DEBxBRASJsQIQciOAHEewNQIIZpJCRjgr5AP7LD2UBZrkqAAAAAElFTkSuQmCC') !important;
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB8AAAAfAQMAAAAlYIR6AAAABlBMVEX/////EBC8L+WmAAAAJ0lEQVR42mM4wAAED0DEBxBRASJsQIQciOAHEewNQIIZpJCRjgr5AP7LD2UBZrkqAAAAAElFTkSuQmCC') !important;
+    background-repeat: no-repeat;
+    background-size: auto;
   }
   &.disabled {
     opacity: 0.5;
