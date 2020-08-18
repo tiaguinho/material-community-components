@@ -292,10 +292,8 @@ export class MccColorPickerSelectorComponent implements AfterViewInit, OnInit, O
         this._updateHexForm(color);
         this._updateRGBAForm(color);
         this.setSelectorPositions(color);
-        if (this._blockContext) {
           this._drawBlockSelector(color);
-        }
-        if (this._alphaContext && this.colorPickerCollectionService.alpha) {
+        if (this.colorPickerCollectionService.alpha) {
           this._drawAlphaSelector(color);
         }
         this._tmpSelectedColor.next(color);
@@ -403,6 +401,10 @@ export class MccColorPickerSelectorComponent implements AfterViewInit, OnInit, O
 
     this._drawHueSelector();
     this._drawBlockSelector(this._selectedColor);
+
+    if (this.colorPickerCollectionService.alpha) {
+      this._drawAlphaSelector(this._selectedColor);
+    }
 
     this.setSelectorPositions(this._selectedColor);
   }
@@ -604,21 +606,23 @@ export class MccColorPickerSelectorComponent implements AfterViewInit, OnInit, O
    * Generate color selector block based on the RGB color
    */
   private _drawBlockSelector(hueColor: Color) {
-    this._blockContext.fillStyle = `hsl(${hueColor.toHsl().h}, 100%, 50%)`;
-    this._blockContext.fillRect(0, 0, this._bc.nativeElement.width, this._bc.nativeElement.height);
+    if (this._blockContext) {
+      this._blockContext.fillStyle = `hsl(${hueColor.toHsl().h}, 100%, 50%)`;
+      this._blockContext.fillRect(0, 0, this._bc.nativeElement.width, this._bc.nativeElement.height);
 
-    // HSL selector
-    const grdWhite = this._hueSelectorContext.createLinearGradient(1, 0, this._bc.nativeElement.width - 1, 0);
-    grdWhite.addColorStop(0, 'rgba(255,255,255,1)');
-    grdWhite.addColorStop(1, 'rgba(255,255,255,0)');
-    this._blockContext.fillStyle = grdWhite;
-    this._blockContext.fillRect(0, 0, this._bc.nativeElement.width, this._bc.nativeElement.height);
+      // HSL selector
+      const grdWhite = this._hueSelectorContext.createLinearGradient(1, 0, this._bc.nativeElement.width - 1, 0);
+      grdWhite.addColorStop(0, 'rgba(255,255,255,1)');
+      grdWhite.addColorStop(1, 'rgba(255,255,255,0)');
+      this._blockContext.fillStyle = grdWhite;
+      this._blockContext.fillRect(0, 0, this._bc.nativeElement.width, this._bc.nativeElement.height);
 
-    const grdBlack = this._hueSelectorContext.createLinearGradient(0, 1, 0, this._bc.nativeElement.height - 1);
-    grdBlack.addColorStop(0, 'rgba(0,0,0,0)');
-    grdBlack.addColorStop(1, 'rgba(0,0,0,1)');
-    this._blockContext.fillStyle = grdBlack;
-    this._blockContext.fillRect(0, 0, this._bc.nativeElement.width, this._bc.nativeElement.height);
+      const grdBlack = this._hueSelectorContext.createLinearGradient(0, 1, 0, this._bc.nativeElement.height - 1);
+      grdBlack.addColorStop(0, 'rgba(0,0,0,0)');
+      grdBlack.addColorStop(1, 'rgba(0,0,0,1)');
+      this._blockContext.fillStyle = grdBlack;
+      this._blockContext.fillRect(0, 0, this._bc.nativeElement.width, this._bc.nativeElement.height);
+    }
   }
 
   /**
