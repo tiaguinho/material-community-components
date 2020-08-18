@@ -1,3 +1,11 @@
+button {
+  width: 22px;
+  height: 22px;
+  cursor: pointer;
+  margin: 3px;
+}
+
+
 .mcc-color-picker-collection {
   min-height: 50px;
   padding: 10px 18px;
@@ -16,6 +24,7 @@
   border: 1px solid #e1e1e1;
 
   .mcc-color-picker-transparent {
+    display: block;
     width: 20px;
     height: 1px;
     border-bottom: 1px solid red;
@@ -24,46 +33,3 @@
   }
 }
 
-button {
-  width: 22px;
-  height: 22px;
-  cursor: pointer;
-  margin: 3px;
-
-  mat-icon {
-    &.black {
-      color: rgba(0,0,0,0.87) !important;
-      fill: rgba(0,0,0,0.87) !important;
-    }
-    &.white {
-      color: #ffffff !important;
-      fill: #ffffff !important;
-    }
-  }
-
-  &.black {
-    color:  rgba(0,0,0,0.87)  !important;
-   mat-icon {
-      color:  rgba(0,0,0,0.87)  !important;
-    }
-  }
-  &.white {
-    color: #ffffff !important;
-    mat-icon {
-      color: #ffffff !important;
-    }
-  }
-
-  .mat-font-icon {
-    width: 10px;
-    height: 10px;
-    font-size: .8rem;
-    font-weight: 600;
-    margin: -1.3rem 0 0 -.15rem;
-  }
-
-  .mat-svg-icon {
-    margin: -1.3rem 0 0 0;
-    width: 14px;
-  }
-}

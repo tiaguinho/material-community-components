@@ -13,8 +13,8 @@ import {
   SELECTED_COLOR_SVG_ICON,
   USED_COLORS
 } from './color-picker.types';
-import { MccColorPickerOptionDirective } from './color-picker-option.directive';
 import { MccColorPickerCollectionService } from './color-picker-collection.service';
+import { MccColorPickerOptionComponent } from './color-picker-option.component';
 
 describe('MccColorPickerCollectionComponent', () => {
   let comp: MccColorPickerCollectionComponent;
@@ -23,7 +23,7 @@ describe('MccColorPickerCollectionComponent', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [MatIconModule],
-      declarations: [MccColorPickerCollectionComponent, MccColorPickerOptionDirective],
+      declarations: [MccColorPickerCollectionComponent, MccColorPickerOptionComponent],
       providers: [
         MccColorPickerService,
         MccColorPickerCollectionService,
@@ -88,7 +88,7 @@ describe('MccColorPickerCollectionComponent', () => {
 
     fixture.detectChanges();
 
-    const options = fixture.debugElement.queryAll(By.directive(MccColorPickerOptionDirective));
+    const options = fixture.debugElement.queryAll(By.css('mcc-color-picker-option'));
     expect(options.length).toEqual(30);
   });
 
@@ -98,7 +98,7 @@ describe('MccColorPickerCollectionComponent', () => {
 
     fixture.detectChanges();
 
-    const options = fixture.debugElement.queryAll(By.directive(MccColorPickerOptionDirective));
+    const options = fixture.debugElement.queryAll(By.css('mcc-color-picker-option'));
     expect(options.length).toEqual(10);
   });
 
@@ -108,7 +108,7 @@ describe('MccColorPickerCollectionComponent', () => {
 
     fixture.detectChanges();
 
-    const options = fixture.debugElement.queryAll(By.directive(MccColorPickerOptionDirective));
+    const options = fixture.debugElement.queryAll(By.css('mcc-color-picker-option'));
     expect(options.length).toEqual(2);
   });
 
@@ -138,8 +138,9 @@ describe('MccColorPickerCollectionComponent', () => {
       done();
     });
 
-    const option = fixture.debugElement.query(By.directive(MccColorPickerOptionDirective));
-    option.triggerEventHandler('click', null);
+    const option = fixture.debugElement.query(By.css('mcc-color-picker-option'));
+    const button = option.query(By.css('button'));
+    button.triggerEventHandler('click', null);
   });
 
   it('should select white color in rgb', (done: DoneFn) => {
@@ -154,10 +155,10 @@ describe('MccColorPickerCollectionComponent', () => {
       done();
     });
 
-    const option = fixture.debugElement.query(By.directive(MccColorPickerOptionDirective));
-    option.triggerEventHandler('click', null);
+    const option = fixture.debugElement.query(By.css('mcc-color-picker-option'));
+    const button = option.query(By.css('button'));
+    button.triggerEventHandler('click', null);
   });
-
 
   it('should select white color in hsl', (done: DoneFn) => {
     const service = TestBed.inject(MccColorPickerCollectionService);
@@ -171,8 +172,9 @@ describe('MccColorPickerCollectionComponent', () => {
       done();
     });
 
-    const option = fixture.debugElement.query(By.directive(MccColorPickerOptionDirective));
-    option.triggerEventHandler('click', null);
+    const option = fixture.debugElement.query(By.css('mcc-color-picker-option'));
+    const button = option.query(By.css('button'));
+    button.triggerEventHandler('click', null);
   });
 
   it('should select black color', (done: DoneFn) => {
@@ -190,7 +192,8 @@ describe('MccColorPickerCollectionComponent', () => {
       done();
     });
 
-    const option = fixture.debugElement.query(By.directive(MccColorPickerOptionDirective));
-    option.triggerEventHandler('click', null);
+    const option = fixture.debugElement.query(By.css('mcc-color-picker-option'));
+    const button = option.query(By.css('button'));
+    button.triggerEventHandler('click', null);
   });
 });

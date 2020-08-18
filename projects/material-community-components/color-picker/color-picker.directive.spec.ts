@@ -23,8 +23,8 @@ import {
   SELECTED_COLOR_SVG_ICON,
   USED_COLORS
 } from './color-picker.types';
-import { MccColorPickerOptionDirective } from './color-picker-option.directive';
 import { MccConnectedColorPickerDirective } from './color-picker-connected.directive';
+import { MccColorPickerOptionComponent } from './color-picker-option.component';
 
 //
 @Component({
@@ -73,7 +73,7 @@ describe('MccConnectedColorPickerdirective', () => {
         MccColorPickerSelectorComponent,
         MccColorPickerCollectionComponent,
         MccColorPickerOriginDirective,
-        MccColorPickerOptionDirective,
+        MccColorPickerOptionComponent,
         MccConnectedColorPickerDirective
       ],
       providers: [
