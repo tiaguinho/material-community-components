@@ -55,17 +55,16 @@ canvas {
 }
 
 ::ng-deep mat-form-field {
-  font-family: 'Open Sans';
   font-size: 11px;
   font-weight: bold;
 
   &.black {
-    color: rgba(0,0,0,0.87) !important;
+    color: rgba(0, 0, 0, 0.87) !important;
     label.mat-form-field-label {
-      color: rgba(0,0,0,0.87) !important;
+      color: rgba(0, 0, 0, 0.87) !important;
     }
     .mat-form-field-underline {
-      background-color: rgba(0,0,0,0.87) !important;
+      background-color: rgba(0, 0, 0, 0.87) !important;
     }
   }
   &.white {
@@ -95,7 +94,7 @@ canvas {
         -webkit-appearance: none;
         margin: 0;
       }
-      &[type=number] {
+      &[type='number'] {
         -moz-appearance: textfield;
       }
     }
