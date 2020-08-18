@@ -22,7 +22,7 @@ import {
   SELECTED_COLOR_SVG_ICON,
   USED_COLORS
 } from './color-picker.types';
-import { MccColorPickerOptionDirective } from './color-picker-option.directive';
+import { MccColorPickerOptionComponent } from './color-picker-option.component';
 
 describe('MccColorPickerComponent', () => {
   let comp: MccColorPickerComponent;
@@ -59,7 +59,7 @@ describe('MccColorPickerComponent', () => {
         MatIconModule
       ],
       declarations: [
-        MccColorPickerOptionDirective,
+        MccColorPickerOptionComponent,
         MccColorPickerComponent,
         MccColorPickerCollectionComponent,
         MccColorPickerSelectorComponent
@@ -140,10 +140,10 @@ describe('MccColorPickerComponent', () => {
     fixture.detectChanges();
 
     const collection = fixture.debugElement.query(By.css('mcc-color-picker-collection'));
-    const buttons = collection.queryAll(By.css('button'));
+    const buttons = collection.queryAll(By.css('.option-color'));
 
-    expect(toHex(buttons[1].styles['backgroundColor'])).toBe(colors[1]);
-    expect(toHex(buttons[2].styles['backgroundColor'])).toBe(colors[0]);
+    expect(toHex(buttons[0].styles['backgroundColor'])).toBe(colors[1]);
+    expect(toHex(buttons[1].styles['backgroundColor'])).toBe(colors[0]);
   });
 
   // TODO: disabled because this was not testing anything really because forms.children.length was always 0
@@ -175,8 +175,9 @@ describe('MccColorPickerComponent', () => {
 
     const collection = fixture.debugElement.query(By.css('mcc-color-picker-collection'));
     const buttons = collection.queryAll(By.css('button'));
+    const colorDiv = buttons[0].query(By.css('.option-color'));
 
-    expect(toHex(buttons[0].styles['backgroundColor'])).toBe(colors[0]);
+    expect(toHex(colorDiv.styles['backgroundColor'])).toBe(colors[0]);
   });
 
   it('should hide buttons', () => {

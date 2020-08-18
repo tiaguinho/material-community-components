@@ -23,9 +23,9 @@ import { MccColorPickerComponent } from './color-picker.component';
 import { MccColorPickerSelectorComponent } from './color-picker-selector.component';
 import { MccColorPickerCollectionComponent } from './color-picker-collection.component';
 import { MccColorPickerOriginDirective } from './color-picker-origin.directive';
-import { MccColorPickerOptionDirective } from './color-picker-option.directive';
 import { MccColorPickerService } from './color-picker.service';
 import { MccConnectedColorPickerDirective } from './color-picker-connected.directive';
+import { MccColorPickerOptionComponent } from './color-picker-option.component';
 
 @NgModule({
   imports: [
@@ -43,15 +43,10 @@ import { MccConnectedColorPickerDirective } from './color-picker-connected.direc
     MccConnectedColorPickerDirective,
     MccColorPickerSelectorComponent,
     MccColorPickerOriginDirective,
-    MccColorPickerOptionDirective,
-    MccColorPickerCollectionComponent,
+    MccColorPickerOptionComponent,
+    MccColorPickerCollectionComponent
   ],
-  exports: [
-    MccColorPickerComponent,
-    MccConnectedColorPickerDirective,
-    MccColorPickerOriginDirective,
-    MccColorPickerCollectionComponent,
-  ],
+  exports: [MccColorPickerComponent, MccConnectedColorPickerDirective, MccColorPickerOriginDirective, MccColorPickerCollectionComponent],
   providers: [
     MccColorPickerService,
     { provide: DISABLE_SELECTED_COLOR_ICON, useValue: false },
@@ -60,8 +55,8 @@ import { MccConnectedColorPickerDirective } from './color-picker-connected.direc
     { provide: SELECTED_COLOR_SVG_ICON, useValue: null },
     { provide: EMPTY_COLOR, useValue: 'none' },
     { provide: USED_COLORS, useValue: [] },
-    { provide: COLOR_STRING_FORMAT, useValue: 'hex' },
-  ],
+    { provide: COLOR_STRING_FORMAT, useValue: 'hex' }
+  ]
 })
 export class MccColorPickerModule {
   /**
@@ -75,10 +70,10 @@ export class MccColorPickerModule {
         { provide: ENABLE_ALPHA_SELECTOR, useValue: config.enable_alpha_selector || false },
         { provide: SELECTED_COLOR_ICON, useValue: config.selected_icon || 'done' },
         { provide: SELECTED_COLOR_SVG_ICON, useValue: config.selected_svg_icon || null },
-        { provide: EMPTY_COLOR, useValue: ('empty_color' in config ? config.empty_color : 'none') },
+        { provide: EMPTY_COLOR, useValue: 'empty_color' in config ? config.empty_color : 'none' },
         { provide: USED_COLORS, useValue: config.used_colors || [] },
-        { provide: COLOR_STRING_FORMAT, useValue: config.color_string_format || 'hex' },
-      ],
+        { provide: COLOR_STRING_FORMAT, useValue: config.color_string_format || 'hex' }
+      ]
     };
   }
 }

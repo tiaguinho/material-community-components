@@ -7,16 +7,9 @@ import {
   Inject,
   Input,
   OnInit,
-  Output,
+  Output
 } from '@angular/core';
-import {
-  DISABLE_SELECTED_COLOR_ICON,
-  EMPTY_COLOR,
-  MccColorPickerItem,
-  MccColorPickerOption,
-  SELECTED_COLOR_ICON,
-  SELECTED_COLOR_SVG_ICON,
-} from './color-picker.types';
+import { EMPTY_COLOR, MccColorPickerOption } from './color-picker.types';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { MccColorPickerCollectionService } from './color-picker-collection.service';
 import { formatColor, parseColorString } from './color-picker.utils';
@@ -102,38 +95,16 @@ export class MccColorPickerCollectionComponent implements OnInit, AfterContentCh
   /**
    * Current selected color
    */
-  @Input()
   get selectedColor(): string {
     return this._selectedColor;
   }
 
   private _selectedColor: string;
 
-  /**
-   * Return selected color icon
-   */
-  get selectedIcon(): string {
-    return this._selectedIcon;
-  }
-
-  private _selectedIcon: string;
-
-  /**
-   * Return selected svg color icon
-   */
-  get selectedSvgIcon(): string {
-    return this._selectedSvgIcon;
-  }
-
-  private _selectedSvgIcon: string;
-
   constructor(
     private changeDetectorRef: ChangeDetectorRef,
     private colorPickerCollectionService: MccColorPickerCollectionService,
-    @Inject(EMPTY_COLOR) public emptyColor: string,
-    @Inject(SELECTED_COLOR_ICON) private selectedColorIcon: string,
-    @Inject(SELECTED_COLOR_SVG_ICON) public selectedColorSvgIcon: string,
-    @Inject(DISABLE_SELECTED_COLOR_ICON) public disableSelectedIcon: boolean
+    @Inject(EMPTY_COLOR) public emptyColor: string
   ) {}
 
   ngOnInit() {
@@ -142,13 +113,6 @@ export class MccColorPickerCollectionComponent implements OnInit, AfterContentCh
       this._selectedColor = color;
       this.changeDetectorRef.detectChanges();
     });
-
-    // remove selected color icon when svg icon is defined
-    if (!this.selectedColorSvgIcon) {
-      this._selectedIcon = this.selectedColorIcon;
-    } else {
-      this._selectedSvgIcon = this.selectedColorSvgIcon;
-    }
   }
 
   ngAfterContentChecked() {
@@ -185,31 +149,5 @@ export class MccColorPickerCollectionComponent implements OnInit, AfterContentCh
 
     this.colorPickerCollectionService.changeSelectedColor(color);
     this.changeColor.emit(color);
-  }
-
-  /**
-   * returns class for "black" or "white" icon-color on a collection-item
-   */
-  getIconColorClassForColor(color: string | MccColorPickerItem): string {
-    const colorString = typeof color === 'string' ? color : color.value;
-
-    const clr = parseColorString(colorString);
-    if (clr) {
-      return clr.isDark() && clr.getAlpha() > 0.3 ? 'white' : 'black';
-    }
-  }
-
-  /**
-   * check if a color is the current selected color
-   */
-  isColorSelected(color: string | MccColorPickerItem): boolean {
-    if (!color) {
-      return false;
-    }
-    if (typeof color === 'string') {
-      return this._selectedColor === color;
-    } else {
-      return this._selectedColor === color.value;
-    }
   }
 }
