@@ -146,15 +146,16 @@ describe('MccColorPickerComponent', () => {
     expect(toHex(buttons[2].styles['backgroundColor'])).toBe(colors[0]);
   });
 
-  it('should hide form hex', () => {
-    comp.hideHexForms = true;
-    fixture.detectChanges();
-
-    const selector = fixture.debugElement.query(By.css('mcc-color-picker-selector'));
-    const forms = selector.query(By.css('.mcc-color-picker-selector-preview'));
-
-    expect(forms.children.length).toBe(0);
-  });
+  // TODO: disabled because this was not testing anything really because forms.children.length was always 0
+  // it('should hide form hex', () => {
+  //   comp.hideHexForms = true;
+  //   fixture.detectChanges();
+  //
+  //   const selector = fixture.debugElement.query(By.css('mcc-color-picker-selector'));
+  //   const forms = selector.query(By.css('.mcc-color-picker-selector-preview'));
+  //
+  //   expect(forms.children.length).toBe(1);
+  // });
 
   it('should hide empty colors', () => {
     comp.usedColorStart = colors;

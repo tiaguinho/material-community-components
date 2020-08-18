@@ -5,9 +5,10 @@
     class="btn-picker"
     cdkOverlayOrigin
     #triggerButton="cdkOverlayOrigin"
+    (click)="toggle()"
     [ngClass]="{ empty: selectedColor === emptyColor, disabled: disabled }"
   >
-    <span class="btn-picker-background" [style.backgroundColor]="selectedColor" (click)="toggle()"></span>
+    <span class="btn-picker-background" [style.backgroundColor]="selectedColor"></span>
   </button>
 
   <ng-template
