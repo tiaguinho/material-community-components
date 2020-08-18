@@ -112,9 +112,9 @@ export class MccColorPickerSelectorComponent implements AfterViewInit, OnInit, O
       // use "EMPTY_COLOR" as real color if it can be parsed as such
       this._selectedColor = parseColorString(this.emptyColor) || INITIAL_COLOR;
     } else {
-      const color: Color = new TinyColor(value);
-      if (color.isValid()) {
-        this._selectedColor = color;
+      const color: Color = parseColorString(value);
+      if (color) {
+        this._selectedColor = color.setAlpha(color['_roundA']);
         this.noColor = false;
       }
     }
@@ -253,8 +253,8 @@ export class MccColorPickerSelectorComponent implements AfterViewInit, OnInit, O
     // hex form
     this.hexForm = this.formBuilder.group({
       hexCode: new FormControl(toHex(this._selectedColor), {
-        validators: [Validators.pattern(/^#[0-9A-F]{6}$/gi)],
-        updateOn: 'blur'
+        validators: [Validators.pattern(/^#([0-9A-F]{8}|[0-9A-F]{6})$/gi)],
+        updateOn: 'change'
       })
     });
 
