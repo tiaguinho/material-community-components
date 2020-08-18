@@ -20,11 +20,12 @@
     [style.height.px]="selectorHeight"
     style="background-position-y: 0;"
   >
-    <canvas #alpha [height]="stripHeight" [width]="stripWidth" id="alpha"></canvas>
+    <canvas #alpha [height]="stripHeight" [width]="stripWidth" id="alpha" class="mcc-alpha-background"></canvas>
   </div>
 </div>
 
-<div class="mcc-color-picker-selector-preview" [style.backgroundColor]="tmpSelectedColorAsRgba$ | async">
+<div class="mcc-color-picker-selector-preview" >
+  <div class="mcc-color-picker-selector-preview-background" [style.backgroundColor]="tmpSelectedColorAsRgba$ | async"></div>
   <ng-container *ngIf="!hideHexForms && !noColor">
     <form [formGroup]="hexForm">
       <mat-form-field class="hex-input" floatLabel="always" [ngClass]="textClass">
