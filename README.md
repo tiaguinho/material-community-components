@@ -124,8 +124,8 @@ After:
 import { MccColorPickerModule} from 'material-community-components/color-picker';
 import { MccTimerPickerModule} from 'material-community-components/timer-picker';
 import { MccSpeedDialModule} from 'material-community-components/speed-dial';
-import { MccScrollspyModule} from 'material-community-components/scrollspy';```
-
+import { MccScrollspyModule} from 'material-community-components/scrollspy';
+```
 ## How to use
 
 For more examples, you can see our [demo-app](https://github.com/tiaguinho/material-community-components/tree/master/projects/demo) folder or read the [documentation](https://tiaguinho.github.io/material-community-components/)
