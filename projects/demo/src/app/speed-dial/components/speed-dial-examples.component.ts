@@ -1,22 +1,23 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { DIRECTION, MccSpeedDialDirection } from '../../../../../material-community-components/speed-dial/directions';
+import { ANIMATION, MccSpeedDialAnimation } from '../../../../../material-community-components/speed-dial/animations';
 
 @Component({
   selector: 'app-speed-dial-examples',
   templateUrl: './speed-dial-examples.component.html',
   styleUrls: ['./speed-dial-examples.component.scss'],
   preserveWhitespaces: false,
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SpeedDialExamplesComponent implements OnInit {
-
   directions: string[] = ['up', 'down', 'left', 'right'];
 
   animations: string[] = ['scale', 'fling'];
 
   form: FormGroup;
 
-  get direction(): string {
+  get direction(): MccSpeedDialDirection {
     return this.form.get('direction').value;
   }
 
@@ -32,11 +33,11 @@ export class SpeedDialExamplesComponent implements OnInit {
     return this.form.get('mouse_hover').value;
   }
 
-  get animation(): string {
+  get animation(): MccSpeedDialAnimation {
     return this.form.get('animation').value;
   }
 
-  constructor(private fb: FormBuilder) { }
+  constructor(private fb: FormBuilder) {}
 
   ngOnInit() {
     this.form = this.fb.group({
@@ -47,6 +48,4 @@ export class SpeedDialExamplesComponent implements OnInit {
       animation: ['scale']
     });
   }
-
 }
-

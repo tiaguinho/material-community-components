@@ -37,7 +37,7 @@ export class MccColorPickerOriginDirective implements ControlValueAccessor {
   /**
    * Controls if focus of the input opens the color picker dialog
    */
-  @Input('mccColorPickerOrigin') openMode: 'openOnFocus' | 'default' = 'default';
+  @Input('mccColorPickerOrigin') openMode: 'openOnFocus' | 'default' | '' = 'default';
 
   constructor(private elementRef: ElementRef, private renderer: Renderer2, @Inject(EMPTY_COLOR) private emptyColor: string) {}
 

@@ -1,7 +1,7 @@
 import { AfterContentInit, Component, ContentChildren, Input, QueryList, Renderer2, ViewEncapsulation } from '@angular/core';
 import { MatButton } from '@angular/material/button';
 import { BehaviorSubject } from 'rxjs';
-import { ANIMATION, Z_INDEX } from './animations';
+import { ANIMATION, MccSpeedDialAnimation, Z_INDEX } from './animations';
 import { DIRECTION } from './directions';
 
 @Component({
@@ -20,10 +20,10 @@ export class MccSpeedDialActionsComponent implements AfterContentInit {
    * Set type of animation will be executed on open/close
    * Type available are: scale | fling
    */
-  @Input() set animation(animation: ANIMATION) {
+  @Input() set animation(animation: MccSpeedDialAnimation) {
     this._animation.next(animation);
   }
-  private _animation: BehaviorSubject<ANIMATION> = new BehaviorSubject('scale');
+  private _animation: BehaviorSubject<MccSpeedDialAnimation> = new BehaviorSubject('scale');
 
   /**
    * Last animation the was used
@@ -59,7 +59,7 @@ export class MccSpeedDialActionsComponent implements AfterContentInit {
 
   /**
    * Responsible for change the state of the action buttons to visible
-   * 
+   *
    * @param direction DIRECTION
    */
   show(direction: DIRECTION) {
@@ -90,7 +90,7 @@ export class MccSpeedDialActionsComponent implements AfterContentInit {
 
   /**
    * Hide all the buttons action
-   * 
+   *
    * @param direction DIRECTION
    */
   hide(direction: DIRECTION) {

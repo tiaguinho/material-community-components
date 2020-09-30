@@ -1,12 +1,12 @@
-<div class="mcc-color-picker-selector" [ngStyle]="{ 'height.px': selectorHeight }">
-  <div #block class="mcc-picker-selector" [style.height.px]="selectorHeight" [style.width.px]="selectorWidth"></div>
-  <canvas #blockCanvas [height]="selectorHeight" [width]="selectorWidth" id="picker"></canvas>
+<div class="mcc-color-picker-selector" [ngStyle]="{ 'height.px': height }">
+  <div #block class="mcc-picker-selector" [style.height.px]="height" [style.width.px]="selectorWidth"></div>
+  <canvas #blockCanvas [height]="height" [width]="selectorWidth" id="picker"></canvas>
   <div #blockPointer class="mcc-picker-position" style="top: 0; left: 0;"></div>
 
   <div
     #hueContainer
     class="mcc-colors-position"
-    [style.height.px]="selectorHeight"
+    [style.height.px]="height"
     [ngClass]="{ 'alpha-enabled': colorPickerCollectionService.alpha }"
     style="background-position-y: 0;"
   >
@@ -17,7 +17,7 @@
     *ngIf="colorPickerCollectionService.alpha"
     #alphaContainer
     class="mcc-alpha-position"
-    [style.height.px]="selectorHeight"
+    [style.height.px]="height"
     style="background-position-y: 0;"
   >
     <canvas #alpha [height]="stripHeight" [width]="stripWidth" id="alpha" class="mcc-alpha-background"></canvas>
