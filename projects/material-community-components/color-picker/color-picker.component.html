@@ -11,10 +11,12 @@
     <span class="btn-picker-background" [style.backgroundColor]="selectedColor"></span>
   </button>
 
+<!--  TODO: try to center with the overlay centerHorizontally on mobile instead of cdkConnectedOverlayPush-->
   <ng-template
     cdkConnectedOverlay
     cdkConnectedOverlayHasBackdrop
     cdkConnectedOverlayBackdropClass="mcc-color-picker-backdrop"
+    cdkConnectedOverlayPush
     [cdkConnectedOverlayOrigin]="triggerButton"
     [cdkConnectedOverlayOpen]="isOpen"
     (backdropClick)="backdropClick()"
