@@ -24,27 +24,34 @@
   </div>
 </div>
 
-<div class="mcc-color-picker-selector-preview" >
+<div class="mcc-color-picker-selector-preview">
   <div class="mcc-color-picker-selector-preview-background" [style.backgroundColor]="tmpSelectedColorAsRgba$ | async"></div>
+  <!--  TODO: refactor hex-input and rgb-input classes to be compatible with appearance="standard/outline/fill"-->
   <ng-container *ngIf="!hideHexForms && !noColor">
     <form [formGroup]="hexForm">
-      <mat-form-field class="hex-input" floatLabel="always" [ngClass]="textClass">
+      <mat-form-field class="hex-input" floatLabel="always" appearance="legacy" [ngClass]="textClass">
         <input matInput placeholder="HEX" formControlName="hexCode" />
       </mat-form-field>
     </form>
 
     <form [formGroup]="rgbaForm">
-      <mat-form-field class="rgb-input" floatLabel="always" [ngClass]="textClass">
+      <mat-form-field class="rgb-input" floatLabel="always" appearance="legacy" [ngClass]="textClass">
         <input matInput type="number" [placeholder]="colorPickerCollectionService.alpha ? 'RGBA' : 'RGB'" formControlName="R" />
       </mat-form-field>
-      <mat-form-field class="rgb-input" floatLabel="always" [ngClass]="textClass">
+      <mat-form-field class="rgb-input" floatLabel="always" appearance="legacy" [ngClass]="textClass">
         <input matInput type="number" formControlName="G" />
       </mat-form-field>
-      <mat-form-field class="rgb-input" floatLabel="always" [ngClass]="textClass">
+      <mat-form-field class="rgb-input" floatLabel="always" appearance="legacy" [ngClass]="textClass">
         <input matInput type="number" formControlName="B" />
       </mat-form-field>
 
-      <mat-form-field *ngIf="colorPickerCollectionService.alpha" class="rgb-input" floatLabel="always" [ngClass]="textClass">
+      <mat-form-field
+        *ngIf="colorPickerCollectionService.alpha"
+        class="rgb-input"
+        floatLabel="always"
+        appearance="legacy"
+        [ngClass]="textClass"
+      >
         <input matInput type="number" formControlName="A" />
       </mat-form-field>
     </form>
