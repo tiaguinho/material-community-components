@@ -1,14 +1,14 @@
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { AfterViewInit, Component, ContentChild, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
 import { SPIN_ANIMATION } from './animations';
-import { DIRECTION } from './directions';
+import { DIRECTION, MccSpeedDialDirection } from './directions';
 import { MccSpeedDialActionsComponent } from './speed-dial-actions.component';
 
 @Component({
   selector: 'mcc-speed-dial',
   templateUrl: './speed-dial.component.html',
   styleUrls: ['./speed-dial.component.scss'],
-  animations: [SPIN_ANIMATION],
+  animations: [SPIN_ANIMATION]
 })
 export class MccSpeedDialComponent implements AfterViewInit, OnChanges {
   /**
@@ -26,44 +26,49 @@ export class MccSpeedDialComponent implements AfterViewInit, OnChanges {
     return this._isOpen;
   }
   private _isOpen: boolean = false;
+  static ngAcceptInputType_isOpen: boolean | string;
 
   /**
    * When enabled, handle open/close state on mouse hover
    */
-  @Input('mouseHover') set hover(hover: boolean) {
+  @Input('mouseHover')
+  set hover(hover: boolean) {
     this._hover = coerceBooleanProperty(hover);
   }
   private _hover: boolean = false;
+  static ngAcceptInputType_hover: boolean | string;
 
   /**
    * Enable/disable spin animation when button is clicked or hovered
    */
   @Input() set spin(spin: boolean) {
-    this._spin = spin;
+    this._spin = coerceBooleanProperty(spin);
   }
   get spin() {
     return this._spin;
   }
   private _spin: boolean = true;
+  static ngAcceptInputType_spin: boolean | string;
 
   /**
    * Define the direction of the actions button
    * Directions available are: up | down | left | right
    */
-  @Input() set direction(direction: DIRECTION) {
+  @Input()
+  set direction(direction: MccSpeedDialDirection) {
     this._direction = direction;
   }
-  get direction(): DIRECTION {
+  get direction(): MccSpeedDialDirection {
     return this._direction;
   }
-  private _direction: DIRECTION = 'up';
+  private _direction: MccSpeedDialDirection = 'up';
 
   /**
    * Event emitted when open state change
    */
   @Output() openStateChange: EventEmitter<boolean> = new EventEmitter<boolean>();
 
-  constructor() { }
+  constructor() {}
 
   /**
    * Call fab speed dial actions functions to change the
@@ -85,7 +90,7 @@ export class MccSpeedDialComponent implements AfterViewInit, OnChanges {
   }
 
   /**
-   * 
+   *
    */
   ngOnChanges(changes: SimpleChanges) {
     if ('isOpen' in changes && changes['isOpen'].previousValue !== undefined) {

@@ -87,20 +87,19 @@ export class MccColorPickerSelectorComponent implements AfterViewInit, OnInit, O
   /**
    * Change height base of the selector
    */
-  @Input('height')
+  @Input()
   set height(value: number) {
     this._height = value;
   }
-
-  get selectorHeight(): number {
+  get height(): number {
     return this._height;
   }
+  private _height: number = 170;
+  static ngAcceptInputType_height: number | string;
 
   get stripHeight(): number {
     return this._height - 10;
   }
-
-  private _height: number = 170;
 
   /**
    * Receive selected color from the component
@@ -125,15 +124,13 @@ export class MccColorPickerSelectorComponent implements AfterViewInit, OnInit, O
   /**
    * Hide the hexadecimal color forms.
    */
-  @Input('hideHexForms')
-  get hideHexForms(): boolean {
-    return this._hideHexForms;
-  }
-
+  @Input()
   set hideHexForms(value: boolean) {
     this._hideHexForms = value;
   }
-
+  get hideHexForms(): boolean {
+    return this._hideHexForms;
+  }
   private _hideHexForms: boolean = false;
 
   /**
@@ -292,7 +289,7 @@ export class MccColorPickerSelectorComponent implements AfterViewInit, OnInit, O
         this._updateHexForm(color);
         this._updateRGBAForm(color);
         this.setSelectorPositions(color);
-          this._drawBlockSelector(color);
+        this._drawBlockSelector(color);
         if (this.colorPickerCollectionService.alpha) {
           this._drawAlphaSelector(color);
         }

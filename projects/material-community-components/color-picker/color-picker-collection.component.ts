@@ -30,8 +30,8 @@ export class MccColorPickerCollectionComponent implements OnInit, AfterContentCh
   set hideEmpty(value: boolean) {
     this._hideEmpty = coerceBooleanProperty(value);
   }
-
   private _hideEmpty: boolean = false;
+  static ngAcceptInputType_hideEmpty: boolean | string;
 
   /**
    * Name of the collection
@@ -81,11 +81,20 @@ export class MccColorPickerCollectionComponent implements OnInit, AfterContentCh
    * Size limit of the collection
    */
   @Input() size: number = 30;
+  static ngAcceptInputType_size: number | string;
 
   /**
    * Show transparent option
    */
-  @Input() transparent: boolean = false;
+  @Input()
+  set transparent(value: boolean) {
+    this._transparent = coerceBooleanProperty(value);
+  }
+  get transparent(): boolean {
+    return this._transparent;
+  }
+  private _transparent: boolean = false;
+  static ngAcceptInputType_transparent: boolean | string;
 
   /**
    * Emit selected color value

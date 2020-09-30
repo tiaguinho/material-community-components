@@ -114,13 +114,14 @@ export class MccTimerPickerComponent {
    * Hide Confirm and Cancel buttons
    */
   @Input()
-  get hideButtons(): boolean {
-    return this._hideButtons;
-  }
   set hideButtons(value: boolean) {
     this._hideButtons = coerceBooleanProperty(value);
   }
+  get hideButtons(): boolean {
+    return this._hideButtons;
+  }
   private _hideButtons: boolean = false;
+  static ngAcceptInputType_hideButtons: boolean | string;
 
   /**
    * Format of the hour to be emited on confirm

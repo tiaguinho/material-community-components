@@ -47,15 +47,14 @@ export class MccColorPickerComponent implements AfterContentInit, OnInit, OnDest
    * Disable color-picker of showing up
    */
   @Input()
-  get disabled(): boolean {
-    return this._disabled;
-  }
-
   set disabled(disabled: boolean) {
     this._disabled = coerceBooleanProperty(disabled);
   }
-
+  get disabled(): boolean {
+    return this._disabled;
+  }
   private _disabled: boolean = false;
+  static ngAcceptInputType_disabled: boolean | string;
 
   /**
    * Change label of the collection UsedColors
@@ -90,78 +89,75 @@ export class MccColorPickerComponent implements AfterContentInit, OnInit, OnDest
   set reverseUsedColors(reverse: boolean) {
     this._reverseUsedColor = coerceBooleanProperty(reverse);
   }
-
+  get reverseUsedColors(): boolean {
+    return this._reverseUsedColor;
+  }
   private _reverseUsedColor: boolean = false;
+  static ngAcceptInputType_reverseUsedColors: boolean | string;
 
   /**
    * Set position of used colors collection
    */
   @Input()
-  get usedColorsPosition(): MccColorPickerUsedColorPosition {
-    return this._usedColorsPosition;
-  }
-
   set usedColorsPosition(position: MccColorPickerUsedColorPosition) {
     this._usedColorsPosition = position;
   }
-
+  get usedColorsPosition(): MccColorPickerUsedColorPosition {
+    return this._usedColorsPosition;
+  }
   private _usedColorsPosition: MccColorPickerUsedColorPosition = 'top';
 
   /**
    * Hide the hexadecimal color forms.
    */
-  @Input('hideHexForms')
-  get hideHexForms(): boolean {
-    return this._hideHexForms;
-  }
-
+  @Input()
   set hideHexForms(value: boolean) {
     this._hideHexForms = coerceBooleanProperty(value);
   }
-
+  get hideHexForms(): boolean {
+    return this._hideHexForms;
+  }
   private _hideHexForms: boolean = false;
+  static ngAcceptInputType_hideHexForms: boolean | string;
 
   /**
    * Hide empty slots from the collection UsedColors
    */
   @Input('hideEmptyUsedColors')
-  get hideEmpty(): boolean {
-    return this._hideEmpty;
-  }
-
   set hideEmpty(value: boolean) {
     this._hideEmpty = coerceBooleanProperty(value);
   }
-
+  get hideEmpty(): boolean {
+    return this._hideEmpty;
+  }
   private _hideEmpty: boolean = false;
+  static ngAcceptInputType_hideEmpty: boolean | string;
 
   /**
    * Hide transparent option of UsedColors
    */
   @Input('hideTransparentUsedColors')
-  get hideTransparent(): boolean {
-    return this._hideTransparent;
-  }
-
   set hideTransparent(value: boolean) {
     this._hideTransparent = coerceBooleanProperty(value);
   }
-
+  get hideTransparent(): boolean {
+    return this._hideTransparent;
+  }
   private _hideTransparent: boolean = false;
+  static ngAcceptInputType_hideTransparent: boolean | string;
 
   /**
    * Hide UsedColors collection
    */
   @Input('hideUsedColors')
-  get hideUsedColors(): boolean {
-    return this._hideUsedColors;
-  }
-
   set hideUsedColors(value: boolean) {
     this._hideUsedColors = coerceBooleanProperty(value);
   }
-
+  get hideUsedColors(): boolean {
+    return this._hideUsedColors;
+  }
   private _hideUsedColors: boolean = false;
+  static ngAcceptInputType_hideUsedColors: boolean | string;
 
   /**
    * Start with a color selected
@@ -191,77 +187,74 @@ export class MccColorPickerComponent implements AfterContentInit, OnInit, OnDest
    * Define if the panel will be initiated open
    */
   @Input()
-  get isOpen(): boolean {
-    return this._isOpen;
-  }
-
   set isOpen(value: boolean) {
     this._isOpen = coerceBooleanProperty(value);
     this.changeDetectorRef.detectChanges();
   }
-
+  get isOpen(): boolean {
+    return this._isOpen;
+  }
   private _isOpen: boolean = false;
+  static ngAcceptInputType_isOpen: boolean | string;
 
   /**
    * Define if the panel will show in overlay or not
    */
   @Input()
-  get overlay(): boolean {
-    return this._overlay;
-  }
-
   set overlay(value: boolean) {
     this._overlay = coerceBooleanProperty(value);
   }
-
+  get overlay(): boolean {
+    return this._overlay;
+  }
   private _overlay: boolean = true;
+  static ngAcceptInputType_overlay: boolean | string;
 
   /**
    * Hide the action buttons (cancel/confirm)
    */
   @Input()
-  get hideButtons(): boolean {
-    return this._hideButtons;
-  }
-
   set hideButtons(value: boolean) {
     this._hideButtons = coerceBooleanProperty(value);
   }
-
+  get hideButtons(): boolean {
+    return this._hideButtons;
+  }
   private _hideButtons: boolean = false;
+  static ngAcceptInputType_hideButtons: boolean | string;
 
   /**
    * Define new height for the selector
    */
   @Input()
-  get colorPickerSelectorHeight(): number {
-    return this._colorPickerSelectorHeight;
-  }
-
   set colorPickerSelectorHeight(height: number) {
     this._colorPickerSelectorHeight = height;
   }
-
+  get colorPickerSelectorHeight(): number {
+    return this._colorPickerSelectorHeight;
+  }
   private _colorPickerSelectorHeight: number = 170;
+  static ngAcceptInputType_colorPickerSelectorHeight: number | string;
 
   /**
    * Hide the color picker selector
    */
   @Input()
-  get hideColorPickerSelector(): boolean {
-    return this._hideColorPickerSelector;
-  }
-
   set hideColorPickerSelector(value: boolean) {
     this._hideColorPickerSelector = coerceBooleanProperty(value);
   }
 
+  get hideColorPickerSelector(): boolean {
+    return this._hideColorPickerSelector;
+  }
   private _hideColorPickerSelector: boolean = false;
+  static ngAcceptInputType_hideColorPickerSelector: boolean | string;
 
   /**
    * Set the size of the used colors
    */
   @Input() usedSizeColors: number = 30;
+  static ngAcceptInputType_usedSizeColors: number | string;
 
   /**
    * Change btnCancel label
@@ -276,13 +269,15 @@ export class MccColorPickerComponent implements AfterContentInit, OnInit, OnDest
   /**
    * Show alpha selector
    */
-  @Input('alpha') set alpha(value: boolean) {
+  @Input()
+  set alpha(value: boolean) {
     this._alpha = coerceBooleanProperty(value);
   }
   get alpha(): boolean {
     return this._alpha;
   }
   private _alpha: boolean = false;
+  static ngAcceptInputType_alpha: boolean | string;
 
   /**
    * Choose color string format
