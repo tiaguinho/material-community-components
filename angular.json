@@ -54,6 +54,12 @@
       "sourceRoot": "projects/demo/src",
       "prefix": "app",
       "architect": {
+        "deploy": {
+          "builder": "angular-cli-ghpages:deploy",
+          "options": {
+            "baseHref": "./"
+          }
+        },
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
