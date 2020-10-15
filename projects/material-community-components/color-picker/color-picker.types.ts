@@ -1,5 +1,5 @@
 import { InjectionToken } from '@angular/core';
-import { Instance } from 'tinycolor2';
+import type { Instance } from 'tinycolor2';
 
 
 /** Contant used as empty color */
