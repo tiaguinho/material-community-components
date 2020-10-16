@@ -1,7 +1,7 @@
 {
   "$schema": "../../node_modules/ng-packagr/package.schema.json",
   "name": "material-community-components",
-  "version": "9.0.1",
+  "version": "9.0.2",
   "ngPackage": {
     "lib": {
       "entryFile": "src/public-api.ts"
