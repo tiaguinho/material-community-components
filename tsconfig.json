@@ -1,23 +1,43 @@
-/*
-  This is a "Solution Style" tsconfig.json file, and is used by editors and TypeScript’s language server to improve development experience.
-  It is not intended to be used to perform a compilation.
-
-  To learn more about this file see: https://angular.io/config/solution-tsconfig.
-*/
 {
-  "files": [],
-  "references": [
-    {
-      "path": "./projects/material-community-components/tsconfig.lib.json"
-    },
-    {
-      "path": "./projects/material-community-components/tsconfig.spec.json"
-    },
-    {
-      "path": "./projects/demo/tsconfig.app.json"
-    },
-    {
-      "path": "./projects/demo/tsconfig.spec.json"
+  "compileOnSave": false,
+  "compilerOptions": {
+    "module": "esnext",
+    "outDir": "./dist/out-tsc",
+    "baseUrl": ".",
+    "sourceMap": true,
+    "declaration": false,
+    "moduleResolution": "node",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "target": "esnext",
+    "typeRoots": [
+      "node_modules/@types"
+    ],
+    "lib": [
+      "esnext",
+      "dom"
+    ],
+    "paths": {
+      "material-community-components": [
+        "projects/material-community-components/public-api.ts"
+      ],
+      "material-community-components/color-picker": [
+        "projects/material-community-components/color-picker/public-api.ts"
+      ],
+      "material-community-components/timer-picker": [
+        "projects/material-community-components/timer-picker/public-api.ts"
+      ],
+      "material-community-components/scrollspy": [
+        "projects/material-community-components/scrollspy/public-api.ts"
+      ],
+      "material-community-components/speed-dial": [
+        "projects/material-community-components/speed-dial/public-api.ts"
+      ]
     }
-  ]
+  },
+  "angularCompilerOptions": {
+    "fullTemplateTypeCheck": true,
+    "strictInjectionParameters": true,
+    "strictTemplates": true
+  }
 }
