@@ -46,8 +46,8 @@
     "@angular/material": ">= 9 <= 10",
     "@angular/platform-browser": ">= 9 <= 10",
     "@angular/platform-browser-dynamic": ">= 9 <= 10",
-    "core-js": "~3.6.4",
-    "rxjs": "~6.5.5",
-    "zone.js": "~0.10.3"
+    "core-js": "~3.6.5",
+    "rxjs": "~6.6.3",
+    "zone.js": "~0.11.2"
   }
 }
