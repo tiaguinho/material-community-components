@@ -4,14 +4,9 @@
     "outDir": "./out-tsc/spec",
     "baseUrl": "./",
     "module": "commonjs",
-    "target": "esnext",
     "types": [
       "jasmine",
       "node"
     ]
-  },
-  "files": [
-    "src/lib/test.ts",
-    "src/demo-app/polyfills.ts"
-  ]
+  }
 }
