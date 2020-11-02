@@ -128,7 +128,7 @@ import { MccScrollspyModule} from 'material-community-components/scrollspy';
 ```
 ## How to use
 
-For more examples, you can see our [demo-app](https://github.com/tiaguinho/material-community-components/tree/master/projects/demo) folder or read the [documentation](https://tiaguinho.github.io/material-community-components/)
+For more examples, you can see our [demo](https://github.com/tiaguinho/material-community-components/tree/master/projects/demo) folder or read the [documentation](https://tiaguinho.github.io/material-community-components/)
 
 ## License
 
