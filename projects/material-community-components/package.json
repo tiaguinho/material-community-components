@@ -37,17 +37,12 @@
     "material-community-components"
   ],
   "peerDependencies": {
-    "@angular/animations": ">= 9 <= 10",
-    "@angular/cdk": ">= 9 <= 10",
-    "@angular/common": ">= 9 <= 10",
-    "@angular/compiler": ">= 9 <= 10",
-    "@angular/core": ">= 9 <= 10",
-    "@angular/forms": ">= 9 <= 10",
-    "@angular/material": ">= 9 <= 10",
-    "@angular/platform-browser": ">= 9 <= 10",
-    "@angular/platform-browser-dynamic": ">= 9 <= 10",
-    "core-js": "~3.6.5",
-    "rxjs": "~6.6.3",
-    "zone.js": "~0.11.2"
+    "@angular/core": ">= 9",
+    "@angular/common": ">= 9",
+    "@angular/animations": ">= 9",
+    "@angular/cdk": ">= 9",
+    "@angular/forms": ">= 9",
+    "@angular/material": ">= 9",
+    "@thebespokepixel/es-tinycolor": "^2.1.1"
   }
 }
