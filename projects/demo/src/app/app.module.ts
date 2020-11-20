@@ -13,7 +13,7 @@ import { routes } from './app.router';
 @NgModule({
   imports: [
     BrowserModule,
-    RouterModule.forRoot(routes),
+    RouterModule.forRoot(routes, { relativeLinkResolution: 'legacy' }),
     BrowserAnimationsModule,
     MatButtonModule,
     MatListModule,
