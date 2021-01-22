@@ -18,12 +18,12 @@ Check out our [documentation & live demo](https://tiaguinho.github.io/material-c
 
 All the components have the prefix `mcc` followed by the package name.
 
-| Component    | Status    | package          |
-| ------------ | --------- | ---------------- |
-| Color Picker | Available | mcc-color-picker |
-| Scrollspy    | Available | mcc-scrollspy    |
-| Speed Dial   | Available | mcc-speed-dial   |
-| Timer Picker | Available | mcc-timer-picker |
+| Component    | Package          | Screenshot    |
+| ------------ | ---------------- | ------------- |
+| Color Picker | mcc-color-picker | ![alt text](https://github.com/tiaguinho/material-community-components/raw/master/images/color-picker.png 'Color Picker') |
+| Scrollspy    | mcc-scrollspy    | ![alt text](https://github.com/tiaguinho/material-community-components/raw/master/images/scrollspy.png 'Scrollspy') |
+| Speed Dial   | mcc-speed-dial   | ![alt text](https://github.com/tiaguinho/material-community-components/raw/master/images/speed-dial.png 'Speed Dial') |
+| Timer Picker | mcc-timer-picker | ![alt text](https://github.com/tiaguinho/material-community-components/raw/master/images/timer-picker.png 'Timer Picker') |
 
 If you miss any component, please follow the [CONTRIBUTION GUIDELINE](https://github.com/tiaguinho/material-community-components/blob/master/CONTRIBUTING.md) to open an issue or file your idea [here](https://github.com/tiaguinho/material-community-components/issues/89).
 
