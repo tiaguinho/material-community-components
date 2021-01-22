@@ -14,7 +14,7 @@ The color-picker component has an additional peer-dependency to [@thebespokepixe
 
 Check out our [documentation & live demo](https://tiaguinho.github.io/material-community-components/)
 
-## Components Status
+## Components
 
 All the components have the prefix `mcc` followed by the package name.
 
@@ -25,7 +25,7 @@ All the components have the prefix `mcc` followed by the package name.
 | Speed Dial   | mcc-speed-dial   | ![alt text](https://github.com/tiaguinho/material-community-components/raw/master/images/speed-dial.png 'Speed Dial') |
 | Timer Picker | mcc-timer-picker | ![alt text](https://github.com/tiaguinho/material-community-components/raw/master/images/timer-picker.png 'Timer Picker') |
 
-If you miss any component, please follow the [CONTRIBUTION GUIDELINE](https://github.com/tiaguinho/material-community-components/blob/master/CONTRIBUTING.md) to open an issue or file your idea [here](https://github.com/tiaguinho/material-community-components/issues/89).
+If you miss any component, please follow the [CONTRIBUTION GUIDELINE](https://github.com/tiaguinho/material-community-components/blob/master/CONTRIBUTING.md) to open an issue or file your idea [here](https://github.com/tiaguinho/material-community-components/discussions/191).
 
 ## Install
 
