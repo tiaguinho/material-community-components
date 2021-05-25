@@ -13,7 +13,8 @@
     "deploy:gh-pages": "ng run demo:deploy",
     "e2e": "ng e2e",
     "packagr": "yarn build && yarn build:lib:scss && cp README.md dist/material-community-components",
-    "postinstall": "ngcc --properties es2015 browser module main --first-only --create-ivy-entry-points"
+    "postinstall": "ngcc --properties es2015 browser module main --first-only --create-ivy-entry-points",
+    "prepare": "husky install"
   },
   "private": true,
   "peerDependencies": {
@@ -45,7 +46,7 @@
     "core-js": "^3.6.4",
     "coveralls": "^3.1.0",
     "cz-conventional-changelog": "^3.3.0",
-    "husky": "^4.3.0",
+    "husky": "^6.0.0",
     "jasmine-core": "~3.6.0",
     "jasmine-spec-reporter": "~5.0.0",
     "karma": "~5.2.3",
@@ -93,11 +94,6 @@
     "scss-bundle": "^3.1.2",
     "tslib": "^2.0.0",
     "@thebespokepixel/es-tinycolor": "^2.1.1"
-  },
-  "husky": {
-    "hooks": {
-      "commit-msg": "validate-commit-msg"
-    }
   },
   "resolutions": {
     "**/**/minimist": ">=0.2.1 <1.0.0 || >=1.2.3",
