@@ -82,28 +82,28 @@ or
 To use the same theme of Angular Material add the following code to your ```style.scss```.
 
 ```scss
-@import '~@angular/material/theming';
-@import '~material-community-components/theming';
+@use '~@angular/material' as mat;
+@use './projects/material-community-components/theming' as mcc;
 
-@include mat-core();
+@include mat.core();
 
 // Define the palettes for your theme using the Material Design palettes available in palette.scss
 // (imported above). For each palette, you can optionally specify a default, lighter, and darker
 // hue. Available color palettes: https://material.io/design/color/
-$demo-primary: mat-palette($mat-green);
-$demo-accent: mat-palette($mat-pink, A200, A100, A400);
+$demo-primary: mat.define-palette(mat.$green-palette);
+$demo-accent: mat.define-palette(mat.$pink-palette, A200, A100, A400);
 
 // The warn palette is optional (defaults to red).
-$demo-warn: mat-palette($mat-red);
+$demo-warn: mat.define-palette(mat.$red-palette);
 
 // Create the theme object (a Sass map containing all of the palettes).
-$demo-theme: mat-light-theme($demo-primary, $demo-accent, $demo-warn);
+$demo-theme: mat.define-light-theme($demo-primary, $demo-accent, $demo-warn);
 
 // build angular material theme
-@include angular-material-theme($demo-theme);
+@include mat.all-component-themes($demo-theme);
 
 // pass angular material theme to material community components
-@include mcc-theme($demo-theme);
+@include mcc.mcc-theme($demo-theme); 
 ```
 ***Right now only ```timer-picker``` and ```speed-dial```*** do support the theme (see [ISSUE-172](https://github.com/tiaguinho/material-community-components/issues/172)).
 
