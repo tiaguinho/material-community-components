@@ -1,7 +1,8 @@
+@use 'sass:map';
 @use '~@angular/material' as mat;
 
 @mixin mcc-timer-picker-theme($theme) {
-  $primary: map-get($theme, primary);
+  $primary: map.get($theme, primary);
 
   .mcc-timer-picker-header {
    background: mat.get-color-from-palette($primary)!important;

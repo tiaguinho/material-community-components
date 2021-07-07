@@ -6,13 +6,13 @@
     "ng": "ng",
     "start": "ng serve demo --aot",
     "build": "ng build material-community-components --configuration production",
-    "build:lib:scss": "scss-bundle -c scss-bundle.config.json",
+    "copy:scss": "cp ./projects/material-community-components/_theming.scss ./dist/material-community-components/_theming.scss",
     "docs": "ng deploy --base-href=https://tiaguinho.github.io/material-community-components/",
     "test": "ng test material-community-components",
     "lint": "ng lint",
     "deploy:gh-pages": "ng run demo:deploy",
     "e2e": "ng e2e",
-    "packagr": "yarn build && yarn build:lib:scss && cp README.md dist/material-community-components",
+    "packagr": "yarn build && yarn copy:scss && cp README.md dist/material-community-components",
     "postinstall": "ngcc --properties es2015 browser module main --first-only --create-ivy-entry-points",
     "prepare": "husky install"
   },
@@ -91,9 +91,8 @@
     }
   },
   "dependencies": {
-    "scss-bundle": "^3.1.2",
-    "tslib": "^2.3.0",
-    "@thebespokepixel/es-tinycolor": "^2.1.1"
+    "@thebespokepixel/es-tinycolor": "^2.1.1",
+    "tslib": "^2.3.0"
   },
   "resolutions": {
     "**/**/minimist": ">=0.2.1 <1.0.0 || >=1.2.3",

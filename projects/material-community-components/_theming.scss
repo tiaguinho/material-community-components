@@ -1,7 +1,7 @@
-@import 'timer-picker/timer-picker-theme';
-@import 'speed-dial/speed-dial-theme';
+@use 'timer-picker/timer-picker-theme' as timer-picker;
+@use 'speed-dial/speed-dial-theme' as speed-dial;
 
 @mixin mcc-theme($theme) {
-    @include mcc-timer-picker-theme($theme);
-    @include mcc-speed-dial-theme($theme);
+    @include timer-picker.mcc-timer-picker-theme($theme);
+    @include speed-dial.mcc-speed-dial-theme($theme);
 }
