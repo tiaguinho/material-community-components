@@ -1866,10 +1866,10 @@ alphanum-sort@^1.0.0:
   resolved "https://registry.yarnpkg.com/alphanum-sort/-/alphanum-sort-1.0.2.tgz#97a1119649b211ad33691d9f9f486a8ec9fbe0a3"
   integrity sha1-l6ERlkmyEa0zaR2fn0hqjsn74KM=
 
-angular-cli-ghpages@^1.0.0-rc.1:
-  version "1.0.0-rc.1"
-  resolved "https://registry.yarnpkg.com/angular-cli-ghpages/-/angular-cli-ghpages-1.0.0-rc.1.tgz#ecebd03f7d95f32f44178218ee23bc2fcac6a790"
-  integrity sha512-BSCMdd7aVaxpeYOVQCZ+Ap9vP58+I0VApKF2NBNVVDjJfVjsN9MqeMOc38dgJX8SPpI8mqPLx+q6hruXVh2MrA==
+angular-cli-ghpages@^1.0.0-rc.2:
+  version "1.0.0-rc.2"
+  resolved "https://registry.yarnpkg.com/angular-cli-ghpages/-/angular-cli-ghpages-1.0.0-rc.2.tgz#46a0f4d8e54673155c8d4e3c799acb81e7f3b2b9"
+  integrity sha512-oAAnu6hcNYZ5Scp1WrPUnwOHkz6JoPfwPd3b4BYifBHWlwRnB2/zXzqZRYn0vwi2aO9LqMVDbq/7dJlpAWz2LQ==
   dependencies:
     commander "^3.0.0-0"
     fs-extra "^9.0.1"
