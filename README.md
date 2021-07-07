@@ -83,7 +83,7 @@ To use the same theme of Angular Material add the following code to your ```styl
 
 ```scss
 @use '~@angular/material' as mat;
-@use './projects/material-community-components/theming' as mcc;
+@use '~material-community-components/theming' as mcc;
 
 @include mat.core();
 
