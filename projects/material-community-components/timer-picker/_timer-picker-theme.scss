@@ -1,24 +1,24 @@
-@import '~@angular/material/theming';
+@use '~@angular/material' as mat;
 
 @mixin mcc-timer-picker-theme($theme) {
   $primary: map-get($theme, primary);
 
   .mcc-timer-picker-header {
-   background: mat-color($primary)!important;
+   background: mat.get-color-from-palette($primary)!important;
   }
 
   .mcc-timer-picker-clock {
     .mcc-timer-picker-dot {
-     background-color: mat-color($primary)!important;
+     background-color: mat.get-color-from-palette($primary)!important;
     }
 
     .mcc-timer-picker-line {
-     background-color: mat-color($primary)!important;
+     background-color: mat.get-color-from-palette($primary)!important;
     }
 
     .mcc-timer-picker-option {
       &.mcc-timer-picker-option-selected {
-        background-color: mat-color($primary)!important;
+        background-color: mat.get-color-from-palette($primary)!important;
       }
     }
   }
