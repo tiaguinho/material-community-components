@@ -1,7 +1,8 @@
 @use '~@angular/material' as mat;
+@use './projects/material-community-components/theming' as mcc;
 @import url('https://fonts.googleapis.com/css?family=Roboto+Mono|Roboto:300,400');
 @import url('https://fonts.googleapis.com/icon?family=Material+Icons');
-@import './projects/material-community-components/theming';
+
 
 @include mat.core();
 
@@ -21,7 +22,7 @@ $demo-theme: mat.define-light-theme($demo-primary, $demo-accent, $demo-warn);
 @include mat.all-component-themes($demo-theme);
 
 // pass angular material theme to material community components
-@include mcc-theme($demo-theme);
+@include mcc.mcc-theme($demo-theme);
 
 
 html,

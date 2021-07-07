@@ -1,6 +1,0 @@
-{
-  "bundlerOptions": {
-    "entryFile": "./projects/material-community-components/_theming.scss",
-    "outFile": "./dist/material-community-components/_theming.scss"
-  }
-}

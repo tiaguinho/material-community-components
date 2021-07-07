@@ -1,7 +1,8 @@
+@use 'sass:map';
 @use '~@angular/material' as mat;
 
 @mixin mcc-speed-dial-theme($theme) {
-  $primary: map-get($theme, primary);
+  $primary: map.get($theme, primary);
 
   .mcc-speed-dial-container button {
     background: mat.get-color-from-palette($primary)!important;
