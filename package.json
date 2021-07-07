@@ -40,7 +40,7 @@
     "@types/jasminewd2": "^2.0.8",
     "@types/node": "^14.14.2",
     "@types/tinycolor2": "^1.4.2",
-    "angular-cli-ghpages": "^1.0.0-rc.1",
+    "angular-cli-ghpages": "^1.0.0-rc.2",
     "codelyzer": "^6.0.0",
     "conventional-changelog": "^3.1.23",
     "core-js": "^3.6.4",
