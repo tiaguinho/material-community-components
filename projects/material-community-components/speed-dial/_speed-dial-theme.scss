@@ -1,9 +1,9 @@
-@import '~@angular/material/theming';
+@use '~@angular/material' as mat;
 
 @mixin mcc-speed-dial-theme($theme) {
   $primary: map-get($theme, primary);
 
   .mcc-speed-dial-container button {
-    background: mat-color($primary)!important;
+    background: mat.get-color-from-palette($primary)!important;
   }
 }
