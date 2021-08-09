@@ -235,6 +235,10 @@ export class MccColorPickerSelectorComponent implements AfterViewInit, OnInit, O
     this._tmpSelectedColor.next(this._selectedColor);
 
     this._tmpSelectedColorSub = this._tmpSelectedColor.subscribe(color => {
+      if (!this.colorPickerCollectionService.alpha) {
+        color.setAlpha(1);
+      }
+
       this.textClass = color.isDark() && color.getAlpha() > 0.3 ? 'white' : 'black';
       // right now using hex for non alpha and rgba for alpha colors
       if (this.noColor) {
