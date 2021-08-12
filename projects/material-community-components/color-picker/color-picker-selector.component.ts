@@ -21,6 +21,7 @@ import { TinyColor } from '@thebespokepixel/es-tinycolor';
 import { distinctUntilChanged, map } from 'rxjs/operators';
 import { MccColorPickerCollectionService } from './color-picker-collection.service';
 import { formatColor, parseColorString, toHex, toRgb } from './color-picker.utils';
+import * as tinycolor from 'tinycolor2';
 
 interface Coordinates {
   x: number;
@@ -234,8 +235,9 @@ export class MccColorPickerSelectorComponent implements AfterViewInit, OnInit, O
     // set selectedColor initial value
     this._tmpSelectedColor.next(this._selectedColor);
 
+    let previousColor: TinyColor | undefined;
     this._tmpSelectedColorSub = this._tmpSelectedColor.subscribe(color => {
-      if (!this.colorPickerCollectionService.alpha) {
+      if (!this.colorPickerCollectionService.alpha && previousColor?.getAlpha() === 0) {
         color.setAlpha(1);
       }
 
@@ -249,6 +251,8 @@ export class MccColorPickerSelectorComponent implements AfterViewInit, OnInit, O
         this.changeSelectedColor.emit(clr);
         this.colorPickerCollectionService.changeSelectedColor(clr);
       }
+
+      previousColor = color;
     });
 
     // hex form
