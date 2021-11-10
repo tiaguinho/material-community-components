@@ -128,12 +128,12 @@
   dependencies:
     tslib "^2.3.0"
 
-"@angular/cdk@^12.1.1":
-  version "12.2.5"
-  resolved "https://registry.yarnpkg.com/@angular/cdk/-/cdk-12.2.5.tgz#005c91eba34aa015a5a67b309b046008f8e69a5d"
-  integrity sha512-sB+chDISuQ2orEgWumVkEaaQ2Mkf5SDBlNGMwgwUV5a2eSp0wDprZS+3+H8lHc533z2Y4GOh6Apklku8XQT5qw==
+"@angular/cdk@^13.0.0":
+  version "13.0.0"
+  resolved "https://registry.yarnpkg.com/@angular/cdk/-/cdk-13.0.0.tgz#a8f98efa34b747d17079cf5df13ddec565c80559"
+  integrity sha512-OUgDSyiZM16kdaEqMgivg7qSULfYFQBH7qv/v6NKKz9gYuBStqv/dgbsoYdKUb8SNMON9KlYd3zZX0lRutoXFA==
   dependencies:
-    tslib "^2.2.0"
+    tslib "^2.3.0"
   optionalDependencies:
     parse5 "^5.0.0"
 
@@ -222,12 +222,12 @@
   resolved "https://registry.yarnpkg.com/@angular/language-service/-/language-service-13.0.0.tgz#871926bbe5f7a48ffd8357d52b7b737d48d20b77"
   integrity sha512-gU8MWazBeO9InC/vhQPzd4H7BPPl41PNXbQ5VhuM0TX4aG1/fkgU/ufCn3z2Wlmjdp8g6dnQvVhiT+r3NoJPEA==
 
-"@angular/material@^12.1.1":
-  version "12.2.5"
-  resolved "https://registry.yarnpkg.com/@angular/material/-/material-12.2.5.tgz#5f95084a963a1c0d04b83f7798e53e8f596af54e"
-  integrity sha512-oQMNxxDtcR3evZaOdTyzCWRCHcM6V4AGJx4pbyzEpYPo9j4iKFGtTPLGEkWtsWNFZp/g7E7gx0sU3ssjRDt7Dw==
+"@angular/material@^13.0.0":
+  version "13.0.0"
+  resolved "https://registry.yarnpkg.com/@angular/material/-/material-13.0.0.tgz#4ae47de400ee01a985ec544c2152edd8cd4432c0"
+  integrity sha512-v9TB0LHRweSwafPM6BP+pPGi398jlH5SUIqRNfR8Fbg9nujm/mvDNvxFDOJMRLrob69Fqztt7Uw+sK2FSzkjrA==
   dependencies:
-    tslib "^2.2.0"
+    tslib "^2.3.0"
 
 "@angular/platform-browser-dynamic@^13.0.0":
   version "13.0.0"
@@ -8249,7 +8249,7 @@ ts-node@~9.0.0:
     source-map-support "^0.5.17"
     yn "3.1.1"
 
-tslib@2.3.1, tslib@^2.0.0, tslib@^2.2.0, tslib@^2.3.0:
+tslib@2.3.1, tslib@^2.0.0, tslib@^2.3.0:
   version "2.3.1"
   resolved "https://registry.yarnpkg.com/tslib/-/tslib-2.3.1.tgz#e8a335add5ceae51aa261d32a490158ef042ef01"
   integrity sha512-77EbyPPpMz+FRFRuAFlWMtmgUWGe9UOG2Z25NqCwiIjRhOf5iKGuzSe5P2w1laq+FkRy4p+PCuVkJSGkzTEKVw==
