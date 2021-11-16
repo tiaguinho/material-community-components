@@ -16,19 +16,18 @@ import {
 } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { BehaviorSubject, Observable, Subscription } from 'rxjs';
-import { Color, EMPTY_COLOR } from './color-picker.types';
+import { EMPTY_COLOR } from './color-picker.types';
 import { TinyColor } from '@thebespokepixel/es-tinycolor';
 import { distinctUntilChanged, map } from 'rxjs/operators';
 import { MccColorPickerCollectionService } from './color-picker-collection.service';
 import { formatColor, parseColorString, toHex, toRgb } from './color-picker.utils';
-import * as tinycolor from 'tinycolor2';
 
 interface Coordinates {
   x: number;
   y: number;
 }
 
-const INITIAL_COLOR: Color = new TinyColor('white');
+const INITIAL_COLOR: TinyColor = new TinyColor('white');
 
 @Component({
   selector: 'mcc-color-picker-selector',
@@ -96,6 +95,7 @@ export class MccColorPickerSelectorComponent implements AfterViewInit, OnInit, O
     return this._height;
   }
   private _height: number = 170;
+  // TODO: change this constructs to setters with the types (supported since angular 13)
   static ngAcceptInputType_height: number | string;
 
   get stripHeight(): number {
@@ -112,7 +112,7 @@ export class MccColorPickerSelectorComponent implements AfterViewInit, OnInit, O
       // use "EMPTY_COLOR" as real color if it can be parsed as such
       this._selectedColor = parseColorString(this.emptyColor) || INITIAL_COLOR;
     } else {
-      const color: Color = parseColorString(value);
+      const color: TinyColor = parseColorString(value);
       if (color) {
         this._selectedColor = color.setAlpha(color['_roundA']);
         this.noColor = false;
@@ -120,7 +120,7 @@ export class MccColorPickerSelectorComponent implements AfterViewInit, OnInit, O
     }
   }
 
-  private _selectedColor: Color = INITIAL_COLOR;
+  private _selectedColor: TinyColor = INITIAL_COLOR;
 
   /**
    * Hide the hexadecimal color forms.
@@ -143,7 +143,7 @@ export class MccColorPickerSelectorComponent implements AfterViewInit, OnInit, O
   /**
    * Subject of the current selected color by the user
    */
-  private _tmpSelectedColor: BehaviorSubject<Color> = new BehaviorSubject<Color>(this._selectedColor);
+  private _tmpSelectedColor: BehaviorSubject<TinyColor> = new BehaviorSubject<TinyColor>(this._selectedColor);
 
   /**
    * Subscription of the tmpSelectedColor Observable
@@ -267,6 +267,7 @@ export class MccColorPickerSelectorComponent implements AfterViewInit, OnInit, O
     const rgbKeys = ['R', 'G', 'B'];
     const rgbaGroup: { [key: string]: FormControl } = {};
     const rgb = this._selectedColor.toRgb();
+    // @ts-ignore
     const rgbValues = [rgb.r, rgb.g, rgb.b, rgb.a];
     rgbKeys.forEach(
       (key, index) =>
@@ -594,12 +595,14 @@ export class MccColorPickerSelectorComponent implements AfterViewInit, OnInit, O
   /**
    * Generate alpha selector gradient based on the RGB color
    */
-  private _drawAlphaSelector(color: Color) {
+  private _drawAlphaSelector(color: TinyColor) {
     if (this._alphaContext) {
       this._alphaContext.clearRect(0, 0, this._alpha.nativeElement.width, this._alpha.nativeElement.height);
 
       const alphaGrd2 = this._alphaContext.createLinearGradient(0, 0, 0, this._bc.nativeElement.height);
+      // @ts-ignore
       alphaGrd2.addColorStop(0, `rgba(${color.toRgb().r}, ${color.toRgb().g}, ${color.toRgb().b}, 1)`);
+      // @ts-ignore
       alphaGrd2.addColorStop(1, `rgba(${color.toRgb().r}, ${color.toRgb().g}, ${color.toRgb().b}, 0)`);
 
       this._alphaContext.fillStyle = alphaGrd2;
@@ -610,8 +613,9 @@ export class MccColorPickerSelectorComponent implements AfterViewInit, OnInit, O
   /**
    * Generate color selector block based on the RGB color
    */
-  private _drawBlockSelector(hueColor: Color) {
+  private _drawBlockSelector(hueColor: TinyColor) {
     if (this._blockContext) {
+      // @ts-ignore
       this._blockContext.fillStyle = `hsl(${hueColor.toHsl().h}, 100%, 50%)`;
       this._blockContext.fillRect(0, 0, this._bc.nativeElement.width, this._bc.nativeElement.height);
 
@@ -636,7 +640,7 @@ export class MccColorPickerSelectorComponent implements AfterViewInit, OnInit, O
   private _watchFormChanges() {
     this._hexValuesSub = this.hexForm.valueChanges.subscribe(value => {
       if (this.hexForm.valid) {
-        const color: Color = new TinyColor(value.hexCode);
+        const color: TinyColor = new TinyColor(value.hexCode);
         this._updateRGBAForm(color);
         this._drawBlockSelector(color);
         if (this.colorPickerCollectionService.alpha) {
@@ -649,7 +653,7 @@ export class MccColorPickerSelectorComponent implements AfterViewInit, OnInit, O
 
     this._rgbValuesSub = this.rgbaForm.valueChanges.subscribe(rgba => {
       if (this.rgbaForm.valid) {
-        const color: Color = new TinyColor({ r: rgba.R, g: rgba.G, b: rgba.B, a: rgba.A });
+        const color: TinyColor = new TinyColor({ r: rgba.R, g: rgba.G, b: rgba.B, a: rgba.A });
         this._updateHexForm(color);
         this._drawBlockSelector(color);
         if (this.colorPickerCollectionService.alpha) {
@@ -664,10 +668,11 @@ export class MccColorPickerSelectorComponent implements AfterViewInit, OnInit, O
   /**
    * Update RGBA form
    */
-  private _updateRGBAForm(color: Color) {
+  private _updateRGBAForm(color: TinyColor) {
     if (!this.rgbaForm) {
       return;
     }
+    // @ts-ignore
     const values = { R: color.toRgb().r, G: color.toRgb().g, B: color.toRgb().b, A: color.toRgb().a };
     this.rgbaForm.setValue(values, { emitEvent: false });
   }
@@ -675,7 +680,7 @@ export class MccColorPickerSelectorComponent implements AfterViewInit, OnInit, O
   /**
    * Update hex form
    */
-  private _updateHexForm(color: Color) {
+  private _updateHexForm(color: TinyColor) {
     if (!this.hexForm) {
       return;
     }
@@ -693,7 +698,7 @@ export class MccColorPickerSelectorComponent implements AfterViewInit, OnInit, O
     if (y <= this.stripHeight) {
       this.setHueSelector(y);
       const data = this._hueSelectorContext.getImageData(this.stripWidth / 2, y, 1, 1).data;
-      const color: Color = new TinyColor({ r: data[0], g: data[1], b: data[2] });
+      const color: TinyColor = new TinyColor({ r: data[0], g: data[1], b: data[2] });
       this._drawBlockSelector(color);
       this.changeColor();
     }
@@ -724,7 +729,7 @@ export class MccColorPickerSelectorComponent implements AfterViewInit, OnInit, O
       this.setXYSelector(os);
 
       const data: Uint8ClampedArray = this._blockContext.getImageData(os.x ? os.x - 1 : os.x, os.y ? os.y - 1 : os.y, 1, 1).data;
-      const color: Color = new TinyColor({ r: data[0], g: data[1], b: data[2], a: this._selectedColor.getAlpha() });
+      const color: TinyColor = new TinyColor({ r: data[0], g: data[1], b: data[2], a: this._selectedColor.getAlpha() });
       this._updateRGBAForm(color);
       this._updateHexForm(color);
       if (this.colorPickerCollectionService.alpha) {
@@ -738,7 +743,7 @@ export class MccColorPickerSelectorComponent implements AfterViewInit, OnInit, O
   /**
    * Set all selectors positions based on a color
    */
-  private setSelectorPositions(color: Color) {
+  private setSelectorPositions(color: TinyColor) {
     const offset = this.getHueOffsets(color);
     this.setHueSelector(offset);
 
@@ -780,10 +785,12 @@ export class MccColorPickerSelectorComponent implements AfterViewInit, OnInit, O
   /**
    * Get the X and Y coordinates for the block selector relative to it's size
    */
-  private getXYOffsets(color: Color): Coordinates {
+  private getXYOffsets(color: TinyColor): Coordinates {
     const hsv = color.toHsv();
 
+    // @ts-ignore
     const x = this._selectorWidth * hsv.s;
+    // @ts-ignore
     const y = this._height - this._height * hsv.v;
     return { x, y };
   }
@@ -791,14 +798,15 @@ export class MccColorPickerSelectorComponent implements AfterViewInit, OnInit, O
   /**
    * Get the Y coordinate for the hue selector relative to it's height
    */
-  private getHueOffsets(color: Color): number {
+  private getHueOffsets(color: TinyColor): number {
+    // @ts-ignore
     return (this.stripHeight / 360) * color.toHsl().h;
   }
 
   /**
    * Get the Y coordinate for the alpha selector relative to it's height
    */
-  private getAlphaOffset(color: Color): number {
+  private getAlphaOffset(color: TinyColor): number {
     return this.stripHeight - this.stripHeight * color.getAlpha();
   }
 }
