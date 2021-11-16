@@ -1,6 +1,4 @@
 import { InjectionToken } from '@angular/core';
-import type { Instance } from 'tinycolor2';
-
 
 /** Contant used as empty color */
 export const EMPTY_COLOR = new InjectionToken<string>('empty-color');
@@ -51,7 +49,5 @@ export type MccColorPickerOption = string | MccColorPickerItem;
 export type MccColorPickerUsedColorPosition = 'top' | 'bottom';
 
 export type ColorStringFormat = 'hex' | 'rgb' | 'hsl';
-
-export type Color = Instance;
 
 

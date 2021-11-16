@@ -39,7 +39,7 @@
     "@types/jasmine": "~3.6.0",
     "@types/jasminewd2": "^2.0.8",
     "@types/node": "^14.14.2",
-    "@types/tinycolor2": "^1.4.2",
+    "@types/estree": "^0.0.50",
     "angular-cli-ghpages": "^1.0.0-rc.2",
     "codelyzer": "^6.0.0",
     "conventional-changelog": "^3.1.23",
@@ -91,7 +91,7 @@
     }
   },
   "dependencies": {
-    "@thebespokepixel/es-tinycolor": "^2.1.1",
+    "@thebespokepixel/es-tinycolor": "^3.0.6",
     "tslib": "^2.3.0"
   },
   "resolutions": {

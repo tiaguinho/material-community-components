@@ -43,6 +43,6 @@
     "@angular/cdk": ">= 9",
     "@angular/forms": ">= 9",
     "@angular/material": ">= 9",
-    "@thebespokepixel/es-tinycolor": "^2.1.1"
+    "@thebespokepixel/es-tinycolor": "^3.0.6"
   }
 }
