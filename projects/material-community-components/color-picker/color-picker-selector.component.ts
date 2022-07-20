@@ -14,7 +14,7 @@ import {
   SimpleChanges,
   ViewChild
 } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { BehaviorSubject, Observable, Subscription } from 'rxjs';
 import { Color, EMPTY_COLOR } from './color-picker.types';
 import { TinyColor } from '@thebespokepixel/es-tinycolor';
@@ -173,12 +173,12 @@ export class MccColorPickerSelectorComponent implements AfterViewInit, OnInit, O
   /**
    * Form of the color in hex
    */
-  hexForm: FormGroup;
+  hexForm: UntypedFormGroup;
 
   /**
    * Form and keys of the fields in RGB
    */
-  rgbaForm: FormGroup;
+  rgbaForm: UntypedFormGroup;
 
   /**
    * Last remembered coordinates in block selector
@@ -222,7 +222,7 @@ export class MccColorPickerSelectorComponent implements AfterViewInit, OnInit, O
   }
 
   constructor(
-    private formBuilder: FormBuilder,
+    private formBuilder: UntypedFormBuilder,
     private renderer: Renderer2,
     public colorPickerCollectionService: MccColorPickerCollectionService,
     @Inject(EMPTY_COLOR) private emptyColor: string
@@ -257,7 +257,7 @@ export class MccColorPickerSelectorComponent implements AfterViewInit, OnInit, O
 
     // hex form
     this.hexForm = this.formBuilder.group({
-      hexCode: new FormControl(toHex(this._selectedColor), {
+      hexCode: new UntypedFormControl(toHex(this._selectedColor), {
         validators: [Validators.pattern(/^#([0-9A-F]{8}|[0-9A-F]{6})$/gi)],
         updateOn: 'change'
       })
@@ -265,19 +265,19 @@ export class MccColorPickerSelectorComponent implements AfterViewInit, OnInit, O
 
     // rgb form
     const rgbKeys = ['R', 'G', 'B'];
-    const rgbaGroup: { [key: string]: FormControl } = {};
+    const rgbaGroup: { [key: string]: UntypedFormControl } = {};
     const rgb = this._selectedColor.toRgb();
     const rgbValues = [rgb.r, rgb.g, rgb.b, rgb.a];
     rgbKeys.forEach(
       (key, index) =>
-        (rgbaGroup[key] = new FormControl(rgbValues[index], {
+        (rgbaGroup[key] = new UntypedFormControl(rgbValues[index], {
           validators: [Validators.min(0), Validators.max(255), Validators.required],
           updateOn: 'change'
         }))
     );
 
     // add alpha input to rgb form
-    rgbaGroup['A'] = new FormControl(this._selectedColor.getAlpha(), {
+    rgbaGroup['A'] = new UntypedFormControl(this._selectedColor.getAlpha(), {
       validators: [Validators.min(0), Validators.max(1), Validators.required]
     });
 
