@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { MccColorPickerItem, MccColorPickerService } from 'material-community-components/color-picker';
 
 @Component({
@@ -13,11 +13,11 @@ export class ColorPickerExamplesComponent implements OnInit {
 
   changeColor: string;
 
-  hexForm: FormGroup;
-  rgbForm: FormGroup;
-  hslForm: FormGroup;
-  rgbaForm: FormGroup;
-  rgbaRequiredForm: FormGroup;
+  hexForm: UntypedFormGroup;
+  rgbForm: UntypedFormGroup;
+  hslForm: UntypedFormGroup;
+  rgbaForm: UntypedFormGroup;
+  rgbaRequiredForm: UntypedFormGroup;
 
   color5: string = null;
   color6: string = '#F4F';
@@ -106,7 +106,7 @@ export class ColorPickerExamplesComponent implements OnInit {
     { text: 'Gray', value: '#CCCCCC' }
   ];
 
-  constructor(private formBuilder: FormBuilder, private mccColorPickerService: MccColorPickerService) {}
+  constructor(private formBuilder: UntypedFormBuilder, private mccColorPickerService: MccColorPickerService) {}
 
   ngOnInit() {
     this.hexForm = this.formBuilder.group({
