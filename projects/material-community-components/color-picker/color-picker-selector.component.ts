@@ -414,6 +414,54 @@ export class MccColorPickerSelectorComponent implements AfterViewInit, OnInit, O
     this.setSelectorPositions(this._selectedColor);
   }
 
+  /**
+   * Updates the color from a paste event in the hex input.
+   * @param event
+   */
+  updateHexFromClipboard(event: ClipboardEvent) {
+    let value = event.clipboardData?.getData('Text')?.trim();
+    if (!value) {
+      return;
+    }
+
+    const target = event.target as HTMLInputElement;
+    if (value.startsWith('#') && target?.value?.startsWith('#')) {
+      value = value.substring(1, value.length);
+    }
+
+    event.clipboardData.setData('Text', value);
+
+    setTimeout(
+      () =>
+        this.hexForm.setValue({
+          hexCode: target.value,
+        }),
+      50
+    );
+  }
+
+  /**
+   * Updates the color from a paste event in an rgb input.
+   * @param event
+   * @param component
+   */
+  updateRgbFromClipboard(event: ClipboardEvent, component: 'R' | 'G' | 'B' | 'A') {
+    const values = {
+      R: this.rgbaForm.value.R,
+      G: this.rgbaForm.value.G,
+      B: this.rgbaForm.value.B,
+      A: this.rgbaForm.value.A,
+    };
+    const value = event.clipboardData?.getData('Text')?.trim();
+    event.clipboardData?.setData('Text', value);
+
+    setTimeout(() => {
+      const target = event.target as HTMLInputElement;
+      values[component] = target.value;
+      this.rgbaForm.setValue(values);
+    }, 50);
+  }
+
   private _listenToMouseForBlock() {
     this._preventTextSelection();
 

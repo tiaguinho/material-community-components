@@ -30,19 +30,25 @@
   <ng-container *ngIf="!hideHexForms && !noColor">
     <form [formGroup]="hexForm">
       <mat-form-field class="hex-input" floatLabel="always" appearance="legacy" [ngClass]="textClass">
-        <input matInput placeholder="HEX" formControlName="hexCode" />
+        <input matInput placeholder="HEX" formControlName="hexCode" (paste)="updateHexFromClipboard($event)" />
       </mat-form-field>
     </form>
 
     <form [formGroup]="rgbaForm">
       <mat-form-field class="rgb-input" floatLabel="always" appearance="legacy" [ngClass]="textClass">
-        <input matInput type="number" [placeholder]="colorPickerCollectionService.alpha ? 'RGBA' : 'RGB'" formControlName="R" />
+        <input
+          matInput
+          type="number"
+          [placeholder]="colorPickerCollectionService.alpha ? 'RGBA' : 'RGB'"
+          formControlName="R"
+          (paste)="updateRgbFromClipboard($event, 'R')"
+        />
       </mat-form-field>
       <mat-form-field class="rgb-input" floatLabel="always" appearance="legacy" [ngClass]="textClass">
-        <input matInput type="number" formControlName="G" />
+        <input matInput type="number" formControlName="G" (paste)="updateRgbFromClipboard($event, 'G')" />
       </mat-form-field>
       <mat-form-field class="rgb-input" floatLabel="always" appearance="legacy" [ngClass]="textClass">
-        <input matInput type="number" formControlName="B" />
+        <input matInput type="number" formControlName="B" (paste)="updateRgbFromClipboard($event, 'B')" />
       </mat-form-field>
 
       <mat-form-field
@@ -52,7 +58,7 @@
         appearance="legacy"
         [ngClass]="textClass"
       >
-        <input matInput type="number" formControlName="A" />
+        <input matInput type="number" formControlName="A" (paste)="updateRgbFromClipboard($event, 'A')" />
       </mat-form-field>
     </form>
   </ng-container>
