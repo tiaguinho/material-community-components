@@ -17,15 +17,16 @@ export class AppComponent implements OnInit {
 
   private _isHandset: boolean;
 
-  isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
-    .pipe(
-      map(result => result.matches)
-    );
+  isHandset$: Observable<boolean>;
 
   constructor(
     private router: Router,
     private breakpointObserver: BreakpointObserver
   ) {
+    this.isHandset$ = this.breakpointObserver.observe(Breakpoints.Handset)
+    .pipe(
+      map(result => result.matches)
+    );
   }
 
   ngOnInit() {

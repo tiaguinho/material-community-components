@@ -27,7 +27,7 @@ export class MccColorPickerOriginDirective implements ControlValueAccessor {
   /**
    * Emit changes from the origin
    */
-  change: BehaviorSubject<string> = new BehaviorSubject<string>(this.elementRef.nativeElement.value);
+  change: BehaviorSubject<string>;
 
   /**
    * Propagate changes to angular
@@ -39,7 +39,9 @@ export class MccColorPickerOriginDirective implements ControlValueAccessor {
    */
   @Input('mccColorPickerOrigin') openMode: 'openOnFocus' | 'default' | '' = 'default';
 
-  constructor(private elementRef: ElementRef, private renderer: Renderer2, @Inject(EMPTY_COLOR) private emptyColor: string) {}
+  constructor(private elementRef: ElementRef, private renderer: Renderer2, @Inject(EMPTY_COLOR) private emptyColor: string) {
+    this.change = new BehaviorSubject<string>(this.elementRef.nativeElement.value);
+  }
 
   @HostListener('focus') onFocus() {
     if (this.openMode === 'openOnFocus') {
