@@ -1,7 +1,7 @@
 import { AfterContentInit, Component, ContentChildren, Input, QueryList, Renderer2, ViewEncapsulation } from '@angular/core';
-import { MatButton } from '@angular/material/button';
+import { MatLegacyButton as MatButton } from '@angular/material/legacy-button';
 import { BehaviorSubject } from 'rxjs';
-import { ANIMATION, MccSpeedDialAnimation, Z_INDEX } from './animations';
+import { MccSpeedDialAnimation, Z_INDEX } from './animations';
 import { DIRECTION } from './directions';
 
 @Component({
